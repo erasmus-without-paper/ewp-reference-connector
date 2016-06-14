@@ -1,0 +1,56 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<xs:schema
+    xmlns:xs="http://www.w3.org/2001/XMLSchema"
+    xmlns:xml="http://www.w3.org/XML/1998/namespace"
+    xmlns:vars="https://github.com/erasmus-without-paper/ewp-specs-api-echo/blob/master/request-vars.xsd"
+    elementFormDefault="qualified"
+
+    targetNamespace="https://github.com/erasmus-without-paper/ewp-specs-api-echo/tree/master"
+    xmlns="https://github.com/erasmus-without-paper/ewp-specs-api-echo/tree/master"
+>
+    <!-- WRTODO: Replace all occurrences of 'master' (in all projects) with 'stable-v1' upon release. -->
+
+    <xs:import
+        schemaLocation="request-vars.xsd"
+        namespace="https://github.com/erasmus-without-paper/ewp-specs-api-echo/blob/master/request-vars.xsd"
+    />
+
+    <xs:annotation>
+        <xs:documentation>
+            This schema is a part of the Erasmus Without Paper project. Before you start
+            using it, make sure you have read the general rules described here:
+
+            http://developers.erasmuswithoutpaper.eu/
+        </xs:documentation>
+    </xs:annotation>
+
+    <xs:element name="response">
+        <xs:annotation>
+            <xs:documentation>
+                This describes the format of the response returned by the EWP Echo API.
+            </xs:documentation>
+        </xs:annotation>
+        <xs:complexType>
+            <xs:sequence>
+                <xs:element name="hei-id" minOccurs="0" maxOccurs="unbounded" type="xs:string">
+                    <xs:annotation>
+                        <xs:documentation>
+                            The list of IDs of all HEIs covered by the requester's EWP Host (taken from
+                            the registry's `institutions-covered/hei-id` elements).
+                        </xs:documentation>
+                    </xs:annotation>
+                </xs:element>
+                <xs:element ref="vars:vars">
+                    <xs:annotation>
+                        <xs:documentation>
+                            The value of the `echo` variable from the request. Note, that you must use the
+                            https://github.com/erasmus-without-paper/ewp-specs-api-echo/blob/master/request-vars.xsd
+                            XML namespace for this element!
+                        </xs:documentation>
+                    </xs:annotation>
+                </xs:element>
+            </xs:sequence>
+        </xs:complexType>
+    </xs:element>
+
+</xs:schema>

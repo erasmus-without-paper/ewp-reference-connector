@@ -1,0 +1,81 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<manifest
+    xmlns="https://github.com/erasmus-without-paper/ewp-specs-api-discovery/tree/stable-v3"
+    xmlns:ewp="https://github.com/erasmus-without-paper/ewp-specs-architecture/blob/stable-v1/common-types.xsd"
+    xmlns:xml="http://www.w3.org/XML/1998/namespace"
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xsi:schemaLocation="
+        https://github.com/erasmus-without-paper/ewp-specs-api-discovery/tree/stable-v3
+        https://raw.githubusercontent.com/erasmus-without-paper/ewp-specs-api-discovery/stable-v3/manifest.xsd
+        https://github.com/erasmus-without-paper/ewp-specs-architecture/blob/stable-v1/common-types.xsd
+        https://raw.githubusercontent.com/erasmus-without-paper/ewp-specs-architecture/stable-v1/common-types.xsd
+        https://github.com/erasmus-without-paper/ewp-specs-api-echo/blob/master/manifest-entry.xsd
+        https://raw.githubusercontent.com/erasmus-without-paper/ewp-specs-api-echo/master/manifest-entry.xsd
+    "
+>
+    <!-- This example doesn't contain many comments, but its XML Schema does! -->
+
+    <ewp:admin-email>admin-or-developer@example.com</ewp:admin-email>
+    <ewp:admin-notes>It's not a real manifest. Just an example.</ewp:admin-notes>
+
+    <apis-implemented>
+        <!-- The entry for the Discovery Manifest API is defined in the manifest's
+        own XML namespace. -->
+        <discovery version="3.1.0">
+            <url>https://example.com/manifest.xml</url>
+        </discovery>
+
+        <!-- All other manifest entries are defined in their own XML namespaces.
+        You need to use proper `xmlns` in order for them to be matched properly. -->
+        <echo
+            xmlns="https://github.com/erasmus-without-paper/ewp-specs-api-echo/blob/master/manifest-entry.xsd"
+            version="0.0.0"
+        >
+            <!-- Note, that ewp:admin-email and ewp:admin-notes can be defined both on the
+            global level, and on the API level. -->
+            <ewp:admin-email>usually-a-developer@example.com</ewp:admin-email>
+            <ewp:admin-email>some-other-developer@example.com</ewp:admin-email>
+            <ewp:admin-notes>Some notes which might useful for client developers.</ewp:admin-notes>
+
+            <!-- This element is defined by the Echo API (in its manifest-entry.xsd file).
+            Most APIs will require you to provide the `version` attribute and a single `url`
+            element only, but it's NOT a rule. Some APIs may require you to provide completely
+            other properties (which should be described in their manifest-entry.xsd file). -->
+            <url>https://example.com/ewp/echo</url>
+        </echo>
+    </apis-implemented>
+
+    <institutions-covered>
+        <hei id="uw.edu.pl">
+            <other-id type="pic">999572294</other-id>
+            <other-id type="erasmus">PL WARSZAW01</other-id>
+            <name xml:lang="en">University of Warsaw</name>
+        </hei>
+    </institutions-covered>
+
+    <client-credentials-in-use>
+        <certificate>
+            MIIDuTCCAqGgAwIBAgIJAK5ps0mVHjvZMA0GCSqGSIb3DQEBCwUAMHIxCzAJBgNV
+            BAYTAlBMMRQwEgYDVQQIDAtNYXpvd2llY2tpZTERMA8GA1UEBwwIV2Fyc3phd2Ex
+            DDAKBgNVBAoMA0VXUDEsMCoGA1UEAwwjU2FtcGxlIFJTQSAyMDQ4IENlcnRpZmlj
+            YXRlIGZvciBFV1AwIBcNMTYwNjA5MjA0MzAzWhgPMjI5MDAzMjUyMDQzMDNaMHIx
+            CzAJBgNVBAYTAlBMMRQwEgYDVQQIDAtNYXpvd2llY2tpZTERMA8GA1UEBwwIV2Fy
+            c3phd2ExDDAKBgNVBAoMA0VXUDEsMCoGA1UEAwwjU2FtcGxlIFJTQSAyMDQ4IENl
+            cnRpZmljYXRlIGZvciBFV1AwggEiMA0GCSqGSIb3DQEBAQUAA4IBDwAwggEKAoIB
+            AQDaB2/WrqF3uMZquhlDAfSbmPwEDTpIwSVvx7rBD9S7H231E++Hp5YS8vHVrsaX
+            oxy/ADyK0acdSYKhMowatloycSoWMMu22iVvUNHYhcsGrXYBBev7+JJEYl688vdi
+            MGO98PeYj+orQtjSZINNUbiO3TfM+Y6AuAIO5mrcdSfBgijlUV6ia5GrfF6lysY6
+            xKEZ6lBtWzjqBApsBKl3iYOAR5fj1t0k7bFf/JacOdZYda1adfasgcfifq3P9nkB
+            tNMU7FHcQdchbFawIENjAgSz4sJvA8rooVA6TvSj4jVjkbtWo9Q3mwY+5UICZKM+
+            l6seNz7D5O+OXEzq9iSBy/ULAgMBAAGjUDBOMB0GA1UdDgQWBBQSkyNNL1JI4XSY
+            WUOf2c+psBT09TAfBgNVHSMEGDAWgBQSkyNNL1JI4XSYWUOf2c+psBT09TAMBgNV
+            HRMEBTADAQH/MA0GCSqGSIb3DQEBCwUAA4IBAQDViw6XUCdXIfZgoin5g7jr1txY
+            ZL1nCpHorwGMRezmwnfOg/4I+wPS9325eUmnFhjSVlYyIWcRWovpMEh0MEY2p6/K
+            yJEaFbSkpwNA0+c3qdQbz6/b6o2LnFU6e6mWsAwxURi6Mxf+Cs7NoU+Ef4MkcefE
+            k6edF2wZjJl58IEGnP7tY7BCqV87WYGKE9tRE7LYREHVbqNh1d+QUz3er0HRHD0l
+            YQWikBdQrF6xUnin7bA8eC1YV+G6rrxCKDeSTMQtC8mCzQUP4coGfrSaJETv1Lue
+            CAsLtNi5QyYgfvdPjvCOAS8s9t9iPSvJUvHBr01/oFZJ5aQQ3tclZcYw0mw/
+        </certificate>
+    </client-credentials-in-use>
+</manifest>

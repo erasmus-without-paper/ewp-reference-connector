@@ -1,0 +1,2 @@
+# An example request on the echo API
+curl -H "Content-Type: application/xml" --data @echo.xml http://localhost:8080/connector/rest/echo
