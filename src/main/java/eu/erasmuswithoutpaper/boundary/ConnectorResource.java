@@ -13,6 +13,7 @@ import javax.ws.rs.GET;
 import javax.ws.rs.POST;
 import javax.ws.rs.Path;
 import javax.ws.rs.Produces;
+import javax.ws.rs.QueryParam;
 import javax.ws.rs.core.MediaType;
 
 @Stateless
@@ -37,9 +38,18 @@ public class ConnectorResource {
   
   @POST
   @Path("echo")
-  @Consumes({MediaType.APPLICATION_XML, MediaType.APPLICATION_JSON})
+  @Consumes(MediaType.APPLICATION_XML)
   @Produces(MediaType.APPLICATION_XML)
   public Response echo(Vars vars) {
+      Response response = new Response();
+      response.setVars(vars);
+      return response;
+  }
+
+  @GET
+  @Path("echo")
+  @Produces(MediaType.APPLICATION_XML)
+  public Response echoGet(@QueryParam("vars") Vars vars) {
       Response response = new Response();
       response.setVars(vars);
       return response;
