@@ -1,2 +1,5 @@
 # An example request on the echo API
+# POST
 curl -H "Content-Type: application/xml" --data @echo.xml http://localhost:8080/connector/rest/echo
+# GET
+curl http://localhost:8080/connector/rest/echo?vars=%3C?xml%20version=%221.0%22%20encoding=%22utf-8%22?%3E%3Cvars%20xmlns=%22https://github.com/erasmus-without-paper/ewp-specs-api-echo/blob/master/request-vars.xsd%22%3E%3Cecho%3ETest%20echo%3C/echo%3E%3C/vars%3E
