@@ -11,9 +11,9 @@ import javax.ws.rs.core.Application;
 import javax.ws.rs.core.MultivaluedHashMap;
 import javax.ws.rs.core.MultivaluedMap;
 import org.glassfish.jersey.server.ResourceConfig;
-import org.junit.Test;
 import org.glassfish.jersey.test.JerseyTest;
 import static org.junit.Assert.*;
+import org.junit.Test;
 
 public class ConnectorResourceTest extends JerseyTest {
 
@@ -38,7 +38,7 @@ public class ConnectorResourceTest extends JerseyTest {
 
     @Test
     public void testEchoPost() {
-        MultivaluedMap<String, String> data = new MultivaluedHashMap<String, String>();
+        MultivaluedMap<String, String> data = new MultivaluedHashMap<>();
         data.add("echo", "Test1");
         data.add("echo", "Test2");
 
@@ -51,5 +51,5 @@ public class ConnectorResourceTest extends JerseyTest {
         assertEquals("Test1", echoResponse.getEcho().get(0));
         assertEquals("Test2", echoResponse.getEcho().get(1));
     }
-    
+
 }
