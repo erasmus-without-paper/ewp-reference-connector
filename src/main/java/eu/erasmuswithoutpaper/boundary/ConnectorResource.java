@@ -36,6 +36,15 @@ public class ConnectorResource {
           return content;
   }
   
+  @GET
+  @Path("echo")
+  @Produces(MediaType.APPLICATION_XML)
+  public Response echoGet(@QueryParam("echo") List<String> echo) {
+      Response response = new Response();
+      echo.stream().forEach(e -> response.getEcho().add(e));
+      return response;
+  }
+
   @POST
   @Path("echo")
   @Produces(MediaType.APPLICATION_XML)
@@ -44,13 +53,5 @@ public class ConnectorResource {
       echo.stream().forEach(e -> response.getEcho().add(e));
       return response;
   }
- 
-  @GET
-  @Path("echo")
-  @Produces(MediaType.APPLICATION_XML)
-  public Response echoGetSimple(@QueryParam("echo") List<String> echo) {
-      Response response = new Response();
-      echo.stream().forEach(e -> response.getEcho().add(e));
-      return response;
-  }
+
 }
