@@ -1,2 +1,3 @@
 /target/
 nb-configuration.xml
+src/main/resources/ng2/node_modules
