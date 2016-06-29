@@ -15,11 +15,11 @@ import org.glassfish.jersey.test.JerseyTest;
 import static org.junit.Assert.*;
 import org.junit.Test;
 
-public class ConnectorResourceTest extends JerseyTest {
+public class EchoResourceTest extends JerseyTest {
 
     @Override
     protected Application configure() {
-        return new ResourceConfig(ConnectorResource.class);
+        return new ResourceConfig(EchoResource.class);
     }
 
     @Test

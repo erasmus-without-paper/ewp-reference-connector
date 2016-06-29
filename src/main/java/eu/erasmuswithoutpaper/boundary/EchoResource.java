@@ -18,24 +18,8 @@ import javax.ws.rs.core.MediaType;
 
 @Stateless
 @Path("")
-public class ConnectorResource {
+public class EchoResource {
 
-  @GET
-  @Path("status")
-  public String status() {
-    return "I'm working!";
-  }
-
-  @GET
-  @Path("manifest")
-  @Produces(MediaType.APPLICATION_XML)
-  public String manifest() throws URISyntaxException, IOException  {
-          String content = new String(Files.readAllBytes(Paths.get(getClass().getClassLoader()
-                        .getResource("manifest.xml")
-                        .toURI())));
-          return content;
-  }
-  
   @GET
   @Path("echo")
   @Produces(MediaType.APPLICATION_XML)
