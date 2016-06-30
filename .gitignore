@@ -1,3 +1,4 @@
 /target/
 nb-configuration.xml
-src/main/resources/ng2/node_modules
+src/main/frontend/node_modules
+src/main/webapp/js

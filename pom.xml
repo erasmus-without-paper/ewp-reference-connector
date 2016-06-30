@@ -39,6 +39,117 @@
             <scope>test</scope>
         </dependency> 
     </dependencies>
+    <build>
+        <plugins>
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-clean-plugin</artifactId>
+                <version>3.0.0</version>
+                <configuration>
+                    <filesets> <!-- this is out app -->
+                        <fileset>
+                            <directory>src/main/frontend/js/app/build</directory>
+                        </fileset>
+                        <fileset> <!-- this is where we copy our resources (deps + app) -->
+                            <directory>src/main/webapp/js</directory>
+                        </fileset>
+                        <!-- not deleted for time it can take
+                        <fileset>
+                            <directory>src/main/frontend/node_modules</directory>
+                        </fileset>
+                        -->
+                    </filesets>
+                </configuration>
+            </plugin>
+            <plugin>
+                <groupId>com.github.eirslett</groupId>
+                <artifactId>frontend-maven-plugin</artifactId>
+                <version>1.0</version>
+                <executions>
+                    <execution>
+                        <id>install node and npm</id>
+                        <goals>
+                            <goal>install-node-and-npm</goal>
+                        </goals>
+                        <configuration>
+                            <nodeVersion>v5.3.0</nodeVersion>
+                            <npmVersion>3.3.12</npmVersion>
+                        </configuration>
+                    </execution>
+                    <execution>
+                        <id>npm install</id>
+                        <goals>
+                            <goal>npm</goal>
+                        </goals>
+                        <!-- Optional configuration which provides for running any npm command -->
+                        <configuration>
+                            <arguments>install</arguments>
+                        </configuration>
+                    </execution>
+                </executions>
+                <configuration>
+                    <installDirectory>target/node-installation-dir</installDirectory>
+                    <workingDirectory>src/main/frontend</workingDirectory>
+                    <skip>${frontend.skip}</skip>
+                </configuration>
+            </plugin>
+            
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-resources-plugin</artifactId>
+                <version>2.7</version>
+                <executions>
+                    <execution>
+                        <id>copy-frontend-resources</id>
+                        <phase>generate-resources</phase>
+                        <goals>
+                            <goal>copy-resources</goal>
+                        </goals>
+                        <configuration>
+                            <outputDirectory>${project.basedir}/src/main/webapp/js</outputDirectory>
+                            <resources>
+                                <resource>
+                                    <directory>src/main/frontend/node_modules</directory>
+                                    <includes>
+                                        <include>core-js/client/shim.min.js</include>
+                                        <include>zone.js/dist/zone.js</include>
+                                        <include>reflect-metadata/Reflect.js</include>
+                                        <include>rxjs/bundles/Rx.umd.js</include>
+                                        <include>@angular/core/bundles/core.umd.js</include>
+                                        <include>@angular/common/bundles/common.umd.js</include>
+                                        <include>@angular/compiler/bundles/compiler.umd.js</include>
+                                        <include>@angular/platform-browser/bundles/platform-browser.umd.js</include>
+                                        <include>@angular/platform-browser-dynamic/bundles/platform-browser-dynamic.umd.js</include>
+                                    </includes>
+                                </resource>
+                            </resources>
+                        </configuration>
+                    </execution>
+                    <execution>
+                        <id>copy-app.js</id>
+                        <phase>generate-resources</phase>
+                        <goals>
+                          <goal>copy-resources</goal>
+                        </goals>
+                        <configuration>
+                            <outputDirectory>${project.basedir}/src/main/webapp/js/app</outputDirectory>
+                            <resources>
+                                <resource>
+                                    <directory>src/main/frontend/app</directory>
+                                    <includes>
+                                        <include>*</include>
+                                    </includes>
+                                </resource>
+                            </resources>
+                        </configuration>
+                    </execution>
+                </executions>
+                <configuration>
+                    <encoding>UTF-8</encoding>
+                </configuration>
+            </plugin>
+        </plugins>
+    </build>
     <properties>
         <maven.compiler.source>1.8</maven.compiler.source>
         <maven.compiler.target>1.8</maven.compiler.target>
