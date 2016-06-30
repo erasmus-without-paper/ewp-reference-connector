@@ -48,7 +48,7 @@
                 <configuration>
                     <filesets> <!-- this is out app -->
                         <fileset>
-                            <directory>src/main/frontend/js/app/build</directory>
+                            <directory>src/main/frontend/app/build</directory>
                         </fileset>
                         <fileset> <!-- this is where we copy our resources (deps + app) -->
                             <directory>src/main/webapp/js</directory>
