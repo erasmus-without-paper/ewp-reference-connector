@@ -148,6 +148,29 @@
                     <encoding>UTF-8</encoding>
                 </configuration>
             </plugin>
+
+            <plugin>
+                <groupId>org.codehaus.mojo</groupId>
+                <artifactId>jaxb2-maven-plugin</artifactId>
+                <version>${jaxb2.version}</version>
+                <executions>
+                    <execution>
+                        <id>xjc-echo</id>
+                        <goals>
+                            <goal>xjc</goal>
+                        </goals>
+                        <configuration>
+                            <!-- Set the package of the generated code -->
+                            <packageName>eu.erasmuswithoutpaper.api.echo</packageName>
+
+                            <!-- Define the directory where we should find the DTD files -->
+                            <sources>
+                                <source>src/main/resources/schema/echo</source>
+                            </sources>
+                        </configuration>
+                    </execution>
+                </executions>
+            </plugin>        
         </plugins>
     </build>
     <properties>
@@ -155,5 +178,6 @@
         <maven.compiler.target>1.8</maven.compiler.target>
         <failOnMissingWebXml>false</failOnMissingWebXml>
         <jersey.version>2.23.1</jersey.version>
+        <jaxb2.version>2.2</jaxb2.version>
     </properties>
 </project>

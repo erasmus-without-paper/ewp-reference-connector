@@ -1,7 +1,7 @@
-package eu.erasmuswithoutpaper.boundary;
+package eu.erasmuswithoutpaper.echo.boundary;
 
 import eu.erasmuswithoutpaper.api.echo.Response;
-import eu.erasmuswithoutpaper.entity.MyEntity;
+import eu.erasmuswithoutpaper.echo.entity.MyEntity;
 import java.util.List;
 import javax.ejb.Stateless;
 import javax.persistence.EntityManager;
@@ -18,9 +18,6 @@ import javax.ws.rs.core.MediaType;
 @Path("")
 public class EchoResource {
 
-    @PersistenceContext
-    EntityManager em;
-
     @GET
     @Path("echo")
     @Produces(MediaType.APPLICATION_XML)
@@ -36,28 +33,6 @@ public class EchoResource {
     public Response echoPost(@FormParam("echo") List<String> echo) {
         Response response = new Response();
         echo.stream().forEach(e -> response.getEcho().add(e));
-        return response;
-    }
-
-    @POST
-    @Path("persist")
-    @Produces(MediaType.APPLICATION_XML)
-    public Response persistPost(@FormParam("text") List<String> text) {
-
-        Response response = new Response();
-        text.stream().forEach(e -> em.persist(new MyEntity(e)));
-        text.stream().forEach(e -> response.getEcho().add(e));
-        return response;
-    }
-
-    @GET
-    @Path("persist")
-    @Produces(MediaType.APPLICATION_XML)
-    public Response persistGet() {
-        Response response = new Response();
-
-        List<MyEntity> list = em.createQuery("select a from MyEntity a", MyEntity.class).getResultList();
-        list.stream().forEach(e -> response.getEcho().add(e.getText()));
         return response;
     }
 }

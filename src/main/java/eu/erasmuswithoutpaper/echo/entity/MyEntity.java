@@ -1,4 +1,4 @@
-package eu.erasmuswithoutpaper.entity;
+package eu.erasmuswithoutpaper.echo.entity;
 
 import java.io.Serializable;
 import javax.persistence.Column;

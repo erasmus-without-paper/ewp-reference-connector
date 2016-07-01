@@ -1,4 +1,4 @@
-package eu.erasmuswithoutpaper.boundary;
+package eu.erasmuswithoutpaper.manifest.boundary;
 
 import java.io.IOException;
 import java.net.URISyntaxException;

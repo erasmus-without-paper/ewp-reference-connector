@@ -3,7 +3,7 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package eu.erasmuswithoutpaper.boundary;
+package eu.erasmuswithoutpaper.echo.boundary;
 
 import eu.erasmuswithoutpaper.api.echo.Response;
 import javax.ws.rs.client.Entity;
@@ -32,8 +32,8 @@ public class EchoResourceTest extends JerseyTest {
 
         assertNotNull(echoResponse);
         assertEquals(2, echoResponse.getEcho().size());
-        assertEquals("Test1", echoResponse.getEcho().get(0));
-        assertEquals("Test2", echoResponse.getEcho().get(1));
+        assertTrue(echoResponse.getEcho().contains("Test1"));
+        assertTrue(echoResponse.getEcho().contains("Test2"));
     }
 
     @Test
@@ -48,8 +48,8 @@ public class EchoResourceTest extends JerseyTest {
 
         assertNotNull(echoResponse);
         assertEquals(2, echoResponse.getEcho().size());
-        assertEquals("Test1", echoResponse.getEcho().get(0));
-        assertEquals("Test2", echoResponse.getEcho().get(1));
+        assertTrue(echoResponse.getEcho().contains("Test1"));
+        assertTrue(echoResponse.getEcho().contains("Test2"));
     }
 
 }
