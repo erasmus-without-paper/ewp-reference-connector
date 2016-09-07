@@ -75,6 +75,7 @@
                             <nodeVersion>v5.3.0</nodeVersion>
                             <npmVersion>3.3.12</npmVersion>
                         </configuration>
+                        <phase>generate-resources</phase>
                     </execution>
                     <execution>
                         <id>npm install</id>
@@ -85,70 +86,42 @@
                         <configuration>
                             <arguments>install</arguments>
                         </configuration>
+                        <phase>generate-resources</phase>
+                    </execution>
+                    <execution>
+                         <id>bower install</id>
+                         <goals>
+                            <goal>bower</goal>
+                         </goals>
+                         <configuration>
+                            <arguments>install</arguments>
+                         </configuration>
+                    </execution>
+                    <execution>
+                         <id>gulp build</id>
+                         <goals>
+                             <goal>gulp</goal>
+                         </goals>
+                         <phase>generate-resources</phase>
+                    </execution>
+                    
+                    <!-- Run karma tests -->
+                    <execution>
+                            <id>javascript tests</id>
+                            <goals>
+                                    <goal>karma</goal>
+                            </goals>
+                            <configuration>
+                                    <karmaConfPath>src/test/javascript/karma.conf.js</karmaConfPath>
+                            </configuration>
                     </execution>
                 </executions>
                 <configuration>
                     <installDirectory>target/node-installation-dir</installDirectory>
-                    <workingDirectory>src/main/frontend</workingDirectory>
-                    <skip>${frontend.skip}</skip>
+                    <!-- workingDirectory>src/main/frontend</workingDirectory>
+                    <skip>${frontend.skip}</skip -->
                 </configuration>
             </plugin>
-            
-            <plugin>
-                <groupId>org.apache.maven.plugins</groupId>
-                <artifactId>maven-resources-plugin</artifactId>
-                <version>2.7</version>
-                <executions>
-                    <execution>
-                        <id>copy-frontend-resources</id>
-                        <phase>generate-resources</phase>
-                        <goals>
-                            <goal>copy-resources</goal>
-                        </goals>
-                        <configuration>
-                            <outputDirectory>${project.basedir}/src/main/webapp/js</outputDirectory>
-                            <resources>
-                                <resource>
-                                    <directory>src/main/frontend/node_modules</directory>
-                                    <includes>
-                                        <include>core-js/client/shim.min.js</include>
-                                        <include>zone.js/dist/zone.js</include>
-                                        <include>reflect-metadata/Reflect.js</include>
-                                        <include>rxjs/bundles/Rx.umd.js</include>
-                                        <include>@angular/core/bundles/core.umd.js</include>
-                                        <include>@angular/common/bundles/common.umd.js</include>
-                                        <include>@angular/compiler/bundles/compiler.umd.js</include>
-                                        <include>@angular/platform-browser/bundles/platform-browser.umd.js</include>
-                                        <include>@angular/platform-browser-dynamic/bundles/platform-browser-dynamic.umd.js</include>
-                                    </includes>
-                                </resource>
-                            </resources>
-                        </configuration>
-                    </execution>
-                    <execution>
-                        <id>copy-app.js</id>
-                        <phase>generate-resources</phase>
-                        <goals>
-                          <goal>copy-resources</goal>
-                        </goals>
-                        <configuration>
-                            <outputDirectory>${project.basedir}/src/main/webapp/js/app</outputDirectory>
-                            <resources>
-                                <resource>
-                                    <directory>src/main/frontend/app</directory>
-                                    <includes>
-                                        <include>*</include>
-                                    </includes>
-                                </resource>
-                            </resources>
-                        </configuration>
-                    </execution>
-                </executions>
-                <configuration>
-                    <encoding>UTF-8</encoding>
-                </configuration>
-            </plugin>
-
             <plugin>
                 <groupId>org.codehaus.mojo</groupId>
                 <artifactId>jaxb2-maven-plugin</artifactId>
@@ -167,6 +140,22 @@
                             <sources>
                                 <source>src/main/resources/schema/echo</source>
                             </sources>
+                        </configuration>
+                    </execution>
+                    <execution>
+                        <id>xjc-iias</id>
+                        <goals>
+                            <goal>xjc</goal>
+                        </goals>
+                        <configuration>
+                            <!-- Set the package of the generated code -->
+                            <packageName>eu.erasmuswithoutpaper.api.aiis.endpoints</packageName>
+
+                            <!-- Define the directory where we should find the DTD files -->
+                            <sources>
+                                <source>src/main/resources/schema/iias/endpoints</source>
+                            </sources>
+                            <clearOutputDir>false</clearOutputDir>
                         </configuration>
                     </execution>
                 </executions>

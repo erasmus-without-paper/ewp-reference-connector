@@ -1,4 +1,5 @@
 /target/
 nb-configuration.xml
-src/main/frontend/node_modules
-src/main/webapp/js
+node_modules
+bower_components
+src/main/webapp/resources/vendor

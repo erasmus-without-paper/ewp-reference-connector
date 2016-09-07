@@ -1,0 +1,71 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<xs:schema
+    xmlns:xs="http://www.w3.org/2001/XMLSchema"
+    xmlns:ewp="https://github.com/erasmus-without-paper/ewp-specs-architecture/blob/stable-v1/common-types.xsd"
+    elementFormDefault="qualified"
+
+    targetNamespace="https://github.com/erasmus-without-paper/ewp-specs-api-iias/blob/master/endpoints/get-response.xsd"
+    xmlns="https://github.com/erasmus-without-paper/ewp-specs-api-iias/blob/master/endpoints/get-response.xsd"
+>
+    <!-- WRTODO: Replace all occurrences of 'master' (in all projects) with 'stable-v1' upon release. -->
+
+    <xs:import
+        schemaLocation="https://raw.githubusercontent.com/erasmus-without-paper/ewp-specs-architecture/stable-v1/common-types.xsd"
+        namespace="https://github.com/erasmus-without-paper/ewp-specs-architecture/blob/stable-v1/common-types.xsd"
+    />
+
+    <xs:annotation>
+        <xs:documentation>
+            This schema is a part of the Erasmus Without Paper project. Before you start
+            using it, make sure you have read the general rules described here:
+
+            http://developers.erasmuswithoutpaper.eu/
+        </xs:documentation>
+    </xs:annotation>
+
+    <xs:element name="response">
+        <xs:annotation>
+            <xs:documentation>
+                This describes the format of the response returned by the `get` endpoint of
+                EWP Interinstitutional Agreements API.
+            </xs:documentation>
+        </xs:annotation>
+        <xs:complexType>
+            <xs:sequence>
+                <xs:element name="iia" minOccurs="0" maxOccurs="unbounded">
+                    <xs:complexType>
+                        <xs:sequence>
+                            <xs:element name="partner">
+                                <xs:complexType>
+                                    <xs:sequence>
+                                        <xs:element name="institution-id" type="xs:string"/>
+                                        <xs:element name="organization-unit-id" type="xs:string"/>
+                                        <xs:element maxOccurs="unbounded" minOccurs="0" name="condition">
+                                            <xs:complexType>
+                                                <xs:sequence>
+                                                    <xs:element name="term">
+                                                        <xs:complexType>
+                                                            <xs:sequence>
+                                                                <xs:element name="title" maxOccurs="unbounded" type="ewp:StringWithOptionalLang"/>
+                                                                <xs:element name="start-date" type="xs:date"/>
+                                                                <xs:element name="end-date" type="xs:date"/>
+                                                            </xs:sequence>
+                                                        </xs:complexType>
+                                                    </xs:element>
+                                                    <xs:element maxOccurs="unbounded" minOccurs="0" name="mobility-type" type="xs:string"/>
+                                                    <xs:element name="subject-area" type="xs:float"/>
+                                                </xs:sequence>
+                                            </xs:complexType>
+                                        </xs:element>
+                                    </xs:sequence>
+                                </xs:complexType>
+                            </xs:element>
+                        </xs:sequence>
+                        <xs:attribute name="id" type="xs:string"/>
+                    </xs:complexType>
+                </xs:element>
+            </xs:sequence>
+        </xs:complexType>
+    </xs:element>
+
+</xs:schema>

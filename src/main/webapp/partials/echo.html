@@ -1,0 +1,39 @@
+<div class="well page">
+    <h3>Echo</h3>
+
+    <div id="echoList" >
+        <div class="input-group">
+            <input class="form-control" placeholder="Echo text" ng-model="echoItem" required="required"/>
+              <span class="input-group-btn">
+                  <button type="submit" class="btn btn-default" ng-click="addEchoToList()">
+                      <i class="glyphicon glyphicon-plus-sign"></i>
+                  </button>
+              </span>
+        </div>
+        <div class="list-group" ng-show="echoList.length > 0">
+            <div class="list-group-item">
+                <div ng-repeat="echo in echoList" class="list-group-item" style="margin-top:16px">
+                    <div class="row-content">
+                        {{echo}}
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="input-group" ng-show="echoList.length > 0">
+            <span class="input-group-btn">
+                <button type="submit" class="btn btn-default"  ng-click="sendEcho()">
+                    <i class="glyphicon glyphicon-send"></i> Send Echo
+                </button>
+            </span>
+        </div>
+    </div>
+</div>
+
+<div class="well page" ng-show="echoResult">
+    <h3>Response</h3>
+    <div class="list-group">
+        <div class="list-group-item">
+        {{echoResult}}
+        </div>
+    </div>
+</div>

@@ -1,4 +1,0 @@
-<?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<catalog xmlns="urn:oasis:names:tc:entity:xmlns:xml:catalog" prefer="system">
-    <system systemId="file:/C:/dev/workspaces/connector/src/main/resources/schema/response.xsd" uri="src/main/resources/jaxb/echo-response/response.xsd"/>
-</catalog>
