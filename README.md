@@ -15,7 +15,12 @@ This reference connector demonstrates how a connector can be implemented. It has
 
 ## Installation instructions for a EWP Host
 
-* Download a binary from TODO
+* Download TomEE from http://www.apache.org/dyn/closer.cgi/tomee/tomee-7.0.1/apache-tomee-7.0.1-plus.zip
+* Configure system.properties and modify this property
+```
+tomee.serialization.class.blacklist = -
+```
+* Copy .war file to `webapps`
 
 ## Installation instructions for a local development environment
 
