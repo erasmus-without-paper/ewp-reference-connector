@@ -3,3 +3,5 @@ nb-configuration.xml
 node_modules
 bower_components
 src/main/webapp/resources/vendor
+.idea
+connector.iml
