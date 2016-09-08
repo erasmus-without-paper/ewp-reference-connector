@@ -1,5 +1,5 @@
 angular
-    .module('myApp', ['ngResource', 'ngRoute'])
+    .module('connector', ['echo', 'ngResource', 'ngRoute'])
     .config(function ($routeProvider) {
         $routeProvider.when('/iia', {
                 templateUrl: 'partials/iia.html',
@@ -31,29 +31,4 @@ angular
             function(result) {
                 $scope.users = result;
             });
-    })
-    .service('EchoService', function ($http) {
-        return {
-            echo: function (echoList, callback) {
-                $http.get('rest/echo',
-                        { method: 'GET',
-                          params: {echo: echoList}
-                        }).success(callback);
-            }
-        };
-    })
-    .controller('EchoController', function ($scope, EchoService) {
-        $scope.echoList = [];
-        $scope.addEchoToList = function() {
-            if ($scope.echoItem) {
-                $scope.echoList.push($scope.echoItem);
-                $scope.echoItem = '';
-            }
-        };
-        $scope.sendEcho = function() {
-            EchoService.echo($scope.echoList,
-            function(result) {
-                $scope.echoResult = result;
-            });
-        };
     });

@@ -2,7 +2,7 @@ var gulp = require('gulp');
 var concat = require('gulp-concat');
 var concatVendor = require('gulp-concat-vendor');
 var uglify = require('gulp-uglify');
-var minify = require('gulp-minify-css')
+var minify = require('gulp-minify-css');
 var mainBowerFiles = require('main-bower-files');
 var inject = require('gulp-inject');
 var runSequence = require('run-sequence');
@@ -47,7 +47,7 @@ gulp.task('lib-css-files', function () {
 
 gulp.task('index', function () {
     var target = gulp.src("src/main/webapp/index.html");
-    var sources = gulp.src(['src/main/webapp/resources/js/*.js', 'src/main/webapp/resources/css/*.css'], {read: false});
+    var sources = gulp.src(['src/main/webapp/resources/js/*.js', 'src/main/webapp/resources/js/echo/*.js' ,'src/main/webapp/resources/css/*.css'], {read: false});
     return target.pipe(inject(series(vendorJs, vendorCss, sources), {relative: true}))
         .pipe(gulp.dest('src/main/webapp'));
 });
