@@ -21,7 +21,8 @@ This reference connector demonstrates how a connector can be implemented. It has
 
 If you want to fork the code, or just start to hack on your own connector, and want to use this as a reference, follow these steps. 
 
-```$ mvn clean install
+```
+$ mvn clean install
 ```
 Lots of output and should be followed by
 
