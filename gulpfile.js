@@ -16,7 +16,7 @@ var vendorCss;
 
 var paths = {
     js: "src/main/webapp/resources/js/**/*.js"
-}
+};
 
 // Watch Files For changes
 gulp.task('watch', function() {
