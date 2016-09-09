@@ -168,5 +168,6 @@
         <failOnMissingWebXml>false</failOnMissingWebXml>
         <jersey.version>2.23.1</jersey.version>
         <jaxb2.version>2.2</jaxb2.version>
+        <karmaConfPath>src/test/javascript/karma.conf.js</karmaConfPath>
     </properties>
 </project>

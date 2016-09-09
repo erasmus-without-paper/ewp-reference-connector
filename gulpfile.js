@@ -14,11 +14,13 @@ var series = require('stream-series');
 var vendorJs;
 var vendorCss;
 
+var paths = {
+    js: "src/main/webapp/resources/js/**/*.js"
+}
 
-// Watch Files For Changes
+// Watch Files For changes
 gulp.task('watch', function() {
-    gulp.watch('css/*.css', 'styles');
-    gulp.watch('js/*.js', 'scripts');
+    gulp.watch(paths.js, ['default']);
 });
 
 gulp.task('lib-js-files', function () {
@@ -47,7 +49,7 @@ gulp.task('lib-css-files', function () {
 
 gulp.task('index', function () {
     var target = gulp.src("src/main/webapp/index.html");
-    var sources = gulp.src(['src/main/webapp/resources/js/*.js', 'src/main/webapp/resources/js/echo/*.js' ,'src/main/webapp/resources/css/*.css'], {read: false});
+    var sources = gulp.src([paths.js,'src/main/webapp/resources/css/*.css'], {read: false});
     return target.pipe(inject(series(vendorJs, vendorCss, sources), {relative: true}))
         .pipe(gulp.dest('src/main/webapp'));
 });
