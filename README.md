@@ -8,10 +8,12 @@ This reference connector demonstrates how a connector can be implemented. It has
 * Java EE container, such as Tom EE or Glassfish
 
 ## Development environment
+In addition to the requirements for the EWP host, the following are also required
 
 * Any Java IDE compatible with Java 8 and Maven
 * Node.js
 * Maven 3.3.9
+* Git
 
 ## Installation instructions for a EWP Host
 
@@ -21,6 +23,8 @@ This reference connector demonstrates how a connector can be implemented. It has
 tomee.serialization.class.blacklist = -
 ```
 * Copy .war file to `webapps`
+* Start `bin/startup.bat`
+* Go to http://localhost:8080/connector-1.0-SNAPSHOT/
 
 ## Installation instructions for a local development environment
 
