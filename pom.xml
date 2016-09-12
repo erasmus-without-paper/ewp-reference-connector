@@ -158,6 +158,22 @@
                             <clearOutputDir>false</clearOutputDir>
                         </configuration>
                     </execution>
+                    <execution>
+                        <id>xjc-institutions</id>
+                        <goals>
+                            <goal>xjc</goal>
+                        </goals>
+                        <configuration>
+                            <!-- Set the package of the generated code -->
+                            <packageName>eu.erasmuswithoutpaper.api.institutions</packageName>
+
+                            <!-- Define the directory where we should find the DTD files -->
+                            <sources>
+                                <source>src/main/resources/schema/institutions</source>
+                            </sources>
+                            <clearOutputDir>false</clearOutputDir>
+                        </configuration>
+                    </execution>
                 </executions>
             </plugin>        
         </plugins>

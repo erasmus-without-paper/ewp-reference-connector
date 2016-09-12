@@ -13,14 +13,17 @@
         </div>
         <div class="list-group">
             <div class="list-group-item">
-                <div ng-repeat="iia in users.iia | filter:query" class="list-group-item" style="margin-top:16px">
+                <div ng-repeat="iia in iias.iia | filter:query" class="list-group-item" style="margin-top:16px">
                     <div class="row-content">
                         <h4 class="list-group-item-heading">IIA id: {{iia.id}}</h4>
-                        Partner:
+                        <h5>Partner</h5>
                         <p class="list-group-item-text">
                             institution-id: {{iia.partner['institution-id']}}<br>
                             organization-unit-id: {{iia.partner['organization-unit-id']}}<br>
                         </p>
+                        <div ng-repeat="condition in iia.partner.condition">
+                        <h6>Condition</h6>
+                        Subject area: {{condition['subject-area']}}
                     </div>
                 </div>
             </div>

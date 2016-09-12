@@ -1,0 +1,27 @@
+<div class="well page">
+    <h3>Institutuion list</h3>
+
+    <div id="institutionList" >
+        <div class="input-group">
+            <input class="form-control" id="search" name="search" placeholder="Search for" ng-model="query"
+                   required="required"/>
+              <span class="input-group-btn">
+                  <button type="submit" class="btn btn-default">
+                      <i class="glyphicon glyphicon-search"></i>
+                  </button>
+              </span>
+        </div>
+        <div class="list-group">
+            <div class="list-group-item">
+                <div ng-repeat="institution in institutions.institution | filter:query" class="list-group-item" style="margin-top:16px">
+                    <div class="row-content">
+                        <h4 class="list-group-item-heading">Institution id: {{institution.id}}</h4>
+                        Name: {{institution.name.value}} ({{institution.name.lang}})<br>
+                        Country: {{institution.country}}<br>
+                        URL: {{institution.url}}
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
