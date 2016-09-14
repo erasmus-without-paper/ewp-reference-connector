@@ -1,14 +1,10 @@
 package eu.erasmuswithoutpaper.institutions.boundary;
 
 import eu.erasmuswithoutpaper.api.institutions.Response;
-import eu.erasmuswithoutpaper.api.institutions.Response.Institution;
-import eu.erasmuswithoutpaper.api.institutions.Response.Institution.Name;
 import eu.erasmuswithoutpaper.institutions.control.InstitutionController;
 import java.util.List;
 import javax.ejb.Stateless;
 import javax.inject.Inject;
-import javax.persistence.EntityManager;
-import javax.persistence.PersistenceContext;
 import javax.ws.rs.DefaultValue;
 import javax.ws.rs.FormParam;
 import javax.ws.rs.GET;

@@ -1,8 +1,6 @@
 package eu.erasmuswithoutpaper.iias.boundary;
 
 import eu.erasmuswithoutpaper.api.aiis.endpoints.Response;
-import eu.erasmuswithoutpaper.api.aiis.endpoints.Response.Iia;
-import eu.erasmuswithoutpaper.api.aiis.endpoints.Response.Iia.Partner;
 import eu.erasmuswithoutpaper.iias.control.IiaController;
 import java.util.List;
 import javax.ejb.Stateless;
@@ -40,13 +38,13 @@ public class IIASResource {
     @Path("get")
     @Produces({MediaType.APPLICATION_XML, MediaType.APPLICATION_JSON})
     public Response getGet(@QueryParam("hei_id") String heiId, @QueryParam("iia_id") List<String> iiaIdList) {
-        return iiaController.getAllIias();
+        return iiaController.getIiasFor(heiId, iiaIdList);
     }
 
     @POST
     @Path("get")
     @Produces(MediaType.APPLICATION_XML)
     public Response getPost(@FormParam("hei_id") String heiId, @FormParam("iia_id") List<String> iiaIdList) {
-        return iiaController.getAllIias();
+        return iiaController.getIiasFor(heiId, iiaIdList);
     }
 }

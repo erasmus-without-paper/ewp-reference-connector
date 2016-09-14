@@ -1,6 +1,6 @@
 package eu.erasmuswithoutpaper.iias.entity;
 
-import java.util.ArrayList;
+import java.io.Serializable;
 import java.util.List;
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
@@ -14,7 +14,7 @@ import javax.persistence.Table;
 
 @Entity
 @Table(name = "IIA_PARTNER")
-public class Partner {
+public class Partner implements Serializable {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "PARTNER_ID")
@@ -27,7 +27,7 @@ public class Partner {
     private String organizationUnitId;
     
     @OneToMany(cascade = CascadeType.ALL, orphanRemoval=true)
-    @JoinColumn(name = "condition_id")
+    @JoinColumn(name = "partner_id")
     private List<Condition> condition;
 
     public Partner(String institutionId, String organizationUnitId, List<Condition> condition) {

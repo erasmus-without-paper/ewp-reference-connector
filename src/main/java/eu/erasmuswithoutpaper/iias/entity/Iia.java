@@ -1,5 +1,6 @@
 package eu.erasmuswithoutpaper.iias.entity;
 
+import java.io.Serializable;
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -8,11 +9,9 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.OneToOne;
-import javax.persistence.Table;
 
 @Entity
-@Table(name = "IIA")
-public class Iia {
+public class Iia implements Serializable {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "IIA_ID")
@@ -32,18 +31,18 @@ public class Iia {
         this.partner = partner;
     }
 
-    public Long getId() {
+    public Long getIiaId() {
         return iiaId;
     }
 
-    public void setId(Long iiaId) {
+    public void setIiaId(Long iiaId) {
         this.iiaId = iiaId;
     }
-    public String getIid() {
+    public String getId() {
         return id;
     }
 
-    public void setIid(String id) {
+    public void setId(String id) {
         this.id = id;
     }
 
