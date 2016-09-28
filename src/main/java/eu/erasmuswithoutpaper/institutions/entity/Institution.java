@@ -8,6 +8,9 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.Table;
 
+/**
+ * A remote EWP host.
+ */
 @Entity
 @Table(name = "INSTITUTION")
 public class Institution implements Serializable {

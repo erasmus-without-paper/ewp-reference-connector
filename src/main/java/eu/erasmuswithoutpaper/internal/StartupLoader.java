@@ -10,7 +10,12 @@ import javax.inject.Inject;
 @Singleton
 @Startup
 public class StartupLoader {
-    
+
+    public enum University {
+        IKEA_U,
+        POMODORO_U
+    }
+
     @Inject
     private InstitutionLoader institutionLoader;
     
@@ -19,7 +24,11 @@ public class StartupLoader {
     
     @PostConstruct
     public void loadDemoData() {
-        institutionLoader.createDemoData();
+        if (System.getProperty("ewp.host").equals("IKEA")) {
+            institutionLoader.createDemoData(University.IKEA_U);
+        } else {
+            institutionLoader.createDemoData(University.POMODORO_U);
+        }
         iiaLoader.createDemoData();
     }
 }
