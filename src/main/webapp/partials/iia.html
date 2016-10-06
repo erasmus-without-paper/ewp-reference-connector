@@ -35,25 +35,23 @@
                         </div>
                     </div>
                     <div class="panel-heading">Conditions</div>
-                    <div class="panel-body">
-                        <div class="list-group">
-                            <div class="list-group-item" ng-repeat="condition in iia.partner.condition">
-                                <div class="row">
-                                    <div class="col-md-2">Subject Area:</div><div class="col-md-10">{{condition['subject-area']}}</div>
-                                </div><div class="row">
-                                    <div class="col-md-2">Mobility Type:</div><div class="col-md-10">{{condition['mobility-type'].join(', ')}}</div>
-                                </div><div class="row">
-                                    <div class="col-md-2">Term Title:</div>
-                                    <div class="col-md-10">
-                                        <div ng-repeat="title in condition.term.title">
-                                            {{title.value}} ({{title.lang}})
-                                        </div>
+                    <div class="list-group">
+                        <div class="list-group-item" ng-repeat="condition in iia.partner.condition">
+                            <div class="row">
+                                <div class="col-md-2">Subject Area:</div><div class="col-md-10">{{condition['subject-area']}}</div>
+                            </div><div class="row">
+                                <div class="col-md-2">Mobility Type:</div><div class="col-md-10">{{condition['mobility-type'].join(', ')}}</div>
+                            </div><div class="row">
+                                <div class="col-md-2">Term Title:</div>
+                                <div class="col-md-10">
+                                    <div ng-repeat="title in condition.term.title">
+                                        {{title.value}} ({{title.lang}})
                                     </div>
-                                </div><div class="row">
-                                    <div class="col-md-2">Term Start Date:</div><div class="col-md-10">{{condition.term['start-date'] | toDate | date: 'yyyy-MM-dd'}}</div>
-                                </div><div class="row">
-                                    <div class="col-md-2">Term End Date:</div><div class="col-md-10">{{condition.term['end-date'] | toDate | date: 'yyyy-MM-dd'}}</div>
                                 </div>
+                            </div><div class="row">
+                                <div class="col-md-2">Term Start Date:</div><div class="col-md-10">{{condition.term['start-date'] | toDate | date: 'yyyy-MM-dd'}}</div>
+                            </div><div class="row">
+                                <div class="col-md-2">Term End Date:</div><div class="col-md-10">{{condition.term['end-date'] | toDate | date: 'yyyy-MM-dd'}}</div>
                             </div>
                         </div>
                     </div>
