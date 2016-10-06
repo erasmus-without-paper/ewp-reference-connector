@@ -2,6 +2,7 @@ package eu.erasmuswithoutpaper.iias.boundary;
 
 import eu.erasmuswithoutpaper.api.aiis.endpoints.Response;
 import eu.erasmuswithoutpaper.iias.control.IiaController;
+import eu.erasmuswithoutpaper.iias.entity.Iia;
 import java.util.List;
 import javax.ejb.Stateless;
 import javax.inject.Inject;
@@ -46,5 +47,18 @@ public class IIASResource {
     @Produces(MediaType.APPLICATION_XML)
     public Response getPost(@FormParam("hei_id") String heiId, @FormParam("iia_id") List<String> iiaIdList) {
         return iiaController.getIiasFor(heiId, iiaIdList);
+    }
+
+    @GET
+    @Path("get-all")
+    @Produces({MediaType.APPLICATION_XML, MediaType.APPLICATION_JSON})
+    public Response getGet() {
+        return iiaController.getAllIias();
+    }
+
+    @POST
+    @Path("add")
+    public void addPost(Iia iia) {
+        iiaController.saveIia(iia);
     }
 }

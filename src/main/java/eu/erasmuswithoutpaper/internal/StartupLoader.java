@@ -24,7 +24,8 @@ public class StartupLoader {
     
     @PostConstruct
     public void loadDemoData() {
-        if (System.getProperty("ewp.host").equals("IKEA")) {
+        String ewpHost = System.getProperty("ewp.host");
+        if (ewpHost == null || ewpHost.equals("IKEA")) {
             institutionLoader.createDemoData(University.IKEA_U);
         } else {
             institutionLoader.createDemoData(University.POMODORO_U);

@@ -4,6 +4,9 @@ angular
         $routeProvider.when('/iia', {
                 templateUrl: 'partials/iia.html',
                 controller: 'IiaController'
+            }).when('/newIia', {
+                templateUrl: 'partials/new_iia_form.html',
+                controller: 'IiaController'
             }).when('/home', {
                 templateUrl: 'partials/home.html',
                 controller: 'HomeController'
@@ -16,6 +19,15 @@ angular
             }).otherwise({
                 redirectTo: '/home'
             });
+    })
+    .filter('toDate', function() {
+        return function(date) {
+            if (date) {
+                var dt = new Date(date.replace(/\+.*/,''));
+                return dt ? dt : date;
+            }
+            return date;
+        };
     })
     .controller('HomeController', function ($scope) {
     });
@@ -47,19 +59,74 @@ angular.module('echo').service('EchoService', function ($http) {
     };
 });
 angular.module('iia', []);
-angular.module('iia').controller('IiaController', function ($scope, IiaService) {
+angular.module('iia').controller('IiaController', function ($scope, $location, IiaService) {
     IiaService.getAll(
         function(result) {
             $scope.iias = result;
         });
+    
+    $scope.createNewIia = function() {
+       $location.path('/newIia');
+    };
+    
+    $scope.cancelNewIia = function() {
+       $location.path('/iia');
+       $scope.resetAll();
+    };
+    
+    $scope.saveNewIia = function() {
+        IiaService.add($scope.newIia, 
+            function(result) {
+                $scope.iias = result;
+                $location.path('/iia');
+                $scope.resetAll();
+            });
+    };
+    
+    $scope.resetAll = function() {
+        $scope.newIia = {};
+        $scope.newIia.partner = {};
+        $scope.newIia.partner.condition = [];
+        
+        $scope.resetNewCondition();
+    };
+    
+    $scope.resetNewCondition = function() {
+        $scope.newCondition = {term: {title:[{lang:'',title:''}]}};
+        $scope.showConditionForm=false;
+    };
+    
+    $scope.addCondition = function() {
+        $scope.newIia.partner.condition.push($scope.newCondition);
+        $scope.resetNewCondition();
+    };
+    
+    $scope.addNewTitle = function() {
+        $scope.newCondition.term.title.push({lang:'',title:''});
+    };
+    
+    $scope.resetAll();
+    $scope.institutions = ['hei1','hei2','hei3','hei4'];
+    
 });
 
 angular.module('iia').service('IiaService', function ($http) {
     return {
         getAll: function (callback) {
+            $http.get('rest/iia/get-all',
+                { method: 'GET'
+                }).success(callback);
+        },
+        get: function (heiId, iiaIdList, callback) {
             $http.get('rest/iia/get',
                 { method: 'GET',
-                  params: {hei_id: 'institutionId1', iia_id: ['id1', 'id2']}
+                  params: {hei_id: heiId, iia_id: iiaIdList}
+                }).success(callback);
+        },
+        add: function (iia, callback) {
+            $http.post('rest/iia/add', iia,
+                { method: 'POST',
+                  headers: {'Content-Type': 'application/json'}
                 }).success(callback);
         }
     };
