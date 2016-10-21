@@ -1,5 +1,5 @@
 angular
-    .module('connector', ['echo', 'iia', 'institution', 'ngResource', 'ngRoute'])
+    .module('connector', ['echo', 'iia', 'institution', 'department', 'ngResource', 'ngRoute'])
     .config(function ($routeProvider) {
         $routeProvider.when('/iia', {
                 templateUrl: 'partials/iia.html',
@@ -13,6 +13,9 @@ angular
             }).when('/institution', {
                 templateUrl: 'partials/institution.html',
                 controller: 'InstitutionController'
+            }).when('/department', {
+                templateUrl: 'partials/department.html',
+                controller: 'DepartmentController'
             }).when('/echo', {
                 templateUrl: 'partials/echo.html',
                 controller: 'EchoController'

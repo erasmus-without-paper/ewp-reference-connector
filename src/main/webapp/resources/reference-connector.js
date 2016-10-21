@@ -1,5 +1,5 @@
 angular
-    .module('connector', ['echo', 'iia', 'institution', 'ngResource', 'ngRoute'])
+    .module('connector', ['echo', 'iia', 'institution', 'department', 'ngResource', 'ngRoute'])
     .config(function ($routeProvider) {
         $routeProvider.when('/iia', {
                 templateUrl: 'partials/iia.html',
@@ -13,6 +13,9 @@ angular
             }).when('/institution', {
                 templateUrl: 'partials/institution.html',
                 controller: 'InstitutionController'
+            }).when('/department', {
+                templateUrl: 'partials/department.html',
+                controller: 'DepartmentController'
             }).when('/echo', {
                 templateUrl: 'partials/echo.html',
                 controller: 'EchoController'
@@ -31,6 +34,25 @@ angular
     })
     .controller('HomeController', function ($scope) {
     });
+
+angular.module('department', []);
+angular.module('department').controller('DepartmentController', function ($scope, DepartmentService) {
+    DepartmentService.getLocal(
+        function(result) {
+            $scope.departments = result;
+        });
+});
+
+angular.module('department').service('DepartmentService', function ($http) {
+    return {
+        getLocal: function (callback) {
+            $http.get('rest/department/get',
+                { method: 'GET',
+                  params: {hei_id: 'hei-id', department_id: ['department-id']}
+                }).success(callback);
+        }
+    };
+});
 
 angular.module('echo', []);
 angular.module('echo').controller('EchoController', function ($scope, EchoService) {

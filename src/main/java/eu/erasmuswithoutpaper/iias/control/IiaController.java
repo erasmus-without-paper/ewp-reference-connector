@@ -4,7 +4,6 @@ import eu.erasmuswithoutpaper.api.aiis.endpoints.Response;
 import eu.erasmuswithoutpaper.api.aiis.endpoints.StringWithOptionalLang;
 import eu.erasmuswithoutpaper.iias.entity.Condition;
 import eu.erasmuswithoutpaper.iias.entity.Iia;
-import eu.erasmuswithoutpaper.iias.entity.Partner;
 import eu.erasmuswithoutpaper.iias.entity.Term;
 import eu.erasmuswithoutpaper.iias.entity.Title;
 import java.util.Date;

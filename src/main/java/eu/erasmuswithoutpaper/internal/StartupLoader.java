@@ -1,5 +1,6 @@
 package eu.erasmuswithoutpaper.internal;
 
+import eu.erasmuswithoutpaper.department.preload.DepartmentLoader;
 import eu.erasmuswithoutpaper.iias.preload.IiaLoader;
 import eu.erasmuswithoutpaper.institutions.preload.InstitutionLoader;
 import javax.annotation.PostConstruct;
@@ -21,6 +22,9 @@ public class StartupLoader {
     
     @Inject
     private IiaLoader iiaLoader;
+   
+    @Inject
+    private DepartmentLoader departmentLoader;
     
     @PostConstruct
     public void loadDemoData() {
@@ -31,5 +35,6 @@ public class StartupLoader {
             institutionLoader.createDemoData(University.POMODORO_U);
         }
         iiaLoader.createDemoData();
+        departmentLoader.createDemoData();
     }
 }
