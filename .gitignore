@@ -6,3 +6,4 @@ src/main/webapp/resources/vendor
 .idea
 connector.iml
 /nbproject/
+/workshops/
