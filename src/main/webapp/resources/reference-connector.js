@@ -160,14 +160,28 @@ angular.module('institution').controller('InstitutionController', function ($sco
         function(result) {
             $scope.institutions = result;
         });
+        
+    $scope.browseInstOrgObjectList = [];
+    $scope.setCurrentInstOrgObject = function(obj) {
+        $scope.currentInstOrgObject = obj;
+        $scope.browseInstOrgObjectList.push(obj);
+    };
+    
+    $scope.backCurrentInstOrgObject = function() {
+        $scope.browseInstOrgObjectList.pop();
+        if($scope.browseInstOrgObjectList.length > 0) {
+            $scope.currentInstOrgObject = $scope.browseInstOrgObjectList[$scope.browseInstOrgObjectList.length-1];
+        } else {
+            $scope.currentInstOrgObject = '';
+        }
+    };
 });
 
 angular.module('institution').service('InstitutionService', function ($http) {
     return {
         getLocal: function (callback) {
-            $http.get('rest/institution/get',
+            $http.get('gui/institution/list',
                 { method: 'GET',
-                  params: {hei_id: ['hei-id']}
                 }).success(callback);
         }
     };

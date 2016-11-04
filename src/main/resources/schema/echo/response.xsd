@@ -7,7 +7,6 @@
     targetNamespace="https://github.com/erasmus-without-paper/ewp-specs-api-echo/tree/stable-v1"
     xmlns="https://github.com/erasmus-without-paper/ewp-specs-api-echo/tree/stable-v1"
 >
-    <!-- WRTODO: Replace all occurrences of 'master' (in all projects) with 'stable-v1' upon release. -->
 
     <xs:annotation>
         <xs:documentation>

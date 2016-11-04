@@ -23,14 +23,14 @@
         <!-- The entry for the Discovery Manifest API is defined in the manifest's
         own XML namespace. -->
         <discovery version="3.1.0">
-            <url>https://example.com/manifest.xml</url>
+            <url>https://example.com/rest/manifest</url>
         </discovery>
 
         <!-- All other manifest entries are defined in their own XML namespaces.
         You need to use proper `xmlns` in order for them to be matched properly. -->
         <echo
             xmlns="https://github.com/erasmus-without-paper/ewp-specs-api-echo/blob/master/manifest-entry.xsd"
-            version="0.0.0"
+            version="1.0.0"
         >
             <!-- Note, that ewp:admin-email and ewp:admin-notes can be defined both on the
             global level, and on the API level. -->

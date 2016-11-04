@@ -5,6 +5,7 @@
  */
 package eu.erasmuswithoutpaper.manifest.boundary;
 
+import eu.erasmuswithoutpaper.discovery.boundary.ManifestResource;
 import javax.ws.rs.core.Application;
 import org.glassfish.jersey.server.ResourceConfig;
 import org.glassfish.jersey.test.JerseyTest;

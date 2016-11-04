@@ -1,9 +1,8 @@
 angular.module('institution').service('InstitutionService', function ($http) {
     return {
         getLocal: function (callback) {
-            $http.get('rest/institution/get',
+            $http.get('gui/institution/list',
                 { method: 'GET',
-                  params: {hei_id: ['hei-id']}
                 }).success(callback);
         }
     };

@@ -5,3 +5,4 @@ bower_components
 src/main/webapp/resources/vendor
 .idea
 connector.iml
+/nbproject/

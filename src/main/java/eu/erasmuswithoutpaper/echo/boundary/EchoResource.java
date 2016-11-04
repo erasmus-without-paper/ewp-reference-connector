@@ -12,11 +12,10 @@ import javax.ws.rs.QueryParam;
 import javax.ws.rs.core.MediaType;
 
 @Stateless
-@Path("")
+@Path("echo")
 public class EchoResource {
 
     @GET
-    @Path("echo")
     @Produces(MediaType.APPLICATION_XML)
     public Response echoGet(@QueryParam("echo") List<String> echo) {
         Response response = new Response();
@@ -25,7 +24,6 @@ public class EchoResource {
     }
 
     @POST
-    @Path("echo")
     @Produces(MediaType.APPLICATION_XML)
     public Response echoPost(@FormParam("echo") List<String> echo) {
         Response response = new Response();

@@ -1,7 +1,7 @@
 <div class="well page">
     <h3>Institution list</h3>
 
-    <div id="institutionList" >
+    <div id="institutionList" ng-show="!currentInstOrgObject">
         <div class="input-group">
             <input class="form-control" id="search" name="search" placeholder="Search for" ng-model="query"
                    required="required"/>
@@ -13,15 +13,45 @@
         </div>
         <div class="list-group">
             <div class="list-group-item">
-                <div ng-repeat="institution in institutions.institution | filter:query" class="list-group-item" style="margin-top:16px">
+                <div ng-repeat="institution in institutions | filter:query" class="list-group-item" style="margin-top:16px">
                     <div class="row-content">
-                        <h4 class="list-group-item-heading">Institution id: {{institution.id}}</h4>
-                        Name: {{institution.name.value}} ({{institution.name.lang}})<br>
+                        <h4 class="list-group-item-heading">Institution id: {{institution.institutionId}}</h4>
+                        Name: {{institution.name}} ({{"se"}})<br>
                         Country: {{institution.country}}<br>
-                        URL: {{institution.url}}
+                        Description: {{institution.description}}<br>
+                        <button ng-click="setCurrentInstOrgObject(institution)">Show Me</button>
                     </div>
                 </div>
             </div>
         </div>
+    </div>
+    <div ng-show="currentInstOrgObject">
+        Name: {{currentInstOrgObject.name}} ({{"se"}})<br>
+        Country: {{currentInstOrgObject.country}}<br>
+        Description: {{currentInstOrgObject.description}}<br>
+        <div ng-if="currentInstOrgObject.organinazationUnits && currentInstOrgObject.organinazationUnits.length > 0">
+            <div class="input-group">
+                <input class="form-control" id="search" name="search" placeholder="Search for" ng-model="query2"
+                       required="required"/>
+                  <span class="input-group-btn">
+                      <button type="submit" class="btn btn-default">
+                          <i class="glyphicon glyphicon-search"></i>
+                      </button>
+                  </span>
+            </div>
+            <div class="list-group">
+                <div class="list-group-item">
+                    <div ng-repeat="obj in currentInstOrgObject.organinazationUnits | filter:query2" class="list-group-item" style="margin-top:16px">
+                        <div class="row-content">
+                            Name: {{obj.name}} ({{"se"}})<br>
+                            Country: {{obj.country}}<br>
+                            Description: {{obj.description}}<br>
+                            <button ng-click="setCurrentInstOrgObject(obj)">Show Me</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <button ng-click="backCurrentInstOrgObject()">Back</button>
     </div>
 </div>
