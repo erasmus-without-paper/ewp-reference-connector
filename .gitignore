@@ -3,7 +3,9 @@ nb-configuration.xml
 node_modules
 bower_components
 src/main/webapp/resources/vendor
+src/main/webapp/resources/reference-connector.js
 .idea
 connector.iml
 /nbproject/
 /workshops/
+derby.log

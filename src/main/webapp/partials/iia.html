@@ -1,62 +1,75 @@
-<div class="well page">
-    
-    <div class="clearfix">
-        <h3 class="pull-left">IIA list</h3>
-        <div class="btn-group pull-right">
-            <button type="submit" class="btn btn-default" ng-click="createNewIia()">
-                <i class="glyphicon glyphicon-plus-sign"></i>
-            </button>
+<nav class="navbar navbar-default">
+    <div class="container-fluid">
+        <div class="collapse navbar-collapse">
+            <ul class="nav navbar-nav">
+                <li><a href="#/home"><i class="glyphicon glyphicon-home"></i> Home</a></li>
+                <li><a href="#/iia"><b>IIA</b></a></li>
+            </ul>
         </div>
     </div>
+</nav>
 
-    <div id="iiaList" >
-        <div class="input-group">
-            <input class="form-control" id="search" name="search" placeholder="Search for" ng-model="query"
-                   required="required"/>
-              <span class="input-group-btn">
-                    <button type="submit" class="btn btn-default">
-                        <i class="glyphicon glyphicon-search"></i>
-                    </button>
-              </span>
+<div class="container">
+    <div class="well page">
+
+        <div class="clearfix">
+            <h3 class="pull-left">IIA list</h3>
+            <div class="btn-group pull-right">
+                <button type="submit" class="btn btn-default" ng-click="createNewIia()">
+                    <i class="glyphicon glyphicon-plus-sign"></i>
+                </button>
+            </div>
         </div>
-        <ul class="list-group">
-            <li ng-repeat="iia in iias.iia | filter:query" class="list-group-item" style="border: none">
-                <div class="panel panel-default">
-                    <div class="panel-heading">
-                        <h4 class="list-group-item-heading">IIA id: {{iia.id}}</h4>
-                    </div>
-                    <div class="panel-heading">Partner
-                    </div>
-                    <div class="panel-body">
-                        <div class="row">
-                            <div class="col-md-2">Institution ID:</div><div class="col-md-10">{{iia.partner['institution-id']}}</div>
-                        </div><div class="row">
-                            <div class="col-md-2">Organization Unit ID:</div><div class="col-md-10">{{iia.partner['organization-unit-id']}}</div>
+
+        <div id="iiaList" >
+            <div class="input-group">
+                <input class="form-control" id="search" name="search" placeholder="Search for" ng-model="query"
+                       required="required"/>
+                  <span class="input-group-btn">
+                        <button type="submit" class="btn btn-default">
+                            <i class="glyphicon glyphicon-search"></i>
+                        </button>
+                  </span>
+            </div>
+            <ul class="list-group">
+                <li ng-repeat="iia in iias.iia | filter:query" class="list-group-item" style="border: none">
+                    <div class="panel panel-default">
+                        <div class="panel-heading">
+                            <h4 class="list-group-item-heading">IIA id: {{iia.id}}</h4>
                         </div>
-                    </div>
-                    <div class="panel-heading">Conditions</div>
-                    <div class="list-group">
-                        <div class="list-group-item" ng-repeat="condition in iia.partner.condition">
+                        <div class="panel-heading">Partner
+                        </div>
+                        <div class="panel-body">
                             <div class="row">
-                                <div class="col-md-2">Subject Area:</div><div class="col-md-10">{{condition['subject-area']}}</div>
+                                <div class="col-md-2">Institution ID:</div><div class="col-md-10">{{iia.partner['institution-id']}}</div>
                             </div><div class="row">
-                                <div class="col-md-2">Mobility Type:</div><div class="col-md-10">{{condition['mobility-type'].join(', ')}}</div>
-                            </div><div class="row">
-                                <div class="col-md-2">Term Title:</div>
-                                <div class="col-md-10">
-                                    <div ng-repeat="title in condition.term.title">
-                                        {{title.value}} ({{title.lang}})
+                                <div class="col-md-2">Organization Unit ID:</div><div class="col-md-10">{{iia.partner['organization-unit-id']}}</div>
+                            </div>
+                        </div>
+                        <div class="panel-heading">Conditions</div>
+                        <div class="list-group">
+                            <div class="list-group-item" ng-repeat="condition in iia.partner.condition">
+                                <div class="row">
+                                    <div class="col-md-2">Subject Area:</div><div class="col-md-10">{{condition['subject-area']}}</div>
+                                </div><div class="row">
+                                    <div class="col-md-2">Mobility Type:</div><div class="col-md-10">{{condition['mobility-type'].join(', ')}}</div>
+                                </div><div class="row">
+                                    <div class="col-md-2">Term Title:</div>
+                                    <div class="col-md-10">
+                                        <div ng-repeat="title in condition.term.title">
+                                            {{title.value}} ({{title.lang}})
+                                        </div>
                                     </div>
+                                </div><div class="row">
+                                    <div class="col-md-2">Term Start Date:</div><div class="col-md-10">{{condition.term['start-date'] | toDate | date: 'yyyy-MM-dd'}}</div>
+                                </div><div class="row">
+                                    <div class="col-md-2">Term End Date:</div><div class="col-md-10">{{condition.term['end-date'] | toDate | date: 'yyyy-MM-dd'}}</div>
                                 </div>
-                            </div><div class="row">
-                                <div class="col-md-2">Term Start Date:</div><div class="col-md-10">{{condition.term['start-date'] | toDate | date: 'yyyy-MM-dd'}}</div>
-                            </div><div class="row">
-                                <div class="col-md-2">Term End Date:</div><div class="col-md-10">{{condition.term['end-date'] | toDate | date: 'yyyy-MM-dd'}}</div>
                             </div>
                         </div>
                     </div>
-                </div>
-            </li>
-        </ul>
+                </li>
+            </ul>
+        </div>
     </div>
 </div>

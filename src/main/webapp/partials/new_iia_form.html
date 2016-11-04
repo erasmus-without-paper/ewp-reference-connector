@@ -1,116 +1,129 @@
-<div class="well page">
-    <h3>Create new IIA</h3>
+<nav class="navbar navbar-default">
+    <div class="container-fluid">
+        <div class="collapse navbar-collapse">
+            <ul class="nav navbar-nav">
+                <li><a href="#/home"><i class="glyphicon glyphicon-home"></i> Home</a></li>
+                <li><a href="#/iia"><b>IIA</b></a></li>
+            </ul>
+        </div>
+    </div>
+</nav>
 
-    <form ng-submit="saveNewIia()">
-    <div>
-        <label for="form-new-iia-institution">Institution</label>
-        <select id="form-new-iia-institution" class="form-control" ng-model="newIia.partner.institutionId" required="required">
-            <option value=""></option>
-            <option ng-repeat="institution in institutions" value="{{institution}}">{{institution}}</option>
-        </select><br>
-        <label for="form-new-iia-organization-unit">Organization Unit</label>
-        <select id="form-new-iia-organization-unit" class="form-control" ng-model="newIia.partner.organizationUnitId" required="required">
-            <option value=""></option>
-            <option value="ouid1">organizationUnit 1</option>
-            <option value="ouid2">organizationUnit 2</option>
-            <option value="ouid3">organizationUnit 3</option>
-            <option value="ouid4">organizationUnit 4</option>
-            <option value="ouid5">organizationUnit 5</option>
-        </select><br>
-        <div class="panel panel-default">
-            <div class="panel-heading clearfix">
-                <h4 class="pull-left">Conditions</h4>
-                <div class="btn-group pull-right">
-                    <button type="button" class="btn btn-default" ng-click="showConditionForm = true">
-                        <i class="glyphicon glyphicon-plus-sign"></i>
-                    </button>
+<div class="container">
+    <div class="well page">
+        <h3>Create new IIA</h3>
+
+        <form ng-submit="saveNewIia()">
+        <div>
+            <label for="form-new-iia-institution">Institution</label>
+            <select id="form-new-iia-institution" class="form-control" ng-model="newIia.partner.institutionId" required="required">
+                <option value=""></option>
+                <option ng-repeat="institution in institutions" value="{{institution}}">{{institution}}</option>
+            </select><br>
+            <label for="form-new-iia-organization-unit">Organization Unit</label>
+            <select id="form-new-iia-organization-unit" class="form-control" ng-model="newIia.partner.organizationUnitId" required="required">
+                <option value=""></option>
+                <option value="ouid1">organizationUnit 1</option>
+                <option value="ouid2">organizationUnit 2</option>
+                <option value="ouid3">organizationUnit 3</option>
+                <option value="ouid4">organizationUnit 4</option>
+                <option value="ouid5">organizationUnit 5</option>
+            </select><br>
+            <div class="panel panel-default">
+                <div class="panel-heading clearfix">
+                    <h4 class="pull-left">Conditions</h4>
+                    <div class="btn-group pull-right">
+                        <button type="button" class="btn btn-default" ng-click="showConditionForm = true">
+                            <i class="glyphicon glyphicon-plus-sign"></i>
+                        </button>
+                    </div>
                 </div>
-            </div>
-            <div class="list-group">
-                <div class="list-group-item" ng-repeat="condition in newIia.partner.condition">
-                    <div class="row">
-                        <div class="col-md-2">Subject Area:</div><div class="col-md-10">{{condition.subjectArea}}</div>
-                    </div><div class="row">
-                        <div class="col-md-2">Mobility Type:</div><div class="col-md-10">{{condition.mobilityType.join(', ')}}</div>
-                    </div><div class="row">
-                        <div class="col-md-2">Term Title:</div>
-                        <div class="col-md-10">
-                            <div ng-repeat="title in condition.term.title">
-                                {{title.title}} ({{title.lang}})
+                <div class="list-group">
+                    <div class="list-group-item" ng-repeat="condition in newIia.partner.condition">
+                        <div class="row">
+                            <div class="col-md-2">Subject Area:</div><div class="col-md-10">{{condition.subjectArea}}</div>
+                        </div><div class="row">
+                            <div class="col-md-2">Mobility Type:</div><div class="col-md-10">{{condition.mobilityType.join(', ')}}</div>
+                        </div><div class="row">
+                            <div class="col-md-2">Term Title:</div>
+                            <div class="col-md-10">
+                                <div ng-repeat="title in condition.term.title">
+                                    {{title.title}} ({{title.lang}})
+                                </div>
                             </div>
+                        </div><div class="row">
+                            <div class="col-md-2">Term Start Date:</div><div class="col-md-10">{{condition.term.startDate | date: 'yyyy-MM-dd'}}</div>
+                        </div><div class="row">
+                            <div class="col-md-2">Term End Date:</div><div class="col-md-10">{{condition.term.endDate | date: 'yyyy-MM-dd'}}</div>
                         </div>
-                    </div><div class="row">
-                        <div class="col-md-2">Term Start Date:</div><div class="col-md-10">{{condition.term.startDate | date: 'yyyy-MM-dd'}}</div>
-                    </div><div class="row">
-                        <div class="col-md-2">Term End Date:</div><div class="col-md-10">{{condition.term.endDate | date: 'yyyy-MM-dd'}}</div>
                     </div>
                 </div>
             </div>
-        </div>
-        <div class="input-group">
-            <div class="btn-group">
-                <button type="submit" class="btn btn-default" ng-disabled="newIia.partner.condition.length < 1">
-                    <span class="glyphicon glyphicon-ok-circle"></span> Save
-                </button>
-                <button type="button" class="btn btn-default" ng-click="cancelNewIia()">
-                    <span class="glyphicon glyphicon-remove-circle"></span> Cancel
-                </button>
-            </div>
-        </div>
-    </div>
-    </form>
-</div>
-
-<div class="panel panel-default" ng-show="showConditionForm">
-    <div class="panel-heading">
-        <h4>New Condition</h4>
-    </div>
-
-    <form ng-submit="addCondition()">
-        <div class="panel-body">
-            <label for="form-new-iia-condition-subject-area">Subject Area</label>
-            <input class="form-control" type="number" id="form-new-iia-condition-subject-area" ng-model="newCondition.subjectArea" required="required"/><br>
-            <label for="form-new-iia-condition-mobility-type">Mobility Type</label>
-            <select class="form-control" id="form-new-iia-condition-mobility-type" ng-model="newCondition.mobilityType" required="required" multiple>
-                <option>type1</option>
-                <option>type2</option>
-                <option>type3</option>
-            </select><br>
-
-
-            <div class="clearfix">
-                <label>Title</label>
-                <div class="btn-group pull-right">
-                    <button type="submit" class="btn btn-default" ng-click="addNewTitle()">
-                        <i class="glyphicon glyphicon-plus-sign"></i>
-                    </button>
-                </div>
-            </div>
-
-            <div class="row" ng-repeat="titleEntry in newCondition.term.title">
-                <div class="col-md-2">
-                    <input class="form-control" placeholder="Country" ng-model="titleEntry.lang"/>
-                </div>
-                <div class="col-md-10">
-                    <input class="form-control" placeholder="Title" ng-model="titleEntry.title" required="required" />
-                </div>
-            </div>
-
-            <label for="form-new-iia-condition-term-start-date">Start Date</label>
-            <input class="form-control" id="form-new-iia-condition-term-start-date" type="date" ng-model="newCondition.term.startDate" required="required"/><br>
-            <label for="form-new-iia-condition-term-end-date">End Date</label>
-            <input class="form-control" id="form-new-iia-condition-term-end-date" type="date" ng-model="newCondition.term.endDate" required="required"/><br>
-
             <div class="input-group">
                 <div class="btn-group">
-                    <button type="submit" class="btn btn-default">
-                        <span class="glyphicon glyphicon-ok-circle"></span> Add
+                    <button type="submit" class="btn btn-default" ng-disabled="newIia.partner.condition.length < 1">
+                        <span class="glyphicon glyphicon-ok-circle"></span> Save
                     </button>
-                    <button type="button" class="btn btn-default" ng-click="resetNewCondition()">
+                    <button type="button" class="btn btn-default" ng-click="cancelNewIia()">
                         <span class="glyphicon glyphicon-remove-circle"></span> Cancel
                     </button>
                 </div>
             </div>
         </div>
-    </form>
+        </form>
+    </div>
+
+    <div class="panel panel-default" ng-show="showConditionForm">
+        <div class="panel-heading">
+            <h4>New Condition</h4>
+        </div>
+
+        <form ng-submit="addCondition()">
+            <div class="panel-body">
+                <label for="form-new-iia-condition-subject-area">Subject Area</label>
+                <input class="form-control" type="number" id="form-new-iia-condition-subject-area" ng-model="newCondition.subjectArea" required="required"/><br>
+                <label for="form-new-iia-condition-mobility-type">Mobility Type</label>
+                <select class="form-control" id="form-new-iia-condition-mobility-type" ng-model="newCondition.mobilityType" required="required" multiple>
+                    <option>type1</option>
+                    <option>type2</option>
+                    <option>type3</option>
+                </select><br>
+
+
+                <div class="clearfix">
+                    <label>Title</label>
+                    <div class="btn-group pull-right">
+                        <button type="submit" class="btn btn-default" ng-click="addNewTitle()">
+                            <i class="glyphicon glyphicon-plus-sign"></i>
+                        </button>
+                    </div>
+                </div>
+
+                <div class="row" ng-repeat="titleEntry in newCondition.term.title">
+                    <div class="col-md-2">
+                        <input class="form-control" placeholder="Country" ng-model="titleEntry.lang"/>
+                    </div>
+                    <div class="col-md-10">
+                        <input class="form-control" placeholder="Title" ng-model="titleEntry.title" required="required" />
+                    </div>
+                </div>
+
+                <label for="form-new-iia-condition-term-start-date">Start Date</label>
+                <input class="form-control" id="form-new-iia-condition-term-start-date" type="date" ng-model="newCondition.term.startDate" required="required"/><br>
+                <label for="form-new-iia-condition-term-end-date">End Date</label>
+                <input class="form-control" id="form-new-iia-condition-term-end-date" type="date" ng-model="newCondition.term.endDate" required="required"/><br>
+
+                <div class="input-group">
+                    <div class="btn-group">
+                        <button type="submit" class="btn btn-default">
+                            <span class="glyphicon glyphicon-ok-circle"></span> Add
+                        </button>
+                        <button type="button" class="btn btn-default" ng-click="resetNewCondition()">
+                            <span class="glyphicon glyphicon-remove-circle"></span> Cancel
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </form>
+    </div>
 </div>
