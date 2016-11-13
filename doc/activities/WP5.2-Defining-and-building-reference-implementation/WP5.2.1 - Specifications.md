@@ -1,4 +1,4 @@
-WP5.2.1-Specifications
+## WP5.2.1-Specifications
 
 This reference connector demonstrates how a connector can be implemented. It has a built-in database to save persistent information.
 
