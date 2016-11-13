@@ -3,7 +3,7 @@
 The development is managed in a agile develoment method. A basic idea of an agile methods is that the work is carried out incrementally and iteratively which means working staggered by the functionality is done regularly on a schedule and that the plans and methods continuously evaluated and improved.
 
 The team consisting of:
-* 1 Architect 
+* 1 architect 
 * 2 developers 
 * 1 project manageer 
 * 1 DBA 
