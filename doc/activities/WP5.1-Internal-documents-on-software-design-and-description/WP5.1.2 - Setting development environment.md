@@ -1,8 +1,8 @@
 ## WP5.1.2 - Setting development environment
 
-...
+
 A development environment is a set of software that enables you to write programs for a particular language or platform. This software oftentimes includes a text editor, shell, and a compiler/interpreter.
-...
+
 
 ## Development environment
 In addition to the requirements for the EWP host, the following are also required
