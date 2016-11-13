@@ -3,7 +3,6 @@
 This reference connector demonstrates how a connector can be implemented. It has a built-in database to save persistent information.
 
 ### Requirements
-................
 
 Java 8
 Java EE container, such as Tom EE or Glassfish
