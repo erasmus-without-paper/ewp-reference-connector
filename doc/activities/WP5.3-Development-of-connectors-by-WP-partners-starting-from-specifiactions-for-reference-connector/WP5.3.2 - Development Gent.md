@@ -3,7 +3,9 @@
 
 ### contact information for local developing team
 
-**Resposible local projekt manager
+#### Leading Project manager
 * Name:
 * Email adress:
 * Telephone no:
+
+#### Local prerequisites
