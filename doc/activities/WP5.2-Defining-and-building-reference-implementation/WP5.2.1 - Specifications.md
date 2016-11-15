@@ -4,13 +4,13 @@ This reference connector demonstrates how a connector can be implemented. It has
 
 ### Requirements (technology stack)
 
-Java 8
-Java EE container, such as Tom EE or Glassfish
-Development environment
+* Java 8
+* Java EE container, such as Tom EE or Glassfish
+* Development environment
 
 In addition to the requirements for the EWP host, the following are also required
 
-Any Java IDE compatible with Java 8 and Maven
-Node.js
-Maven 3.3.9
-Git
+* Any Java IDE compatible with Java 8 and Maven
+* Node.js
+* Maven 3.3.9
+* Git
