@@ -8,4 +8,10 @@
 * Email adress:
 * Telephone no:
 
+#### Developing members
+* Name Surname, Email
+* Name Surname, Email
+
+#### Local Environment
+
 #### Local prerequisites
