@@ -1,12 +1,17 @@
 
 package eu.erasmuswithoutpaper.organization.entity;
 
+import eu.erasmuswithoutpaper.internal.StandardDateConverter;
 import java.io.Serializable;
+import java.util.Date;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.NamedQuery;
+import javax.persistence.Temporal;
+import javax.persistence.TemporalType;
+import org.apache.johnzon.mapper.JohnzonConverter;
 
 @Entity
 @NamedQuery(name = Person.findAll, query = "SELECT p FROM Person p")
@@ -22,7 +27,10 @@ public class Person implements Serializable {
     private String personId;
     private String firstNames;
     private String lastName;
-    private String birthDate;
+    
+    @JohnzonConverter(StandardDateConverter.class)
+    @Temporal(TemporalType.DATE)
+    private Date birthDate;
 
     public long getId() {
         return id;
@@ -57,11 +65,11 @@ public class Person implements Serializable {
         this.lastName = lastName;
     }
 
-    public String getBirthDate() {
+    public Date getBirthDate() {
         return birthDate;
     }
 
-    public void setBirthDate(String birthDate) {
+    public void setBirthDate(Date birthDate) {
         this.birthDate = birthDate;
     }
 
