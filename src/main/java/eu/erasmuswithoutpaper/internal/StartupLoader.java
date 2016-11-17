@@ -1,5 +1,6 @@
 package eu.erasmuswithoutpaper.internal;
 
+import eu.erasmuswithoutpaper.internal.control.GlobalPropertiesController;
 import eu.erasmuswithoutpaper.organization.preload.CoordinatorLoader;
 import eu.erasmuswithoutpaper.organization.preload.InstitutionLoader;
 import eu.erasmuswithoutpaper.organization.preload.PersonLoader;
@@ -15,10 +16,8 @@ import javax.inject.Inject;
 @Startup
 public class StartupLoader {
 
-    public enum University {
-        IKEA_U,
-        POMODORO_U
-    }
+    @Inject
+    private GlobalPropertiesController properties;
     
     @Inject
     private InstitutionLoader institutionLoader;
@@ -37,15 +36,17 @@ public class StartupLoader {
                 return;
             }
 
-            String ewpHost = System.getProperty("ewp.host");
-            if (ewpHost == null || ewpHost.equals("IKEA")) {
-                institutionLoader.createDemoData(University.IKEA_U);
-                personLoader.createDemoData(University.IKEA_U);
-                coordinatorLoader.createDemoData(University.IKEA_U);
-            } else {
-                institutionLoader.createDemoData(University.POMODORO_U);
-                personLoader.createDemoData(University.POMODORO_U);
-                coordinatorLoader.createDemoData(University.POMODORO_U);
+            switch (properties.getUniversity()) {
+                case IKEA_U:
+                    institutionLoader.createDemoDataIkea();
+                    personLoader.createDemoDataIkea();
+                    coordinatorLoader.createDemoDataIkea();
+                    break;
+                case POMODORO_U:
+                    institutionLoader.createDemoDataPomdoro();
+                    personLoader.createDemoDataPomdoro();
+                    coordinatorLoader.createDemoDataPomdoro();
+                    break;
             }
         } catch (IOException ex) {
             Logger.getLogger(StartupLoader.class.getName()).log(Level.SEVERE, null, ex);
