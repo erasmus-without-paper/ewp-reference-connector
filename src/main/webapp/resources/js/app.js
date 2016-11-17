@@ -1,5 +1,5 @@
 angular
-    .module('connector', ['home', 'echo', 'iia', 'institution', 'ngResource', 'ngRoute', 'person', 'coordinator'])
+    .module('connector', ['menu', 'home', 'echo', 'iia', 'institution', 'ngResource', 'ngRoute', 'person', 'coordinator'])
     .config(function ($routeProvider) {
         $routeProvider.when('/iia', {
                 templateUrl: 'partials/iia.html',
