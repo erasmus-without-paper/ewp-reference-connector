@@ -3,6 +3,7 @@ package eu.erasmuswithoutpaper.iia.entity;
 
 import java.io.Serializable;
 import java.util.Date;
+import java.util.Objects;
 import javax.persistence.Entity;
 import javax.persistence.Id;
 import javax.persistence.Temporal;
@@ -61,5 +62,31 @@ public class Iia implements Serializable{
     public void setModifyDate(Date modifyDate) {
         this.modifyDate = modifyDate;
     }
+
+    @Override
+    public int hashCode() {
+        int hash = 7;
+        hash = 71 * hash + Objects.hashCode(this.iiaId);
+        return hash;
+    }
+
+    @Override
+    public boolean equals(Object obj) {
+        if (this == obj) {
+            return true;
+        }
+        if (obj == null) {
+            return false;
+        }
+        if (getClass() != obj.getClass()) {
+            return false;
+        }
+        final Iia other = (Iia) obj;
+        if (!Objects.equals(this.iiaId, other.iiaId)) {
+            return false;
+        }
+        return true;
+    }
+    
     
 }

@@ -17,6 +17,8 @@
         <class>eu.erasmuswithoutpaper.organization.entity.Institution</class>
         <class>eu.erasmuswithoutpaper.organization.entity.OrganizationUnit</class>
         <class>eu.erasmuswithoutpaper.organization.entity.Person</class>
+        <class>eu.erasmuswithoutpaper.organization.entity.LanguageItem</class>
+        
         <properties>
             <property name="javax.persistence.jdbc.url" value="jdbc:derby:memory:testDB;create=true"/>
             <property name="javax.persistence.jdbc.driver" value="org.apache.derby.jdbc.EmbeddedDriver"/>

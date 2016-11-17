@@ -26,8 +26,7 @@ public class LearningOpportunityInstanceTest {
 
     @Test
     public void testPersistLearningOpportunityInstance() {
-        LearningOpportunityInstance loi = new LearningOpportunityInstance();
-        loi.setLearningOpportunityInstanceId(new LearningOpportunityInstanceId("InstId1", "1234", "Term1"));
+        LearningOpportunityInstance loi = new LearningOpportunityInstance("InstId1", "1234", "Term1");
         loi.setCredits("10");
         
         this.tx.begin();
@@ -35,7 +34,7 @@ public class LearningOpportunityInstanceTest {
         this.tx.commit();
         this.em.clear();
         
-        LearningOpportunityInstance result = em.find(LearningOpportunityInstance.class, new LearningOpportunityInstanceId("InstId1", "1234", "Term1"));
+        LearningOpportunityInstance result = em.find(LearningOpportunityInstance.class, loi.getId());
         Assert.assertNotNull(result);
         Assert.assertEquals("10", result.getCredits());
     }

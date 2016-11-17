@@ -26,17 +26,23 @@ public class CoordinatorTest {
 
     @Test
     public void testPersistCoordinator() {
-        Coordinator coordinator = new Coordinator();
-        coordinator.setCoordinatorId(new CoordinatorId("instId1", "unitId1", "9002023344", "roleId1"));
+        Person person = new Person();
+        person.setPersonId("9002023344");
+        person.setFirstNames("Albin");
+        person.setLastName("Ek");
+        Coordinator coordinator = new Coordinator("instId1", "unitId1", CoordinatorHeader.COURSE);
+        coordinator.setPerson(person);
         
         this.tx.begin();
+        this.em.persist(person);
         this.em.persist(coordinator);
         this.tx.commit();
         this.em.clear();
         
-        Coordinator result = em.find(Coordinator.class, new CoordinatorId("instId1", "unitId1", "9002023344", "roleId1"));
+        long id = coordinator.getId();
+        Coordinator result = em.find(Coordinator.class, id);
         Assert.assertNotNull(result);
-        Assert.assertEquals("9002023344", result.getCoordinatorId().getPersonId());
+        Assert.assertEquals("9002023344", result.getPerson().getPersonId());
     }
 
 }

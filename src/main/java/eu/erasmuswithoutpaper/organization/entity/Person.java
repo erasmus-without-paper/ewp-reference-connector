@@ -2,23 +2,37 @@
 package eu.erasmuswithoutpaper.organization.entity;
 
 import java.io.Serializable;
-import java.util.Date;
 import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
 import javax.persistence.Id;
-import javax.persistence.Temporal;
-import javax.persistence.TemporalType;
+import javax.persistence.NamedQuery;
 
 @Entity
-public class Person implements Serializable{
+@NamedQuery(name = Person.findAll, query = "SELECT p FROM Person p")
+public class Person implements Serializable {
     
     @Id
-    private String personId;
-    private String firstName;
-    private String lastName;
+    @GeneratedValue(strategy=GenerationType.AUTO)
+    private long id;
     
-    @Temporal(TemporalType.DATE)
-    private Date birthDay;
+    private static final String PREFIX = "eu.erasmuswithoutpaper.organization.entity.Person.";
+    public static final String findAll = PREFIX + "all";
+    
+    private String personId;
+    private String firstNames;
+    private String lastName;
+    private String birthDate;
 
+    public long getId() {
+        return id;
+    }
+
+    public void setId(long id) {
+        this.id = id;
+    }
+
+    
     public String getPersonId() {
         return personId;
     }
@@ -27,12 +41,12 @@ public class Person implements Serializable{
         this.personId = personId;
     }
 
-    public String getFirstName() {
-        return firstName;
+    public String getFirstNames() {
+        return firstNames;
     }
 
-    public void setFirstName(String firstName) {
-        this.firstName = firstName;
+    public void setFirstNames(String firstNames) {
+        this.firstNames = firstNames;
     }
 
     public String getLastName() {
@@ -43,12 +57,38 @@ public class Person implements Serializable{
         this.lastName = lastName;
     }
 
-    public Date getBirthDay() {
-        return birthDay;
+    public String getBirthDate() {
+        return birthDate;
     }
 
-    public void setBirthDay(Date birthDay) {
-        this.birthDay = birthDay;
+    public void setBirthDate(String birthDate) {
+        this.birthDate = birthDate;
     }
+
+    @Override
+    public int hashCode() {
+        int hash = 5;
+        hash = 89 * hash + (int) (this.id ^ (this.id >>> 32));
+        return hash;
+    }
+
+    @Override
+    public boolean equals(Object obj) {
+        if (this == obj) {
+            return true;
+        }
+        if (obj == null) {
+            return false;
+        }
+        if (getClass() != obj.getClass()) {
+            return false;
+        }
+        final Person other = (Person) obj;
+        if (this.id != other.id) {
+            return false;
+        }
+        return true;
+    }
+    
     
 }

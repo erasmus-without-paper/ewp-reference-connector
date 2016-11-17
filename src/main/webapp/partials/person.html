@@ -1,0 +1,89 @@
+<nav class="navbar navbar-default">
+    <div class="container-fluid">
+        <div class="collapse navbar-collapse">
+            <ul class="nav navbar-nav">
+                <li><a href="#/home"><i class="glyphicon glyphicon-home"></i> Home</a></li>
+                <li><a href="#/institution">Institution</a></li>
+                <li><a href="#/coordinator">Coordinator</a></li>
+                <li><a href="#/person"><b>Person</b></a></li>
+            </ul>
+        </div>
+    </div>
+</nav>
+
+<div class="container">
+    <div class="well page">
+        <div class="list-group-item" ng-show="showAddPersonForm">
+            <h3>Add Person</h3>
+            <form class="form-horizontal"  ng-submit="addPerson()">
+                <div class="form-group">
+                    <label class="control-label col-sm-2" for="pnr">Person Id:</label>
+                    <div class="col-sm-10">
+                        <input id="pnr" type="text" class="form-control" placeholder="Enter person identifier" ng-model="newPerson.personId" required="required">
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label class="control-label col-sm-2" for="fname">First names:</label>
+                    <div class="col-sm-10">
+                        <input id="fname" type="text" class="form-control" placeholder="Enter first names" ng-model="newPerson.firstNames" required="required">
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label class="control-label col-sm-2" for="lname">Last name:</label>
+                    <div class="col-sm-10">
+                        <input id="lname" type="text" class="form-control" placeholder="Enter last name" ng-model="newPerson.lastName" required="required">
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label class="control-label col-sm-2" for="bday">Birth date:</label>
+                    <div class="col-sm-10">
+                        <input id="bday" type="date" class="form-control" placeholder="Enter birth date" ng-model="newPerson.birthDate" required="required">
+                    </div>
+                </div>
+                <div class="input-group">
+                    <div class="btn-group">
+                        <button type="submit" class="btn btn-default">
+                            <span class="glyphicon glyphicon-ok-circle"></span> Save
+                        </button>
+                        <button type="button" class="btn btn-default" ng-click="cancelAddPerson()">
+                            <span class="glyphicon glyphicon-remove-circle"></span> Cancel
+                        </button>
+                    </div>
+                </div>
+            </form>
+        </div>        
+        
+        <div class="clearfix">
+            <h3 class="pull-left">Persons</h3>
+            <div class="btn-group pull-right" ng-show="!showAddPersonForm">
+                <button type="submit" class="btn btn-default" ng-click="showAddPersonForm = true">
+                    <i class="glyphicon glyphicon-plus-sign"></i>
+                </button>
+            </div>
+        </div>
+
+        <div class="input-group">
+            <input class="form-control" id="search" name="search" placeholder="Search for" ng-model="query"
+                   required="required"/>
+              <span class="input-group-btn">
+                  <button type="submit" class="btn btn-default">
+                      <i class="glyphicon glyphicon-search"></i>
+                  </button>
+              </span>
+        </div>
+        <div class="list-group">
+            <div class="list-group-item">
+                <div ng-repeat="person in persons | filter:query" ng-click="isopen[person.personId] = !isopen[person.personId]">
+                    <a class="list-group-item">
+                        <b>{{person.personId}} - {{person.firstNames}} {{person.lastName}}</b>
+                        <i class="pull-right glyphicon" ng-class="{'glyphicon-chevron-down': isopen[person.personId], 'glyphicon-chevron-right': !isopen[person.personId]}"></i>
+                    </a>
+                    <div class="list-group-item" ng-show="isopen[person.personId]">
+                        Birth date: {{person.birthDate | date: 'yyyy-MM-dd'}}<br/>
+                        URL: http://example.com<br/>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

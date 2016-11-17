@@ -28,16 +28,14 @@ public class CooperationConditionTest {
     @Test
     public void testPersistCondition() {
         CooperationCondition cooperationCondition = new CooperationCondition();
-        CooperationConditionId id = new CooperationConditionId();
-        id.setIiaId("iiaId1");
-        id.setFromInstitutionId("instId1");
-        id.setFromOrganizationUnitId("orgUnitId1");
-        id.setToInstitutionId("instId2");
-        id.setToOrganizationUnitId("orgUnitId2");
-        id.setMobilityType(CooperationConditionMobilityType.STAFF_TEACHING);
-        id.setStartDate(new Date());
-        id.setEndDate(new Date());
-        cooperationCondition.setCooperationConditionId(id);
+        cooperationCondition.setIiaId("iiaId1");
+        cooperationCondition.setFromInstitutionId("instId1");
+        cooperationCondition.setFromOrganizationUnitId("orgUnitId1");
+        cooperationCondition.setToInstitutionId("instId2");
+        cooperationCondition.setToOrganizationUnitId("orgUnitId2");
+        cooperationCondition.setMobilityType(CooperationConditionMobilityType.STAFF_TEACHING);
+        cooperationCondition.setStartDate(new Date());
+        cooperationCondition.setEndDate(new Date());
         cooperationCondition.setEqfLevel("Level1");
         cooperationCondition.setMobilityNumberVariant(CooperationConditionMobilityNumberVariant.TOTAL);
         
@@ -46,10 +44,10 @@ public class CooperationConditionTest {
         this.tx.commit();
         this.em.clear();
      
-        CooperationCondition result = em.find(CooperationCondition.class, id);
+        CooperationCondition result = em.find(CooperationCondition.class, cooperationCondition.getId());
         Assert.assertNotNull(result);
         Assert.assertEquals("Level1", result.getEqfLevel());
-        Assert.assertEquals(CooperationConditionMobilityType.STAFF_TEACHING, result.getCooperationConditionId().getMobilityType());
+        Assert.assertEquals(CooperationConditionMobilityType.STAFF_TEACHING, result.getMobilityType());
         Assert.assertEquals(CooperationConditionMobilityNumberVariant.TOTAL, result.getMobilityNumberVariant());
     }
 

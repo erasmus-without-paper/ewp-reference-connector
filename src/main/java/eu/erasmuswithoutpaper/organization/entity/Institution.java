@@ -5,23 +5,48 @@ import java.io.Serializable;
 import java.util.List;
 import javax.persistence.CascadeType;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
 import javax.persistence.Id;
-import javax.persistence.JoinColumn;
+import javax.persistence.JoinTable;
+import javax.persistence.NamedQuery;
 import javax.persistence.OneToMany;
 
 @Entity
+@NamedQuery(name = Institution.findAll, query = "SELECT i FROM Institution i")
 public class Institution implements Serializable{
 
     @Id
+    @GeneratedValue(strategy=GenerationType.AUTO)
+    long id;
+    
+    private static final String PREFIX = "eu.erasmuswithoutpaper.organization.entity.Institution.";
+    public static final String findAll = PREFIX + "all";
+
     private String institutionId;
     private String otherId;
-    private String name;
     private String country;
-    private String description;
+
+    @OneToMany(cascade = CascadeType.ALL, fetch = FetchType.EAGER, orphanRemoval=true)
+    @JoinTable(name = "institution_name")
+    private List<LanguageItem> name;
     
-    @OneToMany(cascade = CascadeType.ALL, orphanRemoval=true)
-    @JoinColumn(name = "organization_unit_id")
-    private List<OrganizationUnit> organinazationUnits;
+    @OneToMany(cascade = CascadeType.ALL, fetch = FetchType.EAGER, orphanRemoval=true)
+    @JoinTable(name = "institution_descr")
+    private List<LanguageItem> description;
+    
+    @OneToMany(cascade = CascadeType.ALL, fetch = FetchType.EAGER, orphanRemoval=true)
+    @JoinTable(name = "inst_org_unit")
+    private List<OrganizationUnit> organizationUnits;
+
+    public long getId() {
+        return id;
+    }
+
+    public void setId(long id) {
+        this.id = id;
+    }
 
     public String getInstitutionId() {
         return institutionId;
@@ -39,11 +64,11 @@ public class Institution implements Serializable{
         this.otherId = otherId;
     }
 
-    public String getName() {
+    public List<LanguageItem> getName() {
         return name;
     }
 
-    public void setName(String name) {
+    public void setName(List<LanguageItem> name) {
         this.name = name;
     }
 
@@ -55,20 +80,46 @@ public class Institution implements Serializable{
         this.country = country;
     }
 
-    public String getDescription() {
+    public List<LanguageItem> getDescription() {
         return description;
     }
 
-    public void setDescription(String description) {
+    public void setDescription(List<LanguageItem> description) {
         this.description = description;
     }
 
-    public List<OrganizationUnit> getOrganinazationUnits() {
-        return organinazationUnits;
+    public List<OrganizationUnit> getOrganizationUnits() {
+        return organizationUnits;
     }
 
-    public void setOrganinazationUnits(List<OrganizationUnit> organinazationUnits) {
-        this.organinazationUnits = organinazationUnits;
+    public void setOrganizationUnits(List<OrganizationUnit> organizationUnits) {
+        this.organizationUnits = organizationUnits;
     }
+
+    @Override
+    public int hashCode() {
+        int hash = 7;
+        hash = 31 * hash + (int) (this.id ^ (this.id >>> 32));
+        return hash;
+    }
+
+    @Override
+    public boolean equals(Object obj) {
+        if (this == obj) {
+            return true;
+        }
+        if (obj == null) {
+            return false;
+        }
+        if (getClass() != obj.getClass()) {
+            return false;
+        }
+        final Institution other = (Institution) obj;
+        if (this.id != other.id) {
+            return false;
+        }
+        return true;
+    }
+    
     
 }

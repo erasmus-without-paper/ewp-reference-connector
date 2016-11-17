@@ -1,19 +1,35 @@
 
 package eu.erasmuswithoutpaper.course.entity;
 
+import eu.erasmuswithoutpaper.organization.entity.LanguageItem;
 import java.io.Serializable;
 import java.util.Date;
-import javax.persistence.EmbeddedId;
+import java.util.List;
+import javax.persistence.CascadeType;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
+import javax.persistence.JoinTable;
+import javax.persistence.OneToMany;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
 
 @Entity
 public class AcademicTerm implements Serializable{
 
-    @EmbeddedId
-    private AcademicTermId academicTermId;
-    private String dispName;
+    @Id
+    @GeneratedValue(strategy=GenerationType.AUTO)
+    long id;
+    
+    private String institutionId;
+    private String organizationUnitId;
+    private String termName;
+
+    @OneToMany(cascade = CascadeType.ALL, fetch = FetchType.EAGER, orphanRemoval=true)
+    @JoinTable(name = "academic_term_name")
+    private List<LanguageItem> dispName;
     
     @Temporal(TemporalType.DATE)
     private Date startDate;
@@ -21,19 +37,52 @@ public class AcademicTerm implements Serializable{
     @Temporal(TemporalType.DATE)
     private Date endDate;
 
-    public AcademicTermId getAcademicTermId() {
-        return academicTermId;
+    public AcademicTerm(){
+    }
+    
+    public AcademicTerm(String institutionId, String organizationUnitId, String termName) {
+        this.institutionId = institutionId;
+        this.organizationUnitId = organizationUnitId;
+        this.termName = termName;
     }
 
-    public void setAcademicTermId(AcademicTermId academicTermId) {
-        this.academicTermId = academicTermId;
+    public long getId() {
+        return id;
     }
 
-    public String getDispName() {
+    public void setId(long id) {
+        this.id = id;
+    }
+
+    public String getInstitutionId() {
+        return institutionId;
+    }
+
+    public void setInstitutionId(String institutionId) {
+        this.institutionId = institutionId;
+    }
+
+    public String getOrganizationUnitId() {
+        return organizationUnitId;
+    }
+
+    public void setOrganizationUnitId(String organizationUnitId) {
+        this.organizationUnitId = organizationUnitId;
+    }
+
+    public String getTermName() {
+        return termName;
+    }
+
+    public void setTermName(String termName) {
+        this.termName = termName;
+    }
+
+    public List<LanguageItem> getDispName() {
         return dispName;
     }
 
-    public void setDispName(String dispName) {
+    public void setDispName(List<LanguageItem> dispName) {
         this.dispName = dispName;
     }
 
@@ -52,5 +101,29 @@ public class AcademicTerm implements Serializable{
     public void setEndDate(Date endDate) {
         this.endDate = endDate;
     }
-    
+
+    @Override
+    public int hashCode() {
+        int hash = 5;
+        hash = 37 * hash + (int) (this.id ^ (this.id >>> 32));
+        return hash;
+    }
+
+    @Override
+    public boolean equals(Object obj) {
+        if (this == obj) {
+            return true;
+        }
+        if (obj == null) {
+            return false;
+        }
+        if (getClass() != obj.getClass()) {
+            return false;
+        }
+        final AcademicTerm other = (AcademicTerm) obj;
+        if (this.id != other.id) {
+            return false;
+        }
+        return true;
+    }
 }

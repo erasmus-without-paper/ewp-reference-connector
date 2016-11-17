@@ -1,6 +1,9 @@
 
 package eu.erasmuswithoutpaper.course.entity;
 
+import eu.erasmuswithoutpaper.organization.entity.LanguageItem;
+import java.util.ArrayList;
+import java.util.List;
 import javax.persistence.EntityManager;
 import javax.persistence.EntityTransaction;
 import javax.persistence.Persistence;
@@ -26,18 +29,20 @@ public class AcademicTermTest {
 
     @Test
     public void testPersistAcademicTerm() {
-        AcademicTerm academicTerm = new AcademicTerm();
-        academicTerm.setAcademicTermId(new AcademicTermId("InstId3", "OrgUnitId3", "TestTerm"));
-        academicTerm.setDispName("DispName");
+        AcademicTerm academicTerm = new AcademicTerm("InstId3", "OrgUnitId3", "TestTerm");
+        List<LanguageItem> dispName = new ArrayList();
+        LanguageItem dispNameEn = new LanguageItem("DispNameEn", LanguageItem.ENGLISH);
+        dispName.add(dispNameEn);
+        academicTerm.setDispName(dispName);
         
         this.tx.begin();
         this.em.persist(academicTerm);
         this.tx.commit();
         this.em.clear();
         
-        AcademicTerm result = em.find(AcademicTerm.class, new AcademicTermId("InstId3", "OrgUnitId3", "TestTerm"));
+        AcademicTerm result = em.find(AcademicTerm.class, academicTerm.getId());
         Assert.assertNotNull(result);
-        Assert.assertEquals("DispName", result.getDispName());
+        Assert.assertEquals("DispNameEn", result.getDispName().get(0).getText());
     }
 
 }

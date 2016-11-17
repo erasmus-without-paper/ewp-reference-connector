@@ -29,17 +29,16 @@ public class LearningAgreementTest {
 
     @Test
     public void testPersistLearningAgreement() {
-        LearningAgreement learningAgreement = new LearningAgreement();
-        learningAgreement.setLearningAgreementId(new LearningAgreementId("laId1", 1, 2));
+        LearningAgreement learningAgreement = new LearningAgreement("laId1", 1, 2);
         
         this.tx.begin();
         this.em.persist(learningAgreement);
         this.tx.commit();
         this.em.clear();
         
-        LearningAgreement result = em.find(LearningAgreement.class, new LearningAgreementId("laId1", 1, 2));
+        LearningAgreement result = em.find(LearningAgreement.class, learningAgreement.getId());
         assertNotNull(result);
-        assertEquals("laId1", result.getLearningAgreementId().getMobilityId());
+        assertEquals("laId1", result.getMobilityId());
     }
     
 }

@@ -1,25 +1,66 @@
 
 package eu.erasmuswithoutpaper.course.entity;
 
+import eu.erasmuswithoutpaper.organization.entity.LanguageItem;
 import java.io.Serializable;
-import javax.persistence.EmbeddedId;
+import java.util.List;
+import javax.persistence.CascadeType;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
+import javax.persistence.JoinTable;
+import javax.persistence.OneToMany;
 
-@Entity
+@Entity(name = "LOS")
 public class LearningOpportunitySpecification implements Serializable{
     
-    @EmbeddedId
-    private LearningOpportunitySpecificationId learningOpportunitySpecificationId;
-    private String type;
-    private String name;
-    private String description;
+    @Id
+    @GeneratedValue(strategy=GenerationType.AUTO)
+    long id;
 
-    public LearningOpportunitySpecificationId getLearningOpportunitySpecificationId() {
-        return learningOpportunitySpecificationId;
+    private String institutionId;
+    private String losCode;
+    private String type;
+    
+    @OneToMany(cascade = CascadeType.ALL, fetch = FetchType.EAGER, orphanRemoval=true)
+    @JoinTable(name = "los_name")
+    private List<LanguageItem> name;
+    
+    @OneToMany(cascade = CascadeType.ALL, fetch = FetchType.EAGER, orphanRemoval=true)
+    @JoinTable(name = "los_descr")
+    private List<LanguageItem> description;
+
+    public LearningOpportunitySpecification() {}
+    public LearningOpportunitySpecification(String institutionId, String losCode) {
+        this.institutionId = institutionId;
+        this.losCode = losCode;
     }
 
-    public void setLearningOpportunitySpecificationId(LearningOpportunitySpecificationId learningOpportunitySpecificationId) {
-        this.learningOpportunitySpecificationId = learningOpportunitySpecificationId;
+    public long getId() {
+        return id;
+    }
+
+    public void setId(long id) {
+        this.id = id;
+    }
+
+    
+    public String getInstitutionId() {
+        return institutionId;
+    }
+
+    public void setInstitutionId(String institutionId) {
+        this.institutionId = institutionId;
+    }
+
+    public String getLosCode() {
+        return losCode;
+    }
+
+    public void setLosCode(String losCode) {
+        this.losCode = losCode;
     }
 
     public String getType() {
@@ -30,20 +71,45 @@ public class LearningOpportunitySpecification implements Serializable{
         this.type = type;
     }
 
-    public String getName() {
+    public List<LanguageItem> getName() {
         return name;
     }
 
-    public void setName(String name) {
+    public void setName(List<LanguageItem> name) {
         this.name = name;
     }
 
-    public String getDescription() {
+    public List<LanguageItem> getDescription() {
         return description;
     }
 
-    public void setDescription(String description) {
+    public void setDescription(List<LanguageItem> description) {
         this.description = description;
     }
-    
+
+    @Override
+    public int hashCode() {
+        int hash = 5;
+        hash = 37 * hash + (int) (this.id ^ (this.id >>> 32));
+        return hash;
+    }
+
+    @Override
+    public boolean equals(Object obj) {
+        if (this == obj) {
+            return true;
+        }
+        if (obj == null) {
+            return false;
+        }
+        if (getClass() != obj.getClass()) {
+            return false;
+        }
+        final LearningOpportunitySpecification other = (LearningOpportunitySpecification) obj;
+        if (this.id != other.id) {
+            return false;
+        }
+        return true;
+    }
+
 }

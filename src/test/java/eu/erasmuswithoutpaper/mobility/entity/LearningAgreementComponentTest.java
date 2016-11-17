@@ -27,15 +27,13 @@ public class LearningAgreementComponentTest {
     @Test
     public void testPersistLearningAgreementComponent() {
         LearningAgreementComponent learningAgreementComponent = new LearningAgreementComponent();
-        LearningAgreementComponentId id = new LearningAgreementComponentId();
-        id.setInstitutionId("instId1");
-        id.setOrganizationUnitId("orgUnitId1");
-        id.setMobilityId("mobId1");
-        id.setMobilityRevision(1);
-        id.setLearningAgreementRevision(2);
-        id.setTermName("term1");
-        id.setLosCode("AAA111");
-        learningAgreementComponent.setLearningAgreementComponentId(id);
+        learningAgreementComponent.setInstitutionId("instId1");
+        learningAgreementComponent.setOrganizationUnitId("orgUnitId1");
+        learningAgreementComponent.setMobilityId("mobId1");
+        learningAgreementComponent.setMobilityRevision(1);
+        learningAgreementComponent.setLearningAgreementRevision(2);
+        learningAgreementComponent.setTermName("term1");
+        learningAgreementComponent.setLosCode("AAA111");
         learningAgreementComponent.setStatus(LearningAgreementComponentStatus.RECOMMENDED);
         
         this.tx.begin();
@@ -43,9 +41,9 @@ public class LearningAgreementComponentTest {
         this.tx.commit();
         this.em.clear();
         
-        LearningAgreementComponent result = em.find(LearningAgreementComponent.class, id);
+        LearningAgreementComponent result = em.find(LearningAgreementComponent.class, learningAgreementComponent.getId());
         Assert.assertNotNull(result);
-        Assert.assertEquals("AAA111", result.getLearningAgreementComponentId().getLosCode());
+        Assert.assertEquals("AAA111", result.getLosCode());
         Assert.assertEquals(LearningAgreementComponentStatus.RECOMMENDED, result.getStatus());
     }
     

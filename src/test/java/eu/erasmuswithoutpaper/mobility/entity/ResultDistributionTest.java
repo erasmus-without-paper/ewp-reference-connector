@@ -27,22 +27,20 @@ public class ResultDistributionTest {
     @Test
     public void testPersistResultDistribution() {
         ResultDistribution resultDistribution = new ResultDistribution();
-        ResultDistributionId id = new ResultDistributionId();
-        id.setInstitutionId("InstId1");
-        id.setLabel("TestLabel");
-        id.setLosCode("Los1");
-        id.setTermName("TestTerm");
-        resultDistribution.setResultDistributionId(id);
-        resultDistribution.setCount(3);
+        resultDistribution.setInstitutionId("InstId1");
+        resultDistribution.setLabel("TestLabel");
+        resultDistribution.setLosCode("Los1");
+        resultDistribution.setTermName("TestTerm");
+        resultDistribution.setDistrubutionCount(3);
         
         this.tx.begin();
         this.em.persist(resultDistribution);
         this.tx.commit();
         this.em.clear();
         
-        ResultDistribution result = em.find(ResultDistribution.class, id);
+        ResultDistribution result = em.find(ResultDistribution.class, resultDistribution.getId());
         Assert.assertNotNull(result);
-        Assert.assertEquals(3, result.getCount());
+        Assert.assertEquals(3, result.getDistrubutionCount());
     }
     
 }

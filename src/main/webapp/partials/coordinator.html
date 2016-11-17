@@ -1,0 +1,100 @@
+<nav class="navbar navbar-default">
+    <div class="container-fluid">
+        <div class="collapse navbar-collapse">
+            <ul class="nav navbar-nav">
+                <li><a href="#/home"><i class="glyphicon glyphicon-home"></i> Home</a></li>
+                <li><a href="#/institution">Institution</a></li>
+                <li><a href="#/coordinator"><b>Coordinator</b></a></li>
+                <li><a href="#/person">Person</a></li>
+            </ul>
+        </div>
+    </div>
+</nav>
+
+<div class="container">
+    <div class="well page">
+        <div class="list-group-item" ng-show="showAddCoordinatorForm">
+            <h3>Add Coordinator</h3>
+            <form class="form-horizontal"  ng-submit="addCoordinator()">
+                <div class="form-group">
+                    <label class="control-label col-sm-2" for="institution">Institution:</label>
+                    <div class="col-sm-10">
+                        <select id="institution" class="form-control" ng-model="newCoordinator.institutionId" required="required" ng-change="institutionChanged()">
+                            <option style="display:none" value="">select an institution</option>
+                            <option ng-repeat="inst in institutions" value="{{inst.institutionId}}">{{(inst.name | languageItem : 'en').text}}, {{inst.country}}</option>
+                        </select>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label class="control-label col-sm-2" for="institution">Organization Unit:</label>
+                    <div class="col-sm-10">
+                        <select id="institution" class="form-control" ng-model="newCoordinator.organizationUnitId" required="required">
+                            <option style="display:none" value="">select an organization unit</option>
+                            <option ng-repeat="org in organizations" value="{{org.organizationUnitId}}">{{(org.name | languageItem : 'en').text}}, {{org.country}}</option>
+                        </select>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label class="control-label col-sm-2" for="institution">Person:</label>
+                    <div class="col-sm-10">
+                        <select id="institution" class="form-control" ng-model="newCoordinator.personId" required="required">
+                            <option style="display:none" value="">select a person</option>
+                            <option ng-repeat="person in persons" value="{{person.personId}}">{{person.personId}} - {{person.firstNames}} {{person.lastName}}</option>
+                        </select>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label class="control-label col-sm-2" for="institution">Header:</label>
+                    <div class="col-sm-10">
+                        <select id="institution" class="form-control" ng-model="newCoordinator.header" required="required">
+                            <option style="display:none" value="">select a header</option>
+                            <option ng-repeat="header in headers" value="{{header | uppercase}}">{{header}}</option>
+                        </select>
+                    </div>
+                </div>
+                <div class="input-group">
+                    <div class="btn-group">
+                        <button type="submit" class="btn btn-default">
+                            <span class="glyphicon glyphicon-ok-circle"></span> Save
+                        </button>
+                        <button type="button" class="btn btn-default" ng-click="cancelAddCoordinator()">
+                            <span class="glyphicon glyphicon-remove-circle"></span> Cancel
+                        </button>
+                    </div>
+                </div>
+            </form>
+        </div>
+        <div class="clearfix">
+            <h3 class="pull-left">Coordinators</h3>
+            <div class="btn-group pull-right" ng-show="!showAddCoordinatorForm">
+                <button type="submit" class="btn btn-default" ng-click="viewAddCoordinatorForm()">
+                    <i class="glyphicon glyphicon-plus-sign"></i>
+                </button>
+            </div>
+        </div>
+        <div class="input-group">
+            <input class="form-control" id="search" name="search" placeholder="Search for" ng-model="query"
+            required="required"/>
+            <span class="input-group-btn">
+                <button type="submit" class="btn btn-default">
+                    <i class="glyphicon glyphicon-search"></i>
+                </button>
+            </span>
+        </div>
+        <div class="list-group">
+            <div class="list-group-item">
+                <div ng-repeat="coordinator in coordinators | filter:query" ng-click="isopen[coordinator.id] = !isopen[coordinator.id]">
+                    <a class="list-group-item">
+                        <b>{{coordinator.person.personId}} - {{coordinator.person.firstNames}} {{coordinator.person.lastName}}</b>
+                        <i class="pull-right glyphicon" ng-class="{'glyphicon-chevron-down': isopen[coordinator.id], 'glyphicon-chevron-right': !isopen[coordinator.id]}"></i>
+                    </a>
+                    <div class="list-group-item" ng-show="isopen[coordinator.id]">
+                        Institution Id: {{coordinator.institutionId}}<br/>
+                        Organization Unit Id: {{coordinator.organizationUnitId}}<br/>
+                        Header: {{coordinator.header}}<br/>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

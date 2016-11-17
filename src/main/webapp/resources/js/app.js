@@ -1,5 +1,5 @@
 angular
-    .module('connector', ['echo', 'iia', 'institution', 'ngResource', 'ngRoute'])
+    .module('connector', ['home', 'echo', 'iia', 'institution', 'ngResource', 'ngRoute', 'person', 'coordinator'])
     .config(function ($routeProvider) {
         $routeProvider.when('/iia', {
                 templateUrl: 'partials/iia.html',
@@ -22,10 +22,12 @@ angular
                 templateUrl: 'partials/todo.html'
             }).when('/mobility', {
                 templateUrl: 'partials/todo.html'
-            }).when('/coordinators', {
-                templateUrl: 'partials/todo.html'
+            }).when('/coordinator', {
+                templateUrl: 'partials/coordinator.html',
+                controller: 'CoordinatorController'
             }).when('/person', {
-                templateUrl: 'partials/todo.html'
+                templateUrl: 'partials/person.html',
+                controller: 'PersonController'
             }).otherwise({
                 redirectTo: '/home'
             });
@@ -39,5 +41,15 @@ angular
             return date;
         };
     })
-    .controller('HomeController', function ($scope) {
+    .filter('languageItem', function() {
+        return function(languageList, lang) {
+            var languageObject;
+            angular.forEach(languageList, function(item) {
+                if (item.lang === lang) {
+                    languageObject = item;
+                }
+            });
+
+            return languageObject ? languageObject : languageList[0];
+        };
     });

@@ -1,7 +1,7 @@
 
 package eu.erasmuswithoutpaper.organization.boundary;
 
-import eu.erasmuswithoutpaper.organization.entity.Institution;
+import eu.erasmuswithoutpaper.organization.entity.Coordinator;
 import java.util.List;
 import javax.ejb.Stateless;
 import javax.persistence.EntityManager;
@@ -15,28 +15,24 @@ import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.Response;
 
 @Stateless
-@Path("institution")
-public class GuiInstitutionResource {
+@Path("coordinator")
+public class GuiCoordinatorResource {
     @PersistenceContext(unitName = "connector")
     EntityManager em;
     
     @POST
-    @Path("save")
+    @Path("add")
     @Consumes(MediaType.APPLICATION_JSON)
-    public void save(Institution institution) {
-        if (institution.getId() == 0) {
-            em.persist(institution);
-        } else {
-            em.merge(institution);
-        }
+    public void add(Coordinator coordinator) {
+        em.persist(coordinator);
     }
     
     @GET
     @Path("list")
     public Response listPost() {
-        List<Institution> institutionList = em.createNamedQuery(Institution.findAll).getResultList();
-
-        GenericEntity<List<Institution>> entity = new GenericEntity<List<Institution>>(institutionList) {};
+        List<Coordinator> coordinatorList = em.createNamedQuery(Coordinator.findAll).getResultList();
+            
+        GenericEntity<List<Coordinator>> entity = new GenericEntity<List<Coordinator>>(coordinatorList) {};
         return Response.ok(entity).build();
     }
 }

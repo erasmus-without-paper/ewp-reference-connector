@@ -28,7 +28,7 @@ public class PersonTest {
     public void testPersistPerson() {
         Person person = new Person();
         person.setPersonId("8801012233");
-        person.setFirstName("Albin");
+        person.setFirstNames("Albin");
         person.setLastName("Ek");
         
         this.tx.begin();
@@ -36,9 +36,9 @@ public class PersonTest {
         this.tx.commit();
         this.em.clear();
         
-        Person result = em.find(Person.class, "8801012233");
+        Person result = em.find(Person.class, person.getId());
         Assert.assertNotNull(result);
-        Assert.assertEquals("Albin", result.getFirstName());
+        Assert.assertEquals("Albin", result.getFirstNames());
     }
     
 }
