@@ -1,6 +1,11 @@
 angular.module('home').controller('HomeController', function ($scope, HomeService) {
     HomeService.name(
         function(result) {
-            $scope.myName = result;
+            $scope.universityName = result;
+        });
+
+    HomeService.hostname(
+        function(result) {
+            $scope.hostname = result;
         });
 });

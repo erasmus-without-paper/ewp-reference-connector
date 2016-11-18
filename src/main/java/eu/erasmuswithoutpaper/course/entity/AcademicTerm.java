@@ -12,16 +12,21 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinTable;
+import javax.persistence.NamedQuery;
 import javax.persistence.OneToMany;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
 
 @Entity
+@NamedQuery(name = AcademicTerm.findAll, query = "SELECT a FROM AcademicTerm a")
 public class AcademicTerm implements Serializable{
 
     @Id
     @GeneratedValue(strategy=GenerationType.AUTO)
     long id;
+    
+    private static final String PREFIX = "eu.erasmuswithoutpaper.course.entity.AcademicTerm.";
+    public static final String findAll = PREFIX + "all";
     
     private String institutionId;
     private String organizationUnitId;

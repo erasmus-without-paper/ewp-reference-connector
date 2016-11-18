@@ -2,7 +2,6 @@
 package eu.erasmuswithoutpaper.organization.preload;
 
 import eu.erasmuswithoutpaper.internal.JsonHelper;
-import eu.erasmuswithoutpaper.internal.StartupLoader;
 import eu.erasmuswithoutpaper.organization.entity.Coordinator;
 import eu.erasmuswithoutpaper.organization.entity.Person;
 import java.io.IOException;
@@ -15,17 +14,13 @@ public class CoordinatorLoader {
     @PersistenceContext(unitName = "connector")
     EntityManager em;
     
-    public void createDemoData(StartupLoader.University university) throws IOException {
-        switch (university) {
-            case IKEA_U:
-                persistCoordinator("{'institutionId':'ikea.university.se','organizationUnitId':'ikea.ou1.se','header':'INSURANCE'}", getPerson("9001013344"));
-                persistCoordinator("{'institutionId':'ikea.university.se','organizationUnitId':'ikea.ou2.se','header':'COURSE'}", getPerson("8906093845"));
-                break;
-            case POMODORO_U:
-                persistCoordinator("{'institutionId':'pomodoro.university.it','organizationUnitId':'pomodoro.ou1.it','header':'COURSE'}", getPerson("8810126789"));
-                persistCoordinator("{'institutionId':'pomodoro.university.it','organizationUnitId':'pomodoro.ou1.it','header':'ADMISSION'}", getPerson("8602181287"));
-                break;
-        }
+    public void createDemoDataIkea() throws IOException {
+        persistCoordinator("{'institutionId':'ikea.university.se','organizationUnitId':'ikea.ou1.se','header':'INSURANCE'}", getPerson("9001013344"));
+        persistCoordinator("{'institutionId':'ikea.university.se','organizationUnitId':'ikea.ou2.se','header':'COURSE'}", getPerson("8906093845"));
+    }
+    public void createDemoDataPomdoro() throws IOException {
+        persistCoordinator("{'institutionId':'pomodoro.university.it','organizationUnitId':'pomodoro.ou1.it','header':'COURSE'}", getPerson("8810126789"));
+        persistCoordinator("{'institutionId':'pomodoro.university.it','organizationUnitId':'pomodoro.ou1.it','header':'ADMISSION'}", getPerson("8602181287"));
     }
 
     private void persistCoordinator(String coordinatorJson, Person person) throws IOException {

@@ -1,20 +1,20 @@
-
 <div class="container">
     <div class="well page">
-        <div>Under development...</div>
         <div class="clearfix">
-            <h3 class="pull-left">Academic terms</h3>
+            <h3 class="pull-left">Academic Terms</h3>
         </div>
-        
-        <div class="input-group">
-            <input class="form-control" id="search" name="search" placeholder="Search for" ng-model="query"
-                   required="required"/>
-              <span class="input-group-btn">
-                  <button type="submit" class="btn btn-default">
-                      <i class="glyphicon glyphicon-search"></i>
-                  </button>
-              </span>
+        <div class="list-group">
+            <div class="list-group-item">
+                <div ng-repeat="academicTerm in academicTerms | filter:query" ng-click="isopen[academicTerm.id] = !isopen[academicTerm.id]">
+                    <a class="list-group-item">
+                        <b>{{academicTerm.institutionId}} {{academicTerm.organizationUnitId}}</b>
+                        <i class="pull-right glyphicon" ng-class="{'glyphicon-chevron-down': isopen[academicTerm.id], 'glyphicon-chevron-right': !isopen[academicTerm.id]}"></i>
+                    </a>
+                    <div class="list-group-item" ng-show="isopen[academicTerm.id]">
+                        Start date: {{academicTerm.startDate | date: 'yyyy-MM-dd'}}<br/>
+                    </div>
+                </div>
+            </div>
         </div>
-        
     </div>
 </div>
