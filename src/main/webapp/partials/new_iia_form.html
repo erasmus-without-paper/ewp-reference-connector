@@ -1,17 +1,16 @@
 <div class="container">
-    <div class="well page">
-        <h3>Create new IIA</h3>
-
-        <form ng-submit="saveNewIia()">
-        <div>
+    <h1 class="page-header">Create new IIA</h1>
+    <div>
+    <form ng-submit="saveNewIia()">
+        <div class="panel panel-body">
             <label for="form-new-iia-institution">Institution</label>
             <select id="form-new-iia-institution" class="form-control" ng-model="newIia.partner.institutionId" required="required">
-                <option value=""></option>
+                <option style="display:none" value="">select an institution</option>
                 <option ng-repeat="institution in institutions" value="{{institution}}">{{institution}}</option>
             </select><br>
             <label for="form-new-iia-organization-unit">Organization Unit</label>
             <select id="form-new-iia-organization-unit" class="form-control" ng-model="newIia.partner.organizationUnitId" required="required">
-                <option value=""></option>
+                <option style="display:none" value="">select an organization unit</option>
                 <option value="ouid1">organizationUnit 1</option>
                 <option value="ouid2">organizationUnit 2</option>
                 <option value="ouid3">organizationUnit 3</option>
@@ -59,8 +58,7 @@
                 </div>
             </div>
         </div>
-        </form>
-    </div>
+    </form>
 
     <div class="panel panel-default" ng-show="showConditionForm">
         <div class="panel-heading">

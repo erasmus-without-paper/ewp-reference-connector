@@ -10,6 +10,7 @@ angular.module('institution').controller('InstitutionController', function ($sco
     $scope.setCurrentInstOrgObject = function(obj) {
         $scope.currentInstOrgObject = obj;
         $scope.browseInstOrgObjectList.push(obj);
+        $scope.cancelAddForm();
     };
     
     $scope.backCurrentInstOrgObject = function() {
@@ -19,6 +20,7 @@ angular.module('institution').controller('InstitutionController', function ($sco
         } else {
             $scope.currentInstOrgObject = '';
         }
+        $scope.cancelAddForm();
     };
     $scope.viewAddForm = function() {
         if ($scope.currentInstOrgObject) {
