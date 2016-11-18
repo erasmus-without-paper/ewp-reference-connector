@@ -1,7 +1,11 @@
 <div class="container">
-    <div class="well page">
-        <div class="list-group-item" ng-show="showAddInstitiutionForm">
-            <h3>Add Institution</h3>
+    <h1 class="page-header">Institution/Organization Unit</h1>
+    <ol class="breadcrumb" ng-if="browseInstOrgObjectList.length > 0">
+        <li class="breadcrumb-item" ng-repeat="item in browseInstOrgObjectList" ng-class="$last ? 'active' : ''">{{(item.name | languageItem : 'en').text}}</li>
+    </ol>
+    <div class="panel panel-default" ng-show="showAddInstitiutionForm">
+        <div class="panel-heading"><h2>Add Institution</h2></div>
+        <div class="panel-body">
             <form class="form-horizontal"  ng-submit="addInstitution()">
                 <div class="form-group">
                     <label class="control-label col-sm-2" for="instid">Institution Id:</label>
@@ -36,71 +40,74 @@
                 <div class="input-group">
                     <div class="btn-group">
                         <button type="submit" class="btn btn-default">
-                            <span class="glyphicon glyphicon-ok-circle"></span> Save
+                            <i class="glyphicon glyphicon-ok-circle"></i> Save
                         </button>
                         <button type="button" class="btn btn-default" ng-click="cancelAddForm()">
-                            <span class="glyphicon glyphicon-remove-circle"></span> Cancel
+                            <i class="glyphicon glyphicon-remove-circle"></i> Cancel
                         </button>
                     </div>
                 </div>
             </form>
         </div>
-        
-        <div class="list-group-item" ng-show="showAddOrganizationUnitForm">
-            <h3>Add Organization Unit</h3>
+    </div>
+    <div class="panel panel-default" ng-show="showAddOrganizationUnitForm">
+        <div class="panel-heading"><h2>Add Organization Unit</h2></div>
+        <div class="panel-body">
             <form class="form-horizontal"  ng-submit="addOrganizationUnit()">
                 <div class="form-group">
-                    <label class="control-label col-sm-2" for="oouid">Organization Unit Id:</label>
+                    <label class="control-label col-sm-2" for="oouid">Org. Unit Id:</label>
                     <div class="col-sm-10">
                         <input id="oouid" type="text" class="form-control" placeholder="Enter organization unit identifier" ng-model="newOrganizationUnit.organizationUnitId" required="required">
                     </div>
                 </div>
                 <div class="form-group">
-                    <label class="control-label col-sm-2" for="oid">Other Id:</label>
+                    <label class="control-label col-sm-2" for="ooid">Other Id:</label>
                     <div class="col-sm-10">
-                        <input id="oid" type="text" class="form-control" placeholder="Enter other identifier" ng-model="newOrganizationUnit.otherId" required="required">
+                        <input id="ooid" type="text" class="form-control" placeholder="Enter other identifier" ng-model="newOrganizationUnit.otherId" required="required">
                     </div>
                 </div>
                 <div class="form-group">
-                    <label class="control-label col-sm-2" for="name">Name:</label>
+                    <label class="control-label col-sm-2" for="oname">Name:</label>
                     <div class="col-sm-10">
-                        <input id="name" type="text" class="form-control" placeholder="Enter institution name" ng-model="newOrganizationUnit.nameStr" required="required">
+                        <input id="oname" type="text" class="form-control" placeholder="Enter institution name" ng-model="newOrganizationUnit.nameStr" required="required">
                     </div>
                 </div>
                 <div class="form-group">
-                    <label class="control-label col-sm-2" for="ccode">Country Code:</label>
+                    <label class="control-label col-sm-2" for="occode">Country Code:</label>
                     <div class="col-sm-10">
-                        <input id="ccode" type="text" class="form-control" placeholder="Enter country code" ng-model="newOrganizationUnit.country" required="required">
+                        <input id="occode" type="text" class="form-control" placeholder="Enter country code" ng-model="newOrganizationUnit.country" required="required">
                     </div>
                 </div>
                 <div class="form-group">
-                    <label class="control-label col-sm-2" for="descr">Descriprion:</label>
+                    <label class="control-label col-sm-2" for="odescr">Descriprion:</label>
                     <div class="col-sm-10">
-                        <input id="descr" type="text" class="form-control" placeholder="Enter description" ng-model="newOrganizationUnit.descriptionStr" required="required">
+                        <input id="odescr" type="text" class="form-control" placeholder="Enter description" ng-model="newOrganizationUnit.descriptionStr" required="required">
                     </div>
                 </div>
                 <div class="input-group">
                     <div class="btn-group">
                         <button type="submit" class="btn btn-default">
-                            <span class="glyphicon glyphicon-ok-circle"></span> Save
+                            <i class="glyphicon glyphicon-ok-circle"></i> Save
                         </button>
                         <button type="button" class="btn btn-default" ng-click="cancelAddForm()">
-                            <span class="glyphicon glyphicon-remove-circle"></span> Cancel
+                            <i class="glyphicon glyphicon-remove-circle"></i> Cancel
                         </button>
                     </div>
                 </div>
             </form>
-        </div>        
-        
+        </div>
+    </div>
+
+    <div ng-show="!currentInstOrgObject">
         <div class="clearfix">
-            <h3 class="pull-left">Institutions</h3>
-            <div class="btn-group pull-right" ng-show="!showAddInstitiutionForm && !showAddOrganizationUnitForm">
+            <h2 class="pull-left">Institutions</h2>
+            <div class="btn-group pull-right" ng-show="!showAddInstitiutionForm">
                 <button type="submit" class="btn btn-default" ng-click="viewAddForm()">
                     <i class="glyphicon glyphicon-plus-sign"></i>
                 </button>
             </div>
         </div>
-        <div id="institutionList" ng-show="!currentInstOrgObject">
+        <div id="institutionList">
             <div class="input-group">
                 <input class="form-control" id="search" name="search" placeholder="Search for" ng-model="query"
                        required="required"/>
@@ -111,48 +118,59 @@
                   </span>
             </div>
             <div class="list-group">
-                <div class="list-group-item">
-                    <div ng-repeat="institution in institutions | filter:query" ng-click="setCurrentInstOrgObject(institution)">
-                        <a class="list-group-item">
-                            <b>{{(institution.name | languageItem : 'en').text}} - {{institution.country}}</b>
-                            <i class="pull-right glyphicon glyphicon-chevron-right"></i>
-                        </a>
-                    </div>
+                <div ng-repeat="institution in institutions | filter:query" ng-click="setCurrentInstOrgObject(institution)">
+                    <a class="list-group-item">
+                        <b>{{(institution.name | languageItem : 'en').text}} - {{institution.country}}</b>
+                        <i class="pull-right glyphicon glyphicon-chevron-right"></i>
+                    </a>
                 </div>
             </div>
         </div>
-        <div ng-show="currentInstOrgObject">
-            <div ng-repeat="name in currentInstOrgObject.name">
-                Name ({{name.lang}}): {{name.text}}<br>
-            </div>
+    </div>
+    <div ng-show="currentInstOrgObject">
+        <h2>{{browseInstOrgObjectList.length === 1 ? 'Institution' : 'Organization Unit'}}</h2>
+        <table class="table table-striped">
+            <tr ng-repeat="name in currentInstOrgObject.name">
+                <th>Name ({{name.lang}}):</th><td>{{name.text}}</td>
+            </tr>
+            <tr><th>Country:</th><td>{{currentInstOrgObject.country}}</td></tr>
+            <tr ng-repeat="description in currentInstOrgObject.description">
+                <th>Description ({{description.lang}}):</th><td>{{description.text}}</td>
+            </tr>
             
-            Country: {{currentInstOrgObject.country}}<br>
-            <div ng-repeat="description in currentInstOrgObject.description">
-                Description ({{description.lang}}): {{description.text}}<br>
-            </div>
-            <div ng-if="currentInstOrgObject.organizationUnits && currentInstOrgObject.organizationUnits.length > 0">
-                <div class="input-group">
-                    <input class="form-control" id="search" name="search" placeholder="Search for" ng-model="query2"
-                           required="required"/>
-                      <span class="input-group-btn">
-                          <button type="submit" class="btn btn-default">
-                              <i class="glyphicon glyphicon-search"></i>
-                          </button>
-                      </span>
-                </div>
-                <div class="list-group">
-                    <div class="list-group-item">
-                        <div ng-repeat="obj in currentInstOrgObject.organizationUnits | filter:query2" ng-click="setCurrentInstOrgObject(obj)">
-                            <a class="list-group-item">
-                                <b>{{(obj.name | languageItem : 'en').text}} - {{obj.country}}</b>
-                                <i class="pull-right glyphicon glyphicon-chevron-right"></i>
-                            </a>
-                        </div>
-                    </div>
+        </table>
+
+        <div ng-if="currentInstOrgObject.organizationUnits.length > 0">
+            <div class="clearfix">
+                <h3 class="pull-left">Organization Units</h3>
+                <div class="btn-group pull-right" ng-show="!showAddOrganizationUnitForm">
+                    <button type="submit" class="btn btn-default" ng-click="viewAddForm()">
+                        <i class="glyphicon glyphicon-plus-sign"></i>
+                    </button>
                 </div>
             </div>
-            <button ng-click="backCurrentInstOrgObject()" class="btn btn-default"><i class="glyphicon glyphicon-chevron-left"></i> Back</button>
+            <div class="input-group">
+                <input class="form-control" id="search" name="search" placeholder="Search for" ng-model="query2"
+                       required="required"/>
+                  <span class="input-group-btn">
+                      <button type="submit" class="btn btn-default">
+                          <i class="glyphicon glyphicon-search"></i>
+                      </button>
+                  </span>
+            </div>
+            <div class="list-group">
+                <div ng-repeat="obj in currentInstOrgObject.organizationUnits | filter:query2" ng-click="setCurrentInstOrgObject(obj)">
+                    <a class="list-group-item">
+                        <b>{{(obj.name | languageItem : 'en').text}} - {{obj.country}}</b>
+                        <i class="pull-right glyphicon glyphicon-chevron-right"></i>
+                    </a>
+                </div>
+            </div>
         </div>
+        <button ng-click="backCurrentInstOrgObject()" class="btn btn-default"><i class="glyphicon glyphicon-chevron-left"></i> Back</button>
+        <button type="submit" class="btn btn-default" ng-if="currentInstOrgObject.organizationUnits.length === 0" ng-click="viewAddForm()">
+            <i class="glyphicon glyphicon-plus-sign"></i> Add Organization Unit
+        </button>
     </div>
 </div>
 
