@@ -16,13 +16,14 @@ public class HeiInformation implements Serializable{
     private String institutionId;
     private String organizationUnitId;
     private String header;
-    private String content;
+    private String infoId;
 
     public HeiInformation() {}
-    public HeiInformation(String institutionId, String organizationUnitId, String header) {
+    public HeiInformation(String institutionId, String organizationUnitId, String header, String infoId) {
         this.institutionId = institutionId;
         this.organizationUnitId = organizationUnitId;
         this.header = header;
+        this.infoId = infoId;
     }
 
     public long getId() {
@@ -57,12 +58,12 @@ public class HeiInformation implements Serializable{
         this.header = header;
     }
 
-    public String getContent() {
-        return content;
+    public String getInfoId() {
+        return infoId;
     }
 
-    public void setContent(String content) {
-        this.content = content;
+    public void setInfoId(String infoId) {
+        this.infoId = infoId;
     }
 
     @Override

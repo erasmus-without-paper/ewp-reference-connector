@@ -15,15 +15,9 @@ public class LearningOpportunityInstance implements Serializable {
 
     private String institutionId;
     private String losCode;
-    private String termName;
+    private String academicYearId;
+    private String academicTermId;
     private String credits;
-
-    public LearningOpportunityInstance() {}
-    public LearningOpportunityInstance(String institutionId, String losCode, String termName) {
-        this.institutionId = institutionId;
-        this.losCode = losCode;
-        this.termName = termName;
-    }
 
     public long getId() {
         return id;
@@ -49,12 +43,20 @@ public class LearningOpportunityInstance implements Serializable {
         this.losCode = losCode;
     }
 
-    public String getTermName() {
-        return termName;
+    public String getAcademicYearId() {
+        return academicYearId;
     }
 
-    public void setTermName(String termName) {
-        this.termName = termName;
+    public void setAcademicYearId(String academicYearId) {
+        this.academicYearId = academicYearId;
+    }
+
+    public String getAcademicTermId() {
+        return academicTermId;
+    }
+
+    public void setAcademicTermId(String academicTermId) {
+        this.academicTermId = academicTermId;
     }
 
     public String getCredits() {

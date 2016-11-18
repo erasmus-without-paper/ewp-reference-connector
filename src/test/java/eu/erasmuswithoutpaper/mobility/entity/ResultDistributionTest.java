@@ -30,7 +30,6 @@ public class ResultDistributionTest {
         resultDistribution.setInstitutionId("InstId1");
         resultDistribution.setLabel("TestLabel");
         resultDistribution.setLosCode("Los1");
-        resultDistribution.setTermName("TestTerm");
         resultDistribution.setDistrubutionCount(3);
         
         this.tx.begin();

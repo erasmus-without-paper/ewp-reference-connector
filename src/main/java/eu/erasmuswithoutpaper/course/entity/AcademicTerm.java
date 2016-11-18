@@ -25,7 +25,8 @@ public class AcademicTerm implements Serializable{
     
     private String institutionId;
     private String organizationUnitId;
-    private String termName;
+    private String academicYearId;
+    private String academicTermId;
 
     @OneToMany(cascade = CascadeType.ALL, fetch = FetchType.EAGER, orphanRemoval=true)
     @JoinTable(name = "academic_term_name")
@@ -36,15 +37,6 @@ public class AcademicTerm implements Serializable{
     
     @Temporal(TemporalType.DATE)
     private Date endDate;
-
-    public AcademicTerm(){
-    }
-    
-    public AcademicTerm(String institutionId, String organizationUnitId, String termName) {
-        this.institutionId = institutionId;
-        this.organizationUnitId = organizationUnitId;
-        this.termName = termName;
-    }
 
     public long getId() {
         return id;
@@ -70,12 +62,20 @@ public class AcademicTerm implements Serializable{
         this.organizationUnitId = organizationUnitId;
     }
 
-    public String getTermName() {
-        return termName;
+    public String getAcademicYearId() {
+        return academicYearId;
     }
 
-    public void setTermName(String termName) {
-        this.termName = termName;
+    public void setAcademicYearId(String academicYearId) {
+        this.academicYearId = academicYearId;
+    }
+
+    public String getAcademicTermId() {
+        return academicTermId;
+    }
+
+    public void setAcademicTermId(String academicTermId) {
+        this.academicTermId = academicTermId;
     }
 
     public List<LanguageItem> getDispName() {

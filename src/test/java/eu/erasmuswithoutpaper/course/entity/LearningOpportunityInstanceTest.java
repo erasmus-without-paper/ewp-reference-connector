@@ -26,7 +26,11 @@ public class LearningOpportunityInstanceTest {
 
     @Test
     public void testPersistLearningOpportunityInstance() {
-        LearningOpportunityInstance loi = new LearningOpportunityInstance("InstId1", "1234", "Term1");
+        LearningOpportunityInstance loi = new LearningOpportunityInstance();
+        loi.setInstitutionId("instId1");
+        loi.setLosCode("losCode3");
+        loi.setAcademicYearId("academicYearId1");
+        loi.setAcademicTermId("academicTermId1");
         loi.setCredits("10");
         
         this.tx.begin();

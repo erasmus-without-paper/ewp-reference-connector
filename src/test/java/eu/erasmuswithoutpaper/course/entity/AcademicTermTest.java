@@ -29,7 +29,11 @@ public class AcademicTermTest {
 
     @Test
     public void testPersistAcademicTerm() {
-        AcademicTerm academicTerm = new AcademicTerm("InstId3", "OrgUnitId3", "TestTerm");
+        AcademicTerm academicTerm = new AcademicTerm();
+        academicTerm.setInstitutionId("instId22");
+        academicTerm.setOrganizationUnitId("orgUnitId33");
+        academicTerm.setAcademicYearId("academicYearId1");
+        academicTerm.setAcademicTermId("academicTermId1");
         List<LanguageItem> dispName = new ArrayList();
         LanguageItem dispNameEn = new LanguageItem("DispNameEn", LanguageItem.ENGLISH);
         dispName.add(dispNameEn);

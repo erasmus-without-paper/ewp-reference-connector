@@ -26,8 +26,7 @@ public class HeiInformationTest {
 
     @Test
     public void testGetHeiInformationId() {
-        HeiInformation heiInformation = new HeiInformation("InstId1", "OrgUnitId1", "Header");
-        heiInformation.setContent("Test");
+        HeiInformation heiInformation = new HeiInformation("InstId1", "OrgUnitId1", "Header", "infoId1");
         
         this.tx.begin();
         this.em.persist(heiInformation);
@@ -37,7 +36,7 @@ public class HeiInformationTest {
         long id = heiInformation.getId();
         HeiInformation result = em.find(HeiInformation.class, id);
         Assert.assertNotNull(result);
-        Assert.assertEquals("Test", result.getContent());
+        Assert.assertEquals("infoId1", result.getInfoId());
     }
 
 }

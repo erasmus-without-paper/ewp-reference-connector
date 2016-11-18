@@ -32,7 +32,6 @@ public class LearningAgreementComponentTest {
         learningAgreementComponent.setMobilityId("mobId1");
         learningAgreementComponent.setMobilityRevision(1);
         learningAgreementComponent.setLearningAgreementRevision(2);
-        learningAgreementComponent.setTermName("term1");
         learningAgreementComponent.setLosCode("AAA111");
         learningAgreementComponent.setStatus(LearningAgreementComponentStatus.RECOMMENDED);
         

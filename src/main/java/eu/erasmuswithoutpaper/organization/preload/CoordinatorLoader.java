@@ -19,9 +19,11 @@ public class CoordinatorLoader {
         switch (university) {
             case IKEA_U:
                 persistCoordinator("{'institutionId':'ikea.university.se','organizationUnitId':'ikea.ou1.se','header':'INSURANCE'}", getPerson("9001013344"));
+                persistCoordinator("{'institutionId':'ikea.university.se','organizationUnitId':'ikea.ou2.se','header':'COURSE'}", getPerson("8906093845"));
                 break;
             case POMODORO_U:
                 persistCoordinator("{'institutionId':'pomodoro.university.it','organizationUnitId':'pomodoro.ou1.it','header':'COURSE'}", getPerson("8810126789"));
+                persistCoordinator("{'institutionId':'pomodoro.university.it','organizationUnitId':'pomodoro.ou1.it','header':'ADMISSION'}", getPerson("8602181287"));
                 break;
         }
     }

@@ -14,12 +14,13 @@ public class LearningAgreementComponent implements Serializable{
     @GeneratedValue(strategy=GenerationType.AUTO)
     long id;
     
-    private String institutionId;
-    private String organizationUnitId;
     private String mobilityId;
     private int mobilityRevision;
     private int learningAgreementRevision;
-    private String termName;
+    private String academicYearId;
+    private String academicTermId;
+    private String institutionId;
+    private String organizationUnitId;
     private String losCode;
     private LearningAgreementComponentStatus status;
 
@@ -29,22 +30,6 @@ public class LearningAgreementComponent implements Serializable{
 
     public void setId(long id) {
         this.id = id;
-    }
-
-    public String getInstitutionId() {
-        return institutionId;
-    }
-
-    public void setInstitutionId(String institutionId) {
-        this.institutionId = institutionId;
-    }
-
-    public String getOrganizationUnitId() {
-        return organizationUnitId;
-    }
-
-    public void setOrganizationUnitId(String organizationUnitId) {
-        this.organizationUnitId = organizationUnitId;
     }
 
     public String getMobilityId() {
@@ -71,12 +56,36 @@ public class LearningAgreementComponent implements Serializable{
         this.learningAgreementRevision = learningAgreementRevision;
     }
 
-    public String getTermName() {
-        return termName;
+    public String getAcademicYearId() {
+        return academicYearId;
     }
 
-    public void setTermName(String termName) {
-        this.termName = termName;
+    public void setAcademicYearId(String academicYearId) {
+        this.academicYearId = academicYearId;
+    }
+
+    public String getAcademicTermId() {
+        return academicTermId;
+    }
+
+    public void setAcademicTermId(String academicTermId) {
+        this.academicTermId = academicTermId;
+    }
+
+    public String getInstitutionId() {
+        return institutionId;
+    }
+
+    public void setInstitutionId(String institutionId) {
+        this.institutionId = institutionId;
+    }
+
+    public String getOrganizationUnitId() {
+        return organizationUnitId;
+    }
+
+    public void setOrganizationUnitId(String organizationUnitId) {
+        this.organizationUnitId = organizationUnitId;
     }
 
     public String getLosCode() {
@@ -98,7 +107,7 @@ public class LearningAgreementComponent implements Serializable{
     @Override
     public int hashCode() {
         int hash = 7;
-        hash = 11 * hash + (int) (this.id ^ (this.id >>> 32));
+        hash = 79 * hash + (int) (this.id ^ (this.id >>> 32));
         return hash;
     }
 
