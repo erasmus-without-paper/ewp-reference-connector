@@ -6,7 +6,7 @@ The team consisting of:
 * 1 architect 
 * 2 developers 
 * 1 project manageer 
-* 1 DBA 
+* 1 DBA/sysadm 
 
 This developing group are having weekly development meetings every monday. The development task are handled on a Jira KanBan board. 
 
