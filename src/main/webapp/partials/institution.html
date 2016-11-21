@@ -50,6 +50,7 @@
             </form>
         </div>
     </div>
+    
     <div class="panel panel-default" ng-show="showAddOrganizationUnitForm">
         <div class="panel-heading"><h2>Add Organization Unit</h2></div>
         <div class="panel-body">
@@ -127,6 +128,7 @@
             </div>
         </div>
     </div>
+    
     <div ng-show="currentInstOrgObject">
         <h2>{{browseInstOrgObjectList.length === 1 ? 'Institution' : 'Organization Unit'}}</h2>
         <table class="table table-striped">
@@ -137,7 +139,6 @@
             <tr ng-repeat="description in currentInstOrgObject.description">
                 <th>Description ({{description.lang}}):</th><td>{{description.text}}</td>
             </tr>
-            
         </table>
 
         <div ng-if="currentInstOrgObject.organizationUnits.length > 0">

@@ -1,5 +1,5 @@
 angular.module('institution').controller('InstitutionController', function ($scope, InstitutionService) {
-    $scope.getAllPersons = function() {
+    $scope.getAllInstitutions = function() {
         InstitutionService.getLocal(
             function(result) {
                 $scope.institutions = result;
@@ -66,5 +66,5 @@ angular.module('institution').controller('InstitutionController', function ($sco
         $scope.newOrganizationUnit = {};
     };
     
-    $scope.getAllPersons();
+    $scope.getAllInstitutions();
 });

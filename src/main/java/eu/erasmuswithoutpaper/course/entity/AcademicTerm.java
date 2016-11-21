@@ -1,6 +1,7 @@
 
 package eu.erasmuswithoutpaper.course.entity;
 
+import eu.erasmuswithoutpaper.internal.StandardDateConverter;
 import eu.erasmuswithoutpaper.organization.entity.LanguageItem;
 import java.io.Serializable;
 import java.util.Date;
@@ -16,6 +17,7 @@ import javax.persistence.NamedQuery;
 import javax.persistence.OneToMany;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
+import org.apache.johnzon.mapper.JohnzonConverter;
 
 @Entity
 @NamedQuery(name = AcademicTerm.findAll, query = "SELECT a FROM AcademicTerm a")
@@ -37,9 +39,11 @@ public class AcademicTerm implements Serializable{
     @JoinTable(name = "academic_term_name")
     private List<LanguageItem> dispName;
     
+    @JohnzonConverter(StandardDateConverter.class)
     @Temporal(TemporalType.DATE)
     private Date startDate;
     
+    @JohnzonConverter(StandardDateConverter.class)
     @Temporal(TemporalType.DATE)
     private Date endDate;
 

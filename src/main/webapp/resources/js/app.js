@@ -21,6 +21,10 @@ angular
             }).when('/academicterm', {
                 templateUrl: 'partials/academicterm.html',
                 controller: 'AcademicTermController'
+            }).when('/los', {
+                templateUrl: 'partials/todo.html'
+            }).when('/loi', {
+                templateUrl: 'partials/todo.html'
             }).when('/mobility', {
                 templateUrl: 'partials/todo.html'
             }).when('/coordinator', {
