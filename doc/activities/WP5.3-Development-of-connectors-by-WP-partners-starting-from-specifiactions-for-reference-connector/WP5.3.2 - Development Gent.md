@@ -1,5 +1,6 @@
 ## WP5.3.2 - Development Gent
----
+*Description of what this document aims for*
+...
 
 ### Contact information for local developing team
 
@@ -9,9 +10,11 @@
 * Telephone no:
 
 #### Developing members
-* Name Surname, Email
-* Name Surname, Email
+* Name, Email
+* Name, Email
 
-#### Local Environment
+#### Local Environment *(SIS, Database etc)*
+...
 
 #### Local prerequisites
+...
