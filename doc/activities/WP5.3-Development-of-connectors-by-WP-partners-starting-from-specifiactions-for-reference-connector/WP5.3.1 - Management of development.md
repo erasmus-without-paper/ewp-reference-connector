@@ -17,4 +17,4 @@ This table shows which partner who had developed which API and are ready for int
 ---
 * :ok: means that the API is **fully implemented**
 * :soon: means that the API is **under development**
-*   -   means that the development is **not started** yet
+* **-**  means that the development is **not started** yet
