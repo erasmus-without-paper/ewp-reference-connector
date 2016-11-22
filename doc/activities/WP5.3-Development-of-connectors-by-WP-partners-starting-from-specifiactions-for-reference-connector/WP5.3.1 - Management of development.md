@@ -2,4 +2,4 @@
 
 Partner/API:s | *Discovery* | *Echo* | *Registry* | **Inst** | **OU** | **Courses** | **Simple Cource Rep** | 
 ------------- | ----------- | ------ | ---------- | -------- | ------ | ----------- | --------------------- |
-Umeå          |      X      |    X   |     X      |    -     |   -    |      -      |           -           |
+Umeå          |:white_check_mark:      |    X   |     X      |    -     |   -    |      -      |           -           |
