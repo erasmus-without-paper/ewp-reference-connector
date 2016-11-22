@@ -5,12 +5,12 @@ This table shows which partner who had developed which API and are ready for int
 
 | Partner/API:s | *Discovery* | *Echo* | *Registry* | **Institution** | **OU** | **Courses** | **Simple Cource Rep** | 
 | ------------- | ----------- | ------ | ---------- | --------------- | ------ | ----------- | --------------------- |
-| **Umeå**      |    :ok:     |  :ok:  |    :ok:    | :soon:          |   :x:  |      -      |           -           |
+| **Umeå**      |    :ok:     |  :ok:  |    :ok:    | :soon:          |   -    |      -      |           -           |
 | **Gent**      |     -       |   -    |     -      |    -            |   -    |      -      |           -           |
 | **Porto**     |     -       |   -    |     -      |    -            |   -    |      -      |           -           |
 | **SOP**       |     -       |   -    |     -      |    -            |   -    |      -      |           -           |
 | **KION**      |     -       |   -    |     -      |    -            |   -    |      -      |           -           |
-| **Sigma**     |     -       |   -    |     -      |    -            |   -    |      -      |           -           |
+| **Sigma**     | :soon:      |  :ok:  |     -      | :soon:          |   -    |      -      |           -           |
 | **Olso**      |     -       |   -    |     -      |    -            |   -    |      -      |           -           |
 | **Warsaw**    |     -       |   -    |     -      |    -            |   -    |      -      |           -           |
 | **Others**    |     -       |   -    |     -      |    -            |   -    |      -      |           -           |
