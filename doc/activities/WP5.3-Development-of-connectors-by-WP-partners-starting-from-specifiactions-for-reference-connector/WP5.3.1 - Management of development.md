@@ -4,15 +4,15 @@ This table shows which partner who had developed which API and are ready for int
 
 | Partner/API:s | *Discovery* | *Echo* | *Registry* | **Inst** | **OU** | **Courses** | **Simple Cource Rep** | 
 | ------------- | ----------- | ------ | ---------- | -------- | ------ | ----------- | --------------------- |
-| Umeå          |    :ok:     |  :ok:  |    :ok:    | :soon:   |   :x:  |      -      |           -           |
-| Gent          |     -       |   -    |     -      |    -     |   -    |      -      |           -           |
-| Porto         |     -       |   -    |     -      |    -     |   -    |      -      |           -           |
-| SOP           |     -       |   -    |     -      |    -     |   -    |      -      |           -           |
-| KION          |     -       |   -    |     -      |    -     |   -    |      -      |           -           |
-| Sigma         |     -       |   -    |     -      |    -     |   -    |      -      |           -           |
-| Olso          |     -       |   -    |     -      |    -     |   -    |      -      |           -           |
-| Warsaw        |     -       |   -    |     -      |    -     |   -    |      -      |           -           |
-| Others        |     -       |   -    |     -      |    -     |   -    |      -      |           -           |
+| **Umeå**      |    :ok:     |  :ok:  |    :ok:    | :soon:   |   :x:  |      -      |           -           |
+| **Gent**      |     -       |   -    |     -      |    -     |   -    |      -      |           -           |
+| **Porto**     |     -       |   -    |     -      |    -     |   -    |      -      |           -           |
+| **SOP**       |     -       |   -    |     -      |    -     |   -    |      -      |           -           |
+| **KION**      |     -       |   -    |     -      |    -     |   -    |      -      |           -           |
+| **Sigma**     |     -       |   -    |     -      |    -     |   -    |      -      |           -           |
+| **Olso**      |     -       |   -    |     -      |    -     |   -    |      -      |           -           |
+| **Warsaw**    |     -       |   -    |     -      |    -     |   -    |      -      |           -           |
+| **Others**    |     -       |   -    |     -      |    -     |   -    |      -      |           -           |
 
 ---
 * :ok: means that the API is **fully implemented**
