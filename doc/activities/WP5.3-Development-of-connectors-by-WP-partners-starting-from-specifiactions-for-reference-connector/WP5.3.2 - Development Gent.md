@@ -4,18 +4,15 @@
 
 ### Contact information for local developing team
 
-#### Leading Project manager
-| Name: |   | 
-| ----- | --- |
-| Email adress: |  `name@hei.com` |
-| Telephone no: |  `+46 70-5275020` |
+#### Project manager / Contact person
+| Name:         |  _John Smith_     | 
+| ------------- | ----------------- |
+| Email adress: |  _name@hei.com_   |
+| Telephone no: |  _+46 70-5275020_ |
 
 #### Developing members
-* Name, Email
-* Name, Email
-
-#### Local Environment *(SIS, Database etc)*
-...
-
-#### Local prerequisites
-...
+|     Role       |      Name         |              Email adress                 |
+| -------------  | ----------------- | ----------------------------------------- |
+|                |                   |                                           |
+|                |                   |                                           |
+|                |                   |                                           |             
