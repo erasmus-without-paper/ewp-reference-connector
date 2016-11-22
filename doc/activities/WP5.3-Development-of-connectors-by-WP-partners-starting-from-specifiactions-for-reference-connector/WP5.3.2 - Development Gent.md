@@ -5,10 +5,10 @@
 ### Contact information for local developing team
 
 #### Leading Project manager
-| Name: | | 
-| ----- |-|
-| Email adress: | |
-| Telephone no: | |
+| Name: |   | 
+| ----- | --- |
+| Email adress: |   |
+| Telephone no: |   |
 
 #### Developing members
 * Name, Email
