@@ -1,5 +1,13 @@
 ## WP5.3.1 - Management of development
 
-Partner/API:s | *Discovery* | *Echo* | *Registry* | **Inst** | **OU** | **Courses** | **Simple Cource Rep** | 
-------------- | ----------- | ------ | ---------- | -------- | ------ | ----------- | --------------------- |
-Umeå          |    :ok:     |  :ok:  |    :ok:    |    :new:     |   -    |      -      |           -           |
+| Partner/API:s | *Discovery* | *Echo* | *Registry* | **Inst** | **OU** | **Courses** | **Simple Cource Rep** | 
+| ------------- | ----------- | ------ | ---------- | -------- | ------ | ----------- | --------------------- |
+| Umeå          |    :ok:     |  :ok:  |    :ok:    |    -     |   -    |      -      |           -           |
+| Gent          |     -       |   -    |     -      |    -     |   -    |      -      |           -           |
+| Porto         |     -       |   -    |     -      |    -     |   -    |      -      |           -           |
+| SOP           |     -       |   -    |     -      |    -     |   -    |      -      |           -           |
+| KION          |     -       |   -    |     -      |    -     |   -    |      -      |           -           |
+| Sigma         |     -       |   -    |     -      |    -     |   -    |      -      |           -           |
+| Olso          |     -       |   -    |     -      |    -     |   -    |      -      |           -           |
+| Warsaw        |     -       |   -    |     -      |    -     |   -    |      -      |           -           |
+| Others        |     -       |   -    |     -      |    -     |   -    |      -      |           -           |
