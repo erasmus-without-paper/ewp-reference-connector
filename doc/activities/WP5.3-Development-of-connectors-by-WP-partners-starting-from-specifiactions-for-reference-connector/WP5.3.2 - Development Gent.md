@@ -1,5 +1,5 @@
 ## WP5.3.2 - Development Gent
-*Description of what this document aims for*
+*Each partner needs to fill in contact information about the developing team. *
 ...
 
 ### Contact information for local developing team
@@ -16,3 +16,5 @@
 |                |                   |                                           |
 |                |                   |                                           |
 |                |                   |                                           |             
+
+Other important information _(please specify below:)_ 
