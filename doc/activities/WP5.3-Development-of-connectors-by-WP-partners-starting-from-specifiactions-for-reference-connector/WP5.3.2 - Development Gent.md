@@ -1,6 +1,6 @@
 ## WP5.3.2 - Development Gent
 
-*Each partner needs to fill in contact information about the developing team.*
+*Each partner needs to fill in contact information about their developing team.*
 ...
 
 ### Contact information for local developing team
