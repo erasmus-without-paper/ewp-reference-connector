@@ -7,8 +7,8 @@
 #### Leading Project manager
 | Name: |   | 
 | ----- | --- |
-| Email adress: |   |
-| Telephone no: |   |
+| Email adress: |  `name@hei.com` |
+| Telephone no: |  `+46 70-5275020` |
 
 #### Developing members
 * Name, Email
