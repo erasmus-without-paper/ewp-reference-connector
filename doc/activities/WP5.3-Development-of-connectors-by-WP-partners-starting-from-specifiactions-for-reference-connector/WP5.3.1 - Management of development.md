@@ -6,7 +6,7 @@ This table shows which partner who had developed which API and are ready for int
 
 | Partner/API:s | *Discovery* | *Echo* | *Registry* | **Institution** | **OU** | **Courses** | **Simple Cource Rep** | Test server |
 | ------------- | ----------- | ------ | ---------- | --------------- | ------ | ----------- | --------------------- | ----------- |
-| **Umeå**      | :ok:        | :+1:   |    :ok:    | :soon:          |   -    |      -      |           -           | :computer:  |
+| **Umeå**      | :ok:        | :star: | :soon:          |   -    |      -      |           -           | :computer:  |
 | **Gent**      |     -       |   -    |     -      |    -            |   -    |      -      |           -           |             |
 | **Porto**     |     -       |   -    |     -      |    -            |   -    |      -      |           -           |             |
 | **SOP**       |     -       |   -    |     -      |    -            |   -    |      -      |           -           |             |
@@ -17,7 +17,7 @@ This table shows which partner who had developed which API and are ready for int
 | **Others**    |     -       |   -    |     -      |    -            |   -    |      -      |           -           |             |
 
 ---
-* :+1: meand that the API is **fully implemented**
+* :star: meand that the API is **fully implemented**
 * :ok: means that the API is **implemented and ready for testing**
 * :soon: means that the API is **under development**
 * :x: means that the API is **not applicable** for the specified parter 
