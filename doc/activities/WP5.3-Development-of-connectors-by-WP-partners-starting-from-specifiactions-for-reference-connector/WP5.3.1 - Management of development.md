@@ -4,9 +4,9 @@ This table shows which partner who had developed which API and are ready for int
 
 
 
-| Partner/API:s | *Discovery* | *Echo* | *Registry* | **Institution** | **OU** | **Courses** | **Simple Cource Rep** | Testserver |
+| Partner/API:s | *Discovery* | *Echo* | *Registry* | **Institution** | **OU** | **Courses** | **Simple Cource Rep** | Test server |
 | ------------- | ----------- | ------ | ---------- | --------------- | ------ | ----------- | --------------------- | ---------- |
-| **Umeå**      |    :ok:     |  :ok:  |    :ok:    | :soon:          |   -    |      -      |           -           | :computer: |
+| **Umeå**      |    :ok:     |  :ok:  |    :ok:    | :soon:          |   -    |      -      |           -           | :server: |
 | **Gent**      |     -       |   -    |     -      |    -            |   -    |      -      |           -           |            |
 | **Porto**     |     -       |   -    |     -      |    -            |   -    |      -      |           -           |            |
 | **SOP**       |     -       |   -    |     -      |    -            |   -    |      -      |           -           |            |
@@ -22,4 +22,4 @@ This table shows which partner who had developed which API and are ready for int
 * :x: means that the API is **not applicable** for the specified parter 
 * - means that the development is **not started** yet
 
-* :computer: testserver is public and added to the registry 
+* :computer: test server is public and added to the registry 
