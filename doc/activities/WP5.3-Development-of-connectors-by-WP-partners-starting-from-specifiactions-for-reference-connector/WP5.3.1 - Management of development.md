@@ -17,7 +17,7 @@ This table shows which partner who had developed which API and are ready for int
 | **Others**    |     -       |   -    |     -      |    -            |   -    |      -      |           -           |             |
 
 ---
-* :star: meand that the API is **fully implemented**
+* :star: means that the API is **fully implemented**
 * :ok: means that the API is **implemented and ready for testing**
 * :soon: means that the API is **under development**
 * :x: means that the API is **not applicable** for the specified parter 
