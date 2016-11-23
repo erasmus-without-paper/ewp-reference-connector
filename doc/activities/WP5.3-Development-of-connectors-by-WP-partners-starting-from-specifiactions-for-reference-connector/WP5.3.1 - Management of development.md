@@ -6,7 +6,7 @@ This table shows which partner who had developed which API and are ready for int
 
 | Partner/API:s | *Discovery* | *Echo* | *Registry* | **Institution** | **OU** | **Courses** | **Simple Cource Rep** | Test server |
 | ------------- | ----------- | ------ | ---------- | --------------- | ------ | ----------- | --------------------- | ----------- |
-| **Umeå**      | :ok:        | :star: | :soon:          |   -    |      -      |           -           | :computer:  |
+| **Umeå**      | :ok:        | :star: |            | :soon:          |   -    |      -      |           -           | :computer:  |
 | **Gent**      |     -       |   -    |     -      |    -            |   -    |      -      |           -           |             |
 | **Porto**     |     -       |   -    |     -      |    -            |   -    |      -      |           -           |             |
 | **SOP**       |     -       |   -    |     -      |    -            |   -    |      -      |           -           |             |
