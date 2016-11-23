@@ -5,19 +5,20 @@ This table shows which partner who had developed which API and are ready for int
 
 
 | Partner/API:s | *Discovery* | *Echo* | *Registry* | **Institution** | **OU** | **Courses** | **Simple Cource Rep** | Test server |
-| ------------- | ----------- | ------ | ---------- | --------------- | ------ | ----------- | --------------------- | ---------- |
-| **Umeå**      |:ok: / :soon:  |  :ok:  |    :ok:    | :soon:          |   -    |      -      |           -           | :computer: |
-| **Gent**      |     -       |   -    |     -      |    -            |   -    |      -      |           -           |            |
-| **Porto**     |     -       |   -    |     -      |    -            |   -    |      -      |           -           |            |
-| **SOP**       |     -       |   -    |     -      |    -            |   -    |      -      |           -           |            |
-| **KION**      |     -       |   -    |     -      |    -            |   -    |      -      |           -           |            |
-| **Sigma**     | :soon:      |  :ok:  |     -      | :soon:          |   -    |      -      |           -           |            |
-| **Olso**      |     -       |   -    |     -      |    -            |   -    |      -      |           -           |            |
-| **Warsaw**    |     -       |   -    |     -      |    -            |   -    |      -      |           -           |            |
-| **Others**    |     -       |   -    |     -      |    -            |   -    |      -      |           -           |            |
+| ------------- | ----------- | ------ | ---------- | --------------- | ------ | ----------- | --------------------- | ----------- |
+| **Umeå**      | :ok:        | :+1:   |    :ok:    | :soon:          |   -    |      -      |           -           | :computer:  |
+| **Gent**      |     -       |   -    |     -      |    -            |   -    |      -      |           -           |             |
+| **Porto**     |     -       |   -    |     -      |    -            |   -    |      -      |           -           |             |
+| **SOP**       |     -       |   -    |     -      |    -            |   -    |      -      |           -           |             |
+| **KION**      |     -       |   -    |     -      |    -            |   -    |      -      |           -           |             |
+| **Sigma**     | :soon:      | :ok:   |     -      | :soon:          |   -    |      -      |           -           |             |
+| **Olso**      |     -       |   -    |     -      |    -            |   -    |      -      |           -           |             |
+| **Warsaw**    |     -       |   -    |     -      |    -            |   -    |      -      |           -           |             |
+| **Others**    |     -       |   -    |     -      |    -            |   -    |      -      |           -           |             |
 
 ---
-* :ok: means that the API is **fully implemented**
+* :+1: meand that the API is **fully implemented**
+* :ok: means that the API is **implemented and ready for testing**
 * :soon: means that the API is **under development**
 * :x: means that the API is **not applicable** for the specified parter 
 * - means that the development is **not started** yet
