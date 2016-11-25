@@ -18,7 +18,7 @@ public class PersonLoader {
         persistPerson("{'personId':'8906093845','firstNames':'Mary','lastName':'Carter','birthDate':'1989-06-09'}");
     }
 
-    public void createDemoDataPomdoro() throws IOException {
+    public void createDemoDataPomodoro() throws IOException {
         persistPerson("{'personId':'8810126789','firstNames':'Ann','lastName':'White','birthDate':'1988-10-12'}");
         persistPerson("{'personId':'8712146574','firstNames':'Gregory','lastName':'Willis','birthDate':'1987-12-14'}");
         persistPerson("{'personId':'9003228402','firstNames':'Arnold','lastName':'Jones','birthDate':'1990-03-22'}");

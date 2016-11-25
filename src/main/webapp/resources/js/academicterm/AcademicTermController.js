@@ -7,6 +7,14 @@ angular.module('academicterm').controller('AcademicTermController', function ($s
     };
     
     $scope.addAcademicTerm = function(){
+        var selectedAcademicYear;
+        var selectedAcademicYearId = Number($scope.newAcademicTerm.academicYearId);
+        angular.forEach($scope.academicYears, function(item) {
+            if (item.id === selectedAcademicYearId) {
+                selectedAcademicYear = item;
+            }
+        });
+        $scope.newAcademicTerm.academicYear = selectedAcademicYear;
         $scope.newAcademicTerm.dispName = [{text:$scope.newAcademicTerm.dispNameStr,'lang':'en'}];
         $scope.saveAcademicTerm($scope.newAcademicTerm);
         
@@ -36,6 +44,11 @@ angular.module('academicterm').controller('AcademicTermController', function ($s
         InstitutionService.getLocal(
             function(result) {
             $scope.institutions = result;
+        });
+        
+        AcademicTermService.getAcademicYears(
+            function(result) {
+            $scope.academicYears = result;
         });
 
         $scope.organizations = [];

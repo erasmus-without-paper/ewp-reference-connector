@@ -28,8 +28,8 @@ public class GuiPersonResource {
     }
 
     @GET
-    @Path("list")
-    public Response listPost() {
+    @Path("get_all")
+    public Response getAll() {
         List<Person> personList = em.createNamedQuery(Person.findAll).getResultList();
         GenericEntity<List<Person>> entity = new GenericEntity<List<Person>>(personList) {};
         

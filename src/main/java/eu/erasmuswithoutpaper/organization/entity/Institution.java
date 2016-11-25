@@ -17,12 +17,12 @@ import javax.persistence.OneToMany;
 @NamedQuery(name = Institution.findAll, query = "SELECT i FROM Institution i")
 public class Institution implements Serializable{
 
+    private static final String PREFIX = "eu.erasmuswithoutpaper.organization.entity.Institution.";
+    public static final String findAll = PREFIX + "all";
+
     @Id
     @GeneratedValue(strategy=GenerationType.AUTO)
     long id;
-    
-    private static final String PREFIX = "eu.erasmuswithoutpaper.organization.entity.Institution.";
-    public static final String findAll = PREFIX + "all";
 
     private String institutionId;
     private String otherId;

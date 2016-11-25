@@ -29,6 +29,7 @@ angular.module('coordinator').controller('CoordinatorController', function ($sco
             $scope.addOrganizationUnitsToList(item);
         });
     };
+    
     $scope.institutionChanged = function() {
         var currentInst;
         angular.forEach($scope.institutions, function(item) {
@@ -56,6 +57,7 @@ angular.module('coordinator').controller('CoordinatorController', function ($sco
                 $scope.getAllCoordinators();
         });
     };
+    
     $scope.cancelAddCoordinator = function(){
         $scope.newCoordinator = {};
         $scope.showAddCoordinatorForm = false;

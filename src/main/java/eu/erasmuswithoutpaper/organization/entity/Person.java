@@ -17,12 +17,12 @@ import org.apache.johnzon.mapper.JohnzonConverter;
 @NamedQuery(name = Person.findAll, query = "SELECT p FROM Person p")
 public class Person implements Serializable {
     
+    private static final String PREFIX = "eu.erasmuswithoutpaper.organization.entity.Person.";
+    public static final String findAll = PREFIX + "all";
+    
     @Id
     @GeneratedValue(strategy=GenerationType.AUTO)
     private long id;
-    
-    private static final String PREFIX = "eu.erasmuswithoutpaper.organization.entity.Person.";
-    public static final String findAll = PREFIX + "all";
     
     private String personId;
     private String firstNames;

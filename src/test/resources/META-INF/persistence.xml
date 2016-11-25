@@ -2,8 +2,9 @@
 <persistence version="2.0" xmlns="http://java.sun.com/xml/ns/persistence" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://java.sun.com/xml/ns/persistence http://java.sun.com/xml/ns/persistence/persistence_2_0.xsd">
     <persistence-unit name="connector-test" transaction-type="RESOURCE_LOCAL">
         <class>eu.erasmuswithoutpaper.course.entity.AcademicTerm</class>
-        <class>eu.erasmuswithoutpaper.course.entity.LearningOpportunityInstance</class>
+        <class>eu.erasmuswithoutpaper.course.entity.AcademicYear</class>
         <class>eu.erasmuswithoutpaper.course.entity.LearningOpportunitySpecification</class>
+        <class>eu.erasmuswithoutpaper.course.entity.LearningOpportunityInstance</class>
         <class>eu.erasmuswithoutpaper.iia.entity.CooperationCondition</class>
         <class>eu.erasmuswithoutpaper.iia.entity.Iia</class>
         <class>eu.erasmuswithoutpaper.iia.entity.IiaPartner</class>

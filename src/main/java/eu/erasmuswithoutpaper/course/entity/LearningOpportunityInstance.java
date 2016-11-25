@@ -2,21 +2,36 @@
 package eu.erasmuswithoutpaper.course.entity;
 
 import java.io.Serializable;
+import javax.persistence.CascadeType;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
+import javax.persistence.NamedQuery;
 
 @Entity
+@NamedQuery(name = LearningOpportunityInstance.findAll, query = "select l from LearningOpportunityInstance l")
 public class LearningOpportunityInstance implements Serializable {
+    
+    private static final String PREFIX = "eu.erasmuswithoutpaper.course.entity.LearningOpportunityInstance.";
+    public static final String findAll = PREFIX + "all";
+
     @Id
     @GeneratedValue(strategy=GenerationType.AUTO)
     long id;
 
     private String institutionId;
-    private String losCode;
-    private String academicYearId;
-    private String academicTermId;
+    
+    @ManyToOne(cascade = CascadeType.DETACH, fetch = FetchType.EAGER)
+    @JoinColumn(name = "learning_opp_spec", referencedColumnName = "ID")
+    private LearningOpportunitySpecification learningOppSpec;
+    
+    @ManyToOne(cascade = CascadeType.DETACH, fetch = FetchType.EAGER)
+    @JoinColumn(name = "academic_term", referencedColumnName = "ID")
+    private AcademicTerm academicTerm;
     private String credits;
 
     public long getId() {
@@ -35,28 +50,20 @@ public class LearningOpportunityInstance implements Serializable {
         this.institutionId = institutionId;
     }
 
-    public String getLosCode() {
-        return losCode;
+    public LearningOpportunitySpecification getLearningOppSpec() {
+        return learningOppSpec;
     }
 
-    public void setLosCode(String losCode) {
-        this.losCode = losCode;
+    public void setLearningOppSpec(LearningOpportunitySpecification learningOppSpec) {
+        this.learningOppSpec = learningOppSpec;
     }
 
-    public String getAcademicYearId() {
-        return academicYearId;
+    public AcademicTerm getAcademicTerm() {
+        return academicTerm;
     }
 
-    public void setAcademicYearId(String academicYearId) {
-        this.academicYearId = academicYearId;
-    }
-
-    public String getAcademicTermId() {
-        return academicTermId;
-    }
-
-    public void setAcademicTermId(String academicTermId) {
-        this.academicTermId = academicTermId;
+    public void setAcademicTerm(AcademicTerm academicTerm) {
+        this.academicTerm = academicTerm;
     }
 
     public String getCredits() {
@@ -66,11 +73,11 @@ public class LearningOpportunityInstance implements Serializable {
     public void setCredits(String credits) {
         this.credits = credits;
     }
-    
+
     @Override
     public int hashCode() {
-        int hash = 5;
-        hash = 37 * hash + (int) (this.id ^ (this.id >>> 32));
+        int hash = 3;
+        hash = 13 * hash + (int) (this.id ^ (this.id >>> 32));
         return hash;
     }
 
@@ -91,5 +98,5 @@ public class LearningOpportunityInstance implements Serializable {
         }
         return true;
     }
-
+    
 }

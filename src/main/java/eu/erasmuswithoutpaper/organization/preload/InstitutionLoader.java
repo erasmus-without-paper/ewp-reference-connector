@@ -21,7 +21,7 @@ public class InstitutionLoader {
         String organizationUnits="[{'organizationUnitId':'ikea.ou1.se','otherId':'oid1','name':" + organizationUnit1NamesIkea + ",'country':'se','description':" + descriptionUnit1NamesIkea + "},{'organizationUnitId':'ikea.ou2.se','otherId':'oid2','name':" + organizationUnit2NamesIkea + ",'country':'se','description':" + descriptionUnit2NamesIkea + "}]";
         persistInstitution("{'institutionId':'ikea.university.se','otherId':'aid1','name':" + namesIkea + ",'country':'se','description':" + descriptionIkea + ",'organizationUnits':" + organizationUnits +"}");
     }
-    public void createDemoDataPomdoro() throws IOException {
+    public void createDemoDataPomodoro() throws IOException {
         String namesPomodoro = "[{'text':'Pomodoro Universitet','lang':'sv'},{'text':'Pomodoro University','lang':'en'}]";
         String descriptionPomodore = "[{'text':'Svensk beskrivning av Pomodoro universitet','lang':'sv'},{'text':'English description for Pomodoro university','lang':'en'}]";
         String organizationUnit1NamesPomodoro = "[{'text':'Pomodoro Organisationsenhet 1','lang':'sv'},{'text':'Pomodoro Organizations Unit 1','lang':'en'}]";

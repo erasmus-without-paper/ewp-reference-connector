@@ -18,7 +18,7 @@ public class CoordinatorLoader {
         persistCoordinator("{'institutionId':'ikea.university.se','organizationUnitId':'ikea.ou1.se','header':'INSURANCE'}", getPerson("9001013344"));
         persistCoordinator("{'institutionId':'ikea.university.se','organizationUnitId':'ikea.ou2.se','header':'COURSE'}", getPerson("8906093845"));
     }
-    public void createDemoDataPomdoro() throws IOException {
+    public void createDemoDataPomodoro() throws IOException {
         persistCoordinator("{'institutionId':'pomodoro.university.it','organizationUnitId':'pomodoro.ou1.it','header':'COURSE'}", getPerson("8810126789"));
         persistCoordinator("{'institutionId':'pomodoro.university.it','organizationUnitId':'pomodoro.ou1.it','header':'ADMISSION'}", getPerson("8602181287"));
     }

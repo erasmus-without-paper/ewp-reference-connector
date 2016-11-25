@@ -12,7 +12,10 @@ import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
 import javax.persistence.JoinTable;
+import javax.persistence.ManyToOne;
+import javax.persistence.NamedQueries;
 import javax.persistence.NamedQuery;
 import javax.persistence.OneToMany;
 import javax.persistence.Temporal;
@@ -20,19 +23,26 @@ import javax.persistence.TemporalType;
 import org.apache.johnzon.mapper.JohnzonConverter;
 
 @Entity
-@NamedQuery(name = AcademicTerm.findAll, query = "SELECT a FROM AcademicTerm a")
+@NamedQueries({
+    @NamedQuery(name = AcademicTerm.findAll, query = "SELECT a FROM AcademicTerm a"),
+    @NamedQuery(name = AcademicTerm.findByAcademicYearAndTermId, query = "SELECT a FROM AcademicTerm a WHERE a.academicYear.id = :academicYearId AND a.academicTermId = :academicTermId")
+})
 public class AcademicTerm implements Serializable{
 
+    private static final String PREFIX = "eu.erasmuswithoutpaper.course.entity.AcademicTerm.";
+    public static final String findAll = PREFIX + "all";
+    public static final String findByAcademicYearAndTermId = PREFIX + "byAcademicYearAndTermId";
+    
     @Id
     @GeneratedValue(strategy=GenerationType.AUTO)
     long id;
     
-    private static final String PREFIX = "eu.erasmuswithoutpaper.course.entity.AcademicTerm.";
-    public static final String findAll = PREFIX + "all";
-    
     private String institutionId;
     private String organizationUnitId;
-    private String academicYearId;
+    
+    @ManyToOne(cascade = CascadeType.DETACH, fetch = FetchType.EAGER)
+    @JoinColumn(name = "academic_year", referencedColumnName = "ID")
+    private AcademicYear academicYear;
     private String academicTermId;
 
     @OneToMany(cascade = CascadeType.ALL, fetch = FetchType.EAGER, orphanRemoval=true)
@@ -71,12 +81,12 @@ public class AcademicTerm implements Serializable{
         this.organizationUnitId = organizationUnitId;
     }
 
-    public String getAcademicYearId() {
-        return academicYearId;
+    public AcademicYear getAcademicYear() {
+        return academicYear;
     }
 
-    public void setAcademicYearId(String academicYearId) {
-        this.academicYearId = academicYearId;
+    public void setAcademicYear(AcademicYear academicYear) {
+        this.academicYear = academicYear;
     }
 
     public String getAcademicTermId() {

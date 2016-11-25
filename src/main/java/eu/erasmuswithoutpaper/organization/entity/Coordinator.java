@@ -15,13 +15,14 @@ import javax.persistence.NamedQuery;
 @Entity
 @NamedQuery(name = Coordinator.findAll, query = "SELECT c FROM Coordinator c")
 public class Coordinator implements Serializable{
-    @Id
-    @GeneratedValue(strategy=GenerationType.AUTO)
-    long id;
 
     private static final String PREFIX = "eu.erasmuswithoutpaper.organization.entity.Coordinator.";
     public static final String findAll = PREFIX + "all";
     
+    @Id
+    @GeneratedValue(strategy=GenerationType.AUTO)
+    long id;
+
     private String institutionId;
     private String organizationUnitId;
     private CoordinatorHeader header;

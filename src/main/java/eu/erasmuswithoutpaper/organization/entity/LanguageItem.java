@@ -8,6 +8,7 @@ import javax.persistence.Id;
 
 @Entity
 public class LanguageItem implements Serializable {
+    
     public static final String SWEDISH = "sv";
     public static final String ENGLISH = "en";
     

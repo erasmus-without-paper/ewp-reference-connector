@@ -11,11 +11,23 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinTable;
+import javax.persistence.NamedQueries;
+import javax.persistence.NamedQuery;
 import javax.persistence.OneToMany;
 
-@Entity(name = "LOS")
+@Entity
+@NamedQueries({
+    @NamedQuery(name = LearningOpportunitySpecification.findAll, query = "SELECT l FROM LearningOpportunitySpecification l"),
+    @NamedQuery(name = LearningOpportunitySpecification.findByLosCode, query = "SELECT l FROM LearningOpportunitySpecification l WHERE l.losCode = :losCode"),
+    @NamedQuery(name = LearningOpportunitySpecification.findByInstitutionId, query = "SELECT l FROM LearningOpportunitySpecification l WHERE l.institutionId = :institutionId")
+})
 public class LearningOpportunitySpecification implements Serializable{
     
+    private static final String PREFIX = "eu.erasmuswithoutpaper.course.entity.LearningOpportunitySpecification.";
+    public static final String findAll = PREFIX + "all";
+    public static final String findByLosCode = PREFIX + "byLosCode";
+    public static final String findByInstitutionId = PREFIX + "byInstitutionId";
+
     @Id
     @GeneratedValue(strategy=GenerationType.AUTO)
     long id;
@@ -33,6 +45,7 @@ public class LearningOpportunitySpecification implements Serializable{
     private List<LanguageItem> description;
 
     public LearningOpportunitySpecification() {}
+    
     public LearningOpportunitySpecification(String institutionId, String losCode) {
         this.institutionId = institutionId;
         this.losCode = losCode;

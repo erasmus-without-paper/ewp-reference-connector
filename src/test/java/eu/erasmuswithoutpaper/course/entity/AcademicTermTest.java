@@ -32,7 +32,8 @@ public class AcademicTermTest {
         AcademicTerm academicTerm = new AcademicTerm();
         academicTerm.setInstitutionId("instId22");
         academicTerm.setOrganizationUnitId("orgUnitId33");
-        academicTerm.setAcademicYearId("academicYearId1");
+        AcademicYear year = new AcademicYear("2016", "2017");
+        academicTerm.setAcademicYear(year);
         academicTerm.setAcademicTermId("academicTermId1");
         List<LanguageItem> dispName = new ArrayList();
         LanguageItem dispNameEn = new LanguageItem("DispNameEn", LanguageItem.ENGLISH);
@@ -40,6 +41,7 @@ public class AcademicTermTest {
         academicTerm.setDispName(dispName);
         
         this.tx.begin();
+        this.em.persist(year);
         this.em.persist(academicTerm);
         this.tx.commit();
         this.em.clear();

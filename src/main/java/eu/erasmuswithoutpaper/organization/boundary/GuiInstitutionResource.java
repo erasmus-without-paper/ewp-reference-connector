@@ -32,8 +32,8 @@ public class GuiInstitutionResource {
     }
     
     @GET
-    @Path("list")
-    public Response listPost() {
+    @Path("get_all")
+    public Response getAll() {
         List<Institution> institutionList = em.createNamedQuery(Institution.findAll).getResultList();
 
         GenericEntity<List<Institution>> entity = new GenericEntity<List<Institution>>(institutionList) {};

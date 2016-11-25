@@ -9,6 +9,7 @@ import javax.persistence.Id;
 
 @Entity
 public class HeiInformation implements Serializable{
+    
     @Id
     @GeneratedValue(strategy=GenerationType.AUTO)
     long id;

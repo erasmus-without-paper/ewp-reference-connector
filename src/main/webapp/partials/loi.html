@@ -1,0 +1,86 @@
+<div class="container">
+    <h1 class="page-header">Learning opportunity instance</h1>
+    <div class="panel panel-default" ng-show="showAddLearningOppInstanceForm">
+        <div class="panel-heading"><h2>Add Learning opportunity instance</h2></div>
+        <div class="panel-body">
+            <form class="form-horizontal"  ng-submit="addLearningOppInstance()">
+                <div class="form-group">
+                    <label class="control-label col-sm-2" for="institution">Institution:</label>
+                    <div class="col-sm-10">
+                        <select id="institution" class="form-control" ng-model="newLearningOppInstance.institutionId" required="required" ng-change="institutionChanged()">
+                            <option style="display:none" value="">select institution</option>
+                            <option ng-repeat="inst in institutions" value="{{inst.institutionId}}">{{(inst.name | languageItem : 'en').text}}, {{inst.country}}</option>
+                        </select>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label class="control-label col-sm-2" for="los">Learning opp spec</label>
+                    <div class="col-sm-10">
+                        <select id="los" class="form-control" ng-model="newLearningOppInstance.learningOppSpecId" required="required">
+                            <option style="display:none" value="">select Learning opportunity specification</option>
+                            <option ng-repeat="los in losList" value="{{los.id}}">{{los.losCode}} - {{(los.name | languageItem : 'en').text}}</option>
+                        </select>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label class="control-label col-sm-2" for="academicterms">Academic term</label>
+                    <div class="col-sm-10">
+                        <select id="academicterms" class="form-control" ng-model="newLearningOppInstance.academicTermId" required="required">
+                            <option style="display:none" value="">select Academic term</option>
+                            <option ng-repeat="academicTerm in academicTerms" value="{{academicTerm.id}}">{{(academicTerm.dispName | languageItem : 'en').text}}</option>
+                        </select>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label class="control-label col-sm-2" for="credits">Credits:</label>
+                    <div class="col-sm-10">
+                        <input id="credits" type="text" class="form-control" placeholder="Enter Credits" ng-model="newLearningOppInstance.credits" required="required">
+                    </div>
+                </div>
+
+                <div class="input-group">
+                    <div class="btn-group">
+                        <button type="submit" class="btn btn-default">
+                            <span class="glyphicon glyphicon-ok-circle"></span> Save
+                        </button>
+                        <button type="button" class="btn btn-default" ng-click="cancelAddLearningOppInstance()">
+                            <span class="glyphicon glyphicon-remove-circle"></span> Cancel
+                        </button>
+                    </div>
+                </div>
+            </form>
+        </div>
+    </div>
+    
+    <div class="clearfix">
+        <h2 class="pull-left">Learning opportunity instances</h2>
+        <div class="btn-group pull-right" ng-show="!showLearningOppInstanceForm">
+            <button type="submit" class="btn btn-default" ng-click="viewAddLearningOppInstanceForm()">
+                <i class="glyphicon glyphicon-plus-sign"></i>
+            </button>
+        </div>
+    </div>
+        
+    <div class="input-group">
+        <input class="form-control" id="search" name="search" placeholder="Search for" ng-model="query" required="required"/>
+        <span class="input-group-btn">
+            <button type="submit" class="btn btn-default">
+                <i class="glyphicon glyphicon-search"></i>
+            </button>
+        </span>
+    </div>
+        
+    <div class="list-group">
+        <div ng-repeat="loi in loiList | filter:query" ng-click="isopen[loi.id] = !isopen[loi.id]">
+            <a class="list-group-item">
+                <b>{{loi.learningOppSpec.losCode}} - {{(loi.learningOppSpec.name | languageItem : 'en').text}}, {{(loi.academicTerm.dispName | languageItem : 'en').text}}</b>
+                <i class="pull-right glyphicon" ng-class="{'glyphicon-chevron-down': isopen[loi.id], 'glyphicon-chevron-right': !isopen[loi.id]}"></i>
+            </a>
+            <div class="list-group-item" ng-show="isopen[loi.id]">
+                Start date: {{loi.academicTerm.startDate | date: 'yyyy-MM-dd'}}<br/>
+                End date: {{loi.academicTerm.endDate | date: 'yyyy-MM-dd'}}<br/>
+                Credits: {{loi.credits}}
+            </div>
+        </div>
+    </div>
+</div>

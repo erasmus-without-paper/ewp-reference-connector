@@ -2,6 +2,7 @@
 package eu.erasmuswithoutpaper.course.boundary;
 
 import eu.erasmuswithoutpaper.course.entity.AcademicTerm;
+import eu.erasmuswithoutpaper.course.entity.AcademicYear;
 import java.util.List;
 import javax.ejb.Stateless;
 import javax.persistence.EntityManager;
@@ -15,7 +16,7 @@ import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.Response;
 
 @Stateless
-@Path("academicterm")
+@Path("academic_term")
 public class GuiAcademicTermResource {
     @PersistenceContext(unitName = "connector")
     EntityManager em;
@@ -28,10 +29,19 @@ public class GuiAcademicTermResource {
     }
     
     @GET
-    @Path("list")
-    public Response listPost() {
+    @Path("get_all")
+    public Response getAll() {
         List<AcademicTerm> academicTermList = em.createNamedQuery(AcademicTerm.findAll).getResultList();
         GenericEntity<List<AcademicTerm>> entity = new GenericEntity<List<AcademicTerm>>(academicTermList) {};
+        
+        return Response.ok(entity).build();
+    }
+
+    @GET
+    @Path("list_academic_years")
+    public Response listAcademicYears() {
+        List<AcademicYear> academicYearList = em.createNamedQuery(AcademicYear.findAll).getResultList();
+        GenericEntity<List<AcademicYear>> entity = new GenericEntity<List<AcademicYear>>(academicYearList) {};
         
         return Response.ok(entity).build();
     }

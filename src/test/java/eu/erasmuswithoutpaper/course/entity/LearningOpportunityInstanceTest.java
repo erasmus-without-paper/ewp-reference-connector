@@ -28,12 +28,14 @@ public class LearningOpportunityInstanceTest {
     public void testPersistLearningOpportunityInstance() {
         LearningOpportunityInstance loi = new LearningOpportunityInstance();
         loi.setInstitutionId("instId1");
-        loi.setLosCode("losCode3");
-        loi.setAcademicYearId("academicYearId1");
-        loi.setAcademicTermId("academicTermId1");
+        LearningOpportunitySpecification learningOppSpec = new LearningOpportunitySpecification();
+        learningOppSpec.setInstitutionId("instId1");
+        learningOppSpec.setLosCode("losCode1");
+        loi.setLearningOppSpec(learningOppSpec);
         loi.setCredits("10");
         
         this.tx.begin();
+        this.em.persist(learningOppSpec);
         this.em.persist(loi);
         this.tx.commit();
         this.em.clear();
