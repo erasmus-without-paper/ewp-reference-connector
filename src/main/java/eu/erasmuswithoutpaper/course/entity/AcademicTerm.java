@@ -39,11 +39,11 @@ public class AcademicTerm implements Serializable{
     
     private String institutionId;
     private String organizationUnitId;
+    private String academicTermId;
     
     @ManyToOne(cascade = CascadeType.DETACH, fetch = FetchType.EAGER)
-    @JoinColumn(name = "academic_year", referencedColumnName = "ID")
+    @JoinColumn(name = "ACADEMIC_YEAR_ID", referencedColumnName = "ID")
     private AcademicYear academicYear;
-    private String academicTermId;
 
     @OneToMany(cascade = CascadeType.ALL, fetch = FetchType.EAGER, orphanRemoval=true)
     @JoinTable(name = "academic_term_name")

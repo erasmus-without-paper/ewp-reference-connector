@@ -12,8 +12,8 @@ import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.NamedQuery;
 
-@Entity
-@NamedQuery(name = LearningOpportunityInstance.findAll, query = "select l from LearningOpportunityInstance l")
+@Entity(name="loi")
+@NamedQuery(name = LearningOpportunityInstance.findAll, query = "SELECT l FROM loi l")
 public class LearningOpportunityInstance implements Serializable {
     
     private static final String PREFIX = "eu.erasmuswithoutpaper.course.entity.LearningOpportunityInstance.";
@@ -26,11 +26,11 @@ public class LearningOpportunityInstance implements Serializable {
     private String institutionId;
     
     @ManyToOne(cascade = CascadeType.DETACH, fetch = FetchType.EAGER)
-    @JoinColumn(name = "learning_opp_spec", referencedColumnName = "ID")
+    @JoinColumn(name = "LOS_ID", referencedColumnName = "ID")
     private LearningOpportunitySpecification learningOppSpec;
     
     @ManyToOne(cascade = CascadeType.DETACH, fetch = FetchType.EAGER)
-    @JoinColumn(name = "academic_term", referencedColumnName = "ID")
+    @JoinColumn(name = "ACADEMIC_TERM_ID", referencedColumnName = "ID")
     private AcademicTerm academicTerm;
     private String credits;
 

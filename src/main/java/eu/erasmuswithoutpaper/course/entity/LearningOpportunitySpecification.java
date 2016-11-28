@@ -15,11 +15,11 @@ import javax.persistence.NamedQueries;
 import javax.persistence.NamedQuery;
 import javax.persistence.OneToMany;
 
-@Entity
+@Entity(name="los")
 @NamedQueries({
-    @NamedQuery(name = LearningOpportunitySpecification.findAll, query = "SELECT l FROM LearningOpportunitySpecification l"),
-    @NamedQuery(name = LearningOpportunitySpecification.findByLosCode, query = "SELECT l FROM LearningOpportunitySpecification l WHERE l.losCode = :losCode"),
-    @NamedQuery(name = LearningOpportunitySpecification.findByInstitutionId, query = "SELECT l FROM LearningOpportunitySpecification l WHERE l.institutionId = :institutionId")
+    @NamedQuery(name = LearningOpportunitySpecification.findAll, query = "SELECT l FROM los l"),
+    @NamedQuery(name = LearningOpportunitySpecification.findByLosCode, query = "SELECT l FROM los l WHERE l.losCode = :losCode"),
+    @NamedQuery(name = LearningOpportunitySpecification.findByInstitutionId, query = "SELECT l FROM los l WHERE l.institutionId = :institutionId")
 })
 public class LearningOpportunitySpecification implements Serializable{
     

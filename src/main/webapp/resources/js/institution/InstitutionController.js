@@ -55,7 +55,7 @@ angular.module('institution').controller('InstitutionController', function ($sco
     
     $scope.saveInstitution = function(institution) {
         InstitutionService.save(institution, function(result) {
-            $scope.getAllPersons();
+            $scope.getAllInstitutions();
         });
     };
     
