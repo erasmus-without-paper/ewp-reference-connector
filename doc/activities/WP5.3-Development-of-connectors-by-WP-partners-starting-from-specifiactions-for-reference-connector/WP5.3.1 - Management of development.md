@@ -8,7 +8,7 @@ This table shows which partner who had developed which API and are ready for int
 
 | Partner/API:s | *In Registry* | *Discovery* | *Echo* | **Institution** | Test server |
 | ------------- | -----------   | ----------- | ------ | --------------- | ----------- |
-| **Umeå**      | :soon:        | :star:      | -      | :soon:          | :link::soon:|
+| **Umeå**      | :soon:        | :star:      | :star: | :soon:          | :link::soon:|
 | **Gent**      |     -         |   -         | -      |    -            |             |
 | **Porto**     |     -         |   -         | -      |    -            |             |
 | **SOP**       |     -         |   -         | -      |    -            |             |
