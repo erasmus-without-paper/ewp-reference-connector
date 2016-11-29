@@ -7,8 +7,8 @@
 
 #### Project manager / Contact person
 |               | Technical                 | Organisational             |
-| Name:         | Georg Schermann           | Gerald Mauberger           |
 | ------------- | ------------------------- | -------------------------- |
+| Name:         | Georg Schermann           | Gerald Mauberger           |
 | Email adress: | georg.schermann@sop.co.at | gerald.mauberger@sop.co.at |
 | Telephone no: | +43 650 703 66 15         | +43 505 29 30              |
 
