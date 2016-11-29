@@ -11,7 +11,7 @@ This table shows which partner who had developed which API and are ready for int
 | **Umeå**      | :soon:        | :star:      | :star: | :soon:          | :link::soon:|
 | **Gent**      |     -         |   -         | -      |    -            |             |
 | **Porto**     |     -         |   -         | -      |    -            |             |
-| **SOP**       |     -         |   -         | -      |    -            |             |
+| **SOP**       | :link:        | :star:      | :star: | :soon:          | :link:      |
 | **KION**      |     -         |   -         | -      |    -            |             |
 | **Sigma**     | :soon:        | :star:      | -      | :soon:          |             |
 | **Olso**      |     -         |   -         | -      |    -            |             |
