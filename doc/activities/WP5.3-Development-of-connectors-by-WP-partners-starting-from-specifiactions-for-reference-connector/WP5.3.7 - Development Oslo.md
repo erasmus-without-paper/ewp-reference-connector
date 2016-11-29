@@ -6,8 +6,7 @@
 ### Contact information for local developing team
 
 #### Project manager / Contact person
-| Name:         |  _John Smith_     | 
-| ------------- | ----------------- |
+| Name          |  John Smith       | 
 | Email adress: |  _name@hei.com_   |
 | Telephone no: |  _+46 70-5275020_ |
 
