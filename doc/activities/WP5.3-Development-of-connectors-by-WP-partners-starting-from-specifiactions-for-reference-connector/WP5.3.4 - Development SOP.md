@@ -6,16 +6,17 @@
 ### Contact information for local developing team
 
 #### Project manager / Contact person
-| Name:         |  _John Smith_     | 
-| ------------- | ----------------- |
-| Email adress: |  _name@hei.com_   |
-| Telephone no: |  _+46 70-5275020_ |
+|               | Technical                 | Organisational             |
+| ------------- | ------------------------- | -------------------------- |
+| Name:         | Georg Schermann           | Gerald Mauberger           |
+| Email adress: | georg.schermann@sop.co.at | gerald.mauberger@sop.co.at |
+| Telephone no: | +43 650 703 66 15         | +43 505 29 30              |
 
 #### Developing members
 |     Role       |      Name         |              Email adress                 |
 | -------------  | ----------------- | ----------------------------------------- |
-|                |                   |                                           |
-|                |                   |                                           |
+| Dev            | Manuel Halbwachs  | manuel.halbwachs@sop.co.at                |
+| Head Dev dept. | Steffen Basedow   | steffen.basedow@sop.co.at                 |
 |                |                   |                                           |             
 
 Other important information _(please specify below:)_ 
