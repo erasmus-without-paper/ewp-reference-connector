@@ -6,7 +6,7 @@
 ### Contact information for local developing team
 
 #### Project manager / Contact person
-| :Contact info     | :Details                       |
+| Contact info      | Details                        |
 | ----------------- | ------------------------------ |
 | **Name**          |  _First, Surname_              |
 | **Email adress**  |  _email@domain.com_            |
@@ -15,8 +15,8 @@
 #### Developing members
 |     Role       |      Name         |              Email adress                 |
 | -------------  | ----------------- | ----------------------------------------- |
-|                |                   |                                           |
-|                |                   |                                           |
-|                |                   |                                           |             
+|      -         |                   |                                           |
+|      -         |                   |                                           |
+|      -         |                   |                                           |             
 
 Other important information _(please specify below:)_ 
