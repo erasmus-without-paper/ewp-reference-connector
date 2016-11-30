@@ -6,17 +6,18 @@
 ### Contact information for local developing team
 
 #### Project manager / Contact person
-| Contact info      | Details                        |
-| ----------------- | ------------------------------ |
-| **Name**          |  _First, Surname_              |
-| **Email adress**  |  _email@domain.com_            |
-| **Telephone no**  |  _+46 70-555 555_              |
+| Contact info      | Details                            |
+| ----------------- | ---------------------------------- |
+| **Name**          |  Janina Mincer-Daszkiewicz         |
+| **Email adress**  |  jmd@mimuw.edu.pl                  |
+| **Telephone no**  |  +48 22-55 44 223, +48 608 858 823 |
 
 #### Developing members
-|     Role       |      Name         |              Email adress                 |
-| -------------  | ----------------- | ----------------------------------------- |
-|      -         |                   |                                           |
-|      -         |                   |                                           |
-|      -         |                   |                                           |             
+|     Role       |      Name          |              Email adress        |
+| -------------  | ------------------ | -------------------------------- |
+| Developer      | Wojciech Rygielski | rygielski@mimuw.edu.pl           |
+| Developer      | Michał Kurzydłowski| michalk@mimuw.edu.pl             |
+| Developer      | Michał Żak         | m.zak@usos.edu.pl                |
+| Developer      | Bartłomiej Goldman | goldman@mimuw.edu.pl             |
 
 Other important information _(please specify below:)_ 
