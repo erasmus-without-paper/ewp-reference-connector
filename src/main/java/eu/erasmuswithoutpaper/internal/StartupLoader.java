@@ -4,6 +4,7 @@ import eu.erasmuswithoutpaper.course.preload.AcademicTermLoader;
 import eu.erasmuswithoutpaper.course.preload.AcademicYearLoader;
 import eu.erasmuswithoutpaper.course.preload.LoiLoader;
 import eu.erasmuswithoutpaper.course.preload.LosLoader;
+import eu.erasmuswithoutpaper.iia.preload.IiaPartnerLoader;
 import eu.erasmuswithoutpaper.internal.control.GlobalPropertiesController;
 import eu.erasmuswithoutpaper.organization.preload.CoordinatorLoader;
 import eu.erasmuswithoutpaper.organization.preload.InstitutionLoader;
@@ -43,6 +44,9 @@ public class StartupLoader {
 
     @Inject
     private LoiLoader learningOppInstLoader;
+
+    @Inject
+    private IiaPartnerLoader iiaPartnerLoader;
     
     @PostConstruct
     public void loadDemoData() {
@@ -61,6 +65,7 @@ public class StartupLoader {
                     academicTermLoader.createDemoDataIkea();
                     learningOppSpecLoader.createDemoDataIkea();
                     learningOppInstLoader.createDemoDataIkea();
+                    iiaPartnerLoader.createDemoDataIkea();
                     break;
                 case POMODORO_U:
                     institutionLoader.createDemoDataPomodoro();
@@ -70,6 +75,7 @@ public class StartupLoader {
                     academicTermLoader.createDemoDataPomodoro();
                     learningOppSpecLoader.createDemoDataPomodoro();
                     learningOppInstLoader.createDemoDataPomodoro();
+                    iiaPartnerLoader.createDemoDataPomodoro();
                     break;
             }
         } catch (IOException ex) {

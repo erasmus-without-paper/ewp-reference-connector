@@ -16,8 +16,8 @@
                 <div class="form-group">
                     <label class="control-label col-sm-2" for="orgunit">Organization Unit:</label>
                     <div class="col-sm-10">
-                        <select id="orgunit" class="form-control" ng-model="newCoordinator.organizationUnitId" required="required">
-                            <option style="display:none" value="">select an organization unit</option>
+                        <select id="orgunit" class="form-control" ng-model="newCoordinator.organizationUnitId">
+                            <option value="">select an organization unit (optional)</option>
                             <option ng-repeat="org in organizations" value="{{org.organizationUnitId}}">{{(org.name | languageItem : 'en').text}}, {{org.country}}</option>
                         </select>
                     </div>
@@ -73,13 +73,18 @@
     <div class="list-group">
         <div ng-repeat="coordinator in coordinators | filter:query" ng-click="isopen[coordinator.id] = !isopen[coordinator.id]">
             <a class="list-group-item">
-                <b>{{coordinator.person.personId}} - {{coordinator.person.firstNames}} {{coordinator.person.lastName}}</b>
+                <b>{{coordinator.header}} - {{coordinator.person.firstNames}} {{coordinator.person.lastName}}</b>
                 <i class="pull-right glyphicon" ng-class="{'glyphicon-chevron-down': isopen[coordinator.id], 'glyphicon-chevron-right': !isopen[coordinator.id]}"></i>
             </a>
             <div class="list-group-item" ng-show="isopen[coordinator.id]">
-                Institution Id: {{coordinator.institutionId}}<br/>
-                Organization Unit Id: {{coordinator.organizationUnitId}}<br/>
+                First Names: {{coordinator.person.firstNames}}<br/>
+                Last Name: {{coordinator.person.lastName}}<br/>
                 Header: {{coordinator.header}}<br/>
+                Person Id: {{coordinator.person.personId}}<br/>
+                Institution Id: {{coordinator.institutionId}}<br/>
+                <div ng-show="coordinator.organizationUnitId">
+                    Organization Unit Id: {{coordinator.organizationUnitId}}<br/>
+                </div>
             </div>
         </div>
     </div>

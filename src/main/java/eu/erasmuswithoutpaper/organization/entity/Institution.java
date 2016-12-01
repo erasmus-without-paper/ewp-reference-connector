@@ -10,15 +10,20 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinTable;
+import javax.persistence.NamedQueries;
 import javax.persistence.NamedQuery;
 import javax.persistence.OneToMany;
 
 @Entity
-@NamedQuery(name = Institution.findAll, query = "SELECT i FROM Institution i")
+@NamedQueries({
+    @NamedQuery(name = Institution.findAll, query = "SELECT i FROM Institution i"),
+    @NamedQuery(name = Institution.findByInstitutionId, query = "SELECT i FROM Institution i WHERE i.institutionId = :institutionId")
+})
 public class Institution implements Serializable{
 
     private static final String PREFIX = "eu.erasmuswithoutpaper.organization.entity.Institution.";
     public static final String findAll = PREFIX + "all";
+    public static final String findByInstitutionId = PREFIX + "byInstitutionId";
 
     @Id
     @GeneratedValue(strategy=GenerationType.AUTO)

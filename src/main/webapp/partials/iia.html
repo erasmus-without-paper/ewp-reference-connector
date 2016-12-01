@@ -1,5 +1,26 @@
 <div class="container">
     <h1 class="page-header">IIA</h1>
+    
+    <div class="input-group">
+        <input class="form-control" id="search" name="search" placeholder="Search for" ng-model="query" required="required"/>
+        <span class="input-group-btn">
+            <button type="submit" class="btn btn-default">
+                <i class="glyphicon glyphicon-search"></i>
+            </button>
+        </span>
+    </div>
+    
+    <div>
+        <h3 class="page-header">IIA's</h3> {{iiaList}}
+    </div>
+</div>
+
+
+
+
+<!--
+<div class="container">
+    <h1 class="page-header">IIA</h1>
     <div class="clearfix">
         <h2 class="pull-left">IIAs</h2>
         <div class="btn-group pull-right">
@@ -60,3 +81,4 @@
         </ul>
     </div>
 </div>
+-->

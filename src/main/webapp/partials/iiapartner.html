@@ -1,0 +1,41 @@
+<div class="container">
+    <h1 class="page-header">IIA Partner</h1>
+    
+    <div class="input-group">
+        <input class="form-control" id="search" name="search" placeholder="Search for" ng-model="query" required="required"/>
+        <span class="input-group-btn">
+            <button type="submit" class="btn btn-default">
+                <i class="glyphicon glyphicon-search"></i>
+            </button>
+        </span>
+    </div>
+    
+    <div>
+        <h2 class="page-header">IIA Partners</h2>
+    </div>
+    
+    <div class="list-group">
+        <div ng-repeat="iiaPartner in iiaPartners | filter:query" ng-click="isopen[iiaPartner.id] = !isopen[iiaPartner.id]">
+            <a class="list-group-item">
+                <b>{{(iiaPartner.institution.name | languageItem : 'en').text}} ({{iiaPartner.institution.country}})</b>
+                <i class="pull-right glyphicon" ng-class="{'glyphicon-chevron-down': isopen[iiaPartner.id], 'glyphicon-chevron-right': !isopen[iiaPartner.id]}"></i>
+            </a>
+            <div class="list-group-item" ng-show="isopen[iiaPartner.id]">
+                Institution Id: {{iiaPartner.institution.institutionId}}<br/>
+                <div ng-repeat="name in iiaPartner.institution.name">
+                    Name: ({{name.lang}}): {{name.text}}
+                </div>
+                <div ng-show="iiaPartner.organizationUnit">
+                    Organization unit id: {{iiaPartner.organizationUnit.organizationUnitId}}
+                    <div ng-repeat="name in iiaPartner.organizationUnit.name">
+                        Name: ({{name.lang}}): {{name.text}}
+                    </div>
+                </div>
+                Country: {{iiaPartner.institution.country}}<br/>
+                <div ng-repeat="coordinator in iiaPartner.coordinators">
+                    Coordinator {{coordinator.header}}: {{coordinator.person.personId}} - {{coordinator.person.firstNames}} {{coordinator.person.lastName}}
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

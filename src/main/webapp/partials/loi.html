@@ -77,9 +77,18 @@
                 <i class="pull-right glyphicon" ng-class="{'glyphicon-chevron-down': isopen[loi.id], 'glyphicon-chevron-right': !isopen[loi.id]}"></i>
             </a>
             <div class="list-group-item" ng-show="isopen[loi.id]">
+                LOS code: {{loi.learningOppSpec.losCode}}<br/>
+                <div ng-repeat="name in loi.learningOppSpec.name">
+                    Name: ({{name.lang}}): {{name.text}}
+                </div>
+                <div ng-repeat="description in loi.learningOppSpec.description">
+                    Description: ({{description.lang}}): {{description.text}}
+                </div>
+                Type: {{loi.learningOppSpec.type}}<br/>
                 Start date: {{loi.academicTerm.startDate | date: 'yyyy-MM-dd'}}<br/>
                 End date: {{loi.academicTerm.endDate | date: 'yyyy-MM-dd'}}<br/>
-                Credits: {{loi.credits}}
+                Credits: {{loi.credits}}<br/>
+                Institution id: {{loi.institutionId}}
             </div>
         </div>
     </div>

@@ -32,8 +32,12 @@ public class AcademicTermLoader {
     public void createDemoDataPomodoro() throws IOException {
         String dispNames2016Spring = "[{'text':'Vårtermin 2016','lang':'sv'},{'text':'Spring semester 2016','lang':'en'}]";
         String dispNames2016Fall = "[{'text':'Hösttermin 2016','lang':'sv'},{'text':'Fall semester 2016','lang':'en'}]";
-        persistAcademicTerm("{'institutionId':'pomodoro.university.it,'organizationUnitId':'pomodoro.ou1.it','academicYearId':'2016/2017','academicTermId':'Spring','dispName':" + dispNames2016Spring + ",'startDate':'2016-01-17','endDate':'2017-06-30'}", getAcademicYear("2015", "2016"));
-        persistAcademicTerm("{'institutionId':'pomodoro.university.it,'organizationUnitId':'pomodoro.ou1.it','academicYearId':'2016/2017','academicTermId':'Fall','dispName':" + dispNames2016Fall + ",'startDate':'2016-09-05','endDate':'2017-01-17'}", getAcademicYear("2016", "2017"));
+        String dispNames2017Spring = "[{'text':'Vårtermin 2017','lang':'sv'},{'text':'Spring semester 2017','lang':'en'}]";
+        String dispNames2017Fall = "[{'text':'Hösttermin 2017','lang':'sv'},{'text':'Fall semester 2017','lang':'en'}]";
+        persistAcademicTerm("{'institutionId':'pomodoro.university.it','organizationUnitId':'pomodoro.ou1.it','academicTermId':'Spring','dispName':" + dispNames2016Spring + ",'startDate':'2016-01-17','endDate':'2017-06-30'}", getAcademicYear("2015", "2016"));
+        persistAcademicTerm("{'institutionId':'pomodoro.university.it','organizationUnitId':'pomodoro.ou1.it','academicTermId':'Fall','dispName':" + dispNames2016Fall + ",'startDate':'2016-09-05','endDate':'2017-01-17'}", getAcademicYear("2016", "2017"));
+        persistAcademicTerm("{'institutionId':'pomodoro.university.it','organizationUnitId':'pomodoro.ou1.it','academicTermId':'Spring','dispName':" + dispNames2017Spring + ",'startDate':'2017-01-19','endDate':'2017-06-30'}", getAcademicYear("2016", "2017"));
+        persistAcademicTerm("{'institutionId':'pomodoro.university.it','organizationUnitId':'pomodoro.ou1.it','academicTermId':'Fall','dispName':" + dispNames2017Fall + ",'startDate':'2017-09-05','endDate':'2018-01-16'}", getAcademicYear("2017", "2018"));
     }
     
     private void persistAcademicTerm(String academicTermJson, AcademicYear academicYear) throws IOException {
@@ -43,7 +47,7 @@ public class AcademicTermLoader {
     }
     
     private AcademicYear getAcademicYear(String startYear, String endYear) throws IOException {
-        Query query = em.createQuery("select a from AcademicYear a where a.startYear=:startYear and a.endYear=:endYear", AcademicYear.class).setParameter("startYear", startYear).setParameter("endYear", endYear);
+        Query query = em.createNamedQuery(AcademicYear.findByKeys).setParameter("startYear", startYear).setParameter("endYear", endYear);
         List<AcademicYear> academicYearList = query.getResultList();
         if (academicYearList.size() != 1) {
            throw new IllegalArgumentException("Academic year " + startYear + "/" + endYear + " doesn't return an unique academic year.");

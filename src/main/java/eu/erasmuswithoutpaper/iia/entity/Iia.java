@@ -6,11 +6,16 @@ import java.util.Date;
 import java.util.Objects;
 import javax.persistence.Entity;
 import javax.persistence.Id;
+import javax.persistence.NamedQuery;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
 
 @Entity
+@NamedQuery(name = Iia.findAll, query = "SELECT i FROM Iia i")
 public class Iia implements Serializable{
+    
+    private static final String PREFIX = "eu.erasmuswithoutpaper.course.entity.Iia.";
+    public static final String findAll = PREFIX + "all";
     
     @Id
     private String iiaId;

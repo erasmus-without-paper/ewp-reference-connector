@@ -1,9 +1,12 @@
 angular
-    .module('connector', ['menu', 'home', 'echo', 'iia', 'institution', 'ngResource', 'ngRoute', 'person', 'coordinator', 'academicterm', 'los', 'loi'])
+    .module('connector', ['menu', 'home', 'echo', 'iia', 'institution', 'ngResource', 'ngRoute', 'person', 'coordinator', 'academicterm', 'los', 'loi', 'iiapartner'])
     .config(function ($routeProvider) {
         $routeProvider.when('/iia', {
-                templateUrl: 'partials/iia.html',
-                controller: 'IiaController'
+                templateUrl: 'partials/todo.html'
+//                controller: 'IiaController'
+            }).when('/iiapartner', {
+                templateUrl: 'partials/iiapartner.html',
+                controller: 'IiaPartnerController'
             }).when('/newIia', {
                 templateUrl: 'partials/new_iia_form.html',
                 controller: 'IiaController'

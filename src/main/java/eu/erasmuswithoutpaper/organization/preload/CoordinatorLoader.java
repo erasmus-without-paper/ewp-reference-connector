@@ -16,11 +16,13 @@ public class CoordinatorLoader {
     
     public void createDemoDataIkea() throws IOException {
         persistCoordinator("{'institutionId':'ikea.university.se','organizationUnitId':'ikea.ou1.se','header':'INSURANCE'}", getPerson("9001013344"));
+        persistCoordinator("{'institutionId':'ikea.university.se','header':'ADMISSION'}", getPerson("9107146991"));
         persistCoordinator("{'institutionId':'ikea.university.se','organizationUnitId':'ikea.ou2.se','header':'COURSE'}", getPerson("8906093845"));
     }
     public void createDemoDataPomodoro() throws IOException {
         persistCoordinator("{'institutionId':'pomodoro.university.it','organizationUnitId':'pomodoro.ou1.it','header':'COURSE'}", getPerson("8810126789"));
-        persistCoordinator("{'institutionId':'pomodoro.university.it','organizationUnitId':'pomodoro.ou1.it','header':'ADMISSION'}", getPerson("8602181287"));
+        persistCoordinator("{'institutionId':'pomodoro.university.it','header':'ADMISSION'}", getPerson("8602181287"));
+        persistCoordinator("{'institutionId':'pomodoro.university.it','organizationUnitId':'pomodoro.ou1.it','header':'INSURANCE'}", getPerson("9104125620"));
     }
 
     private void persistCoordinator(String coordinatorJson, Person person) throws IOException {
@@ -30,7 +32,7 @@ public class CoordinatorLoader {
     }
     
     private Person getPerson(String personId) throws IOException {
-        Query query = em.createQuery("select a from Person a where a.personId=:personId", Person.class).setParameter("personId", personId);
+        Query query = em.createNamedQuery(Person.findByPersonId).setParameter("personId", personId);
         List<Person> personList = query.getResultList();
         if (personList.size() != 1) {
            throw new IllegalArgumentException("Person id " + personId + " doesn't return an unique person.");

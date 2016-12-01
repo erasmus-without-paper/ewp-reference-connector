@@ -3,7 +3,7 @@
     <ol class="breadcrumb" ng-if="browseInstOrgObjectList.length > 0">
         <li class="breadcrumb-item" ng-repeat="item in browseInstOrgObjectList" ng-class="$last ? 'active' : ''">{{(item.name | languageItem : 'en').text}}</li>
     </ol>
-    <div class="panel panel-default" ng-show="showAddInstitiutionForm">
+    <div class="panel panel-default" ng-show="showAddInstitutionForm">
         <div class="panel-heading"><h2>Add Institution</h2></div>
         <div class="panel-body">
             <form class="form-horizontal"  ng-submit="addInstitution()">
@@ -102,7 +102,7 @@
     <div ng-show="!currentInstOrgObject">
         <div class="clearfix">
             <h2 class="pull-left">Institutions</h2>
-            <div class="btn-group pull-right" ng-show="!showAddInstitiutionForm">
+            <div class="btn-group pull-right" ng-show="!showAddInstitutionForm">
                 <button type="submit" class="btn btn-default" ng-click="viewAddForm()">
                     <i class="glyphicon glyphicon-plus-sign"></i>
                 </button>
@@ -139,6 +139,7 @@
             <tr ng-repeat="description in currentInstOrgObject.description">
                 <th>Description ({{description.lang}}):</th><td>{{description.text}}</td>
             </tr>
+            <tr><th>Other Id:</th><td>{{currentInstOrgObject.otherId}}</td></tr>
         </table>
 
         <div ng-if="currentInstOrgObject.organizationUnits.length > 0">

@@ -26,7 +26,7 @@ public class IiaPartnerTest {
 
     @Test
     public void testPersistPartner() {
-        IiaPartner iiaPartner = new IiaPartner("IiaId1", "InstId1", "OrgUnitId1");
+        IiaPartner iiaPartner = new IiaPartner();
         
         this.tx.begin();
         this.em.persist(iiaPartner);

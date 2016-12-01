@@ -10,14 +10,19 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
+import javax.persistence.NamedQueries;
 import javax.persistence.NamedQuery;
 
 @Entity
-@NamedQuery(name = Coordinator.findAll, query = "SELECT c FROM Coordinator c")
+@NamedQueries({
+    @NamedQuery(name = Coordinator.findAll, query = "SELECT c FROM Coordinator c"),
+    @NamedQuery(name = Coordinator.findByInstAndOrgUnit, query = "SELECT c FROM Coordinator c WHERE c.institutionId = :institutionId AND c.organizationUnitId = :organizationUnitId")
+})
 public class Coordinator implements Serializable{
 
     private static final String PREFIX = "eu.erasmuswithoutpaper.organization.entity.Coordinator.";
     public static final String findAll = PREFIX + "all";
+    public static final String findByInstAndOrgUnit = PREFIX + "byInstAndOrgUnit";
     
     @Id
     @GeneratedValue(strategy=GenerationType.AUTO)

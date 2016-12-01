@@ -8,17 +8,22 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.NamedQueries;
 import javax.persistence.NamedQuery;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
 import org.apache.johnzon.mapper.JohnzonConverter;
 
 @Entity
-@NamedQuery(name = Person.findAll, query = "SELECT p FROM Person p")
+@NamedQueries({
+    @NamedQuery(name = Person.findAll, query = "SELECT p FROM Person p"),
+    @NamedQuery(name = Person.findByPersonId, query = "SELECT p FROM Person p WHERE p.personId = :personId")
+})
 public class Person implements Serializable {
     
     private static final String PREFIX = "eu.erasmuswithoutpaper.organization.entity.Person.";
     public static final String findAll = PREFIX + "all";
+    public static final String findByPersonId = PREFIX + "byPersonId";
     
     @Id
     @GeneratedValue(strategy=GenerationType.AUTO)
