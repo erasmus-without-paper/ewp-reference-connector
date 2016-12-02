@@ -14,7 +14,7 @@ import javax.ws.rs.core.Response;
 public class GuiHomeResource {
     @Inject
     private GlobalPropertiesController properties;
-
+    
     @GET
     @Produces(MediaType.TEXT_PLAIN)
     @Path("name")
@@ -29,3 +29,4 @@ public class GuiHomeResource {
         return Response.ok(properties.getHostname()).build();
     }
 }
+

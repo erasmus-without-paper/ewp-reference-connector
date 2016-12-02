@@ -8,6 +8,7 @@ import eu.erasmuswithoutpaper.api.echo.Echo;
 import eu.erasmuswithoutpaper.api.institutions.Institutions;
 import eu.erasmuswithoutpaper.api.registry.ApisImplemented;
 import eu.erasmuswithoutpaper.api.registry.Hei;
+import eu.erasmuswithoutpaper.internal.control.GlobalPropertiesController;
 import eu.erasmuswithoutpaper.organization.entity.Institution;
 import java.io.IOException;
 import java.math.BigInteger;
@@ -17,6 +18,7 @@ import java.nio.file.Paths;
 import java.util.List;
 import java.util.stream.Collectors;
 import javax.ejb.Stateless;
+import javax.inject.Inject;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
 import javax.ws.rs.GET;
@@ -30,6 +32,9 @@ public class ManifestResource {
     @PersistenceContext(unitName = "connector")
     EntityManager em;
 
+    @Inject
+    GlobalPropertiesController globalProperties;
+            
     @GET
     @Path("manifest-old")
     @Produces(MediaType.APPLICATION_XML)
@@ -49,7 +54,7 @@ public class ManifestResource {
         ApisImplemented apisImplemented = new ApisImplemented();
         apisImplemented.getAny().add(getDiscoveryEntry());
         apisImplemented.getAny().add(getEchoEntry());
-        apisImplemented.getAny().add(getInstitutionsEntry());
+        //apisImplemented.getAny().add(getInstitutionsEntry());
         manifest.setApisImplemented(apisImplemented);
         
         manifest.setInstitutionsCovered(getInstitutionsCovered());
@@ -80,19 +85,21 @@ public class ManifestResource {
     
     private Discovery getDiscoveryEntry() {
         Discovery discovery = new Discovery();
-        discovery.setUrl("http://localhost/connector/rest/manifest");
+        discovery.setVersion("4.0.1");
+        discovery.setUrl(getBaseUri() + "/rest/manifest");
         return discovery;
     }
     
     private Echo getEchoEntry() {
         Echo echo = new Echo();
-        echo.setUrl("http://localhost/connector/rest/echo");
+        echo.setVersion("1.0.1");
+        echo.setUrl(getBaseUri() + "/rest/echo");
         return echo;
     }
     
     private Institutions getInstitutionsEntry() {
         Institutions institutions = new Institutions();
-        institutions.setUrl("http://localhost/connector/rest/institutions");
+        institutions.setUrl(getBaseUri() + "/rest/institutions");
         institutions.setMaxHeiIds(BigInteger.ONE);
         return institutions;
     }
@@ -121,5 +128,9 @@ public class ManifestResource {
         MultilineString multilineString = new MultilineString();
         multilineString.setValue("This is a EWP reference connector instance.");
         return multilineString;
+    }
+    
+    private String getBaseUri() {
+        return globalProperties.getBaseUri();
     }
 }

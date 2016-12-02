@@ -23,16 +23,15 @@ import static org.mockito.Mockito.when;
 
 public class ManifestResourceTest extends JerseyTest {
 
-
     private ManifestResource resource;
-    
+
     @Override
     protected Application configure() {
         resource = new ManifestResource();
         resource.em = mock(EntityManager.class);
         return new ResourceConfig().register(resource);
     }
-
+    
     @Test
     @Ignore
     public void testManifest() {
