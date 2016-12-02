@@ -8,6 +8,7 @@ import eu.erasmuswithoutpaper.api.echo.Echo;
 import eu.erasmuswithoutpaper.api.institutions.Institutions;
 import eu.erasmuswithoutpaper.api.registry.ApisImplemented;
 import eu.erasmuswithoutpaper.api.registry.Hei;
+import eu.erasmuswithoutpaper.api.registry.OtherHeiId;
 import eu.erasmuswithoutpaper.internal.control.GlobalPropertiesController;
 import eu.erasmuswithoutpaper.organization.entity.Institution;
 import java.io.IOException;
@@ -108,7 +109,7 @@ public class ManifestResource {
         Hei hei = new Hei();
         hei.setId(institution.getInstitutionId());
         
-        Hei.OtherId oid = new Hei.OtherId();
+        OtherHeiId oid = new OtherHeiId();
         oid.setType("local");
         oid.setValue(institution.getOtherId());
         hei.getOtherId().add(oid);

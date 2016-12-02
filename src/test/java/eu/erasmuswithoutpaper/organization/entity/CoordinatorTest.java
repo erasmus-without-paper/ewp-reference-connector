@@ -30,7 +30,7 @@ public class CoordinatorTest {
         person.setPersonId("9002023344");
         person.setFirstNames("Albin");
         person.setLastName("Ek");
-        Coordinator coordinator = new Coordinator("instId1", "unitId1", CoordinatorHeader.COURSE);
+        Coordinator coordinator = new Coordinator("instId1", "unitId1", CoordinatorHeader.ADMISSION);
         coordinator.setPerson(person);
         
         this.tx.begin();

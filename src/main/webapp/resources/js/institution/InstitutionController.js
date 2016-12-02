@@ -24,10 +24,10 @@ angular.module('institution').controller('InstitutionController', function ($sco
     };
     $scope.viewAddForm = function() {
         if ($scope.currentInstOrgObject) {
-            $scope.showAddInstitiutionForm = false;
+            $scope.showAddInstitutionForm = false;
             $scope.showAddOrganizationUnitForm = true;
         } else {
-            $scope.showAddInstitiutionForm = true;
+            $scope.showAddInstitutionForm = true;
             $scope.showAddOrganizationUnitForm = false;
         }
     };
@@ -36,7 +36,7 @@ angular.module('institution').controller('InstitutionController', function ($sco
         $scope.newInstitution.description = [{text:$scope.newInstitution.descriptionStr,'lang':'en'}];
         $scope.saveInstitution($scope.newInstitution);
         
-        $scope.showAddInstitiutionForm = false;
+        $scope.showAddInstitutionForm = false;
         $scope.newInstitution = {};
     };
     
@@ -60,7 +60,7 @@ angular.module('institution').controller('InstitutionController', function ($sco
     };
     
     $scope.cancelAddForm = function() {
-        $scope.showAddInstitiutionForm = false;
+        $scope.showAddInstitutionForm = false;
         $scope.showAddOrganizationUnitForm = false;
         $scope.newInstitution = {};
         $scope.newOrganizationUnit = {};
