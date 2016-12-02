@@ -8,15 +8,15 @@
 #### Project manager / Contact person
 | Contact info      | Details                        |
 | ----------------- | ------------------------------ |
-| **Name**          |  _First, Surname_              |
-| **Email adress**  |  _email@domain.com_            |
-| **Telephone no**  |  _+46 70-555 555_              |
+| **Name**          | Díaz Romero, Carmen            |
+| **Email adress**  |carmen.diaz@sigmaaie.org        |
+| **Telephone no**  |+34 935906504                   |
 
 #### Developing members
-|     Role       |      Name         |              Email adress                 |
-| -------------  | ----------------- | ----------------------------------------- |
-|      -         |                   |                                           |
-|      -         |                   |                                           |
-|      -         |                   |                                           |             
+|     Role                          |      Name               |              Email adress                 |
+| --------------------------------  | ----------------------- | ----------------------------------------- |
+| Head of Development and Technology| Cuní Vila, Jordi        | Jordi.cuni@sigmaaie.org                   |
+| Developpment Arquitect            | Martinez, Victor Manuel | Victor.manuel.martinez@sigmaaie.org       |
+
 
 Other important information _(please specify below:)_ 
