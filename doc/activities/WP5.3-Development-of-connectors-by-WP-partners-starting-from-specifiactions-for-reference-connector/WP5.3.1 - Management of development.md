@@ -6,17 +6,17 @@ This table shows which partner who had developed which API and are ready for int
 
 
 
-| Partner/API:s | *In Registry* | *Discovery* | *Echo* | **Institution** | Test server |             Comment             |
-| ------------- | -----------   | ----------- | ------ | --------------- | ----------- | ------------------------------- |
-| **Umeå**      | :soon:        | :star:      | :star: | :soon:          | :soon:      |                                 |
-| **Gent**      |     -         |   -         | -      |    -            |             |                                 |
-| **Porto**     |     -         |   -         | -      |    -            |             |                                 |
-| **SOP**       | :link:        | :star:      | :star: | :soon:          | :link:      |                                 |
-| **KION**      |     -         |   -         | -      |    -            |             |                                 |
-| **Sigma**     | :soon:        | :star:      | -      | :soon:          |             |                                 |
-| **Oslo**      |     -         |   -         | -      |    -            |             |                                 |
-| **Warsaw**    | :link:        | :star:      | :soon: |    -            | :link:      |                                 |
-| **Others**    |     -         |   -         | -      |    -            |             |                                 |
+| Partner/API:s | *In Registry* | *Discovery* | *Echo* | **Institution** |             Comment             |
+| ------------- | -----------   | ----------- | ------ | --------------- | ------------------------------- |
+| **Umeå**      | :soon:        | :star:      | :star: | :soon:          |                                 |
+| **Gent**      |     -         |   -         | -      |    -            |                                 |
+| **Porto**     |     -         |   -         | -      |    -            |                                 |
+| **SOP**       | :link:        | :star:      | :star: | :soon:          |                                 |
+| **KION**      |     -         |   -         | -      |    -            |                                 |
+| **Sigma**     | :soon:        | :star:      | -      | :soon:          |                                 |
+| **Oslo**      |     -         |   -         | -      |    -            |                                 |
+| **Warsaw**    | :link:        | :star:      | :soon: |    -            |                                 |
+| **Others**    |     -         |   -         | -      |    -            |                                 |
 
 ---
 * :ok: means that the API is **fully implemented**
