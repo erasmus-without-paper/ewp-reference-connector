@@ -23,7 +23,12 @@ This table shows which partner who had developed which API and are ready for int
 | **In Registry**            |:soon: |   -   |   -   |:link: |   -   |:link: |   -   |:link:  |   -   |
 | **Discovery**              |:star: |   -   |   -   |:star: |   -   |:star: |   -   |:star:  |   -   |
 | **Echo**                   |:star: |   -   |   -   |:star: |   -   |:soon: |   -   |:soon:  |   -   |
+| -------------------------- | ----- | ----- | ----- | ----- | ----- | ----- | ----- | ------ | ----- |
 | **Institutions**           |:star: |   -   |   -   |:star: |   -   |:soon: |   -   |:soon:  |   -   |
+| **Institutions**           |:star: |   -   |   -   |:star: |   -   |:soon: |   -   |:soon:  |   -   |
+| **Institutions**           |:star: |   -   |   -   |:star: |   -   |:soon: |   -   |:soon:  |   -   |
+| **Institutions**           |:star: |   -   |   -   |:star: |   -   |:soon: |   -   |:soon:  |   -   |
+| -------------------------- | ----- | ----- | ----- | ----- | ----- | ----- | ----- | ------ | ----- |
 
 ---
 * :ok: means that the API is **fully implemented**
