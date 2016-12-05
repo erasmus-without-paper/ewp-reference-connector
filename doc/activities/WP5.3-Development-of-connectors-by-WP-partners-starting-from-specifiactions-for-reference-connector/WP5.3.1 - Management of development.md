@@ -15,7 +15,7 @@ This table shows which partner who had developed which API and are ready for int
 | **KION**      |     -         |   -         | -      |    -            |             |
 | **Sigma**     | :soon:        | :star:      | -      | :soon:          |             |
 | **Oslo**      |     -         |   -         | -      |    -            |             |
-| **Warsaw**    |     -         |   -         | -      |    -            |             |
+| **Warsaw**    | :link:        | :star:      | :soon: |    -            | :link:      |
 | **Others**    |     -         |   -         | -      |    -            |             |
 
 ---
