@@ -13,7 +13,7 @@ This table shows which partner who had developed which API and are ready for int
 | **Porto**     |     -         |   -         | -      |    -            |                                 |
 | **SOP**       | :link:        | :star:      | :star: | :soon:          |                                 |
 | **KION**      |     -         |   -         | -      |    -            |                                 |
-| **Sigma**     | :link:        | :star:      | :star: | :star:          |                                 |
+| **Sigma**     | :link:        | :star:      | :soon: | :soon:          |                                 |
 | **Oslo**      |     -         |   -         | -      |    -            |                                 |
 | **Warsaw**    | :link:        | :star:      | :soon: |    -            |                                 |
 | **Others**    |     -         |   -         | -      |    -            |                                 |
