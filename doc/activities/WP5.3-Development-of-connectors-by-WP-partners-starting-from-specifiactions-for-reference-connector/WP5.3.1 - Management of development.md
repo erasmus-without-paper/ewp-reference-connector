@@ -5,30 +5,16 @@
 This table shows which partner who had developed which API and are ready for interchangeing information. An API name that are shown in **Bold** is ready for development (stable API's) according to specification on http://developers.erasmuswithoutpaper.eu/
 
 
-
-| Partner/API:s | *In Registry* | *Discovery* | *Echo* | **Institution** |             Comment             |
-| ------------- | -----------   | ----------- | ------ | --------------- | ------------------------------- |
-| **Umeå**      | :soon:        | :star:      | :star: | :soon:          |                                 |
-| **Gent**      |     -         |   -         | -      |    -            |                                 |
-| **Porto**     |     -         |   -         | -      |    -            |                                 |
-| **SOP**       | :link:        | :star:      | :star: | :soon:          |                                 |
-| **KION**      |     -         |   -         | -      |    -            |                                 |
-| **Sigma**     | :link:        | :star:      | :soon: | :soon:          |                                 |
-| **Oslo**      |     -         |   -         | -      |    -            |                                 |
-| **Warsaw**    | :link:        | :star:      | :soon: |    -            |                                 |
-| **Others**    |     -         |   -         | -      |    -            |                                 |
-
 | API/Partner                | Umeå  | Gent  | Porto |  SOP  | KION  | Sigma | Oslo  | Warsaw | Others|
 | -------------------------- | ----- | ----- | ----- | ----- | ----- | ----- | ----- | ------ | ----- |
 | **In Registry**            |:soon: |   -   |   -   |:link: |   -   |:link: |   -   |:link:  |   -   |
 | **Discovery**              |:star: |   -   |   -   |:star: |   -   |:star: |   -   |:star:  |   -   |
 | **Echo**                   |:star: |   -   |   -   |:star: |   -   |:soon: |   -   |:soon:  |   -   |
-|                            | DEAD LINE 31/12 - 2016                                         |||||||||
 | **Institutions**           |:star: |   -   |   -   |:star: |   -   |:soon: |   -   |:soon:  |   -   |
-| **Institutions**           |:star: |   -   |   -   |:star: |   -   |:soon: |   -   |:soon:  |   -   |
-| **Institutions**           |:star: |   -   |   -   |:star: |   -   |:soon: |   -   |:soon:  |   -   |
-| **Institutions**           |:star: |   -   |   -   |:star: |   -   |:soon: |   -   |:soon:  |   -   |
-| -------------------------- | ----- | ----- | ----- | ----- | ----- | ----- | ----- | ------ | ----- |
+| **Courses**                |   -   |   -   |   -   |   -   |   -   |   -   |   -   |   -    |   -   |
+| **IIA**                    |   -   |   -   |   -   |   -   |   -   |   -   |   -   |   -    |   -   |
+| **Mobilities**             |   -   |   -   |   -   |   -   |   -   |   -   |   -   |   -    |   -   |
+| **Trancript of Record**    |   -   |   -   |   -   |   -   |   -   |   -   |   -   |   -    |   -   |
 
 ---
 * :ok: means that the API is **fully implemented**
