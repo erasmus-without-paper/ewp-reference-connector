@@ -24,7 +24,6 @@ This table shows which partner who had developed which API and are ready for int
 | **Discovery**              |:star: |   -   |   -   |:star: |   -   |:star: |   -   |:star:  |   -   |
 | **Echo**                   |:star: |   -   |   -   |:star: |   -   |:soon: |   -   |:soon:  |   -   |
 |                            | DEAD LINE 31/12 - 2016                                         |||||||||
-
 | **Institutions**           |:star: |   -   |   -   |:star: |   -   |:soon: |   -   |:soon:  |   -   |
 | **Institutions**           |:star: |   -   |   -   |:star: |   -   |:soon: |   -   |:soon:  |   -   |
 | **Institutions**           |:star: |   -   |   -   |:star: |   -   |:soon: |   -   |:soon:  |   -   |
