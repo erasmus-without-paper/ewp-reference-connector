@@ -25,4 +25,4 @@ This table shows which partner who had developed which API and are ready for int
 * :x: means that the API is **not applicable** for the specified parter 
 * "-" means that the development is **not started** yet
 
-* :link: test server is public and added to the registry 
+* :link: in section **In Registry** means that test server is public and added to the registry 
