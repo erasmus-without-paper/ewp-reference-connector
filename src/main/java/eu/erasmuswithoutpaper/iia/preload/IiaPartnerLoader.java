@@ -20,7 +20,7 @@ public class IiaPartnerLoader {
         persistIiaPartner("{'iiaId':'iiaId001'}", getInstitution("ikea.university.se"), getOrganizationUnit("ikea.ou1.se"), getCoordinators("ikea.university.se", "ikea.ou1.se"));
     }
     public void createDemoDataPomodoro() throws IOException {
-        createDemoDataIkea(); //TODO Insert data
+        persistIiaPartner("{'iiaId':'iiaId001'}", getInstitution("pomodoro.university.it"), getOrganizationUnit("pomodoro.ou1.it"), getCoordinators("'pomodoro.university.it", "pomodoro.ou1.it"));
     }
 
     private void persistIiaPartner(String iiaPartnerJson, Institution institution, OrganizationUnit organizationUnit, List<Coordinator> coordinators) throws IOException {

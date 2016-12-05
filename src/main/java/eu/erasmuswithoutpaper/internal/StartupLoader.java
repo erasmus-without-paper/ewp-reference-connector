@@ -54,7 +54,9 @@ public class StartupLoader {
             if (institutionLoader.dataAlreadyExist()) {
                 Logger.getLogger(StartupLoader.class.getName()).log(Level.INFO, "Database already exist, no default data will be loaded. Remove DB to restore database content.");
                 return;
-            }
+            } else {
+                Logger.getLogger(StartupLoader.class.getName()).log(Level.INFO, "Database is created, default data will be loaded.");
+            } 
 
             switch (properties.getUniversity()) {
                 case IKEA_U:

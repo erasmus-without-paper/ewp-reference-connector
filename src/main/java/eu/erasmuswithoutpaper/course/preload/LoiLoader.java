@@ -22,7 +22,7 @@ public class LoiLoader {
     }
     
     public void createDemoDataPomodoro() throws IOException {
-        persistLearningOppInst("{'institutionId':'pomodoro.university.it','credits':'5'}", getLearningOppSpec("PU001"), getAcademicTerm(getAcademicYear("2015", "2016"), "Fall"));
+        persistLearningOppInst("{'institutionId':'pomodoro.university.it','credits':'5'}", getLearningOppSpec("PU001"), getAcademicTerm(getAcademicYear("2016", "2017"), "Fall"));
         persistLearningOppInst("{'institutionId':'pomodoro.university.it','credits':'7.5'}", getLearningOppSpec("PU002"), getAcademicTerm(getAcademicYear("2016", "2017"), "Spring"));
     }
     
