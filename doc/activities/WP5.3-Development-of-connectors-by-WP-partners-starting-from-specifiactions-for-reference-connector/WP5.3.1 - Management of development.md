@@ -14,8 +14,10 @@ This table shows which partner who had developed which API and are ready for int
 | **DEVELOPMENT DEADLINE**|31/12/2015| ----- | ----- | ----- | ----- | ----- | ----- | ------ | ----- |
 | Courses                    |   -   |   -   |   -   |   -   |   -   |   -   |   -   |   -    |   -   |
 | IIA                        |   -   |   -   |   -   |   -   |   -   |   -   |   -   |   -    |   -   |
+| **DEVELOPMENT DEADLINE**|30/1/2016 | ----- | ----- | ----- | ----- | ----- | ----- | ------ | ----- |
 | Mobilities                 |   -   |   -   |   -   |   -   |   -   |   -   |   -   |   -    |   -   |
 | Trancript of Record        |   -   |   -   |   -   |   -   |   -   |   -   |   -   |   -    |   -   |
+| **DEVELOPMENT DEADLINE**|30/2/2016 | ----- | ----- | ----- | ----- | ----- | ----- | ------ | ----- |
 
 ---
 * :ok: means that the API is **fully implemented**
