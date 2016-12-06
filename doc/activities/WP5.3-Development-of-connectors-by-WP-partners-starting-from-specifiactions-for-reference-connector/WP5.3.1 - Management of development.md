@@ -7,15 +7,15 @@ This table shows which partner who had developed which API and are ready for int
 
 | API/Partner                | Umeå  | Gent  | Porto |  SOP  | KION  | Sigma | Oslo  | Warsaw | Others|
 | -------------------------- | ----- | ----- | ----- | ----- | ----- | ----- | ----- | ------ | ----- |
-| **In Registry**            |:soon: |   -   |   -   |:link: |   -   |:link: |   -   |:link:  |   -   |
-| **Discovery**              |:star: |   -   |   -   |:star: |   -   |:star: |   -   |:star:  |   -   |
-| **Echo**                   |:star: |   -   |   -   |:star: |   -   |:soon: |   -   |:soon:  |   -   |
-| **Institutions**           |:star: |   -   |   -   |:star: |   -   |:soon: |   -   |:soon:  |   -   |
-| test spanning cell||
-| **Courses**                |   -   |   -   |   -   |   -   |   -   |   -   |   -   |   -    |   -   |
-| **IIA**                    |   -   |   -   |   -   |   -   |   -   |   -   |   -   |   -    |   -   |
-| **Mobilities**             |   -   |   -   |   -   |   -   |   -   |   -   |   -   |   -    |   -   |
-| **Trancript of Record**    |   -   |   -   |   -   |   -   |   -   |   -   |   -   |   -    |   -   |
+| In Registry                |:soon: |   -   |   -   |:link: |   -   |:link: |   -   |:link:  |   -   |
+| Discovery                  |:star: |   -   |   -   |:star: |   -   |:star: |   -   |:star:  |   -   |
+| Echo                       |:star: |   -   |   -   |:star: |   -   |:soon: |   -   |:soon:  |   -   |
+| Institutions               |:star: |   -   |   -   |:star: |   -   |:soon: |   -   |:soon:  |   -   |
+| **DEVELOPMENT DEADLINE**| 31/12/2015 |
+| Courses                    |   -   |   -   |   -   |   -   |   -   |   -   |   -   |   -    |   -   |
+| IIA                        |   -   |   -   |   -   |   -   |   -   |   -   |   -   |   -    |   -   |
+| Mobilities                 |   -   |   -   |   -   |   -   |   -   |   -   |   -   |   -    |   -   |
+| Trancript of Record    |   -   |   -   |   -   |   -   |   -   |   -   |   -   |   -    |   -   |
 
 ---
 * :ok: means that the API is **fully implemented**
