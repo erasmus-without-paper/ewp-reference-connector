@@ -66,7 +66,6 @@ public class GlobalPropertiesController {
     
     private String getProperty(String key) {
         String property = properties.getProperty(key);
-        System.out.println(key + " => " + property);
         return property;
     }
 }

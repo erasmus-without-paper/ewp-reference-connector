@@ -1,15 +1,21 @@
 angular.module('echo').controller('EchoController', function ($scope, EchoService) {
-    $scope.echoList = [];
-    $scope.addEchoToList = function() {
-        if ($scope.echoItem) {
-            $scope.echoList.push($scope.echoItem);
-            $scope.echoItem = '';
-        }
+    $scope.echoRequest = {};
+    $scope.echoRequest.echo = [''];
+    
+    $scope.addEchoItem = function() {
+        $scope.echoRequest.echo.push('');
     };
+    
     $scope.sendEcho = function() {
-        EchoService.echo($scope.echoList,
+        EchoService.echo($scope.echoRequest,
             function(result) {
                 $scope.echoResult = result;
             });
     };
+    
+    EchoService.echoHeis(
+        function(result) {
+            $scope.echoHeis = result;
+        });
+        
 });

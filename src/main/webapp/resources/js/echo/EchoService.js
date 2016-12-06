@@ -1,10 +1,12 @@
 angular.module('echo').service('EchoService', function ($http) {
     return {
-        echo: function (echoList, callback) {
-            $http.get('rest/echo',
-                {
-                    params: {echo: echoList}
-                }).success(callback);
+        echo: function (echoRequest, callback) {
+            $http.post('gui/echo',
+                echoRequest
+                ).success(callback);
+        },
+        echoHeis: function (callback) {
+            $http.get('gui/echo').success(callback);
         }
     };
 });

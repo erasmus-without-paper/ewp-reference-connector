@@ -1,28 +1,34 @@
 <div class="container">
     <h1 class="page-header">Echo</h1>
-    <div class="panel panel-body" id="echoList">
-        <div class="input-group">
-            <input class="form-control" placeholder="Echo text" ng-model="echoItem" required="required"/>
-              <span class="input-group-btn">
-                  <button type="submit" class="btn btn-default" ng-click="addEchoToList()">
-                      <i class="glyphicon glyphicon-plus-sign"></i>
-                  </button>
-              </span>
+    <div class="panel panel-body">
+        <div class="form-group">
+            <label class="control-label" for="hei">Institution:</label>
+            <select id="hei" class="form-control" ng-model="echoRequest.heiId" required="required">
+                <option style="display:none" value="">select an institution</option>
+                <option ng-repeat="hei in echoHeis" value="{{hei.id}}">{{hei.name}}</option>
+            </select>
         </div>
-        <div class="list-group" ng-show="echoList.length > 0">
-            <div ng-repeat="echo in echoList" class="list-group-item">
-                <div class="row-content">
-                    {{echo}}
-                </div>
+        
+        <div class="form-group">
+            <label class="control-label">Echo</label>
+            <div ng-repeat="echoItem in echoRequest.echo track by $index">
+                <input class="form-control" placeholder="Echo text" ng-model="echoRequest.echo[$index]"/>
             </div>
         </div>
-        <div class="input-group" ng-show="echoList.length > 0">
-            <span class="input-group-btn">
+
+
+
+        <div class="input-group">
+            <div class="btn-group">
+                <button type="button" class="btn btn-default" ng-click="addEchoItem()">
+                    <i class="glyphicon glyphicon-plus-sign"></i> Add echo
+                </button>
                 <button type="submit" class="btn btn-default"  ng-click="sendEcho()">
                     <i class="glyphicon glyphicon-send"></i> Send Echo
                 </button>
-            </span>
+            </div>
         </div>
+        
     </div>
 
     <div class="panel panel-default" ng-show="echoResult">

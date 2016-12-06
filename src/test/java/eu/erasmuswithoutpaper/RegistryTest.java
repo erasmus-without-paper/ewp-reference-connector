@@ -1,22 +1,19 @@
 package eu.erasmuswithoutpaper;
 
+import eu.erasmuswithoutpaper.registryclient.ApiSearchConditions;
+import eu.erasmuswithoutpaper.registryclient.ClientImpl;
+import eu.erasmuswithoutpaper.registryclient.ClientImplOptions;
+import eu.erasmuswithoutpaper.registryclient.RegistryClient;
 import java.io.StringWriter;
 import java.util.Collection;
-
 import javax.xml.transform.OutputKeys;
 import javax.xml.transform.Transformer;
 import javax.xml.transform.TransformerException;
 import javax.xml.transform.TransformerFactory;
 import javax.xml.transform.dom.DOMSource;
 import javax.xml.transform.stream.StreamResult;
-
 import org.junit.Test;
 import org.w3c.dom.Element;
-
-import eu.erasmuswithoutpaper.registryclient.ApiSearchConditions;
-import eu.erasmuswithoutpaper.registryclient.ClientImpl;
-import eu.erasmuswithoutpaper.registryclient.ClientImplOptions;
-import eu.erasmuswithoutpaper.registryclient.RegistryClient;
 
 public class RegistryTest {
 
@@ -43,6 +40,7 @@ public class RegistryTest {
 			System.err.println(client.getExpiryDate());
 		} catch (Exception e) {
 			System.err.println("Fel vid hämtning av registret" + e);
+                        e.printStackTrace();
 		}
 	}
 }

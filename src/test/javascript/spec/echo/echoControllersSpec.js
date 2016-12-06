@@ -11,7 +11,8 @@ describe('Echo Tests', function () {
             $httpBackend = _$httpBackend_;
             $controller = _$controller_;
             
-            $httpBackend.expectGET('rest/echo?echo=test1&echo=test2').respond('echo result');
+            $httpBackend.expectGET('gui/echo').respond(['rest/echo']);
+            $httpBackend.expectPOST('gui/echo', '{"echo":["test1","test2"],"heiId":"id1"}').respond('echo result');
             
             $scope = $rootScope.$new();
             var ctrl = $controller('EchoController', {$scope: $scope});
@@ -19,14 +20,14 @@ describe('Echo Tests', function () {
 
         it('should add echo text to list', function () {
             $scope.echoItem = 'test';
-            $scope.addEchoToList();
-            expect($scope.echoList).not.toBeUndefined();
-            expect($scope.echoList[0]).not.toBeUndefined();
-            expect($scope.echoList[0]).toBe('test');
+            $scope.addEchoItem();
+            expect($scope.echoRequest.echo).not.toBeUndefined();
+            expect($scope.echoRequest.echo.length).toBe(2);
         });
 
         it('should send echo request', function () {
-            $scope.echoList = ['test1', 'test2'];
+            $scope.echoRequest.heiId = 'id1';
+            $scope.echoRequest.echo = ['test1', 'test2'];
             $scope.sendEcho();
             $httpBackend.flush();
             
