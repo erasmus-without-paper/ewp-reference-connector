@@ -67,10 +67,20 @@
                 <i class="pull-right glyphicon" ng-class="{'glyphicon-chevron-down': isopen[person.personId], 'glyphicon-chevron-right': !isopen[person.personId]}"></i>
             </a>
             <div class="list-group-item" ng-show="isopen[person.personId]">
-                Person Id: {{person.personId}}<br/>
-                First names: {{person.firstNames}}<br/>
-                Last name: {{person.lastName}}<br/>
-                Birth date: {{person.birthDate | date: 'yyyy-MM-dd'}}<br/>
+                <table class="table" >
+                    <tr>
+                        <td class="col-md-2">Person Id:</td><td>{{person.personId}}</td>
+                    </tr>
+                    <tr>
+                        <td>First names:</td><td>{{person.firstNames}}</td>
+                    </tr>
+                    <tr>
+                        <td>Last name:</td><td>{{person.lastName}}</td>
+                    </tr>
+                    <tr>
+                        <td>Birth date:</td><td>{{person.birthDate | date: 'yyyy-MM-dd'}}</td>
+                    </tr>
+                </table>
             </div>
         </div>
     </div>

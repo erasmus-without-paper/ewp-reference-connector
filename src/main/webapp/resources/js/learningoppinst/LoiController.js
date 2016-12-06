@@ -17,13 +17,31 @@ angular.module('loi').controller('LoiController', function ($scope, LoiService, 
                 $scope.academicTerms = result;
         });
         
+        $scope.organizations = [];
         $scope.showAddLearningOppInstanceForm = true;
     };
     
     $scope.institutionChanged = function(){
+        var currentInst;
+        angular.forEach($scope.institutions, function(item) {
+            if (item.institutionId === $scope.newLearningOppInstance.institutionId) {
+                currentInst = item;
+            }
+        });
+        
+        $scope.organizations = [];
+        $scope.addOrganizationUnitsToList(currentInst);
+        
         LosService.getByInstitutionId($scope.newLearningOppInstance.institutionId,
             function(result) {
                 $scope.losList = result;
+        });
+    };
+    
+    $scope.addOrganizationUnitsToList = function(obj) {
+        angular.forEach(obj.organizationUnits, function(item) {
+            $scope.organizations.push(item);
+            $scope.addOrganizationUnitsToList(item);
         });
     };
 

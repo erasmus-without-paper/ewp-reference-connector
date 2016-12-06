@@ -21,20 +21,26 @@
                 <i class="pull-right glyphicon" ng-class="{'glyphicon-chevron-down': isopen[iiaPartner.id], 'glyphicon-chevron-right': !isopen[iiaPartner.id]}"></i>
             </a>
             <div class="list-group-item" ng-show="isopen[iiaPartner.id]">
-                Institution Id: {{iiaPartner.institution.institutionId}}<br/>
-                <div ng-repeat="name in iiaPartner.institution.name">
-                    Name: ({{name.lang}}): {{name.text}}
-                </div>
-                <div ng-show="iiaPartner.organizationUnit">
-                    Organization unit id: {{iiaPartner.organizationUnit.organizationUnitId}}
-                    <div ng-repeat="name in iiaPartner.organizationUnit.name">
-                        Name: ({{name.lang}}): {{name.text}}
-                    </div>
-                </div>
-                Country: {{iiaPartner.institution.country}}<br/>
-                <div ng-repeat="coordinator in iiaPartner.coordinators">
-                    Coordinator {{coordinator.header}}: {{coordinator.person.personId}} - {{coordinator.person.firstNames}} {{coordinator.person.lastName}}
-                </div>
+                <table class="table" >
+                    <tr>
+                        <td class="col-md-2">Institution id:</td><td>{{iiaPartner.institution.institutionId}}</td>
+                    </tr>
+                    <tr ng-repeat="name in iiaPartner.institution.name">
+                        <td>Institution name ({{name.lang}}):</td><td>{{name.text}}</td>
+                    </tr>
+                    <tr ng-show="iiaPartner.organizationUnit">
+                        <td>Organization unit id:</td><td>{{iiaPartner.organizationUnit.organizationUnitId}}</td>
+                    </tr>
+                    <tr ng-repeat="name in iiaPartner.organizationUnit.name">
+                        <td>Organization unit name ({{name.lang}}):</td><td>{{name.text}}</td>
+                    </tr>
+                    <tr>
+                        <td>Country:</td><td>{{iiaPartner.institution.country}}</td>
+                    </tr>
+                    <tr ng-repeat="coordinator in iiaPartner.coordinators">
+                        <td>Coordinator {{coordinator.header}}:</td><td>{{coordinator.person.personId}} - {{coordinator.person.firstNames}} {{coordinator.person.lastName}}</td>
+                    </tr>
+                </table>
             </div>
         </div>
     </div>

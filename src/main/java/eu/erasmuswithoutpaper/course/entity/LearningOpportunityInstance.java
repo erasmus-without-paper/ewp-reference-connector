@@ -24,6 +24,7 @@ public class LearningOpportunityInstance implements Serializable {
     long id;
 
     private String institutionId;
+    private String organizationUnitId;
     
     @ManyToOne(cascade = CascadeType.DETACH, fetch = FetchType.EAGER)
     @JoinColumn(name = "LOS_ID", referencedColumnName = "ID")
@@ -50,6 +51,14 @@ public class LearningOpportunityInstance implements Serializable {
         this.institutionId = institutionId;
     }
 
+    public String getOrganizationUnitId() {
+        return organizationUnitId;
+    }
+
+    public void setOrganizationUnitId(String organizationUnitId) {
+        this.organizationUnitId = organizationUnitId;
+    }
+    
     public LearningOpportunitySpecification getLearningOppSpec() {
         return learningOppSpec;
     }

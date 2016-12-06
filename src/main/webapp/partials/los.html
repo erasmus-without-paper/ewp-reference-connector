@@ -79,15 +79,23 @@
                 <i class="pull-right glyphicon" ng-class="{'glyphicon-chevron-down': isopen[los.id], 'glyphicon-chevron-right': !isopen[los.id]}"></i>
             </a>
             <div class="list-group-item" ng-show="isopen[los.id]">
-                LOS code: {{los.losCode}}<br/>
-                <div ng-repeat="name in los.name">
-                    Name: ({{name.lang}}): {{name.text}}
-                </div>
-                <div ng-repeat="description in los.description">
-                    Description: ({{description.lang}}): {{description.text}}
-                </div>
-                Type: {{los.type}}<br/>
-                Institution id: {{los.institutionId}}<br/>
+                <table class="table" >
+                    <tr>
+                        <td class="col-md-2">LOS code:</td><td>{{los.losCode}}</td>
+                    </tr>
+                    <tr ng-repeat="name in los.name">
+                        <td>Name: ({{name.lang}}):</td><td>{{name.text}}</td>
+                    </tr>
+                    <tr ng-repeat="description in los.description">
+                        <td>Description: ({{description.lang}}):</td><td>{{description.text}}</td>
+                    </tr>
+                    <tr>
+                        <td>Type:</td><td>{{los.type}}</td>
+                    </tr>
+                    <tr>
+                        <td>Institution id:</td><td>{{los.institutionId}}</td>
+                    </tr>
+                </table>
             </div>
         </div>
     </div>

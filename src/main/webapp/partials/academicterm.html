@@ -94,13 +94,23 @@
                 <i class="pull-right glyphicon" ng-class="{'glyphicon-chevron-down': isopen[academicTerm.id], 'glyphicon-chevron-right': !isopen[academicTerm.id]}"></i>
             </a>
             <div class="list-group-item" ng-show="isopen[academicTerm.id]">
-                <div ng-repeat="name in academicTerm.dispName">
-                    Disp name ({{name.lang}}): {{name.text}}
-                </div>
-                Start date: {{academicTerm.startDate | date: 'yyyy-MM-dd'}}<br/>
-                End date: {{academicTerm.endDate | date: 'yyyy-MM-dd'}}<br/>
-                Academic term Id: {{academicTerm.academicTermId}}<br/>
-                Academic year: {{academicTerm.academicYear.startYear}}/{{academicTerm.academicYear.endYear}}<br/>
+                <table class="table" >
+                    <tr ng-repeat="name in academicTerm.dispName">
+                        <td class="col-md-2">Disp name ({{name.lang}}):</td><td>{{name.text}}</td>
+                    </tr>
+                    <tr>
+                        <td class="col-md-2">Start date:</td><td>{{academicTerm.startDate | date: 'yyyy-MM-dd'}}</td>
+                    </tr>
+                    <tr>
+                        <td class="col-md-2">End date:</td><td>{{academicTerm.endDate | date: 'yyyy-MM-dd'}}</td>
+                    </tr>
+                    <tr>
+                        <td class="col-md-2">Academic term id:</td><td>{{academicTerm.academicTermId}}</td>
+                    </tr>
+                    <tr>
+                        <td class="col-md-2">Academic year:</td><td>{{academicTerm.academicYear.startYear}}/{{academicTerm.academicYear.endYear}}</td>
+                    </tr>
+                </table>
             </div>
         </div>
     </div>

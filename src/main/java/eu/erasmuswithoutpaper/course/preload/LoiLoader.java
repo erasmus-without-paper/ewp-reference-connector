@@ -19,8 +19,9 @@ public class LoiLoader {
     public void createDemoDataIkea() throws IOException {
         persistLearningOppInst("{'institutionId':'ikea.university.se','credits':'5'}", getLearningOppSpec("IU001"), getAcademicTerm(getAcademicYear("2015", "2016"), "Fall"));
         persistLearningOppInst("{'institutionId':'ikea.university.se','credits':'7.5'}", getLearningOppSpec("IU002"), getAcademicTerm(getAcademicYear("2016", "2017"), "Spring"));
+        persistLearningOppInst("{'institutionId':'ikea.university.se','organizationUnitId':'ikea.ou1.se','credits':'15'}", getLearningOppSpec("IU003"), getAcademicTerm(getAcademicYear("2016", "2017"), "Spring"));
     }
-    
+
     public void createDemoDataPomodoro() throws IOException {
         persistLearningOppInst("{'institutionId':'pomodoro.university.it','credits':'5'}", getLearningOppSpec("PU001"), getAcademicTerm(getAcademicYear("2016", "2017"), "Fall"));
         persistLearningOppInst("{'institutionId':'pomodoro.university.it','credits':'7.5'}", getLearningOppSpec("PU002"), getAcademicTerm(getAcademicYear("2016", "2017"), "Spring"));

@@ -71,20 +71,32 @@
         </span>
     </div>
     <div class="list-group">
-        <div ng-repeat="coordinator in coordinators | filter:query" ng-click="isopen[coordinator.id] = !isopen[coordinator.id]">
-            <a class="list-group-item">
+        <div ng-repeat="coordinator in coordinators | filter:query">
+            <a class="list-group-item" ng-click="isopen[coordinator.id] = !isopen[coordinator.id]">
                 <b>{{coordinator.person.firstNames}} {{coordinator.person.lastName}}</b>
                 <i class="pull-right glyphicon" ng-class="{'glyphicon-chevron-down': isopen[coordinator.id], 'glyphicon-chevron-right': !isopen[coordinator.id]}"></i>
             </a>
-            <div class="list-group-item" ng-show="isopen[coordinator.id]">
-                First Names: {{coordinator.person.firstNames}}<br/>
-                Last Name: {{coordinator.person.lastName}}<br/>
-                Header: {{coordinator.header}}<br/>
-                Person Id: {{coordinator.person.personId}}<br/>
-                Institution Id: {{coordinator.institutionId}}<br/>
-                <div ng-show="coordinator.organizationUnitId">
-                    Organization Unit Id: {{coordinator.organizationUnitId}}<br/>
-                </div>
+            <div class="list-group-item" ng-show="isopen[coordinator.id]" >
+                <table class="table" >
+                    <tr>
+                        <td class="col-md-2">First names:</td><td>{{coordinator.person.firstNames}}</td>
+                    </tr>
+                    <tr>
+                        <td>Last name:</td><td>{{coordinator.person.lastName}}</td>
+                    </tr>
+                    <tr>
+                        <td>Header:</td><td>{{coordinator.header}}</td>
+                    </tr>
+                    <tr>
+                        <td>Person id:</td><td>{{coordinator.person.personId}}</td>
+                    </tr>
+                    <tr>
+                        <td>Institution id:</td><td>{{coordinator.institutionId}}</td>
+                    </tr>
+                    <tr ng-show="coordinator.organizationUnitId">
+                        <td>Organization Unit Id:</td><td>{{coordinator.organizationUnitId}}</td>
+                    </tr>
+                </table>
             </div>
         </div>
     </div>
