@@ -5,7 +5,7 @@
 This table shows which partner who had developed which API and are ready for interchangeing information. An API name that are shown in **Bold** is ready for development (stable API's) according to specification on http://developers.erasmuswithoutpaper.eu/
 
 
-| API/Partner                | Umeå  | Gent  | Porto |  SOP  | KION  | Sigma | Oslo  | Warsaw | Others|
+| :API/Partner               | Umeå  | Gent  | Porto |  SOP  | KION  | Sigma | Oslo  | Warsaw | Others|
 | -------------------------- | ----- | ----- | ----- | ----- | ----- | ----- | ----- | ------ | ----- |
 | In Registry                |:soon: |   -   |   -   |:link: |   -   |:link: |   -   |:link:  |   -   |
 | Discovery                  |:star: |   -   |   -   |:star: |   -   |:star: |   -   |:star:  |   -   |
