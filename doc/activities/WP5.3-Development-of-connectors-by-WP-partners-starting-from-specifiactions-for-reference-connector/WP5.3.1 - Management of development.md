@@ -11,13 +11,13 @@ This table shows which partner who had developed which API and are ready for int
 | Discovery                  |:star: |   -   |   -   |:star: |   -   |:star: |   -   |:star:  |   -   |
 | Echo                       |:star: |   -   |   -   |:star: |   -   |:soon: |   -   |:soon:  |   -   |
 | Institutions               |:star: |   -   |   -   |:star: |   -   |:soon: |   -   |:soon:  |   -   |
-| **DEVELOPMENT DEADLINE**|DEC 2015| ----- | ----- | ----- | ----- | ----- | ----- | ------ | ----- |
+| **DEVELOPMENT DEADLINE**|DEC 2016  | ----- | ----- | ----- | ----- | ----- | ----- | ------ | ----- |
 | Courses                    |   -   |   -   |   -   |   -   |   -   |   -   |   -   |   -    |   -   |
 | IIA                        |   -   |   -   |   -   |   -   |   -   |   -   |   -   |   -    |   -   |
-| **DEVELOPMENT DEADLINE**|JAN 2016 | ----- | ----- | ----- | ----- | ----- | ----- | ------ | ----- |
+| **DEVELOPMENT DEADLINE**|JAN 2017  | ----- | ----- | ----- | ----- | ----- | ----- | ------ | ----- |
 | Mobilities                 |   -   |   -   |   -   |   -   |   -   |   -   |   -   |   -    |   -   |
 | Trancript of Record        |   -   |   -   |   -   |   -   |   -   |   -   |   -   |   -    |   -   |
-| **DEVELOPMENT DEADLINE**|FEB 2016 | ----- | ----- | ----- | ----- | ----- | ----- | ------ | ----- |
+| **DEVELOPMENT DEADLINE**|FEB 2017  | ----- | ----- | ----- | ----- | ----- | ----- | ------ | ----- |
 
 ---
 * :ok: means that the API is **fully implemented**
