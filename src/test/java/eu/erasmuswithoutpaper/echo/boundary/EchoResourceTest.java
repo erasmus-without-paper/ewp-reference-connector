@@ -6,10 +6,12 @@ import java.util.ArrayList;
 import java.util.List;
 import javax.persistence.EntityManager;
 import javax.persistence.Query;
+import javax.servlet.http.HttpServletRequest;
 import javax.ws.rs.client.Entity;
 import javax.ws.rs.core.Application;
 import javax.ws.rs.core.MultivaluedHashMap;
 import javax.ws.rs.core.MultivaluedMap;
+import org.glassfish.hk2.utilities.binding.AbstractBinder;
 import org.glassfish.jersey.server.ResourceConfig;
 import org.glassfish.jersey.test.JerseyTest;
 import static org.junit.Assert.*;
@@ -20,13 +22,21 @@ import static org.mockito.Mockito.when;
 
 public class EchoResourceTest extends JerseyTest {
 
+    final HttpServletRequest request = mock(HttpServletRequest.class);
     private EchoResource resource;
     
     @Override
     protected Application configure() {
         resource = new EchoResource();
         resource.em = mock(EntityManager.class);
-        return new ResourceConfig().register(resource);
+        return new ResourceConfig()
+                .register(resource)
+                .register(new AbstractBinder() {
+                            @Override
+                            protected void configure() {
+                                bind(request).to(HttpServletRequest.class);
+                            }
+                        });
     }
 
     @Test

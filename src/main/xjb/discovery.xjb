@@ -7,6 +7,13 @@
         <jaxb:schemaBindings>
             <jaxb:package name="eu.erasmuswithoutpaper.api.discovery"/>
         </jaxb:schemaBindings>
+        <jaxb:bindings node="//xs:element[@name='certificate']">
+            <jaxb:property>
+                <jaxb:baseType>
+                    <jaxb:javaType name="String"/>
+                </jaxb:baseType>
+            </jaxb:property>
+        </jaxb:bindings>        
     </jaxb:bindings>
     <jaxb:bindings schemaLocation="../xsd/discovery/manifest-entry.xsd">
         <jaxb:schemaBindings>

@@ -47,15 +47,6 @@ gulp.task('lib-css-files', function () {
         .pipe(gulp.dest('src/main/webapp/resources/vendor/css'));
 });
 
-// Inject the CSS-files as links to the index.html-page
-gulp.task('index', function () {
-    var target = gulp.src("src/main/webapp/index.html");
-    var sources = gulp.src(['src/main/webapp/resources/css/*.css'], {read: false});
-    return target
-        .pipe(inject(series(vendorCss, sources), {relative: true}))
-        .pipe(gulp.dest('src/main/webapp'));
-});
-
 // Concat all Angular code to one file
 gulp.task('app-js', function () {
     var sources = gulp.src([paths.js]);
@@ -72,5 +63,5 @@ gulp.task('copyFonts', function() {
 
 // Default Task
 gulp.task('default', function () {
-    runSequence('lib-js-files', 'lib-css-files', 'app-js', 'index', 'copyFonts');
+    runSequence('lib-js-files', 'lib-css-files', 'app-js', 'copyFonts');
 });

@@ -64,6 +64,24 @@ public class GlobalPropertiesController {
         return getProperty("ewp.base.uri");
     }
     
+    public String getTruststoreLocation() {
+        return getProperty("ewp.truststore.location");
+    }
+    public String getTruststorePassword() {
+        return getProperty("ewp.truststore.password");
+    }
+    
+    
+    public String getKeystoreLocation() {
+        return getProperty("ewp.keystore.location");
+    }
+    public String getKeystorePassword() {
+        return getProperty("ewp.keystore.password");
+    }
+    public String getKeystoreCertificateAlias() {
+        return getProperty("ewp.keystore.certificate.alias");
+    }
+
     private String getProperty(String key) {
         String property = properties.getProperty(key);
         return property;

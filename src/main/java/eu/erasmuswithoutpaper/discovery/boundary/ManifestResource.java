@@ -10,6 +10,7 @@ import eu.erasmuswithoutpaper.api.registry.ApisImplemented;
 import eu.erasmuswithoutpaper.api.registry.Hei;
 import eu.erasmuswithoutpaper.api.registry.OtherHeiId;
 import eu.erasmuswithoutpaper.internal.control.GlobalPropertiesController;
+import eu.erasmuswithoutpaper.internal.control.KeyStoreController;
 import eu.erasmuswithoutpaper.organization.entity.Institution;
 import java.io.IOException;
 import java.math.BigInteger;
@@ -35,6 +36,9 @@ public class ManifestResource {
 
     @Inject
     GlobalPropertiesController globalProperties;
+    
+    @Inject
+    KeyStoreController keystoreController;
             
     @GET
     @Path("manifest-old")
@@ -75,12 +79,14 @@ public class ManifestResource {
     }
 
     private Manifest.ClientCredentialsInUse getClientCredentialsInUse() {
-        Manifest.ClientCredentialsInUse clientCredentialsInUse = new Manifest.ClientCredentialsInUse();
+        Manifest.ClientCredentialsInUse clientCredentialsInUse = null;
         
-        // TODO: get certificate from resource or disc.
-        byte[] certificate = "A certificate".getBytes();
+        String certificate = keystoreController.getCertificate();
+        if (certificate != null) {
+            clientCredentialsInUse = new Manifest.ClientCredentialsInUse();
+            clientCredentialsInUse.getCertificate().add(certificate);
+        }
         
-        clientCredentialsInUse.getCertificate().add(certificate);
         return clientCredentialsInUse;
     }
     

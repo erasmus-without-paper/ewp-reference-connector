@@ -6,12 +6,15 @@ import java.util.List;
 import javax.ejb.Stateless;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
+import javax.security.cert.X509Certificate;
+import javax.servlet.http.HttpServletRequest;
 import javax.ws.rs.FormParam;
 import javax.ws.rs.GET;
 import javax.ws.rs.POST;
 import javax.ws.rs.Path;
 import javax.ws.rs.Produces;
 import javax.ws.rs.QueryParam;
+import javax.ws.rs.core.Context;
 import javax.ws.rs.core.MediaType;
 
 @Stateless
@@ -22,17 +25,22 @@ public class EchoResource {
 
     @GET
     @Produces(MediaType.APPLICATION_XML)
-    public Response echoGet(@QueryParam("echo") List<String> echo) {
-        return echo(echo);
+    public Response echoGet(@QueryParam("echo") List<String> echo, @Context HttpServletRequest httpRequest) {
+        return echo(echo, httpRequest);
     }
 
     @POST
     @Produces(MediaType.APPLICATION_XML)
-    public Response echoPost(@FormParam("echo") List<String> echo) {
-        return echo(echo);
+    public Response echoPost(@FormParam("echo") List<String> echo, @Context HttpServletRequest httpRequest) {
+        return echo(echo, httpRequest);
     }
 
-    public Response echo(List<String> echo) {
+    public Response echo(List<String> echo, @Context HttpServletRequest httpRequest) {
+        X509Certificate[] certs = (X509Certificate[]) httpRequest.getAttribute("javax.servlet.request.X509Certificate");
+        if (null != certs && certs.length > 0) {
+            System.out.println(certs.length);
+        }
+        
         Response response = new Response();
         echo.stream().forEach(e -> response.getEcho().add(e));
 
