@@ -5,6 +5,7 @@ This table shows which partner who had developed which API and are ready for int
 
 | API/Partner                | Umeå  | Gent  | Porto |  SOP  | KION  | Sigma | Oslo  | Warsaw | Others|
 | -------------------------- | ----- | ----- | ----- | ----- | ----- | ----- | ----- | ------ | ----- |
+|                            |       |       |       |       |       |       |       |        |       |
 | `DEVELOPMENT Cpt. 3`    | `DEC 2016`|      |Dec 16 |       |Jan 17 |       |       |        |       |
 | In Registry                |:link: |   -   |   -   |:link: |   -   |:link: |   -   |:link:  |   -   |
 | Discovery                  |:star: |:soon: |   -   |:star: |   -   |:star: |   -   |:star:  |   -   |
