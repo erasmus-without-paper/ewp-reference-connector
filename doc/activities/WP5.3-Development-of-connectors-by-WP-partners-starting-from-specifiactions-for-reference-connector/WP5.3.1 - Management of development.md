@@ -5,20 +5,20 @@ This table shows which partner who had developed which API and are ready for int
 
 | API/Partner                | Umeå  | Gent  | Porto |  SOP  | KION  | Sigma | Oslo  | Warsaw | Others|
 | -------------------------- | ----- | ----- | ----- | ----- | ----- | ----- | ----- | ------ | ----- |
-| `DEVELOPMENT Cpt. 3`    |`DEC 2016 | ----- |Dec 16 | ----- |Jan 17 | ----- | ----- | ------ | ---- `|
+| `DEVELOPMENT Cpt. 3`    | `DEC 2016| ----- |Dec 16 | ----- |Jan 17 | ----- | ----- | ------ | ---- `|
 | In Registry                |:link: |   -   |   -   |:link: |   -   |:link: |   -   |:link:  |   -   |
 | Discovery                  |:star: |:soon: |   -   |:star: |   -   |:star: |   -   |:star:  |   -   |
 | Echo                       |:star: |   -   |   -   |:star: |   -   |:soon: |   -   |:soon:  |   -   |
-| `DEVELOPMENT Cpt. 5`    |`Jan 2017 | ----- | ----- | ----- | ----- | ----- | ----- | ------ | -----`|
+| `DEVELOPMENT Cpt. 5`    | `Jan 2017| ----- | ----- | ----- | ----- | ----- | ----- | ------ | -----`|
 | Institutions               |:star: |   -   |   -   |:star: |   -   |:soon: |   -   |:soon:  |   -   |
 | Organizational units       |   -   |   -   |   -   |   -   |   -   |   -   |   -   |   -    |   -   |
 | Courses                    |:soon: |   -   |   -   |   -   |   -   |   -   |   -   |   -    |   -   |
 | Simple course Replication  |   -   |   -   |   -   |   -   |   -   |   -   |   -   |   -    |   -   |
-| `DEVELOPMENT Cpt. 6`    |`Feb 2017 | ----- | ----- | ----- | ----- | ----- | ----- | ------ | -----`|
+| `DEVELOPMENT Cpt. 6`    | `Feb 2017| ----- | ----- | ----- | ----- | ----- | ----- | ------ | -----`|
 | IIA                        |   -   |   -   |   -   |   -   |   -   |   -   |   -   |   -    |   -   |
 | Mobilities                 |   -   |   -   |   -   |   -   |   -   |   -   |   -   |   -    |   -   |
 | Trancript of Record        |   -   |   -   |   -   |   -   |   -   |   -   |   -   |   -    |   -   |
-| `DEVELOPMENT Cpt. 7`    |`Mar 2017 | ----- | ----- | ----- | ----- | ----- | ----- | ------ | -----`|
+| `DEVELOPMENT Cpt. 7`    | `Mar 2017| ----- | ----- | ----- | ----- | ----- | ----- | ------ | -----`|
 
 ---
 * :ok: means that the API is **fully implemented**
