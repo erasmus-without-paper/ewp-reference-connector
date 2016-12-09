@@ -1,7 +1,7 @@
 package eu.erasmuswithoutpaper.echo.boundary;
 
-import eu.erasmuswithoutpaper.internal.control.ClientRegistryController;
 import eu.erasmuswithoutpaper.internal.control.HeiEntry;
+import eu.erasmuswithoutpaper.internal.control.RegistryClient;
 import eu.erasmuswithoutpaper.internal.control.RestClient;
 import java.util.List;
 import javax.ejb.Stateless;
@@ -18,7 +18,7 @@ import javax.ws.rs.core.MediaType;
 public class GuiEchoResource {
 
     @Inject
-    ClientRegistryController clientRegistryController;
+    RegistryClient registryClient;
     
     @Inject
     RestClient restClient;
@@ -26,8 +26,8 @@ public class GuiEchoResource {
     @GET
     @Produces(MediaType.APPLICATION_JSON)
     public javax.ws.rs.core.Response echoHeis() {
-        List<HeiEntry> echoHeis = clientRegistryController.getEchoHeis();
-            
+        List<HeiEntry> echoHeis = registryClient.getEchoHeis();
+        
         GenericEntity<List<HeiEntry>> entity = new GenericEntity<List<HeiEntry>>(echoHeis) {};
         return javax.ws.rs.core.Response.ok(entity).build();
     }
@@ -35,10 +35,10 @@ public class GuiEchoResource {
     @POST
     @Produces(MediaType.APPLICATION_XML)
     public javax.ws.rs.core.Response echo(EchoRequest echoReuest) {
-            String heiUrl = clientRegistryController.getEchoHeiUrl(echoReuest.getHeiId());
-            String getUrl = heiUrl + "?echo=" + String.join("&echo=", echoReuest.getEcho());
-            
-            String answer = restClient.get(getUrl, String.class);
-            return javax.ws.rs.core.Response.ok(answer).build();
+        String heiUrl = registryClient.getEchoHeiUrl(echoReuest.getHeiId());
+        String getUrl = heiUrl + "?echo=" + String.join("&echo=", echoReuest.getEcho());
+
+        String answer = restClient.get(getUrl, String.class);
+        return javax.ws.rs.core.Response.ok(answer).build();
     }
 }

@@ -4,7 +4,9 @@ import eu.erasmuswithoutpaper.registryclient.ApiSearchConditions;
 import eu.erasmuswithoutpaper.registryclient.ClientImpl;
 import eu.erasmuswithoutpaper.registryclient.ClientImplOptions;
 import eu.erasmuswithoutpaper.registryclient.DefaultCatalogueFetcher;
-import eu.erasmuswithoutpaper.registryclient.RegistryClient;
+import java.security.cert.X509Certificate;
+import java.util.ArrayList;
+import java.util.Collection;
 import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -16,27 +18,50 @@ import org.w3c.dom.Node;
 import org.w3c.dom.NodeList;
 
 @Singleton
-public class ClientRegistryController {
+public class RegistryClient {
     
-    private RegistryClient client;
+    private final String ECHO_NAMESPACE = "https://github.com/erasmus-without-paper/ewp-specs-api-echo/blob/stable-v1/manifest-entry.xsd";
+    
+    private eu.erasmuswithoutpaper.registryclient.RegistryClient client;
     
     @PostConstruct
-    private void loadClientRegistry() {
+    private void loadRegistryClient() {
         try {
             ClientImplOptions options = new ClientImplOptions();
             options.setCatalogueFetcher(new DefaultCatalogueFetcher("dev-registry.erasmuswithoutpaper.eu"));
             client = new ClientImpl(options);
             
             client.refresh();
-        } catch (RegistryClient.RefreshFailureException ex) {
-            Logger.getLogger(ClientRegistryController.class.getName()).log(Level.SEVERE, null, ex);
+        } catch (eu.erasmuswithoutpaper.registryclient.RegistryClient.RefreshFailureException ex) {
+            Logger.getLogger(RegistryClient.class.getName()).log(Level.SEVERE, null, ex);
         }
+    }
+    
+    public X509Certificate getCertificateKnownInEwpNetwork(X509Certificate[] certificates) {
+        if(certificates == null) {
+            return null;
+        }
+        
+        for (X509Certificate certificate : certificates) {
+            if (client.isCertificateKnown(certificate)) {
+                return certificate;
+            }
+        }
+        return null;
+    }
+
+    public Collection<String> getHeisCoveredByCertificate(X509Certificate certificate) {
+        if (certificate != null && client.isCertificateKnown(certificate)) {
+            Collection<String> heiIds = client.getHeisCoveredByCertificate(certificate);
+            return heiIds;
+        }
+        
+        return new ArrayList<>();
     }
     
     public List<HeiEntry> getEchoHeis() {
         ApiSearchConditions myEchoConditions = new ApiSearchConditions();
-        String ns = "https://github.com/erasmus-without-paper/ewp-specs-api-echo/blob/stable-v1/manifest-entry.xsd";
-        myEchoConditions.setApiClassRequired(ns, "echo", "1.0.1");
+        myEchoConditions.setApiClassRequired(ECHO_NAMESPACE, "echo", "1.0.1");
         
         List<HeiEntry> heis = client.findHeis(myEchoConditions).stream().map(e -> new HeiEntry(e.getId(), e.getName())).collect(Collectors.toList());
         
@@ -45,8 +70,7 @@ public class ClientRegistryController {
 
     public String getEchoHeiUrl(String heiId) {
         ApiSearchConditions myEchoConditions = new ApiSearchConditions();
-        String ns = "https://github.com/erasmus-without-paper/ewp-specs-api-echo/blob/stable-v1/manifest-entry.xsd";
-        myEchoConditions.setApiClassRequired(ns, "echo", "1.0.1");
+        myEchoConditions.setApiClassRequired(ECHO_NAMESPACE, "echo", "1.0.1");
         myEchoConditions.setRequiredHei(heiId);
         myEchoConditions.setRequiredHei(heiId);
         Element manifest = client.findApi(myEchoConditions);

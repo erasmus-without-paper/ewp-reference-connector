@@ -14,9 +14,9 @@ import java.util.logging.Logger;
 import javax.annotation.PostConstruct;
 import javax.inject.Inject;
 
-public class KeyStoreController {
+public class EwpKeyStore {
     @Inject
-    GlobalPropertiesController properties;
+    GlobalProperties properties;
     
     private String fomattedCertificate;
     private KeyStore truststore;
@@ -33,7 +33,7 @@ public class KeyStoreController {
             
             fomattedCertificate = getCertificate(keystore, properties.getKeystoreCertificateAlias());
         } catch (IOException | NoSuchAlgorithmException | CertificateException | KeyStoreException ex) {
-            Logger.getLogger(KeyStoreController.class.getName()).log(Level.SEVERE, null, ex);
+            Logger.getLogger(EwpKeyStore.class.getName()).log(Level.SEVERE, null, ex);
         }
     }
     

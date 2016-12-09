@@ -15,6 +15,7 @@ import javax.annotation.PostConstruct;
 import javax.inject.Inject;
 import javax.net.ssl.KeyManagerFactory;
 import javax.net.ssl.SSLContext;
+import javax.net.ssl.SSLSession;
 import javax.net.ssl.TrustManagerFactory;
 import javax.ws.rs.client.Client;
 import javax.ws.rs.client.ClientBuilder;
@@ -22,10 +23,10 @@ import javax.ws.rs.core.Response;
 
 public class RestClient {
     @Inject
-    GlobalPropertiesController properties;
+    GlobalProperties properties;
     
     @Inject
-    KeyStoreController keystoreController;
+    EwpKeyStore keystoreController;
 
     private Client client;
     
@@ -35,6 +36,7 @@ public class RestClient {
             SSLContext context = initSecurityContext(keystoreController.getKeystore(), keystoreController.getTruststore(), properties.getKeystorePassword());
 
             ClientBuilder clientBuilder = ClientBuilder.newBuilder().sslContext(context);
+            clientBuilder.hostnameVerifier((String string, SSLSession ssls) -> true);
             client = clientBuilder.build();
         } catch (NoSuchAlgorithmException | KeyStoreException | NoSuchProviderException | UnrecoverableKeyException | KeyManagementException ex) {
             Logger.getLogger(RestClient.class.getName()).log(Level.SEVERE, null, ex);
