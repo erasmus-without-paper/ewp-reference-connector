@@ -5,20 +5,20 @@ This table shows which partner who had developed which API and are ready for int
 
 | API/Partner                                 | Umeå  | Gent  | Porto |  SOP  | KION  | Sigma | Oslo  | Warsaw | Others|
 | ------------------------------------------- | ----- | ----- | ----- | ----- | ----- | ----- | ----- | ------ | ----- |
-| **DEVELOPMENT Chapter 3    Due: DECEMBER 2016**|       |       |Dec 16 |       |Jan 17 |       |       |        |       |
+| **DEVELOPMENT Chapter 3 Due:DECEMBER 2016** |       |       |Dec 16 |       |Jan 17 |       |       |        |       |
 | In Registry                                 |:link: |   -   |   -   |:link: |   -   |:link: |   -   |:link:  |   -   |
 | Discovery                                   |:star: |:soon: |   -   |:star: |   -   |:star: |   -   |:star:  |   -   |
 | Echo                                        |:star: |   -   |   -   |:star: |   -   |:soon: |   -   |:soon:  |   -   |
-| **DEVELOPMENT Chapter 5 Due: January 2017** |       |       |       |       |       |       |       |        |       | 
+| **DEVELOPMENT Chapter 5 Due:January 2017**  |       |       |       |       |       |       |       |        |       | 
 | Institutions                                |:star: |   -   |   -   |:star: |   -   |:soon: |   -   |:soon:  |   -   |
 | Organizational units                        |:soon: |   -   |   -   |   -   |   -   |   -   |   -   |   -    |   -   |
 | Courses                                     |:soon: |   -   |   -   |   -   |   -   |   -   |   -   |   -    |   -   |
 | Simple course Replication                   |   -   |   -   |   -   |   -   |   -   |   -   |   -   |   -    |   -   |
-| **DEVELOPMENT Chapter 6 Due: February 2017**|       |       |       |       |       |       |       |        |       |
+| **DEVELOPMENT Chapter 6 Due:February 2017** |       |       |       |       |       |       |       |        |       |
 | IIA                                         |   -   |   -   |   -   |   -   |   -   |   -   |   -   |   -    |   -   |
 | Mobilities                                  |   -   |   -   |   -   |   -   |   -   |   -   |   -   |   -    |   -   |
 | Trancript of Record                         |   -   |   -   |   -   |   -   |   -   |   -   |   -   |   -    |   -   |
-| **DEVELOPMENT Chapter 7 Due: March 2017**   |       |       |       |       |       |       |       |        |       |
+| **DEVELOPMENT Chapter 7 Due:March 2017**    |       |       |       |       |       |       |       |        |       |
 |                                             |       |       |       |       |       |       |       |        |       |
 |                                             |       |       |       |       |       |       |       |        |       |
 
