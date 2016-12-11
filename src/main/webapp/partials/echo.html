@@ -2,13 +2,22 @@
     <h1 class="page-header">Echo</h1>
     <div class="panel panel-body">
         <div class="form-group">
-            <label class="control-label" for="hei">Institution:</label>
-            <select id="hei" class="form-control" ng-model="echoRequest.heiId" required="required">
-                <option style="display:none" value="">select an institution</option>
-                <option ng-repeat="hei in echoHeis" value="{{hei.id}}">{{hei.name}}</option>
+            <label class="control-label" for="hei">Method:</label>
+            <select id="hei" class="form-control" ng-model="echoRequest.method">
+                <option value="GET">GET</option>
+                <option value="POST">POST</option>
+                <option value="PUT">PUT</option>
             </select>
         </div>
         
+        <div class="form-group">
+            <label class="control-label" for="hei">Institution:</label>
+            <select id="hei" class="form-control" ng-model="echoRequest.heiId" required="required">
+                <option style="display:none" value="">select an institution</option>
+                <option ng-repeat="hei in echoHeis | orderBy: 'name'" value="{{hei.id}}">{{hei.name}}</option>
+            </select>
+        </div>
+
         <div class="form-group">
             <label class="control-label">Echo</label>
             <div ng-repeat="echoItem in echoRequest.echo track by $index">
@@ -34,7 +43,26 @@
     <div class="panel panel-default" ng-show="echoResult">
         <div class="panel-heading"><h2>Response</h2></div>
         <div class="panel-body">
-            {{echoResult}}
+            <div class="alert alert-success" ng-if="echoResult.statusCode === 200">
+                <div class="row" ng-repeat="echo in echoResult.echo">
+                    <div class="col-md-2">{{$index === 0 ? 'Echo: ' : ''}}</div>
+                    <div class="col-md-10">{{echo}}</div>
+                </div><br/>
+                <div class="row" ng-repeat="heiId in echoResult.heiId">
+                    <div class="col-md-2">{{$index === 0 ? 'Hei Id: ' : ''}}</div>
+                    <div class="col-md-10">{{heiId}}</div>
+                </div>
+            </div>
+            
+            <div class="alert alert-danger" ng-if="echoResult.statusCode !== 200">
+                <div class="row">
+                    <div ng-if="echoResult.statusCode > 0">
+                        <div class="col-md-2">Status Code: </div><div class="col-md-10">{{echoResult.statusCode}}</div>
+                        <div class="col-md-2">Media Type: </div><div class="col-md-10">{{echoResult.mediaType}}</div>
+                    </div>
+                    <div class="col-md-2">Error Message: </div><div class="col-md-10">{{echoResult.errorMessage}}</div>
+                </div>
+            </div>
         </div>
     </div>
 </div>

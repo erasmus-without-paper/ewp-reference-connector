@@ -19,7 +19,6 @@ import javax.net.ssl.SSLSession;
 import javax.net.ssl.TrustManagerFactory;
 import javax.ws.rs.client.Client;
 import javax.ws.rs.client.ClientBuilder;
-import javax.ws.rs.core.Response;
 
 public class RestClient {
     @Inject
@@ -45,11 +44,6 @@ public class RestClient {
     
     public Client client() {
         return client;
-    }
-    
-    public <T> T get(String url, Class<T> clazz) {
-        Response response = client().target(url).request().get();
-        return response.readEntity(clazz);
     }
     
     private static SSLContext initSecurityContext(KeyStore keyStore, KeyStore trustStore, String pwd) throws NoSuchAlgorithmException, NoSuchProviderException, KeyStoreException, UnrecoverableKeyException, KeyManagementException {
