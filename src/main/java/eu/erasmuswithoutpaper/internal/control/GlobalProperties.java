@@ -10,7 +10,7 @@ import javax.annotation.PostConstruct;
 import javax.ejb.Singleton;
 
 @Singleton
-public class GlobalPropertiesController {
+public class GlobalProperties {
     public static enum University {
         IKEA_U,
         POMODORO_U
@@ -23,18 +23,18 @@ public class GlobalPropertiesController {
         properties = new Properties();
         try (InputStream in = getClass().getClassLoader().getResourceAsStream("ewp.properties")) {
             properties.load(in);
-            Logger.getLogger(GlobalPropertiesController.class.getName()).log(Level.INFO, "Loaded properties from resource.");
+            Logger.getLogger(GlobalProperties.class.getName()).log(Level.INFO, "Loaded properties from resource.");
         } catch (IOException ex) {
-            Logger.getLogger(GlobalPropertiesController.class.getName()).log(Level.SEVERE, null, ex);
+            Logger.getLogger(GlobalProperties.class.getName()).log(Level.SEVERE, null, ex);
         }
         
         String overrideProperties = System.getProperty("ewp.override.properties");
         if (overrideProperties != null) {
             try {
                 properties.load(new FileInputStream(overrideProperties));
-                Logger.getLogger(GlobalPropertiesController.class.getName()).log(Level.INFO, "Override properties from file '{0}'.", overrideProperties);
+                Logger.getLogger(GlobalProperties.class.getName()).log(Level.INFO, "Override properties from file '{0}'.", overrideProperties);
             } catch (IOException ex) {
-                Logger.getLogger(GlobalPropertiesController.class.getName()).log(Level.SEVERE, null, ex);
+                Logger.getLogger(GlobalProperties.class.getName()).log(Level.SEVERE, null, ex);
             }
         }
     }
@@ -80,6 +80,10 @@ public class GlobalPropertiesController {
     }
     public String getKeystoreCertificateAlias() {
         return getProperty("ewp.keystore.certificate.alias");
+    }
+    
+    public boolean isAllowMissingClientCertificate() {
+        return "true".equalsIgnoreCase(getProperty("ewp.allow.missing.client.certificate"));
     }
 
     private String getProperty(String key) {

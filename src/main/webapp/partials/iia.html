@@ -27,7 +27,7 @@
     
     <div ng-show="selectedIia && !selectedCoopCond">
         <h2>{{selectedIia.iiaId}}</h2>
-        <table class="table table-striped">
+        <table class="table">
             <tr>
                 <td class="col-md-2">Start date:</td><td>{{selectedIia.startDate | date: 'yyyy-MM-dd'}}</td>
             </tr>
@@ -62,7 +62,7 @@
 
     <div ng-show="selectedCoopCond">
         <h3>{{selectedCoopCond.sendingPartner.institutionId}} - {{selectedCoopCond.receivingPartner.institutionId}}</h3>
-        <table class="table table-striped">
+        <table class="table">
             <tr>
                 <td class="col-md-2">Start date:</td><td>{{selectedCoopCond.startDate | date: 'yyyy-MM-dd'}}</td>
             </tr>
@@ -88,69 +88,3 @@
     <button ng-click="backCoopCond()" class="btn btn-default"><i class="glyphicon glyphicon-chevron-left"></i> Back</button>
     </div>
 </div>
-
-
-<!--
-<div class="container">
-    <h1 class="page-header">IIA</h1>
-    <div class="clearfix">
-        <h2 class="pull-left">IIAs</h2>
-        <div class="btn-group pull-right">
-            <button type="submit" class="btn btn-default" ng-click="createNewIia()">
-                <i class="glyphicon glyphicon-plus-sign"></i>
-            </button>
-        </div>
-    </div>
-
-    <div id="iiaList" >
-        <div class="input-group">
-            <input class="form-control" id="search" name="search" placeholder="Search for" ng-model="query"
-                   required="required"/>
-              <span class="input-group-btn">
-                    <button type="submit" class="btn btn-default">
-                        <i class="glyphicon glyphicon-search"></i>
-                    </button>
-              </span>
-        </div>
-        <ul class="list-group">
-            <li ng-repeat="iia in iias.iia | filter:query" class="list-group-item" style="border: none">
-                <div class="panel panel-default">
-                    <div class="panel-heading">
-                        <h4 class="list-group-item-heading">IIA id: {{iia.id}}</h4>
-                    </div>
-                    <div class="panel-heading">Partner
-                    </div>
-                    <div class="panel-body">
-                        <div class="row">
-                            <div class="col-md-2">Institution ID:</div><div class="col-md-10">{{iia.partner['institution-id']}}</div>
-                        </div><div class="row">
-                            <div class="col-md-2">Organization Unit ID:</div><div class="col-md-10">{{iia.partner['organization-unit-id']}}</div>
-                        </div>
-                    </div>
-                    <div class="panel-heading">Conditions</div>
-                    <div class="list-group">
-                        <div class="list-group-item" ng-repeat="condition in iia.partner.condition">
-                            <div class="row">
-                                <div class="col-md-2">Subject Area:</div><div class="col-md-10">{{condition['subject-area']}}</div>
-                            </div><div class="row">
-                                <div class="col-md-2">Mobility Type:</div><div class="col-md-10">{{condition['mobility-type'].join(', ')}}</div>
-                            </div><div class="row">
-                                <div class="col-md-2">Term Title:</div>
-                                <div class="col-md-10">
-                                    <div ng-repeat="title in condition.term.title">
-                                        {{title.value}} ({{title.lang}})
-                                    </div>
-                                </div>
-                            </div><div class="row">
-                                <div class="col-md-2">Term Start Date:</div><div class="col-md-10">{{condition.term['start-date'] | toDate | date: 'yyyy-MM-dd'}}</div>
-                            </div><div class="row">
-                                <div class="col-md-2">Term End Date:</div><div class="col-md-10">{{condition.term['end-date'] | toDate | date: 'yyyy-MM-dd'}}</div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </li>
-        </ul>
-    </div>
-</div>
--->

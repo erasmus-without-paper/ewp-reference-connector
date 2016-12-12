@@ -15,26 +15,30 @@ import javax.annotation.PostConstruct;
 import javax.inject.Inject;
 import javax.net.ssl.KeyManagerFactory;
 import javax.net.ssl.SSLContext;
+import javax.net.ssl.SSLSession;
 import javax.net.ssl.TrustManagerFactory;
 import javax.ws.rs.client.Client;
 import javax.ws.rs.client.ClientBuilder;
-import javax.ws.rs.core.Response;
 
 public class RestClient {
     @Inject
-    GlobalPropertiesController properties;
+    GlobalProperties properties;
     
     @Inject
-    KeyStoreController keystoreController;
+    EwpKeyStore keystoreController;
 
     private Client client;
     
     @PostConstruct
     private void createClient() {
         try {
-            SSLContext context = initSecurityContext(keystoreController.getKeystore(), keystoreController.getTruststore(), properties.getKeystorePassword());
 
-            ClientBuilder clientBuilder = ClientBuilder.newBuilder().sslContext(context);
+            ClientBuilder clientBuilder = ClientBuilder.newBuilder();
+            if (keystoreController.isSuccessfullyInitiated()) {
+                SSLContext context = initSecurityContext(keystoreController.getKeystore(), keystoreController.getTruststore(), properties.getKeystorePassword());
+                clientBuilder.sslContext(context);
+            }
+            clientBuilder.hostnameVerifier((String string, SSLSession ssls) -> true);
             client = clientBuilder.build();
         } catch (NoSuchAlgorithmException | KeyStoreException | NoSuchProviderException | UnrecoverableKeyException | KeyManagementException ex) {
             Logger.getLogger(RestClient.class.getName()).log(Level.SEVERE, null, ex);
@@ -43,11 +47,6 @@ public class RestClient {
     
     public Client client() {
         return client;
-    }
-    
-    public <T> T get(String url, Class<T> clazz) {
-        Response response = client().target(url).request().get();
-        return response.readEntity(clazz);
     }
     
     private static SSLContext initSecurityContext(KeyStore keyStore, KeyStore trustStore, String pwd) throws NoSuchAlgorithmException, NoSuchProviderException, KeyStoreException, UnrecoverableKeyException, KeyManagementException {

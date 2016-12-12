@@ -7,7 +7,7 @@ import eu.erasmuswithoutpaper.course.preload.LosLoader;
 import eu.erasmuswithoutpaper.iia.preload.CooperationConditionLoader;
 import eu.erasmuswithoutpaper.iia.preload.IiaLoader;
 import eu.erasmuswithoutpaper.iia.preload.IiaPartnerLoader;
-import eu.erasmuswithoutpaper.internal.control.GlobalPropertiesController;
+import eu.erasmuswithoutpaper.internal.control.GlobalProperties;
 import eu.erasmuswithoutpaper.organization.preload.CoordinatorLoader;
 import eu.erasmuswithoutpaper.organization.preload.InstitutionLoader;
 import eu.erasmuswithoutpaper.organization.preload.PersonLoader;
@@ -24,7 +24,7 @@ import javax.inject.Inject;
 public class StartupLoader {
 
     @Inject
-    private GlobalPropertiesController properties;
+    private GlobalProperties properties;
     
     @Inject
     private InstitutionLoader institutionLoader;

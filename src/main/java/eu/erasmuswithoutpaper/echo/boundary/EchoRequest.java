@@ -1,10 +1,15 @@
 package eu.erasmuswithoutpaper.echo.boundary;
 
+import java.io.Serializable;
 import java.util.List;
 
-public class EchoRequest {
+public class EchoRequest implements Serializable {
+    public static enum Method {
+        GET, POST, PUT
+    }
     private String heiId;
     private List<String> echo;
+    private Method method;
 
     public String getHeiId() {
         return heiId;
@@ -22,4 +27,13 @@ public class EchoRequest {
         this.echo = echo;
     }
 
+    public Method getMethod() {
+        return method;
+    }
+
+    public void setMethod(Method method) {
+        this.method = method;
+    }
+
+    
 }

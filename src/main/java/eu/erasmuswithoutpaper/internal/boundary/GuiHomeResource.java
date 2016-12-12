@@ -1,6 +1,6 @@
 package eu.erasmuswithoutpaper.internal.boundary;
 
-import eu.erasmuswithoutpaper.internal.control.GlobalPropertiesController;
+import eu.erasmuswithoutpaper.internal.control.GlobalProperties;
 import javax.ejb.Stateless;
 import javax.inject.Inject;
 import javax.ws.rs.GET;
@@ -13,7 +13,7 @@ import javax.ws.rs.core.Response;
 @Path("home")
 public class GuiHomeResource {
     @Inject
-    private GlobalPropertiesController properties;
+    private GlobalProperties properties;
     
     @GET
     @Produces(MediaType.TEXT_PLAIN)

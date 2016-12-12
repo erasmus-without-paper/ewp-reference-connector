@@ -9,8 +9,8 @@ import eu.erasmuswithoutpaper.api.institutions.Institutions;
 import eu.erasmuswithoutpaper.api.registry.ApisImplemented;
 import eu.erasmuswithoutpaper.api.registry.Hei;
 import eu.erasmuswithoutpaper.api.registry.OtherHeiId;
-import eu.erasmuswithoutpaper.internal.control.GlobalPropertiesController;
-import eu.erasmuswithoutpaper.internal.control.KeyStoreController;
+import eu.erasmuswithoutpaper.internal.control.EwpKeyStore;
+import eu.erasmuswithoutpaper.internal.control.GlobalProperties;
 import eu.erasmuswithoutpaper.organization.entity.Institution;
 import java.io.IOException;
 import java.math.BigInteger;
@@ -35,10 +35,10 @@ public class ManifestResource {
     EntityManager em;
 
     @Inject
-    GlobalPropertiesController globalProperties;
+    GlobalProperties globalProperties;
     
     @Inject
-    KeyStoreController keystoreController;
+    EwpKeyStore keystoreController;
             
     @GET
     @Path("manifest-old")
@@ -53,7 +53,7 @@ public class ManifestResource {
     @GET
     @Path("manifest")
     @Produces(MediaType.APPLICATION_XML)
-    public Manifest manifest() {
+    public javax.ws.rs.core.Response manifest() {
         Manifest manifest = new Manifest();
         
         ApisImplemented apisImplemented = new ApisImplemented();
@@ -66,7 +66,7 @@ public class ManifestResource {
         manifest.setClientCredentialsInUse(getClientCredentialsInUse());
         manifest.setAdminNotes(getAdminNotes());
 
-        return manifest;
+        return javax.ws.rs.core.Response.ok(manifest).build();
     }
     
     private Manifest.InstitutionsCovered getInstitutionsCovered() {
