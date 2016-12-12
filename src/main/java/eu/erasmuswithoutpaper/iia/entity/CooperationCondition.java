@@ -1,34 +1,58 @@
 
 package eu.erasmuswithoutpaper.iia.entity;
 
+import eu.erasmuswithoutpaper.internal.StandardDateConverter;
 import java.io.Serializable;
 import java.util.Date;
+import javax.persistence.CascadeType;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
+import javax.persistence.NamedQueries;
+import javax.persistence.NamedQuery;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
+import org.apache.johnzon.mapper.JohnzonConverter;
 
 @Entity
+@NamedQueries({
+    @NamedQuery(name = CooperationCondition.findAll, query = "SELECT c FROM CooperationCondition c"),
+    @NamedQuery(name = CooperationCondition.findByIiaId, query = "SELECT c FROM CooperationCondition c WHERE c.iiaId = :iiaId")
+})
 public class CooperationCondition implements Serializable{
+    
+    private static final String PREFIX = "eu.erasmuswithoutpaper.iia.entity.CooperationCondition.";
+    public static final String findAll = PREFIX + "all";
+    public static final String findByIiaId = PREFIX + "byIiaId";
     
     @Id
     @GeneratedValue(strategy=GenerationType.AUTO)
     long id;
 
     private String iiaId;
-    private String fromInstitutionId;
-    private String toInstitutionId;
-    private String fromOrganizationUnitId;
-    private String toOrganizationUnitId;
+    
+    @ManyToOne(cascade = CascadeType.DETACH, fetch = FetchType.EAGER)
+    @JoinColumn(name = "SENDING_PARTNER_ID", referencedColumnName = "ID")
+    private IiaPartner sendingPartner;
+    
+    @ManyToOne(cascade = CascadeType.DETACH, fetch = FetchType.EAGER)
+    @JoinColumn(name = "RECEIVING_PARTNER_ID", referencedColumnName = "ID")
+    private IiaPartner receivingPartner;
+    
     private CooperationConditionMobilityType mobilityType;
     
+    @JohnzonConverter(StandardDateConverter.class)
     @Temporal(TemporalType.DATE)
     private Date startDate;
     
+    @JohnzonConverter(StandardDateConverter.class)
     @Temporal(TemporalType.DATE)
     private Date endDate;
+    
     private CooperationConditionMobilityNumberVariant mobilityNumberVariant;
     private String duration;
     private String eqfLevel;
@@ -49,36 +73,20 @@ public class CooperationCondition implements Serializable{
         this.iiaId = iiaId;
     }
 
-    public String getFromInstitutionId() {
-        return fromInstitutionId;
+    public IiaPartner getSendingPartner() {
+        return sendingPartner;
     }
 
-    public void setFromInstitutionId(String fromInstitutionId) {
-        this.fromInstitutionId = fromInstitutionId;
+    public void setSendingPartner(IiaPartner sendingPartner) {
+        this.sendingPartner = sendingPartner;
     }
 
-    public String getToInstitutionId() {
-        return toInstitutionId;
+    public IiaPartner getReceivingPartner() {
+        return receivingPartner;
     }
 
-    public void setToInstitutionId(String toInstitutionId) {
-        this.toInstitutionId = toInstitutionId;
-    }
-
-    public String getFromOrganizationUnitId() {
-        return fromOrganizationUnitId;
-    }
-
-    public void setFromOrganizationUnitId(String fromOrganizationUnitId) {
-        this.fromOrganizationUnitId = fromOrganizationUnitId;
-    }
-
-    public String getToOrganizationUnitId() {
-        return toOrganizationUnitId;
-    }
-
-    public void setToOrganizationUnitId(String toOrganizationUnitId) {
-        this.toOrganizationUnitId = toOrganizationUnitId;
+    public void setReceivingPartner(IiaPartner receivingPartner) {
+        this.receivingPartner = receivingPartner;
     }
 
     public CooperationConditionMobilityType getMobilityType() {

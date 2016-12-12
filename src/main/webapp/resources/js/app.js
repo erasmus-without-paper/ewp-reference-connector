@@ -1,12 +1,9 @@
 angular
-    .module('connector', ['menu', 'home', 'echo', 'iia', 'institution', 'ngResource', 'ngRoute', 'person', 'coordinator', 'academicterm', 'los', 'loi', 'iiapartner'])
+    .module('connector', ['menu', 'home', 'echo', 'iia', 'institution', 'ngResource', 'ngRoute', 'person', 'coordinator', 'academicterm', 'los', 'loi'])
     .config(function ($routeProvider) {
         $routeProvider.when('/iia', {
-                templateUrl: 'partials/todo.html'
-//                controller: 'IiaController'
-            }).when('/iiapartner', {
-                templateUrl: 'partials/iiapartner.html',
-                controller: 'IiaPartnerController'
+                templateUrl: 'partials/iia.html',
+                controller: 'IiaController'
             }).when('/newIia', {
                 templateUrl: 'partials/new_iia_form.html',
                 controller: 'IiaController'
@@ -62,4 +59,12 @@ angular
 
             return languageObject ? languageObject : languageList[0];
         };
+    })
+    .filter('capitalize', function() {
+        return function(text) {
+            var firstLetter = text[0];
+            var otherLetters = text.substring(1);
+            return firstLetter.toUpperCase() + otherLetters.toLowerCase();
+        };
     });
+

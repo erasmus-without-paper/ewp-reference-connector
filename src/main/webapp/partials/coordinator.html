@@ -73,7 +73,7 @@
     <div class="list-group">
         <div ng-repeat="coordinator in coordinators | filter:query">
             <a class="list-group-item" ng-click="isopen[coordinator.id] = !isopen[coordinator.id]">
-                <b>{{coordinator.person.firstNames}} {{coordinator.person.lastName}}</b>
+                <b>{{coordinator.person.firstNames}} {{coordinator.person.lastName}}, {{coordinator.institutionId}}</b>
                 <i class="pull-right glyphicon" ng-class="{'glyphicon-chevron-down': isopen[coordinator.id], 'glyphicon-chevron-right': !isopen[coordinator.id]}"></i>
             </a>
             <div class="list-group-item" ng-show="isopen[coordinator.id]" >
@@ -85,7 +85,7 @@
                         <td>Last name:</td><td>{{coordinator.person.lastName}}</td>
                     </tr>
                     <tr>
-                        <td>Header:</td><td>{{coordinator.header}}</td>
+                        <td>Header:</td><td>{{coordinator.header | capitalize}}</td>
                     </tr>
                     <tr>
                         <td>Person id:</td><td>{{coordinator.person.personId}}</td>

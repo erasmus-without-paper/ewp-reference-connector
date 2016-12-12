@@ -29,10 +29,6 @@ public class CooperationConditionTest {
     public void testPersistCondition() {
         CooperationCondition cooperationCondition = new CooperationCondition();
         cooperationCondition.setIiaId("iiaId1");
-        cooperationCondition.setFromInstitutionId("instId1");
-        cooperationCondition.setFromOrganizationUnitId("orgUnitId1");
-        cooperationCondition.setToInstitutionId("instId2");
-        cooperationCondition.setToOrganizationUnitId("orgUnitId2");
         cooperationCondition.setMobilityType(CooperationConditionMobilityType.STAFF_TEACHING);
         cooperationCondition.setStartDate(new Date());
         cooperationCondition.setEndDate(new Date());

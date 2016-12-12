@@ -29,6 +29,7 @@ public class Person implements Serializable {
     @GeneratedValue(strategy=GenerationType.AUTO)
     private long id;
     
+    private String institutionId;
     private String personId;
     private String firstNames;
     private String lastName;
@@ -45,7 +46,14 @@ public class Person implements Serializable {
         this.id = id;
     }
 
-    
+    public String getInstitutionId() {
+        return institutionId;
+    }
+
+    public void setInstitutionId(String institutionId) {
+        this.institutionId = institutionId;
+    }
+
     public String getPersonId() {
         return personId;
     }

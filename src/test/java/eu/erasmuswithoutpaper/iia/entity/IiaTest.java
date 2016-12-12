@@ -35,7 +35,7 @@ public class IiaTest {
         this.tx.commit();
         this.em.clear();
         
-        Iia result = em.find(Iia.class, "IiaId1");
+        Iia result = em.find(Iia.class, iia.getId());
         Assert.assertNotNull(result);
     }
     

@@ -2,8 +2,6 @@
 package eu.erasmuswithoutpaper.iia.entity;
 
 import eu.erasmuswithoutpaper.organization.entity.Coordinator;
-import eu.erasmuswithoutpaper.organization.entity.Institution;
-import eu.erasmuswithoutpaper.organization.entity.OrganizationUnit;
 import java.io.Serializable;
 import java.util.List;
 import javax.persistence.CascadeType;
@@ -14,29 +12,28 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinTable;
 import javax.persistence.ManyToMany;
+import javax.persistence.NamedQueries;
 import javax.persistence.NamedQuery;
-import javax.persistence.OneToOne;
 
 @Entity
 @NamedQuery(name = IiaPartner.findAll, query = "SELECT i FROM IiaPartner i")
+@NamedQueries({
+    @NamedQuery(name = IiaPartner.findAll, query = "SELECT i FROM IiaPartner i"),
+    @NamedQuery(name = IiaPartner.findByIiaIdAndInstAndOrgUnit, query = "SELECT i FROM IiaPartner i WHERE i.iiaId = :iiaId AND i.institutionId = :institutionId AND i.organizationUnitId = :organizationUnitId")
+})
 public class IiaPartner implements Serializable{
     
-    private static final String PREFIX = "eu.erasmuswithoutpaper.course.entity.IiaPartner.";
+    private static final String PREFIX = "eu.erasmuswithoutpaper.iia.entity.IiaPartner.";
     public static final String findAll = PREFIX + "all";
+    public static final String findByIiaIdAndInstAndOrgUnit = PREFIX + "byIiaIdAndInstAndOrgUnit";
 
     @Id
     @GeneratedValue(strategy=GenerationType.AUTO)
     long id;
     
     private String iiaId;
-    
-    @OneToOne(cascade = CascadeType.DETACH, fetch = FetchType.EAGER)
-    @JoinTable(name = "iia_partner_inst")
-    private Institution institution;
-    
-    @OneToOne(cascade = CascadeType.DETACH, fetch = FetchType.EAGER)
-    @JoinTable(name = "iia_partner_org")
-    private OrganizationUnit organizationUnit;
+    private String institutionId;
+    private String organizationUnitId;
     
     @ManyToMany(cascade = CascadeType.DETACH, fetch = FetchType.EAGER)
     @JoinTable(name = "iia_partner_coordinator")
@@ -58,22 +55,22 @@ public class IiaPartner implements Serializable{
         this.iiaId = iiaId;
     }
 
-    public Institution getInstitution() {
-        return institution;
+    public String getInstitutionId() {
+        return institutionId;
     }
 
-    public void setInstitution(Institution institution) {
-        this.institution = institution;
+    public void setInstitutionId(String institutionId) {
+        this.institutionId = institutionId;
     }
 
-    public OrganizationUnit getOrganizationUnit() {
-        return organizationUnit;
+    public String getOrganizationUnitId() {
+        return organizationUnitId;
     }
 
-    public void setOrganizationUnit(OrganizationUnit organizationUnit) {
-        this.organizationUnit = organizationUnit;
+    public void setOrganizationUnitId(String organizationUnitId) {
+        this.organizationUnitId = organizationUnitId;
     }
-
+    
     public List<Coordinator> getCoordinators() {
         return coordinators;
     }

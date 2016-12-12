@@ -48,7 +48,6 @@ public class ClientRegistryController {
         String ns = "https://github.com/erasmus-without-paper/ewp-specs-api-echo/blob/stable-v1/manifest-entry.xsd";
         myEchoConditions.setApiClassRequired(ns, "echo", "1.0.1");
         myEchoConditions.setRequiredHei(heiId);
-        myEchoConditions.setRequiredHei(heiId);
         Element manifest = client.findApi(myEchoConditions);
 
         return parseEchoManifest(manifest);

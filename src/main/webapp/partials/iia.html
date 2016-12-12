@@ -1,21 +1,93 @@
 <div class="container">
     <h1 class="page-header">IIA</h1>
     
-    <div class="input-group">
-        <input class="form-control" id="search" name="search" placeholder="Search for" ng-model="query" required="required"/>
-        <span class="input-group-btn">
-            <button type="submit" class="btn btn-default">
-                <i class="glyphicon glyphicon-search"></i>
-            </button>
-        </span>
+    <div ng-show="!selectedIia">
+        <div class="clearfix">
+            <h2 class="pull-left">IIA's</h2>
+        </div>
+        <div id="iiaList">
+            <div class="input-group">
+                <input class="form-control" id="search" name="search" placeholder="Search for" ng-model="query" required="required"/>
+                  <span class="input-group-btn">
+                      <button type="submit" class="btn btn-default">
+                          <i class="glyphicon glyphicon-search"></i>
+                      </button>
+                  </span>
+            </div>
+            <div class="list-group">
+                <div ng-repeat="iia in iiaList | filter:query" ng-click="setSelectedIia(iia)">
+                    <a class="list-group-item">
+                        <b>IIA id: {{iia.iiaId}}</b>
+                        <i class="pull-right glyphicon glyphicon-chevron-right"></i>
+                    </a>
+                </div>
+            </div>
+        </div>
     </div>
     
-    <div>
-        <h3 class="page-header">IIA's</h3> {{iiaList}}
+    <div ng-show="selectedIia && !selectedCoopCond">
+        <h2>{{selectedIia.iiaId}}</h2>
+        <table class="table table-striped">
+            <tr>
+                <td class="col-md-2">Start date:</td><td>{{selectedIia.startDate | date: 'yyyy-MM-dd'}}</td>
+            </tr>
+            <tr>
+                <td>End date:</td><td>{{selectedIia.endDate | date: 'yyyy-MM-dd'}}</td>
+            </tr>
+        </table>
+        
+        <div ng-if="selectedIia.cooperationConditions.length > 0">
+            <div class="clearfix">
+                <h3 class="pull-left">Cooperation conditions</h3>
+            </div>
+            <div class="input-group">
+                <input class="form-control" id="search" name="search" placeholder="Search for" ng-model="query2" required="required"/>
+                  <span class="input-group-btn">
+                      <button type="submit" class="btn btn-default">
+                          <i class="glyphicon glyphicon-search"></i>
+                      </button>
+                  </span>
+            </div>
+            <div class="list-group">
+                <div ng-repeat="cooperationCondition in selectedIia.cooperationConditions | filter:query2" ng-click="setSelectedCoopCond(cooperationCondition)">
+                    <a class="list-group-item">
+                        <b>{{cooperationCondition.sendingPartner.institutionId}} - {{cooperationCondition.receivingPartner.institutionId}}</b>
+                        <i class="pull-right glyphicon glyphicon-chevron-right"></i>
+                    </a>
+                </div>
+            </div>
+        </div>
+    <button ng-click="backIia()" class="btn btn-default"><i class="glyphicon glyphicon-chevron-left"></i> Back</button>
+    </div>
+
+    <div ng-show="selectedCoopCond">
+        <h3>{{selectedCoopCond.sendingPartner.institutionId}} - {{selectedCoopCond.receivingPartner.institutionId}}</h3>
+        <table class="table table-striped">
+            <tr>
+                <td class="col-md-2">Start date:</td><td>{{selectedCoopCond.startDate | date: 'yyyy-MM-dd'}}</td>
+            </tr>
+            <tr>
+                <td>End date:</td><td>{{selectedCoopCond.endDate | date: 'yyyy-MM-dd'}}</td>
+            </tr>
+            <tr>
+                <td>Sending institution:</td><td>{{selectedCoopCond.sendingPartner.institutionId}}</td>
+            </tr>
+            <tr ng-show="selectedCoopCond.sendingPartner.organizationUnitId">
+                <td>Sending organization unit:</td><td>{{selectedCoopCond.sendingPartner.organizationUnitId}}</td>
+            </tr>
+            <tr>
+                <td>Receiving institution:</td><td>{{selectedCoopCond.receivingPartner.institutionId}}</td>
+            </tr>
+            <tr ng-show="selectedCoopCond.receivingPartner.organizationUnitId">
+                <td>Receiving org unit:</td><td>{{selectedCoopCond.receivingPartner.organizationUnitId}}</td>
+            </tr>
+            <tr>
+                <td>Mobility  type:</td><td>{{selectedCoopCond.mobilityType | capitalize}}</td>
+            </tr>
+        </table>
+    <button ng-click="backCoopCond()" class="btn btn-default"><i class="glyphicon glyphicon-chevron-left"></i> Back</button>
     </div>
 </div>
-
-
 
 
 <!--

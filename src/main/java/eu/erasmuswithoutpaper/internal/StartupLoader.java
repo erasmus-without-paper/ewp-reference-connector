@@ -4,6 +4,8 @@ import eu.erasmuswithoutpaper.course.preload.AcademicTermLoader;
 import eu.erasmuswithoutpaper.course.preload.AcademicYearLoader;
 import eu.erasmuswithoutpaper.course.preload.LoiLoader;
 import eu.erasmuswithoutpaper.course.preload.LosLoader;
+import eu.erasmuswithoutpaper.iia.preload.CooperationConditionLoader;
+import eu.erasmuswithoutpaper.iia.preload.IiaLoader;
 import eu.erasmuswithoutpaper.iia.preload.IiaPartnerLoader;
 import eu.erasmuswithoutpaper.internal.control.GlobalPropertiesController;
 import eu.erasmuswithoutpaper.organization.preload.CoordinatorLoader;
@@ -48,6 +50,12 @@ public class StartupLoader {
     @Inject
     private IiaPartnerLoader iiaPartnerLoader;
     
+    @Inject
+    private CooperationConditionLoader cooperationConditionLoader;
+    
+    @Inject
+    private IiaLoader iiaLoader;
+    
     @PostConstruct
     public void loadDemoData() {
         try {
@@ -68,6 +76,8 @@ public class StartupLoader {
                     learningOppSpecLoader.createDemoDataIkea();
                     learningOppInstLoader.createDemoDataIkea();
                     iiaPartnerLoader.createDemoDataIkea();
+                    cooperationConditionLoader.createDemoDataIkea();
+                    iiaLoader.createDemoDataIkea();
                     break;
                 case POMODORO_U:
                     institutionLoader.createDemoDataPomodoro();
@@ -78,6 +88,8 @@ public class StartupLoader {
                     learningOppSpecLoader.createDemoDataPomodoro();
                     learningOppInstLoader.createDemoDataPomodoro();
                     iiaPartnerLoader.createDemoDataPomodoro();
+                    cooperationConditionLoader.createDemoDataPomodoro();
+                    iiaLoader.createDemoDataPomodoro();
                     break;
             }
         } catch (IOException ex) {
