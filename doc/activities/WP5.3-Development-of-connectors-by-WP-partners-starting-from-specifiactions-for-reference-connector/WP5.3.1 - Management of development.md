@@ -1,6 +1,6 @@
 ## WP5.3.1 - Management of development 
 
-This table shows which partner who had developed which API and are ready for interchangeing information. An API name that are shown in **Bold** is ready for development (stable API's) according to specification on http://developers.erasmuswithoutpaper.eu/
+This table shows which partner who had developed which API and are ready for interchangeing information. The API:s are devided in the same matter as chapter specification on http://developers.erasmuswithoutpaper.eu/
 
 
 | API/Partner                                 | Umeå  | Gent  | Porto |  SOP  | KION  | Sigma | Oslo  | Warsaw | Others|
