@@ -26,7 +26,8 @@ RUN set -x \
 	&& rm bin/*.bat \
 	&& rm tomee.tar.gz*
 
-ADD ewp-reference-connector-1.0-SNAPSHOT.war /usr/local/tomee/webapps/
+ADD ewp-reference-connector-1.0-SNAPSHOT.war /tmp
+RUN unzip /tmp/ewp-reference-connector-1.0-SNAPSHOT.war -d /usr/local/tomee/webapps/ewp
 
 EXPOSE 8080
 CMD ["catalina.sh", "run"]
