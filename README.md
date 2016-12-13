@@ -15,6 +15,18 @@ In addition to the requirements for the EWP host, the following are also require
 * Maven 3.3.9
 * Git
 
+## Build and run a Docker image
+```
+mvn clean package docker:build
+```
+Followed by
+```
+docker run reference-connector -p 8080:8080
+```
+Locate your browser to
+```
+http://localhost:8080/ewp/
+```
 ## Installation instructions for a EWP Host
 
 * Download TomEE from http://www.apache.org/dyn/closer.cgi/tomee/tomee-7.0.1/apache-tomee-7.0.1-plus.zip
