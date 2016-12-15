@@ -18,7 +18,7 @@ import javax.ws.rs.QueryParam;
 import javax.ws.rs.core.MediaType;
 
 @Stateless
-@Path("institution")
+@Path("institutions")
 public class InstitutionResource {
     @PersistenceContext(unitName = "connector")
     EntityManager em;

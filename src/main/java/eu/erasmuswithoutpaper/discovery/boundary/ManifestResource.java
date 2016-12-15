@@ -59,7 +59,7 @@ public class ManifestResource {
         ApisImplemented apisImplemented = new ApisImplemented();
         apisImplemented.getAny().add(getDiscoveryEntry());
         apisImplemented.getAny().add(getEchoEntry());
-        //apisImplemented.getAny().add(getInstitutionsEntry());
+        apisImplemented.getAny().add(getInstitutionsEntry());
         manifest.setApisImplemented(apisImplemented);
         
         manifest.setInstitutionsCovered(getInstitutionsCovered());
@@ -106,6 +106,7 @@ public class ManifestResource {
     
     private Institutions getInstitutionsEntry() {
         Institutions institutions = new Institutions();
+        institutions.setVersion("0.3.0");
         institutions.setUrl(getBaseUri() + "/rest/institutions");
         institutions.setMaxHeiIds(BigInteger.ONE);
         return institutions;
