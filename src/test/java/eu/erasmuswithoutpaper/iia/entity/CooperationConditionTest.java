@@ -29,13 +29,20 @@ public class CooperationConditionTest {
     public void testPersistCondition() {
         CooperationCondition cooperationCondition = new CooperationCondition();
         cooperationCondition.setIiaId("iiaId1");
-        cooperationCondition.setMobilityType(CooperationConditionMobilityType.STAFF_TEACHING);
+        MobilityType mobilityType = new MobilityType();
+        mobilityType.setMobilityCategory("Student");
+        mobilityType.setMobilityGroup("Studies");
+        cooperationCondition.setMobilityType(mobilityType);
         cooperationCondition.setStartDate(new Date());
         cooperationCondition.setEndDate(new Date());
         cooperationCondition.setEqfLevel("Level1");
-        cooperationCondition.setMobilityNumberVariant(CooperationConditionMobilityNumberVariant.TOTAL);
+        MobilityNumber moblilityNumber = new MobilityNumber();
+        moblilityNumber.setVariant("AVERAGE");
+        moblilityNumber.setNumber(5);
+        cooperationCondition.setMobilityNumber(moblilityNumber);
         
         this.tx.begin();
+        this.em.persist(mobilityType);
         this.em.persist(cooperationCondition);
         this.tx.commit();
         this.em.clear();
@@ -43,8 +50,8 @@ public class CooperationConditionTest {
         CooperationCondition result = em.find(CooperationCondition.class, cooperationCondition.getId());
         Assert.assertNotNull(result);
         Assert.assertEquals("Level1", result.getEqfLevel());
-        Assert.assertEquals(CooperationConditionMobilityType.STAFF_TEACHING, result.getMobilityType());
-        Assert.assertEquals(CooperationConditionMobilityNumberVariant.TOTAL, result.getMobilityNumberVariant());
+        Assert.assertEquals("Studies", result.getMobilityType().getMobilityGroup());
+        Assert.assertEquals("AVERAGE", result.getMobilityNumber().getVariant());
     }
 
 }

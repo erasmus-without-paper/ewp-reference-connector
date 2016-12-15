@@ -30,17 +30,17 @@ public class Coordinator implements Serializable{
 
     private String institutionId;
     private String organizationUnitId;
-    private CoordinatorHeader header;
+    private CoordinatorRoles role;
     
     @ManyToOne(cascade = CascadeType.DETACH, fetch = FetchType.EAGER)
     @JoinColumn(name = "PERSON_ID", referencedColumnName = "ID")
     private Person person;
 
     public Coordinator(){}
-    public Coordinator(String institutionId, String organizationUnitId, CoordinatorHeader header) {
+    public Coordinator(String institutionId, String organizationUnitId, CoordinatorRoles role) {
         this.institutionId = institutionId;
         this.organizationUnitId = organizationUnitId;
-        this.header = header;
+        this.role = role;
     }
 
     public long getId() {
@@ -67,12 +67,12 @@ public class Coordinator implements Serializable{
         this.organizationUnitId = organizationUnitId;
     }
 
-    public CoordinatorHeader getHeader() {
-        return header;
+    public CoordinatorRoles getRole() {
+        return role;
     }
 
-    public void setHeader(CoordinatorHeader header) {
-        this.header = header;
+    public void setRole(CoordinatorRoles role) {
+        this.role = role;
     }
 
     public Person getPerson() {

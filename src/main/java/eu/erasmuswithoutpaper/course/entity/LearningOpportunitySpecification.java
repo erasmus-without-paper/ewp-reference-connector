@@ -41,8 +41,8 @@ public class LearningOpportunitySpecification implements Serializable{
     private List<LanguageItem> name;
     
     @OneToMany(cascade = CascadeType.ALL, fetch = FetchType.EAGER, orphanRemoval=true)
-    @JoinTable(name = "los_descr")
-    private List<LanguageItem> description;
+    @JoinTable(name = "los_url")
+    private List<LanguageItem> url;
 
     public LearningOpportunitySpecification() {}
     
@@ -93,11 +93,11 @@ public class LearningOpportunitySpecification implements Serializable{
     }
 
     public List<LanguageItem> getDescription() {
-        return description;
+        return url;
     }
 
-    public void setDescription(List<LanguageItem> description) {
-        this.description = description;
+    public void setDescription(List<LanguageItem> url) {
+        this.url = url;
     }
 
     @Override

@@ -1,8 +1,10 @@
 angular.module('iia').controller('IiaController', function ($scope, IiaService) {
-    IiaService.getAll(
-        function(result) {
-            $scope.iiaList = result;
+    $scope.getAllIias = function(){
+        IiaService.getAll(
+            function(result) {
+                $scope.iiaList = result;
         });
+    };
     
     $scope.setSelectedIia = function(iia) {
         $scope.selectedIia = iia;
@@ -19,4 +21,50 @@ angular.module('iia').controller('IiaController', function ($scope, IiaService) 
     $scope.backCoopCond = function() {
             $scope.selectedCoopCond = '';
     };
+    
+    $scope.viewAddCooperationConditionForm = function() {
+        IiaService.getMobilityTypes(
+            function(result) {
+            $scope.mobilityTypes = result;
+        });
+        
+        $scope.showAddConditionForm = true;
+    };
+    
+    $scope.addIia = function(){
+        $scope.newIia.cooperationConditions = $scope.conditions;
+        $scope.conditions = [];
+        IiaService.addNewIia($scope.newIia,
+            function(result) {
+                $scope.newIia = {};
+                $scope.showAddIiaForm = false;
+                $scope.getAllIias();
+        });
+    };
+    
+    $scope.cancelAddIia = function(){
+        $scope.newIia = {};
+        $scope.showAddIiaForm = false;
+    };
+    
+    $scope.conditions = [];
+    $scope.addCondition = function(){
+        var selectedMobilityType;
+        var selectedMobilityTypeId = Number($scope.newCondition.mobilityTypeId);
+        angular.forEach($scope.mobilityTypes, function(mobType) {
+            if (mobType.id === selectedMobilityTypeId) {
+                selectedMobilityType = mobType;
+            }
+        });
+        $scope.newCondition.mobilityType = selectedMobilityType;
+        $scope.conditions.push($scope.newCondition);
+        $scope.newCondition = {};
+        $scope.showAddConditionForm = false;
+    };
+ 
+    $scope.cancelAddCondition = function(){
+        $scope.showAddConditionForm = false;
+    };
+    
+    $scope.getAllIias();
 });

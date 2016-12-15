@@ -19,7 +19,7 @@ angular.module('los').controller('LosController', function ($scope, LosService, 
     
     $scope.addLearningOppSpec = function(){
         $scope.newLearningOppSpec.name = [{text:$scope.newLearningOppSpec.nameStr,'lang':'en'}];
-        $scope.newLearningOppSpec.description = [{text:$scope.newLearningOppSpec.descStr,'lang':'en'}];
+        $scope.newLearningOppSpec.url = [{text:$scope.newLearningOppSpec.urlStr,'lang':'en'}];
         $scope.saveLearningOppSpec($scope.newLearningOppSpec);
         $scope.showAddLearningOppSpecForm = false;
         $scope.newLearningOppSpec = {};

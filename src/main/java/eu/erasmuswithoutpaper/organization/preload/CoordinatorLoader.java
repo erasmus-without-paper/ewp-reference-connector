@@ -17,15 +17,15 @@ public class CoordinatorLoader {
     public void createDemoDataIkea() throws IOException {
         
         // IKEA
-        persistCoordinator("{'institutionId':'ikea.university.se','organizationUnitId':'ikea.ou1.se','header':'INSURANCE'}", getPerson("9001013344"));
-        persistCoordinator("{'institutionId':'ikea.university.se','organizationUnitId':'ikea.ou1.se','header':'ADMISSION'}", getPerson("9011046365"));
-        persistCoordinator("{'institutionId':'ikea.university.se','header':'ADMISSION'}", getPerson("9107146991"));
-        persistCoordinator("{'institutionId':'ikea.university.se','organizationUnitId':'ikea.ou2.se','header':'COURSE'}", getPerson("8906093845"));
+        persistCoordinator("{'institutionId':'ikea.university.se','organizationUnitId':'ikea.ou1.se','role':'INSURANCE'}", getPerson("9001013344"));
+        persistCoordinator("{'institutionId':'ikea.university.se','organizationUnitId':'ikea.ou1.se','role':'ADMISSION'}", getPerson("9011046365"));
+        persistCoordinator("{'institutionId':'ikea.university.se','role':'ADMISSION'}", getPerson("9107146991"));
+        persistCoordinator("{'institutionId':'ikea.university.se','organizationUnitId':'ikea.ou2.se','role':'COURSE'}", getPerson("8906093845"));
         
         // Pomodoro
-        persistCoordinator("{'institutionId':'pomodoro.university.it','organizationUnitId':'pomodoro.ou1.it','header':'COURSE'}", getPerson("8810126789"));
-        persistCoordinator("{'institutionId':'pomodoro.university.it','header':'ADMISSION'}", getPerson("8602181287"));
-        persistCoordinator("{'institutionId':'pomodoro.university.it','organizationUnitId':'pomodoro.ou1.it','header':'INSURANCE'}", getPerson("9104125620"));
+        persistCoordinator("{'institutionId':'pomodoro.university.it','organizationUnitId':'pomodoro.ou1.it','role':'COURSE'}", getPerson("8810126789"));
+        persistCoordinator("{'institutionId':'pomodoro.university.it','role':'ADMISSION'}", getPerson("8602181287"));
+        persistCoordinator("{'institutionId':'pomodoro.university.it','organizationUnitId':'pomodoro.ou1.it','role':'INSURANCE'}", getPerson("9104125620"));
     }
     public void createDemoDataPomodoro() throws IOException {
         createDemoDataIkea();

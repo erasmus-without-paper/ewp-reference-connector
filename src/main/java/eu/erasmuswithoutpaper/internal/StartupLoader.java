@@ -4,9 +4,8 @@ import eu.erasmuswithoutpaper.course.preload.AcademicTermLoader;
 import eu.erasmuswithoutpaper.course.preload.AcademicYearLoader;
 import eu.erasmuswithoutpaper.course.preload.LoiLoader;
 import eu.erasmuswithoutpaper.course.preload.LosLoader;
-import eu.erasmuswithoutpaper.iia.preload.CooperationConditionLoader;
 import eu.erasmuswithoutpaper.iia.preload.IiaLoader;
-import eu.erasmuswithoutpaper.iia.preload.IiaPartnerLoader;
+import eu.erasmuswithoutpaper.iia.preload.MobilityTypeLoader;
 import eu.erasmuswithoutpaper.internal.control.GlobalProperties;
 import eu.erasmuswithoutpaper.organization.preload.CoordinatorLoader;
 import eu.erasmuswithoutpaper.organization.preload.InstitutionLoader;
@@ -42,17 +41,14 @@ public class StartupLoader {
     private AcademicYearLoader academicYearLoader;
     
     @Inject
+    private MobilityTypeLoader mobilityTypeLoader;
+    
+    @Inject
     private LosLoader learningOppSpecLoader;
 
     @Inject
     private LoiLoader learningOppInstLoader;
 
-    @Inject
-    private IiaPartnerLoader iiaPartnerLoader;
-    
-    @Inject
-    private CooperationConditionLoader cooperationConditionLoader;
-    
     @Inject
     private IiaLoader iiaLoader;
     
@@ -73,10 +69,9 @@ public class StartupLoader {
                     coordinatorLoader.createDemoDataIkea();
                     academicYearLoader.createDemoDataIkea();
                     academicTermLoader.createDemoDataIkea();
+                    mobilityTypeLoader.createDemoDataIkea();
                     learningOppSpecLoader.createDemoDataIkea();
                     learningOppInstLoader.createDemoDataIkea();
-                    iiaPartnerLoader.createDemoDataIkea();
-                    cooperationConditionLoader.createDemoDataIkea();
                     iiaLoader.createDemoDataIkea();
                     break;
                 case POMODORO_U:
@@ -85,10 +80,9 @@ public class StartupLoader {
                     coordinatorLoader.createDemoDataPomodoro();
                     academicYearLoader.createDemoDataPomodoro();
                     academicTermLoader.createDemoDataPomodoro();
+                    mobilityTypeLoader.createDemoDataPomodoro();
                     learningOppSpecLoader.createDemoDataPomodoro();
                     learningOppInstLoader.createDemoDataPomodoro();
-                    iiaPartnerLoader.createDemoDataPomodoro();
-                    cooperationConditionLoader.createDemoDataPomodoro();
                     iiaLoader.createDemoDataPomodoro();
                     break;
             }

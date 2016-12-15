@@ -21,7 +21,7 @@
                 </div>
                 <div class="form-group">
                     <label class="control-label col-sm-2" for="type">Type:</label>
-                    <div class="col-sm-10">
+                    <div class="col-sm-4">
                         <select id="type" class="form-control" ng-model="newLearningOppSpec.type" required="required">
                             <option style="display:none" value="">select type</option>
                             <option ng-repeat="lostype in lostypes" value="{{lostype | uppercase}}">{{lostype}}</option>
@@ -35,9 +35,9 @@
                     </div>
                 </div>
                 <div class="form-group">
-                    <label class="control-label col-sm-2" for="description">Description:</label>
+                    <label class="control-label col-sm-2" for="url">URL:</label>
                     <div class="col-sm-10">
-                        <input id="description" type="text" class="form-control" placeholder="Enter description" ng-model="newLearningOppSpec.descStr" required="required">
+                        <input id="url" type="text" class="form-control" placeholder="Enter URL" ng-model="newLearningOppSpec.urlStr" required="required">
                     </div>
                 </div>
                 <div class="input-group">
@@ -86,8 +86,8 @@
                     <tr ng-repeat="name in los.name">
                         <td>Name: ({{name.lang}}):</td><td>{{name.text}}</td>
                     </tr>
-                    <tr ng-repeat="description in los.description">
-                        <td>Description: ({{description.lang}}):</td><td>{{description.text}}</td>
+                    <tr ng-repeat="url in los.url">
+                        <td>URL: ({{url.lang}}):</td><td>{{url.text}}</td>
                     </tr>
                     <tr>
                         <td>Type:</td><td>{{los.type | capitalize}}</td>

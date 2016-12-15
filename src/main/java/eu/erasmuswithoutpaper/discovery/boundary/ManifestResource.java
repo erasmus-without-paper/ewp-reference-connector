@@ -114,11 +114,15 @@ public class ManifestResource {
     private Hei createHei(Institution institution) {
         Hei hei = new Hei();
         hei.setId(institution.getInstitutionId());
-        
-        OtherHeiId oid = new OtherHeiId();
-        oid.setType("local");
-        oid.setValue(institution.getOtherId());
-        hei.getOtherId().add(oid);
+
+        institution.getOtherId().stream().map((otherId) -> {
+            OtherHeiId oid = new OtherHeiId();
+            oid.setType(otherId.getIdType());
+            oid.setValue(otherId.getIdValue());
+            return oid;
+        }).forEachOrdered((oid) -> {
+            hei.getOtherId().add(oid);
+        });
         
         institution.getName().stream().map((name) -> {
             StringWithOptionalLang swolName = new StringWithOptionalLang();

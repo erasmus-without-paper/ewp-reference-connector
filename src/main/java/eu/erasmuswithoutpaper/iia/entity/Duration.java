@@ -2,6 +2,8 @@
 package eu.erasmuswithoutpaper.iia.entity;
 
 import java.io.Serializable;
+import java.math.BigDecimal;
+import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
@@ -20,7 +22,9 @@ public class Duration implements Serializable {
     private long id;
     
     private String unit;
-    private int number;
+    
+    @Column(precision = 5, scale = 1)
+    private BigDecimal number;
 
     public long getId() {
         return id;
@@ -38,11 +42,11 @@ public class Duration implements Serializable {
         this.unit = unit;
     }
 
-    public int getNumber() {
+    public BigDecimal getNumber() {
         return number;
     }
 
-    public void setNumber(int number) {
+    public void setNumber(BigDecimal number) {
         this.number = number;
     }
 

@@ -28,16 +28,15 @@ public class OrganizationUnit implements Serializable{
     long id;
     
     private String organizationUnitId;
-    private String otherId;
+    
+    @OneToMany(cascade = CascadeType.ALL, fetch = FetchType.EAGER, orphanRemoval=true)
+    @JoinTable(name = "other_id")
+    private List<IdentificationItem> otherId;
 
     @OneToMany(cascade = CascadeType.ALL, fetch = FetchType.EAGER, orphanRemoval=true)
     @JoinTable(name = "organization_unit_name")
     private List<LanguageItem> name;
     private String country;
-
-    @OneToMany(cascade = CascadeType.ALL, fetch = FetchType.EAGER, orphanRemoval=true)
-    @JoinTable(name = "organization_unit_descr")
-    private List<LanguageItem> description;
 
     @OneToMany(cascade = CascadeType.ALL, fetch = FetchType.EAGER, orphanRemoval=true)
     @JoinTable(name = "org_unit_org_unit")
@@ -59,11 +58,11 @@ public class OrganizationUnit implements Serializable{
         this.organizationUnitId = organizationUnitId;
     }
 
-    public String getOtherId() {
+    public List<IdentificationItem> getOtherId() {
         return otherId;
     }
 
-    public void setOtherId(String otherId) {
+    public void setOtherId(List<IdentificationItem> otherId) {
         this.otherId = otherId;
     }
 
@@ -81,14 +80,6 @@ public class OrganizationUnit implements Serializable{
 
     public void setCountry(String country) {
         this.country = country;
-    }
-
-    public List<LanguageItem> getDescription() {
-        return description;
-    }
-
-    public void setDescription(List<LanguageItem> description) {
-        this.description = description;
     }
 
     public List<OrganizationUnit> getOrganizationUnits() {

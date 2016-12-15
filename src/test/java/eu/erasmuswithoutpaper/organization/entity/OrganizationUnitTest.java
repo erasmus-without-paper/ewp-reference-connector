@@ -36,12 +36,6 @@ public class OrganizationUnitTest {
         names.add(nameSv);
         names.add(nameEn);
         organizationUnit.setName(names);
-        List<LanguageItem> descriptions = new ArrayList<>();
-        LanguageItem descriptionSv = new LanguageItem("TestDescSv", LanguageItem.SWEDISH);
-        LanguageItem descriptionEn = new LanguageItem("TestDescEn", LanguageItem.ENGLISH);
-        descriptions.add(descriptionSv);
-        descriptions.add(descriptionEn);
-        organizationUnit.setDescription(descriptions);
         
         this.tx.begin();
         this.em.persist(organizationUnit);
@@ -54,11 +48,6 @@ public class OrganizationUnitTest {
         Assert.assertEquals(LanguageItem.SWEDISH, result.getName().get(0).getLang());
         Assert.assertEquals("TestInstEn", result.getName().get(1).getText());
         Assert.assertEquals(LanguageItem.ENGLISH, result.getName().get(1).getLang());
-        
-        Assert.assertEquals("TestDescSv", result.getDescription().get(0).getText());
-        Assert.assertEquals(LanguageItem.SWEDISH, result.getDescription().get(0).getLang());
-        Assert.assertEquals("TestDescEn", result.getDescription().get(1).getText());
-        Assert.assertEquals(LanguageItem.ENGLISH, result.getDescription().get(1).getLang());
     }
 
 }

@@ -30,16 +30,16 @@ public class Institution implements Serializable{
     long id;
 
     private String institutionId;
-    private String otherId;
+    
+    @OneToMany(cascade = CascadeType.ALL, fetch = FetchType.EAGER, orphanRemoval=true)
+    @JoinTable(name = "other_id")
+    private List<IdentificationItem> otherId;
+    
     private String country;
 
     @OneToMany(cascade = CascadeType.ALL, fetch = FetchType.EAGER, orphanRemoval=true)
     @JoinTable(name = "institution_name")
     private List<LanguageItem> name;
-    
-    @OneToMany(cascade = CascadeType.ALL, fetch = FetchType.EAGER, orphanRemoval=true)
-    @JoinTable(name = "institution_descr")
-    private List<LanguageItem> description;
     
     @OneToMany(cascade = CascadeType.ALL, fetch = FetchType.EAGER, orphanRemoval=true)
     @JoinTable(name = "inst_org_unit")
@@ -61,11 +61,11 @@ public class Institution implements Serializable{
         this.institutionId = institutionId;
     }
 
-    public String getOtherId() {
+    public List<IdentificationItem> getOtherId() {
         return otherId;
     }
 
-    public void setOtherId(String otherId) {
+    public void setOtherId(List<IdentificationItem> otherId) {
         this.otherId = otherId;
     }
 
@@ -83,14 +83,6 @@ public class Institution implements Serializable{
 
     public void setCountry(String country) {
         this.country = country;
-    }
-
-    public List<LanguageItem> getDescription() {
-        return description;
-    }
-
-    public void setDescription(List<LanguageItem> description) {
-        this.description = description;
     }
 
     public List<OrganizationUnit> getOrganizationUnits() {

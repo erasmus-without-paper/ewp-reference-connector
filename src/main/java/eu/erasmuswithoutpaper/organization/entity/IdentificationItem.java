@@ -1,5 +1,5 @@
 
-package eu.erasmuswithoutpaper.iia.entity;
+package eu.erasmuswithoutpaper.organization.entity;
 
 import java.io.Serializable;
 import javax.persistence.Entity;
@@ -8,15 +8,15 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 
 @Entity
-public class MobilityNumber implements Serializable {
-    
+public class IdentificationItem implements Serializable {
+
     @Id
-    @GeneratedValue(strategy=GenerationType.AUTO)
-    long id;
+    @GeneratedValue(strategy = GenerationType.AUTO)
+    private long id;
     
-    private String variant;
-    private int number;
-    
+    private String idType;
+    private String idValue;
+
     public long getId() {
         return id;
     }
@@ -25,26 +25,26 @@ public class MobilityNumber implements Serializable {
         this.id = id;
     }
 
-    public String getVariant() {
-        return variant;
+    public String getIdType() {
+        return idType;
     }
 
-    public void setVariant(String variant) {
-        this.variant = variant;
+    public void setIdType(String idType) {
+        this.idType = idType;
     }
 
-    public int getNumber() {
-        return number;
+    public String getIdValue() {
+        return idValue;
     }
 
-    public void setNumber(int number) {
-        this.number = number;
+    public void setIdValue(String idValue) {
+        this.idValue = idValue;
     }
 
     @Override
     public int hashCode() {
-        int hash = 7;
-        hash = 53 * hash + (int) (this.id ^ (this.id >>> 32));
+        int hash = 3;
+        hash = 23 * hash + (int) (this.id ^ (this.id >>> 32));
         return hash;
     }
 
@@ -59,7 +59,7 @@ public class MobilityNumber implements Serializable {
         if (getClass() != obj.getClass()) {
             return false;
         }
-        final MobilityNumber other = (MobilityNumber) obj;
+        final IdentificationItem other = (IdentificationItem) obj;
         if (this.id != other.id) {
             return false;
         }

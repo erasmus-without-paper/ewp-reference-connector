@@ -8,7 +8,7 @@
                     <label class="control-label col-sm-2" for="institution">Institution:</label>
                     <div class="col-sm-10">
                         <select id="institution" class="form-control" ng-model="newLearningOppInstance.institutionId" required="required" ng-change="institutionChanged()">
-                            <option style="display:none" value="">select institution</option>
+                            <option style="display:none" value="">Select institution</option>
                             <option ng-repeat="inst in institutions" value="{{inst.institutionId}}">{{(inst.name | languageItem : 'en').text}}, {{inst.country}}</option>
                         </select>
                     </div>
@@ -17,7 +17,7 @@
                     <label class="control-label col-sm-2" for="orgunit">Organization Unit:</label>
                     <div class="col-sm-10">
                         <select id="orgunit" class="form-control" ng-model="newLearningOppInstance.organizationUnitId">
-                            <option value="">select an organization unit (optional)</option>
+                            <option value="">Select an organization unit (optional)</option>
                             <option ng-repeat="org in organizations" value="{{org.organizationUnitId}}">{{(org.name | languageItem : 'en').text}}, {{org.country}}</option>
                         </select>
                     </div>
@@ -26,7 +26,7 @@
                     <label class="control-label col-sm-2" for="los">Learning opp spec</label>
                     <div class="col-sm-10">
                         <select id="los" class="form-control" ng-model="newLearningOppInstance.learningOppSpecId" required="required">
-                            <option style="display:none" value="">select Learning opportunity specification</option>
+                            <option style="display:none" value="">Select Learning opportunity specification</option>
                             <option ng-repeat="los in losList" value="{{los.id}}">{{los.losCode}} - {{(los.name | languageItem : 'en').text}}</option>
                         </select>
                     </div>
@@ -35,15 +35,15 @@
                     <label class="control-label col-sm-2" for="academicterms">Academic term</label>
                     <div class="col-sm-10">
                         <select id="academicterms" class="form-control" ng-model="newLearningOppInstance.academicTermId" required="required">
-                            <option style="display:none" value="">select Academic term</option>
+                            <option style="display:none" value="">Select Academic term</option>
                             <option ng-repeat="academicTerm in academicTerms" value="{{academicTerm.id}}">{{(academicTerm.dispName | languageItem : 'en').text}}</option>
                         </select>
                     </div>
                 </div>
                 <div class="form-group">
                     <label class="control-label col-sm-2" for="credits">Credits:</label>
-                    <div class="col-sm-10">
-                        <input id="credits" type="text" class="form-control" placeholder="Enter Credits" ng-model="newLearningOppInstance.credits" required="required">
+                    <div class="col-sm-1">
+                        <input id="credits" type="text" class="form-control" ng-model="newLearningOppInstance.credits" required="required">
                     </div>
                 </div>
 
@@ -93,8 +93,8 @@
                     <tr ng-repeat="name in loi.learningOppSpec.name">
                         <td>Name: ({{name.lang}}):</td><td>{{name.text}}</td>
                     </tr>
-                    <tr ng-repeat="description in loi.learningOppSpec.description">
-                        <td>Description: ({{description.lang}}):</td><td>{{description.text}}</td>
+                    <tr ng-repeat="url in loi.learningOppSpec.url">
+                        <td>URL ({{url.lang}}):</td><td>{{url.text}}</td>
                     </tr>
                     <tr>
                         <td>Type:</td><td>{{loi.learningOppSpec.type | capitalize}}</td>

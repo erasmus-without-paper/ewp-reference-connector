@@ -16,7 +16,6 @@ import javax.persistence.NamedQueries;
 import javax.persistence.NamedQuery;
 
 @Entity
-@NamedQuery(name = IiaPartner.findAll, query = "SELECT i FROM IiaPartner i")
 @NamedQueries({
     @NamedQuery(name = IiaPartner.findAll, query = "SELECT i FROM IiaPartner i"),
     @NamedQuery(name = IiaPartner.findByIiaIdAndInstAndOrgUnit, query = "SELECT i FROM IiaPartner i WHERE i.iiaId = :iiaId AND i.institutionId = :institutionId AND i.organizationUnitId = :organizationUnitId")

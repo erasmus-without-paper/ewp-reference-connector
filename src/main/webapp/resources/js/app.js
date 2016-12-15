@@ -62,9 +62,11 @@ angular
     })
     .filter('capitalize', function() {
         return function(text) {
-            var firstLetter = text[0];
-            var otherLetters = text.substring(1);
-            return firstLetter.toUpperCase() + otherLetters.toLowerCase();
+            if(text){
+                var firstLetter = text[0];
+                var otherLetters = text.substring(1);
+                return firstLetter.toUpperCase() + otherLetters.toLowerCase();
+            }
         };
     });
 

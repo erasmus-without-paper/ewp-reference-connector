@@ -14,6 +14,7 @@ import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.NamedQueries;
 import javax.persistence.NamedQuery;
+import javax.persistence.OneToOne;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
 import org.apache.johnzon.mapper.JohnzonConverter;
@@ -35,15 +36,17 @@ public class CooperationCondition implements Serializable{
 
     private String iiaId;
     
-    @ManyToOne(cascade = CascadeType.DETACH, fetch = FetchType.EAGER)
+    @ManyToOne(cascade = CascadeType.ALL, fetch = FetchType.EAGER)
     @JoinColumn(name = "SENDING_PARTNER_ID", referencedColumnName = "ID")
     private IiaPartner sendingPartner;
     
-    @ManyToOne(cascade = CascadeType.DETACH, fetch = FetchType.EAGER)
+    @ManyToOne(cascade = CascadeType.ALL, fetch = FetchType.EAGER)
     @JoinColumn(name = "RECEIVING_PARTNER_ID", referencedColumnName = "ID")
     private IiaPartner receivingPartner;
     
-    private CooperationConditionMobilityType mobilityType;
+    @ManyToOne(cascade = CascadeType.DETACH, fetch = FetchType.EAGER)
+    @JoinColumn(name = "MOBILITY_TYPE_ID", referencedColumnName = "ID")
+    private MobilityType mobilityType;
     
     @JohnzonConverter(StandardDateConverter.class)
     @Temporal(TemporalType.DATE)
@@ -53,8 +56,12 @@ public class CooperationCondition implements Serializable{
     @Temporal(TemporalType.DATE)
     private Date endDate;
     
-    private CooperationConditionMobilityNumberVariant mobilityNumberVariant;
-    private String duration;
+    @OneToOne(cascade = CascadeType.ALL, fetch = FetchType.EAGER)
+    private MobilityNumber mobilityNumber;
+    
+    @OneToOne(cascade = CascadeType.ALL, fetch = FetchType.EAGER)
+    private Duration duration;
+    
     private String eqfLevel;
 
     public long getId() {
@@ -89,11 +96,11 @@ public class CooperationCondition implements Serializable{
         this.receivingPartner = receivingPartner;
     }
 
-    public CooperationConditionMobilityType getMobilityType() {
+    public MobilityType getMobilityType() {
         return mobilityType;
     }
 
-    public void setMobilityType(CooperationConditionMobilityType mobilityType) {
+    public void setMobilityType(MobilityType mobilityType) {
         this.mobilityType = mobilityType;
     }
 
@@ -113,19 +120,19 @@ public class CooperationCondition implements Serializable{
         this.endDate = endDate;
     }
 
-    public CooperationConditionMobilityNumberVariant getMobilityNumberVariant() {
-        return mobilityNumberVariant;
+    public MobilityNumber getMobilityNumber() {
+        return mobilityNumber;
     }
 
-    public void setMobilityNumberVariant(CooperationConditionMobilityNumberVariant mobilityNumberVariant) {
-        this.mobilityNumberVariant = mobilityNumberVariant;
+    public void setMobilityNumber(MobilityNumber mobilityNumber) {
+        this.mobilityNumber = mobilityNumber;
     }
 
-    public String getDuration() {
+    public Duration getDuration() {
         return duration;
     }
 
-    public void setDuration(String duration) {
+    public void setDuration(Duration duration) {
         this.duration = duration;
     }
 

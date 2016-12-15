@@ -18,7 +18,7 @@ angular.module('coordinator').controller('CoordinatorController', function ($sco
             $scope.persons = result;
         });
         
-        $scope.headers = ['Admission', 'Course', 'Housing', 'Insurance', 'Visas'];
+        $scope.roles = ['Admission', 'Course', 'Housing', 'Insurance', 'Visas'];
         $scope.organizations = [];
         $scope.showAddCoordinatorForm = true;
     };

@@ -8,7 +8,7 @@
                     <label class="control-label col-sm-2" for="institution">Institution:</label>
                     <div class="col-sm-10">
                         <select id="institution" class="form-control" ng-model="newAcademicTerm.institutionId" required="required" ng-change="institutionChanged()">
-                            <option style="display:none" value="">select institution</option>
+                            <option style="display:none" value="">Select institution</option>
                             <option ng-repeat="inst in institutions" value="{{inst.institutionId}}">{{(inst.name | languageItem : 'en').text}}, {{inst.country}}</option>
                         </select>
                     </div>
@@ -17,16 +17,16 @@
                     <label class="control-label col-sm-2" for="orgunit">Organization Unit:</label>
                     <div class="col-sm-10">
                         <select id="orgunit" class="form-control" ng-model="newAcademicTerm.organizationUnitId" required="required">
-                            <option style="display:none" value="">select organization unit</option>
+                            <option style="display:none" value="">Select organization unit</option>
                             <option ng-repeat="org in organizations" value="{{org.organizationUnitId}}">{{(org.name | languageItem : 'en').text}}, {{org.country}}</option>
                         </select>
                     </div>
                 </div>
                 <div class="form-group">
                     <label class="control-label col-sm-2" for="academicyear">Academic year:</label>
-                    <div class="col-sm-10">
+                    <div class="col-sm-2">
                         <select id="academicyear" class="form-control" ng-model="newAcademicTerm.academicYearId" required="required">
-                            <option style="display:none" value="">select academic year</option>
+                            <option style="display:none" value="">Select year</option>
                             <option ng-repeat="academicYear in academicYears" value="{{academicYear.id}}">{{academicYear.startYear}}/{{academicYear.endYear}}</option>
                         </select>
                     </div>
@@ -45,13 +45,13 @@
                 </div>
                 <div class="form-group">
                     <label class="control-label col-sm-2" for="startdate">Start Date:</label>
-                    <div class="col-sm-10">
+                    <div class="col-sm-2">
                         <input id="startdate" type="date" class="form-control" placeholder="Enter start date" ng-model="newAcademicTerm.startDate" required="required">
                     </div>
                 </div>
                 <div class="form-group">
                     <label class="control-label col-sm-2" for="enddate">End Date:</label>
-                    <div class="col-sm-10">
+                    <div class="col-sm-2">
                         <input id="enddate" type="date" class="form-control" placeholder="Enter end date" ng-model="newAcademicTerm.endDate" required="required">
                     </div>
                 </div>

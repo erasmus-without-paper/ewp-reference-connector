@@ -31,9 +31,23 @@ angular.module('institution').controller('InstitutionController', function ($sco
             $scope.showAddOrganizationUnitForm = false;
         }
     };
+    
+    $scope.addOtherIdForInstitution = function() {
+        if (!$scope.newInstitution.otherId) {
+            $scope.newInstitution.otherId = [];
+        }
+        $scope.newInstitution.otherId.push({idType: '',  idValue: ''});
+    };
+
+    $scope.addOtherIdForOrgUnit = function() {
+        if (!$scope.newOrganizationUnit.otherId) {
+            $scope.newOrganizationUnit.otherId = [];
+        }
+        $scope.newOrganizationUnit.otherId.push({idType: '',  idValue: ''});
+    };
+    
     $scope.addInstitution = function() {
         $scope.newInstitution.name = [{text:$scope.newInstitution.nameStr,'lang':'en'}];
-        $scope.newInstitution.description = [{text:$scope.newInstitution.descriptionStr,'lang':'en'}];
         $scope.saveInstitution($scope.newInstitution);
         
         $scope.showAddInstitutionForm = false;
@@ -42,7 +56,6 @@ angular.module('institution').controller('InstitutionController', function ($sco
     
     $scope.addOrganizationUnit = function() {
         $scope.newOrganizationUnit.name = [{text:$scope.newOrganizationUnit.nameStr,'lang':'en'}];
-        $scope.newOrganizationUnit.description = [{text:$scope.newOrganizationUnit.descriptionStr,'lang':'en'}];
         if (!$scope.currentInstOrgObject.organizationUnits) {
             $scope.currentInstOrgObject.organizationUnits = [];
         }
@@ -66,5 +79,6 @@ angular.module('institution').controller('InstitutionController', function ($sco
         $scope.newOrganizationUnit = {};
     };
     
+    $scope.newInstitution = {};
     $scope.getAllInstitutions();
 });
