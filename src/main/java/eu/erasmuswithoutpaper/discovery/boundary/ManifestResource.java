@@ -6,6 +6,7 @@ import eu.erasmuswithoutpaper.api.discovery.Discovery;
 import eu.erasmuswithoutpaper.api.discovery.Manifest;
 import eu.erasmuswithoutpaper.api.echo.Echo;
 import eu.erasmuswithoutpaper.api.institutions.Institutions;
+import eu.erasmuswithoutpaper.api.ounits.OrganizationalUnits;
 import eu.erasmuswithoutpaper.api.registry.ApisImplemented;
 import eu.erasmuswithoutpaper.api.registry.Hei;
 import eu.erasmuswithoutpaper.api.registry.OtherHeiId;
@@ -60,6 +61,7 @@ public class ManifestResource {
         apisImplemented.getAny().add(getDiscoveryEntry());
         apisImplemented.getAny().add(getEchoEntry());
         apisImplemented.getAny().add(getInstitutionsEntry());
+        apisImplemented.getAny().add(getOrganizationalUnitsEntry());
         manifest.setApisImplemented(apisImplemented);
         
         manifest.setInstitutionsCovered(getInstitutionsCovered());
@@ -112,6 +114,14 @@ public class ManifestResource {
         return institutions;
     }
 
+    private OrganizationalUnits getOrganizationalUnitsEntry() {
+        OrganizationalUnits organizationalUnits = new OrganizationalUnits();
+        organizationalUnits.setVersion("0.1.0");
+        organizationalUnits.setUrl(getBaseUri() + "/rest/ounits");
+        organizationalUnits.setMaxOunitIds(BigInteger.ONE);
+        return organizationalUnits;
+    }
+    
     private Hei createHei(Institution institution) {
         Hei hei = new Hei();
         hei.setId(institution.getInstitutionId());
