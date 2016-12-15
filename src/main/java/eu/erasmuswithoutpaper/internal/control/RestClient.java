@@ -6,9 +6,6 @@ import java.security.KeyStoreException;
 import java.security.NoSuchAlgorithmException;
 import java.security.NoSuchProviderException;
 import java.security.UnrecoverableKeyException;
-import java.security.cert.Certificate;
-import java.security.cert.CertificateEncodingException;
-import java.util.Base64;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.annotation.PostConstruct;
@@ -30,7 +27,7 @@ public class RestClient {
     private Client client;
     
     @PostConstruct
-    private void createClient() {
+    void createClient() {
         try {
 
             ClientBuilder clientBuilder = ClientBuilder.newBuilder();
@@ -58,12 +55,5 @@ public class RestClient {
         SSLContext context = SSLContext.getInstance("TLS", "SunJSSE");
         context.init(kmf.getKeyManagers(), tmf.getTrustManagers(), null);
         return context;
-    }
-    
-    public String getCertificate(KeyStore keystore, String alias) throws KeyStoreException, CertificateEncodingException {
-        Certificate certificate = keystore.getCertificate(alias);
-        
-        byte[] cert = Base64.getEncoder().encode(certificate.getEncoded());
-        return new String(cert).replaceAll("(.{1,64})", "$1\n");
     }
 }

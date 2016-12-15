@@ -1,38 +1,219 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<xs:schema elementFormDefault="qualified" targetNamespace="https://github.com/erasmus-without-paper/ewp-specs-api-institutions/tree/master" xmlns="https://github.com/erasmus-without-paper/ewp-specs-api-institutions/tree/master" xmlns:xml="http://www.w3.org/XML/1998/namespace" xmlns:xs="http://www.w3.org/2001/XMLSchema">
-    <xs:import schemaLocation="http://www.w3.org/2001/03/xml.xsd" namespace="http://www.w3.org/XML/1998/namespace"/>
+<xs:schema
+    xmlns:xs="http://www.w3.org/2001/XMLSchema"
+    xmlns:xml="http://www.w3.org/XML/1998/namespace"
+    xmlns:a="https://github.com/erasmus-without-paper/ewp-specs-types-address/tree/master"
+    xmlns:c="https://github.com/erasmus-without-paper/ewp-specs-types-contact/tree/master"
+    xmlns:p="https://github.com/erasmus-without-paper/ewp-specs-types-phonenumber/tree/master"
+    xmlns:ewp="https://github.com/erasmus-without-paper/ewp-specs-architecture/blob/stable-v1/common-types.xsd"
+    xmlns:r="https://github.com/erasmus-without-paper/ewp-specs-api-registry/tree/stable-v1"
+    xmlns:trm="https://github.com/erasmus-without-paper/ewp-specs-types-academic-term/tree/master"
+    elementFormDefault="qualified"
+
+    targetNamespace="https://github.com/erasmus-without-paper/ewp-specs-api-institutions/tree/master"
+    xmlns="https://github.com/erasmus-without-paper/ewp-specs-api-institutions/tree/master"
+>
     <!-- WRTODO: Replace all occurrences of 'master' (in all projects) with 'stable-v1' upon release. -->
+
+    <xs:import
+        schemaLocation="https://raw.githubusercontent.com/erasmus-without-paper/ewp-specs-architecture/stable-v1/common-types.xsd"
+        namespace="https://github.com/erasmus-without-paper/ewp-specs-architecture/blob/stable-v1/common-types.xsd"
+    />
+
+    <xs:import
+        schemaLocation="https://raw.githubusercontent.com/erasmus-without-paper/ewp-specs-api-registry/stable-v1/catalogue.xsd"
+        namespace="https://github.com/erasmus-without-paper/ewp-specs-api-registry/tree/stable-v1"
+    /> <!-- WRTODO: absolute paths! -->
+
+    <xs:import
+        schemaLocation="../remove-when-stable/ewp-specs-types-address.xsd"
+        namespace="https://github.com/erasmus-without-paper/ewp-specs-types-address/tree/master"
+    /> <!-- WRTODO: absolute paths! -->
+
+    <xs:import
+        schemaLocation="../remove-when-stable/ewp-specs-types-contact.xsd"
+        namespace="https://github.com/erasmus-without-paper/ewp-specs-types-contact/tree/master"
+    /> <!-- WRTODO: absolute paths! -->
+
+    <xs:import
+        schemaLocation="../remove-when-stable/ewp-specs-types-phonenumber.xsd"
+        namespace="https://github.com/erasmus-without-paper/ewp-specs-types-phonenumber/tree/master"
+    /> <!-- WRTODO: absolute paths! -->
+
+    <xs:import
+        schemaLocation="../remove-when-stable/ewp-specs-types-academic-term.xsd"
+        namespace="https://github.com/erasmus-without-paper/ewp-specs-types-academic-term/tree/master"
+    /> <!-- WRTODO: absolute paths! -->
+
+    <xs:import
+        schemaLocation="http://www.w3.org/2001/03/xml.xsd"
+        namespace="http://www.w3.org/XML/1998/namespace"
+    />
+
     <xs:annotation>
-        <xs:documentation>This schema is a part of the Erasmus Without Paper project. Before you start
+        <xs:documentation>
+            This schema is a part of the Erasmus Without Paper project. Before you start
             using it, make sure you have read the general rules described here:
 
-            http://developers.erasmuswithoutpaper.eu/</xs:documentation>
+            http://developers.erasmuswithoutpaper.eu/
+        </xs:documentation>
     </xs:annotation>
-    <xs:element name="response">
+
+    <xs:element name="institutions-response">
         <xs:annotation>
-            <xs:documentation>This describes the format of the response returned by the EWP Institutions API.</xs:documentation>
+            <xs:documentation>
+                This describes the format of the response returned by the EWP Institutions API.
+            </xs:documentation>
         </xs:annotation>
         <xs:complexType>
             <xs:sequence>
-                <xs:element maxOccurs="unbounded" minOccurs="0" name="institution">
+                <xs:element name="hei" minOccurs="0" maxOccurs="unbounded">
+                    <xs:annotation>
+                        <xs:documentation>
+                            This represents a single institution. Servers will produce one such element for
+                            each of the `hei_id` values passed in the Institutions API call.
+                        </xs:documentation>
+                    </xs:annotation>
                     <xs:complexType>
                         <xs:sequence>
-                            <xs:element name="name">
-                                <xs:complexType>
-                                    <xs:simpleContent>
-                                        <xs:extension base="xs:string">
-                                            <xs:attribute ref="xml:lang"/>
-                                        </xs:extension>
-                                    </xs:simpleContent>
-                                </xs:complexType>
+                            <xs:element name="hei-id" type="xs:string">
+                                <xs:annotation>
+                                    <xs:documentation>
+                                        The SCHAC identifier of this HEI.
+                                        https://github.com/erasmus-without-paper/ewp-specs-api-registry/#schac-identifiers
+                                    </xs:documentation>
+                                </xs:annotation>
                             </xs:element>
-                            <xs:element name="country" type="xs:string"/>
-                            <xs:element name="url" type="xs:anyURI"/>
+                            <xs:element name="other-id" minOccurs="0" maxOccurs="unbounded" type="r:OtherHeiId">
+                                <xs:annotation>
+                                    <xs:documentation>
+                                        A collection of other HEI IDs. It is recommended for this set to be exactly
+                                        the same as the one provided to the Registry Service (via the manifest file).
+                                    </xs:documentation>
+                                </xs:annotation>
+                            </xs:element>
+                            <xs:element name="name" minOccurs="1" maxOccurs="unbounded" type="ewp:StringWithOptionalLang">
+                                <xs:annotation>
+                                    <xs:documentation>
+                                        A collection of institution names, in different languages. It is recommended for
+                                        this set to be exactly the same as the one provided to the Registry Service (via
+                                        the manifest file).
+                                    </xs:documentation>
+                                </xs:annotation>
+                            </xs:element>
+                            <xs:element name="country" minOccurs="0" maxOccurs="1" type="ewp:CountryCode">
+                                <xs:annotation>
+                                    <xs:documentation>
+                                        The primary country of this institution. If this institution spans multiple
+                                        countries, and none of them can be considered "primary", then this element
+                                        should be skipped.
+                                    </xs:documentation>
+                                </xs:annotation>
+                            </xs:element>
+                            <xs:element ref="a:street-address" minOccurs="0" maxOccurs="1">
+                                <xs:annotation>
+                                    <xs:documentation>
+                                        The street address of the institution.
+
+                                        This is the address which should work when, for example, the user pastes it
+                                        into Google Maps. If this HEI has many campuses, then this address should refer
+                                        to a "main" campus. If this HEI doesn't have a "main" campus, then the address
+                                        may be either skipped, or limited to the name of the institution, a city, and a
+                                        country.
+
+                                        This is the primary address. Note, that more addresses may be provided by using
+                                        the "contact" element.
+                                    </xs:documentation>
+                                </xs:annotation>
+                            </xs:element>
+                            <xs:element ref="a:mailing-address" minOccurs="0" maxOccurs="1">
+                                <xs:annotation>
+                                    <xs:documentation>
+                                        The postal address of the institution. It MAY be the same as street-address,
+                                        but doesn't have to be (e.g. it can be a PO box).
+
+                                        This is the primary address. Note, that more addresses may be provided by using
+                                        the "contact" element.
+                                    </xs:documentation>
+                                </xs:annotation>
+                            </xs:element>
+                            <xs:element name="website-url" minOccurs="0" maxOccurs="unbounded" type="ewp:HTTPWithOptionalLang">
+                                <xs:annotation>
+                                    <xs:documentation>
+                                        Primary website of the institution.
+                                    </xs:documentation>
+                                </xs:annotation>
+                            </xs:element>
+                            <xs:element name="logo-url" minOccurs="0" maxOccurs="1" type="ewp:HTTPS">
+                                <xs:annotation>
+                                    <xs:documentation>
+                                        If given, this should be a HTTPS URL pointing to the institution's logo.
+                                        It does not necessarily have to be hosted on the same domain as the API
+                                        itself.
+
+                                        Preferably, this should be an SVG, PNG or JPEG file, in "squarish" (~1:1)
+                                        dimensions ratio, and a resolution suitable for both display and printing, on
+                                        white or transparent background, with no margins included (clients are advised
+                                        to add proper margins before the logo is displayed).
+
+                                        See resources/logo-examples directory for some examples of valid logos. You
+                                        will find it in the Institutions API specs page:
+
+                                        https://github.com/erasmus-without-paper/ewp-specs-api-institutions
+                                    </xs:documentation>
+                                </xs:annotation>
+                            </xs:element>
+                            <xs:element name="mobility-factsheet-url" minOccurs="0" maxOccurs="unbounded" type="ewp:HTTPWithOptionalLang">
+                                <xs:annotation>
+                                    <xs:documentation>
+                                        This URL is the most important one for the incoming students (much more
+                                        important than website-url above). Server developers SHOULD provide it (and
+                                        keep it updated). The URL SHOULD be publicly accessible (as opposed to being
+                                        accessible for EWP Network requesters only).
+
+                                        It SHOULD refer to either a PDF file, or a HTML website, or both (via two
+                                        separate factsheet-url elements). Other formats are also permitted, but
+                                        discouraged (discuss here:
+                                        https://github.com/erasmus-without-paper/ewp-specs-api-institutions/issues/3).
+                                        The document should contain all information the incoming student should know
+                                        before he applies for the mobility on this HEI. (Note, that this information is
+                                        NOT connected to any specific IIAs - this is an introductory document and its
+                                        scope is very broad; it is designed to be of use to *any* incoming student.)
+
+                                        Elements SHOULD have an xml:lang attribute, and at least one URL should refer
+                                        to a factsheet written in English.
+                                    </xs:documentation>
+                                </xs:annotation>
+                            </xs:element>
+                            <xs:element ref="c:contact" minOccurs="0" maxOccurs="unbounded">
+                                <xs:annotation>
+                                    <xs:documentation>
+                                        A list of important contacts - phones, emails, addresses.
+
+                                        In context of EWP, this will most often be mobility-related contacts, but it's
+                                        not a rule. This means that server developers MAY choose to include all other
+                                        kinds of contacts here (such as, for example, the phone number and address of
+                                        the Institution's Library). Such contacts SHOULD however come AFTER the "more
+                                        important" ones.
+
+                                        See https://github.com/erasmus-without-paper/ewp-specs-types-contact for more
+                                        information on the purpose and format of this element.
+                                    </xs:documentation>
+                                </xs:annotation>
+                            </xs:element>
+                            <xs:element name="ounit-id" minOccurs="0" maxOccurs="unbounded" type="xs:string">
+                                <xs:annotation>
+                                    <xs:documentation>
+                                        A list of IDs of all significant organizational units. Clients can fetch more
+                                        information on these via the Organizational Units API.
+                                    </xs:documentation>
+                                </xs:annotation>
+                            </xs:element>
                         </xs:sequence>
-                        <xs:attribute name="id" type="xs:string" use="optional"/>
                     </xs:complexType>
                 </xs:element>
             </xs:sequence>
         </xs:complexType>
     </xs:element>
+
 </xs:schema>

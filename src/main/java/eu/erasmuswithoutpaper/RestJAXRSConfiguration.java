@@ -2,6 +2,7 @@ package eu.erasmuswithoutpaper;
 
 import eu.erasmuswithoutpaper.discovery.boundary.ManifestResource;
 import eu.erasmuswithoutpaper.echo.boundary.EchoResource;
+import eu.erasmuswithoutpaper.organization.boundary.InstitutionResource;
 import java.util.HashSet;
 import java.util.Set;
 import javax.ws.rs.ApplicationPath;
@@ -14,6 +15,7 @@ public class RestJAXRSConfiguration extends Application {
         Set<Class<?>> resources = new HashSet<>();
         resources.add(EchoResource.class);
         resources.add(ManifestResource.class);
+        resources.add(InstitutionResource.class);
         return resources;
     }
 }

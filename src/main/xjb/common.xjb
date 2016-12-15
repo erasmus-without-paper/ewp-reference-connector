@@ -18,4 +18,26 @@
             <jaxb:package name="eu.erasmuswithoutpaper.api.registry"/>
         </jaxb:schemaBindings>
     </jaxb:bindings>
+
+    <!-- TODO: change to stable versions -->
+    <jaxb:bindings schemaLocation="../xsd/remove-when-stable/ewp-specs-types-academic-term.xsd">
+        <jaxb:schemaBindings>
+            <jaxb:package name="eu.erasmuswithoutpaper.api.types.academicterm"/>
+        </jaxb:schemaBindings>
+    </jaxb:bindings>
+    <jaxb:bindings schemaLocation="../xsd/remove-when-stable/ewp-specs-types-address.xsd">
+        <jaxb:schemaBindings>
+            <jaxb:package name="eu.erasmuswithoutpaper.api.types.address"/>
+        </jaxb:schemaBindings>
+    </jaxb:bindings>
+    <jaxb:bindings schemaLocation="../xsd/remove-when-stable/ewp-specs-types-contact.xsd">
+        <jaxb:schemaBindings>
+            <jaxb:package name="eu.erasmuswithoutpaper.api.types.contact"/>
+        </jaxb:schemaBindings>
+    </jaxb:bindings>
+    <jaxb:bindings schemaLocation="../xsd/remove-when-stable/ewp-specs-types-phonenumber.xsd">
+        <jaxb:schemaBindings>
+            <jaxb:package name="eu.erasmuswithoutpaper.api.types.phonenumber"/>
+        </jaxb:schemaBindings>
+    </jaxb:bindings>
 </jaxb:bindings>

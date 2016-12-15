@@ -41,7 +41,7 @@ public class EchoResource {
     }
     
     private javax.ws.rs.core.Response echo(List<String> echo, @Context HttpServletRequest httpRequest) {
-        
+                
         X509Certificate[] certificates = (X509Certificate[]) httpRequest.getAttribute("javax.servlet.request.X509Certificate");
         if (certificates == null && !properties.isAllowMissingClientCertificate()) {
             throw new EwpWebApplicationException("No client certificates found in the request", javax.ws.rs.core.Response.Status.FORBIDDEN);
