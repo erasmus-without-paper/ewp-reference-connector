@@ -32,7 +32,7 @@ public class Institution implements Serializable{
     private String institutionId;
     
     @OneToMany(cascade = CascadeType.ALL, fetch = FetchType.EAGER, orphanRemoval=true)
-    @JoinTable(name = "other_id")
+    @JoinTable(name = "inst_other_id")
     private List<IdentificationItem> otherId;
     
     private String country;

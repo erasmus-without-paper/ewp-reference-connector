@@ -30,7 +30,7 @@ public class OrganizationUnit implements Serializable{
     private String organizationUnitId;
     
     @OneToMany(cascade = CascadeType.ALL, fetch = FetchType.EAGER, orphanRemoval=true)
-    @JoinTable(name = "other_id")
+    @JoinTable(name = "ou_other_id")
     private List<IdentificationItem> otherId;
 
     @OneToMany(cascade = CascadeType.ALL, fetch = FetchType.EAGER, orphanRemoval=true)
