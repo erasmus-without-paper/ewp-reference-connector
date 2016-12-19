@@ -6,6 +6,7 @@ import eu.erasmuswithoutpaper.internal.control.GlobalProperties;
 import eu.erasmuswithoutpaper.organization.entity.Institution;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Optional;
 import javax.persistence.EntityManager;
 import javax.persistence.Query;
 import javax.ws.rs.core.Application;
@@ -59,7 +60,7 @@ public class ManifestResourceTest extends JerseyTest {
     void mockQuery(List<Institution> results) {
         when(ewpKeyStore.getCertificate()).thenReturn("the certificate");
         
-        when(properties.getBaseUri()).thenReturn("https://localhost");
+        when(properties.getBaseUri()).thenReturn(Optional.of("https://localhost"));
         
         Query mockedQuery = mock(Query.class);
         when(mockedQuery.getResultList()).thenReturn(results);

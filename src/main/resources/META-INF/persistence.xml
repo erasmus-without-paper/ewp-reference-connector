@@ -8,7 +8,10 @@
             <property name="javax.persistence.schema-generation.database.action" value="drop-and-create"/>
             <property name="openjpa.jdbc.SynchronizeMappings" value="buildSchema(ForeignKeys=true)"/>
             <property name="openjpa.jdbc.DBDictionary" value="org.apache.openjpa.jdbc.sql.HSQLDictionary"/>
-            <!-- property name="openjpa.Log" value="File=../logs/org.apache.openjpa.log, DefaultLevel=WARN, Runtime=TRACE, Tool=INFO"/ -->
+            
+            <property name="eclipselink.target-database" value="org.eclipse.persistence.platform.database.HSQLPlatform"/>
+            <property name="eclipselink.ddl-generation" value="create-tables"/>
+            <property name="eclipselink.ddl-generation.output-mode" value="database"/>
         </properties>
     </persistence-unit>
 </persistence>

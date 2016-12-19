@@ -2,6 +2,8 @@
 package eu.erasmuswithoutpaper.organization.boundary;
 
 import eu.erasmuswithoutpaper.api.institutions.InstitutionsResponse;
+import eu.erasmuswithoutpaper.error.control.EwpWebApplicationException;
+import eu.erasmuswithoutpaper.internal.control.GlobalProperties;
 import eu.erasmuswithoutpaper.organization.control.InstitutionConverter;
 import eu.erasmuswithoutpaper.organization.entity.Institution;
 import java.util.List;
@@ -16,6 +18,7 @@ import javax.ws.rs.Path;
 import javax.ws.rs.Produces;
 import javax.ws.rs.QueryParam;
 import javax.ws.rs.core.MediaType;
+import javax.ws.rs.core.Response;
 
 @Stateless
 @Path("institutions")
@@ -26,6 +29,9 @@ public class InstitutionResource {
     @Inject
     InstitutionConverter institutionConverter;
     
+    @Inject
+    GlobalProperties properties;
+
     @GET
     @Produces(MediaType.APPLICATION_XML)
     public javax.ws.rs.core.Response save(@QueryParam("hei_id") List<String> heiIdList) {
@@ -39,6 +45,10 @@ public class InstitutionResource {
     }
     
     private javax.ws.rs.core.Response institution(List<String> heiIdList) {
+        if (heiIdList.size() > properties.getMaxInstitutionsIds()) {
+            throw new EwpWebApplicationException("Max number of institution id's has exceeded.", Response.Status.BAD_REQUEST);
+        }
+        
         InstitutionsResponse response = new InstitutionsResponse();
         
         heiIdList.stream()

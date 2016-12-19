@@ -9,6 +9,7 @@ import java.security.cert.Certificate;
 import java.security.cert.CertificateEncodingException;
 import java.security.cert.CertificateException;
 import java.util.Base64;
+import java.util.Optional;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.annotation.PostConstruct;
@@ -25,24 +26,26 @@ public class EwpKeyStore {
     
     @PostConstruct
     private void loadKeystore() {
-        String truststoreLocation = properties.getTruststoreLocation();
-        String truststorePassword = properties.getTruststorePassword();
-        String keystoreLocation = properties.getKeystoreLocation();
-        String keystorePassword = properties.getKeystorePassword();
-        String keystoreCertificateAlias = properties.getKeystoreCertificateAlias();
-        if (truststoreLocation == null || truststorePassword == null || keystoreLocation == null || keystorePassword == null || keystoreCertificateAlias == null) {
+        Optional<String> truststoreLocation = properties.getTruststoreLocation();
+        Optional<String> truststorePassword = properties.getTruststorePassword();
+        Optional<String> keystoreLocation = properties.getKeystoreLocation();
+        Optional<String> keystorePassword = properties.getKeystorePassword();
+        Optional<String> keystoreCertificateAlias = properties.getKeystoreCertificateAlias();
+        if (!truststoreLocation.isPresent() || !truststorePassword.isPresent() 
+                || !keystoreLocation.isPresent() || !keystorePassword.isPresent()
+                || !keystoreCertificateAlias.isPresent()) {
             Logger.getLogger(EwpKeyStore.class.getName()).log(Level.SEVERE, "Missing keystore/truststore propeties");
             return;
         }
         
         try {
             truststore = KeyStore.getInstance("JKS");
-            truststore.load(new FileInputStream(truststoreLocation), properties.getTruststorePassword().toCharArray());
+            truststore.load(new FileInputStream(truststoreLocation.get()), truststorePassword.get().toCharArray());
 
             keystore = KeyStore.getInstance("JKS");
-            keystore.load(new FileInputStream(properties.getKeystoreLocation()), properties.getKeystorePassword().toCharArray());
+            keystore.load(new FileInputStream(keystoreLocation.get()), keystorePassword.get().toCharArray());
             
-            fomattedCertificate = getCertificate(keystore, properties.getKeystoreCertificateAlias());
+            fomattedCertificate = getCertificate(keystore, keystoreCertificateAlias.get());
             
             successfullyInitiated = true;
         } catch (IOException | NoSuchAlgorithmException | CertificateException | KeyStoreException ex) {

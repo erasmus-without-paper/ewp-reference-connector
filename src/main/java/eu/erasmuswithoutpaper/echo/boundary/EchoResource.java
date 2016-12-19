@@ -27,20 +27,23 @@ public class EchoResource {
     
     @Inject
     GlobalProperties properties;
+    
+    @Context
+    HttpServletRequest httpRequest;
 
     @GET
     @Produces(MediaType.APPLICATION_XML)
-    public javax.ws.rs.core.Response echoGet(@QueryParam("echo") List<String> echo, @Context HttpServletRequest httpRequest) {
-        return echo(echo, httpRequest);
+    public javax.ws.rs.core.Response echoGet(@QueryParam("echo") List<String> echo) {
+        return echo(echo);
     }
 
     @POST
     @Produces(MediaType.APPLICATION_XML)
-    public javax.ws.rs.core.Response echoPost(@FormParam("echo") List<String> echo, @Context HttpServletRequest httpRequest) {
-        return echo(echo, httpRequest);
+    public javax.ws.rs.core.Response echoPost(@FormParam("echo") List<String> echo) {
+        return echo(echo);
     }
     
-    private javax.ws.rs.core.Response echo(List<String> echo, @Context HttpServletRequest httpRequest) {
+    private javax.ws.rs.core.Response echo(List<String> echo) {
                 
         X509Certificate[] certificates = (X509Certificate[]) httpRequest.getAttribute("javax.servlet.request.X509Certificate");
         if (certificates == null && !properties.isAllowMissingClientCertificate()) {

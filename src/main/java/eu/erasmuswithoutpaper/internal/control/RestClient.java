@@ -32,7 +32,7 @@ public class RestClient {
 
             ClientBuilder clientBuilder = ClientBuilder.newBuilder();
             if (keystoreController.isSuccessfullyInitiated()) {
-                SSLContext context = initSecurityContext(keystoreController.getKeystore(), keystoreController.getTruststore(), properties.getKeystorePassword());
+                SSLContext context = initSecurityContext(keystoreController.getKeystore(), keystoreController.getTruststore(), properties.getKeystorePassword().get());
                 clientBuilder.sslContext(context);
             }
             clientBuilder.hostnameVerifier((String string, SSLSession ssls) -> true);

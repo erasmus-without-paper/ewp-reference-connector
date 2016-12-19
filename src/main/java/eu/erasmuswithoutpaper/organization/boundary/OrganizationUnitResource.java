@@ -2,6 +2,8 @@
 package eu.erasmuswithoutpaper.organization.boundary;
 
 import eu.erasmuswithoutpaper.api.ounits.OunitsResponse;
+import eu.erasmuswithoutpaper.error.control.EwpWebApplicationException;
+import eu.erasmuswithoutpaper.internal.control.GlobalProperties;
 import eu.erasmuswithoutpaper.organization.control.OrganizationUnitConverter;
 import eu.erasmuswithoutpaper.organization.entity.Institution;
 import eu.erasmuswithoutpaper.organization.entity.OrganizationUnit;
@@ -18,6 +20,7 @@ import javax.ws.rs.Path;
 import javax.ws.rs.Produces;
 import javax.ws.rs.QueryParam;
 import javax.ws.rs.core.MediaType;
+import javax.ws.rs.core.Response;
 
 @Stateless
 @Path("ounits")
@@ -27,6 +30,9 @@ public class OrganizationUnitResource {
     
     @Inject
     OrganizationUnitConverter organizationUnitConverter;
+    
+    @Inject
+    GlobalProperties properties;
     
     @GET
     @Produces(MediaType.APPLICATION_XML)
@@ -42,12 +48,16 @@ public class OrganizationUnitResource {
     
     private javax.ws.rs.core.Response organizationUnits(String heiId, List<String> organizationUnitIdList) {
         OunitsResponse response = new OunitsResponse();
+        if (organizationUnitIdList.size() > properties.getMaxOunitsIds()) {
+            throw new EwpWebApplicationException("Max number of organization unit id's has exceeded.", Response.Status.BAD_REQUEST);
+        }
         
         List<Institution> institutionList =  em.createNamedQuery(Institution.findByInstitutionId).setParameter("institutionId", heiId).getResultList();
-        
-        if (!institutionList.isEmpty()) {
-            response.getOunit().addAll(ounits(organizationUnitIdList, institutionList.get(0).getOrganizationUnits(), null));
+        if (institutionList.isEmpty()) {
+            throw new EwpWebApplicationException("Institution with id '" + heiId + "' is not found", Response.Status.BAD_REQUEST);
         }
+        
+        response.getOunit().addAll(ounits(organizationUnitIdList, institutionList.get(0).getOrganizationUnits(), null));
         
         return javax.ws.rs.core.Response.ok(response).build();
     }

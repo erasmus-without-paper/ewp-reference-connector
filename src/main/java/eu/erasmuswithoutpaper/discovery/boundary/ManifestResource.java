@@ -19,6 +19,7 @@ import java.net.URISyntaxException;
 import java.nio.file.Files;
 import java.nio.file.Paths;
 import java.util.List;
+import java.util.Optional;
 import java.util.stream.Collectors;
 import javax.ejb.Stateless;
 import javax.inject.Inject;
@@ -27,7 +28,9 @@ import javax.persistence.PersistenceContext;
 import javax.ws.rs.GET;
 import javax.ws.rs.Path;
 import javax.ws.rs.Produces;
+import javax.ws.rs.core.Context;
 import javax.ws.rs.core.MediaType;
+import javax.ws.rs.core.UriInfo;
 
 @Stateless
 @Path("")
@@ -40,7 +43,10 @@ public class ManifestResource {
     
     @Inject
     EwpKeyStore keystoreController;
-            
+
+    @Context
+    UriInfo uriInfo;
+
     @GET
     @Path("manifest-old")
     @Produces(MediaType.APPLICATION_XML)
@@ -95,30 +101,30 @@ public class ManifestResource {
     private Discovery getDiscoveryEntry() {
         Discovery discovery = new Discovery();
         discovery.setVersion("4.0.1");
-        discovery.setUrl(getBaseUri() + "/rest/manifest");
+        discovery.setUrl(getBaseUri() + "rest/manifest");
         return discovery;
     }
     
     private Echo getEchoEntry() {
         Echo echo = new Echo();
         echo.setVersion("1.0.1");
-        echo.setUrl(getBaseUri() + "/rest/echo");
+        echo.setUrl(getBaseUri() + "rest/echo");
         return echo;
     }
     
     private Institutions getInstitutionsEntry() {
         Institutions institutions = new Institutions();
         institutions.setVersion("0.3.0");
-        institutions.setUrl(getBaseUri() + "/rest/institutions");
-        institutions.setMaxHeiIds(BigInteger.ONE);
+        institutions.setUrl(getBaseUri() + "rest/institutions");
+        institutions.setMaxHeiIds(BigInteger.valueOf(globalProperties.getMaxInstitutionsIds()));
         return institutions;
     }
 
     private OrganizationalUnits getOrganizationalUnitsEntry() {
         OrganizationalUnits organizationalUnits = new OrganizationalUnits();
         organizationalUnits.setVersion("0.1.0");
-        organizationalUnits.setUrl(getBaseUri() + "/rest/ounits");
-        organizationalUnits.setMaxOunitIds(BigInteger.ONE);
+        organizationalUnits.setUrl(getBaseUri() + "rest/ounits");
+        organizationalUnits.setMaxOunitIds(BigInteger.valueOf(globalProperties.getMaxOunitsIds()));
         return organizationalUnits;
     }
     
@@ -153,6 +159,7 @@ public class ManifestResource {
     }
     
     private String getBaseUri() {
-        return globalProperties.getBaseUri();
+        Optional<String> baseUriProperty = globalProperties.getBaseUri();
+        return baseUriProperty.isPresent() ? baseUriProperty.get() + "/" : uriInfo.getBaseUri().toString();
     }
 }
