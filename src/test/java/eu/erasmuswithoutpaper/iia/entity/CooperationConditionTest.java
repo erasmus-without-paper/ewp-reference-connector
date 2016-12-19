@@ -28,14 +28,13 @@ public class CooperationConditionTest {
     @Test
     public void testPersistCondition() {
         CooperationCondition cooperationCondition = new CooperationCondition();
-        cooperationCondition.setIiaId("iiaId1");
         MobilityType mobilityType = new MobilityType();
         mobilityType.setMobilityCategory("Student");
         mobilityType.setMobilityGroup("Studies");
         cooperationCondition.setMobilityType(mobilityType);
         cooperationCondition.setStartDate(new Date());
         cooperationCondition.setEndDate(new Date());
-        cooperationCondition.setEqfLevel("Level1");
+        cooperationCondition.setEqfLevel(123);
         MobilityNumber moblilityNumber = new MobilityNumber();
         moblilityNumber.setVariant("AVERAGE");
         moblilityNumber.setNumber(5);
@@ -49,7 +48,7 @@ public class CooperationConditionTest {
      
         CooperationCondition result = em.find(CooperationCondition.class, cooperationCondition.getId());
         Assert.assertNotNull(result);
-        Assert.assertEquals("Level1", result.getEqfLevel());
+        Assert.assertEquals(123, result.getEqfLevel());
         Assert.assertEquals("Studies", result.getMobilityType().getMobilityGroup());
         Assert.assertEquals("AVERAGE", result.getMobilityNumber().getVariant());
     }

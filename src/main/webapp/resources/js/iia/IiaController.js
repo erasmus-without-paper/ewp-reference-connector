@@ -6,6 +6,9 @@ angular.module('iia').controller('IiaController', function ($scope, IiaService) 
         });
     };
     
+    $scope.durationUnits = ['Hours', 'Days', 'Weeks', 'Months', 'Years'];
+    $scope.mobilityNumberVariants = ['Total', 'Average'];
+    
     $scope.setSelectedIia = function(iia) {
         $scope.selectedIia = iia;
     };

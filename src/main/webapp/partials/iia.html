@@ -6,19 +6,19 @@
         <div class="panel-body">
             <form class="form-horizontal" ng-submit="addIia()">
                 <div class="form-group">
-                    <label class="control-label col-sm-2" for="iiaid">IIA id:</label>
+                    <label class="control-label col-sm-2" for="iiaid">IIA id</label>
                     <div class="col-sm-10">
                         <input id="iiaid" type="text" class="form-control" placeholder="Enter IIA id" ng-model="newIia.iiaId" required="required">
                     </div>
                 </div>
                 <div class="form-group">
-                    <label class="control-label col-sm-2" for="startdate">Start date:</label>
+                    <label class="control-label col-sm-2" for="startdate">Start date</label>
                     <div class="col-sm-2">
                         <input id="startdate" type="date" class="form-control" ng-model="newIia.startDate" required="required">
                     </div>
                 </div>
                 <div class="form-group">
-                    <label class="control-label col-sm-2" for="enddate">End date:</label>
+                    <label class="control-label col-sm-2" for="enddate">End date</label>
                     <div class="col-sm-2">
                         <input id="enddate" type="date" class="form-control" ng-model="newIia.endDate" required="required">
                     </div>
@@ -36,14 +36,14 @@
                         <div ng-repeat="condition in conditions">
                             <div class="col-sm-4">{{condition.sendingPartner.institutionId}} - {{condition.receivingPartner.institutionId}}</div>
                             <div class="col-sm-4">{{condition.mobilityType.mobilityGroup}}:{{condition.mobilityType.mobilityCategory}}</div>
-                            <div class="col-sm-4">{{condition.startDate | date: 'yyyy-MM-dd'}} -- {{condition.endDate | date: 'yyyy-MM-dd'}}</div>
+                            <div class="col-sm-4">{{condition.startDate| date: 'yyyy-MM-dd'}} -- {{condition.endDate| date: 'yyyy-MM-dd'}}</div>
                         </div>
                     </div>
                 </div>
                 <div class="input-group">
                     <div class="btn-group">
                         <button type="submit" class="btn btn-default" ng-disabled="!(conditions && conditions.length > 0)">
-                            <span class="glyphicon glyphicon-ok-circle"></span> Save
+                            <span class="glyphicon glyphicon-ok-circle"></span> Save IIA
                         </button>
                         <button type="button" class="btn btn-default" ng-click="cancelAddIia()">
                             <span class="glyphicon glyphicon-remove-circle"></span> Cancel
@@ -60,19 +60,19 @@
             <div class="panel-body">
                 <form class="form-horizontal" ng-submit="addCondition()">
                     <div class="form-group">
-                        <label class="control-label col-sm-3" for="sendinginst">Sending institution:</label>
+                        <label class="control-label col-sm-3" for="sendinginst">Sending institution</label>
                         <div class="col-sm-9">
                             <input id="sendinginst" type="text" class="form-control" placeholder="Enter institution id" ng-model="newCondition.sendingPartner.institutionId" required="required">
                         </div>
                     </div>
                     <div class="form-group">
-                        <label class="control-label col-sm-3" for="sendingorgunit">Sending organization unit:</label>
+                        <label class="control-label col-sm-3" for="sendingorgunit">Sending organization unit</label>
                         <div class="col-sm-9">
                             <input id="sendingorgunit" type="text" class="form-control" placeholder="Enter organization unit id (optional)" ng-model="newCondition.sendingPartner.organizationUnitId">
                         </div>
                     </div>
                     <div class="form-group">
-                        <label class="control-label col-sm-3" for="receivinginst">Receiving institution:</label>
+                        <label class="control-label col-sm-3" for="receivinginst">Receiving institution</label>
                         <div class="col-sm-9">
                             <input id="receivinginst" type="text" class="form-control" placeholder="Enter institution id" ng-model="newCondition.receivingPartner.institutionId" required="required">
                         </div>
@@ -93,39 +93,45 @@
                         </div>
                     </div>
                     <div class="form-group">
-                        <label class="control-label col-sm-3" for="startdate">Start date:</label>
-                        <div class="col-sm-2">
+                        <label class="control-label col-sm-3" for="startdate">Start date</label>
+                        <div class="col-sm-3">
                             <input id="startdate" type="date" class="form-control" ng-model="newCondition.startDate" required="required">
                         </div>
                     </div>
                     <div class="form-group">
-                        <label class="control-label col-sm-3" for="enddate">End date:</label>
-                        <div class="col-sm-2">
+                        <label class="control-label col-sm-3" for="enddate">End date</label>
+                        <div class="col-sm-3">
                             <input id="enddate" type="date" class="form-control" ng-model="newCondition.endDate" required="required">
                         </div>
                     </div>
                     <div class="form-group">
-                        <label class="control-label col-sm-3" for="mobilitynumber">Mobility number:</label>
-                        <div class="col-sm-4">
-                            <input id="mobilitynumber" type="text" class="form-control" placeholder="Variant" ng-model="newCondition.mobilityNumber.variant" required="required">
+                        <label class="control-label col-sm-3" for="mobilitynumber">Mobility number</label>
+                        <div class="col-sm-1">
+                            <input id="mobilitynumber" type="number" min="0" class="form-control" placeholder="0" ng-model="newCondition.mobilityNumber.number" required="required">
                         </div>
                         <div class="col-sm-2">
-                            <input id="mobilitynumber" type="number" class="form-control" placeholder="Number" ng-model="newCondition.mobilityNumber.number" required="required">
+                            <select id="mobilitynumbervariant" class="form-control" ng-model="newCondition.mobilityNumber.variant" required="required">
+                                <option style="display:none" value="">Select variant</option>
+                                <option ng-repeat="mobNumberVar in mobilityNumberVariants" value="{{mobNumberVar}}">{{mobNumberVar}}</option>
+                            </select>
                         </div>
                     </div>
                     <div class="form-group">
-                        <label class="control-label col-sm-3" for="duration">Duration:</label>
-                        <div class="col-sm-4">
-                            <input id="duration" type="text" class="form-control" placeholder="Unit" ng-model="newCondition.duration.unit" required="required">
+                        <label class="control-label col-sm-3" for="duration">Duration</label>
+                        <div class="col-sm-1">
+                            <input id="duration" type="number" min="0" step="0.1" class="form-control" placeholder="0" ng-model="newCondition.duration.number" required="required">
                         </div>
                         <div class="col-sm-2">
-                            <input id="duration" type="number" step="0.1" class="form-control" placeholder="Number" ng-model="newCondition.duration.number" required="required">
+                            <select id="durationunit" class="form-control" ng-model="newCondition.duration.unit" required="required">
+                                <option style="display:none" value="">Select unit</option>
+                                <option ng-repeat="durationUnit in durationUnits" value="{{durationUnit}}">{{durationUnit}}</option>
+                            </select>
                         </div>
                     </div>
                     <div class="form-group">
-                        <label class="control-label col-sm-3" for="eqflevel">EQF level:</label>
-                        <div class="col-sm-2">
-                            <input id="eqflevel" type="text" class="form-control" placeholder="Number" ng-model="newCondition.eqflevel" required="required">
+                        <label class="control-label col-sm-3" for="eqflevel">EQF level</label>
+                        <div class="col-sm-1">
+                            <input id="eqflevel" type="number" min="0" class="form-control" placeholder="0" ng-model="newCondition.eqfLevel" required="required">
                         </div>
                     </div>
                     <div class="input-group">
@@ -163,7 +169,7 @@
             </div>
             <div class="list-group">
                 <div ng-repeat="iia in iiaList| filter:query" ng-click="setSelectedIia(iia)">
-                    <a class="list-group-item">
+                    <a class="list-group-item clearfix">
                         <b>IIA id: {{iia.iiaId}}</b>
                         <i class="pull-right glyphicon glyphicon-chevron-right"></i>
                     </a>
@@ -174,14 +180,12 @@
 
     <div ng-show="selectedIia && !selectedCoopCond">
         <h2>{{selectedIia.iiaId}}</h2>
-        <table class="table">
-            <tr>
-                <td class="col-md-2">Start date:</td><td>{{selectedIia.startDate| date: 'yyyy-MM-dd'}}</td>
-            </tr>
-            <tr>
-                <td>End date:</td><td>{{selectedIia.endDate| date: 'yyyy-MM-dd'}}</td>
-            </tr>
-        </table>
+        <div>
+            <div class="col-md-2">Start date:</div><div class="col-md-10">{{selectedIia.startDate| date: 'yyyy-MM-dd'}}</div>
+        </div>
+        <div>
+            <div class="col-md-2">End date:</div><div class="col-md-10">{{selectedIia.endDate| date: 'yyyy-MM-dd'}}</div>
+        </div>
 
         <div ng-if="selectedIia.cooperationConditions.length > 0">
             <div class="clearfix">
@@ -197,7 +201,7 @@
             </div>
             <div class="list-group">
                 <div ng-repeat="cooperationCondition in selectedIia.cooperationConditions| filter:query2" ng-click="setSelectedCoopCond(cooperationCondition)">
-                    <a class="list-group-item">
+                    <a class="list-group-item clearfix">
                         <b>{{cooperationCondition.sendingPartner.institutionId}} - {{cooperationCondition.receivingPartner.institutionId}}</b>
                         <i class="pull-right glyphicon glyphicon-chevron-right"></i>
                     </a>
@@ -209,38 +213,36 @@
 
     <div ng-show="selectedCoopCond">
         <h3>{{selectedCoopCond.sendingPartner.institutionId}} - {{selectedCoopCond.receivingPartner.institutionId}}</h3>
-        <table class="table">
-            <tr>
-                <td>Sending institution:</td><td>{{selectedCoopCond.sendingPartner.institutionId}}</td>
-            </tr>
-            <tr ng-show="selectedCoopCond.sendingPartner.organizationUnitId">
-                <td>Sending organization unit:</td><td>{{selectedCoopCond.sendingPartner.organizationUnitId}}</td>
-            </tr>
-            <tr>
-                <td>Receiving institution:</td><td>{{selectedCoopCond.receivingPartner.institutionId}}</td>
-            </tr>
-            <tr ng-show="selectedCoopCond.receivingPartner.organizationUnitId">
-                <td>Receiving org unit:</td><td>{{selectedCoopCond.receivingPartner.organizationUnitId}}</td>
-            </tr>
-            <tr>
-                <td class="col-md-2">Start date:</td><td>{{selectedCoopCond.startDate| date: 'yyyy-MM-dd'}}</td>
-            </tr>
-            <tr>
-                <td>End date:</td><td>{{selectedCoopCond.endDate| date: 'yyyy-MM-dd'}}</td>
-            </tr>
-            <tr>
-                <td>Mobility  type:</td><td>{{selectedCoopCond.mobilityType.mobilityGroup}}/{{selectedCoopCond.mobilityType.mobilityCategory}}</td>
-            </tr>
-            <tr>
-                <td>Mobility  number:</td><td>{{selectedCoopCond.mobilityNumber.variant| capitalize}} {{selectedCoopCond.mobilityNumber.number}}</td>
-            </tr>
-            <tr>
-                <td>Duration:</td><td>{{selectedCoopCond.duration.number}} {{selectedCoopCond.duration.unit| capitalize}}</td>
-            </tr>
-            <tr>
-                <td>EQF level</td><td>{{selectedCoopCond.eqfLevel}}</td>
-            </tr>
-        </table>
+        <div>
+            <div class="col-md-3">Sending institution:</div><div class="col-md-9">{{selectedCoopCond.sendingPartner.institutionId}}</div>
+        </div>
+        <div ng-show="selectedCoopCond.sendingPartner.organizationUnitId">
+            <div class="col-md-3">Sending organization unit:</div><div class="col-md-9">{{selectedCoopCond.sendingPartner.organizationUnitId}}</div>
+        </div>
+        <div>
+            <div class="col-md-3">Receiving institution:</div><div class="col-md-9">{{selectedCoopCond.receivingPartner.institutionId}}</div>
+        </div>
+        <div ng-show="selectedCoopCond.receivingPartner.organizationUnitId">
+            <div class="col-md-3">Receiving org unit:</div><div class="col-md-9">{{selectedCoopCond.receivingPartner.organizationUnitId}}</div>
+        </div>
+        <div>
+            <div class="col-md-3">Start date:</div><div class="col-md-9">{{selectedCoopCond.startDate| date: 'yyyy-MM-dd'}}</div>
+        </div>
+        <div>
+            <div class="col-md-3">End date:</div><div class="col-md-9">{{selectedCoopCond.endDate| date: 'yyyy-MM-dd'}}</div>
+        </div>
+        <div>
+            <div class="col-md-3">Mobility  type:</div><div class="col-md-9">{{selectedCoopCond.mobilityType.mobilityGroup}}/{{selectedCoopCond.mobilityType.mobilityCategory}}</div>
+        </div>
+        <div>
+            <div class="col-md-3">Mobility number:</div><div class="col-md-9">{{selectedCoopCond.mobilityNumber.variant| capitalize}} {{selectedCoopCond.mobilityNumber.number}}</div>
+        </div>
+        <div>
+            <div class="col-md-3">Duration:</div><div class="col-md-9">{{selectedCoopCond.duration.number}} {{selectedCoopCond.duration.unit| capitalize}}</div>
+        </div>
+        <div>
+            <div class="col-md-3">EQF level:</div><div class="col-md-9">{{selectedCoopCond.eqfLevel}}</div>
+        </div>
         <button ng-click="backCoopCond()" class="btn btn-default"><i class="glyphicon glyphicon-chevron-left"></i> Back</button>
     </div>
 </div>

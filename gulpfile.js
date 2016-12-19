@@ -14,12 +14,14 @@ var vendorJs;
 var vendorCss;
 
 var paths = {
-    js: "src/main/webapp/resources/js/**/*.js"
+    js: "src/main/webapp/resources/js/**/*.js",
+    css: "src/main/webapp/resources/css/**/*.css"
 };
 
 // Watch Angular files for changes
 gulp.task('watch', function() {
     gulp.watch(paths.js, ['app-js']);
+    gulp.watch(paths.css, ['app-css']);
 });
 
 // Minify the vendor libraries and zip them to one file
@@ -55,6 +57,14 @@ gulp.task('app-js', function () {
         .pipe(gulp.dest('src/main/webapp/resources'));
 });
 
+// Concat all CSS code to one file
+gulp.task('app-css', function () {
+    var sources = gulp.src([paths.css]);
+    return sources
+        .pipe(concat('reference-connector.css'))
+        .pipe(gulp.dest('src/main/webapp/resources'));
+});
+
 // Copy all fonts to the vendor directory
 gulp.task('copyFonts', function() {
     gulp.src(mainBowerFiles('**/dist/fonts/*.{ttf,woff,woff2,eof,svg}'))
@@ -63,5 +73,5 @@ gulp.task('copyFonts', function() {
 
 // Default Task
 gulp.task('default', function () {
-    runSequence('lib-js-files', 'lib-css-files', 'app-js', 'copyFonts');
+    runSequence('lib-js-files', 'lib-css-files', 'app-js', 'app-css', 'copyFonts');
 });

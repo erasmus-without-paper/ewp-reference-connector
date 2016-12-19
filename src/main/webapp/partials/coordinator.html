@@ -5,25 +5,25 @@
         <div class="panel-body">
             <form class="form-horizontal"  ng-submit="addCoordinator()">
                 <div class="form-group">
-                    <label class="control-label col-sm-2" for="institution">Institution:</label>
+                    <label class="control-label col-sm-2" for="institution">Institution</label>
                     <div class="col-sm-10">
                         <select id="institution" class="form-control" ng-model="newCoordinator.institutionId" required="required" ng-change="institutionChanged()">
                             <option style="display:none" value="">Select an institution</option>
-                            <option ng-repeat="inst in institutions" value="{{inst.institutionId}}">{{(inst.name | languageItem : 'en').text}}, {{inst.country}}</option>
+                            <option ng-repeat="inst in institutions" value="{{inst.institutionId}}">{{(inst.name| languageItem : 'en').text}}, {{inst.country}}</option>
                         </select>
                     </div>
                 </div>
                 <div class="form-group">
-                    <label class="control-label col-sm-2" for="orgunit">Organization Unit:</label>
+                    <label class="control-label col-sm-2" for="orgunit">Organization Unit</label>
                     <div class="col-sm-10">
                         <select id="orgunit" class="form-control" ng-model="newCoordinator.organizationUnitId">
                             <option value="">Select an organization unit (optional)</option>
-                            <option ng-repeat="org in organizations" value="{{org.organizationUnitId}}">{{(org.name | languageItem : 'en').text}}, {{org.country}}</option>
+                            <option ng-repeat="org in organizations" value="{{org.organizationUnitId}}">{{(org.name| languageItem : 'en').text}}, {{org.country}}</option>
                         </select>
                     </div>
                 </div>
                 <div class="form-group">
-                    <label class="control-label col-sm-2" for="person">Person:</label>
+                    <label class="control-label col-sm-2" for="person">Person</label>
                     <div class="col-sm-10">
                         <select id="person" class="form-control" ng-model="newCoordinator.personId" required="required">
                             <option style="display:none" value="">Select a person</option>
@@ -36,7 +36,7 @@
                     <div class="col-sm-10">
                         <select id="role" class="form-control" ng-model="newCoordinator.role" required="required">
                             <option style="display:none" value="">Select a role</option>
-                            <option ng-repeat="role in roles" value="{{role | uppercase}}">{{role}}</option>
+                            <option ng-repeat="role in roles" value="{{role| uppercase}}">{{role}}</option>
                         </select>
                     </div>
                 </div>
@@ -63,7 +63,7 @@
     </div>
     <div class="input-group">
         <input class="form-control" id="search" name="search" placeholder="Search for" ng-model="query"
-        required="required"/>
+               required="required"/>
         <span class="input-group-btn">
             <button type="submit" class="btn btn-default">
                 <i class="glyphicon glyphicon-search"></i>
@@ -71,32 +71,21 @@
         </span>
     </div>
     <div class="list-group">
-        <div ng-repeat="coordinator in coordinators | filter:query">
-            <a class="list-group-item" ng-click="isopen[coordinator.id] = !isopen[coordinator.id]">
-                <b>{{coordinator.person.firstNames}} {{coordinator.person.lastName}}, {{coordinator.institutionId}}</b>
+        <div ng-repeat="coordinator in coordinators| filter:query">
+            <a class="list-group-item clearfix" ng-click="isopen[coordinator.id] = !isopen[coordinator.id]">
+                <div class="col-md-2 hide-overflow-ellipsis"><b>{{coordinator.person.firstNames}} {{coordinator.person.lastName}}</b></div>
+                <div class="col-md-9 hide-overflow-ellipsis"><b>{{coordinator.institutionId}}</b></div>
                 <i class="pull-right glyphicon" ng-class="{'glyphicon-chevron-down': isopen[coordinator.id], 'glyphicon-chevron-right': !isopen[coordinator.id]}"></i>
             </a>
-            <div class="list-group-item" ng-show="isopen[coordinator.id]" >
-                <table class="table" >
-                    <tr>
-                        <td class="col-md-2">First names:</td><td>{{coordinator.person.firstNames}}</td>
-                    </tr>
-                    <tr>
-                        <td>Last name:</td><td>{{coordinator.person.lastName}}</td>
-                    </tr>
-                    <tr>
-                        <td>Role</td><td>{{coordinator.role | capitalize}}</td>
-                    </tr>
-                    <tr>
-                        <td>Person id:</td><td>{{coordinator.person.personId}}</td>
-                    </tr>
-                    <tr>
-                        <td>Institution id:</td><td>{{coordinator.institutionId}}</td>
-                    </tr>
-                    <tr ng-show="coordinator.organizationUnitId">
-                        <td>Organization Unit Id:</td><td>{{coordinator.organizationUnitId}}</td>
-                    </tr>
-                </table>
+            <div class="list-group-item clearfix" ng-show="isopen[coordinator.id]" >
+                <div class="col-md-2">First names:</div><div class="col-md-10 hide-overflow-ellipsis">{{coordinator.person.firstNames}}</div>
+                <div class="col-md-2">Last name:</div><div class="col-md-10 hide-overflow-ellipsis">{{coordinator.person.lastName}}</div>
+                <div class="col-md-2">Role:</div><div class="col-md-10 hide-overflow-ellipsis">{{coordinator.role| capitalize}}</div>
+                <div class="col-md-2">Person id:</div><div class="col-md-10 hide-overflow-ellipsis">{{coordinator.person.personId}}</div>
+                <div class="col-md-2">Institution id:</div><div class="col-md-10 hide-overflow-ellipsis">{{coordinator.institutionId}}</div>
+                <div ng-show="coordinator.organizationUnitId">
+                    <div class="col-md-2">Organization Unit Id:</div><div class="col-md-10 hide-overflow-ellipsis">{{coordinator.organizationUnitId}}</div>
+                </div>
             </div>
         </div>
     </div>

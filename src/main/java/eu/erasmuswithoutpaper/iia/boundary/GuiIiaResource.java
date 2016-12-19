@@ -45,15 +45,4 @@ public class GuiIiaResource {
         em.persist(iia);
     }
 
-//    @GET
-//    @Path("get_all")
-//    @Consumes(MediaType.APPLICATION_JSON)
-//    @Produces(MediaType.APPLICATION_JSON)
-//    public List<Iia> getAll() {
-//        Query query = em.createQuery("select a from Iia a", eu.erasmuswithoutpaper.iia.entity.Iia.class);
-//        List<Iia> iiaList = query.getResultList();
-//
-//        return iiaList;
-//    }
-
 }

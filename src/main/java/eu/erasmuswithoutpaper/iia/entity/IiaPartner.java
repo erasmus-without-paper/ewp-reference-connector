@@ -18,19 +18,16 @@ import javax.persistence.NamedQuery;
 @Entity
 @NamedQueries({
     @NamedQuery(name = IiaPartner.findAll, query = "SELECT i FROM IiaPartner i"),
-    @NamedQuery(name = IiaPartner.findByIiaIdAndInstAndOrgUnit, query = "SELECT i FROM IiaPartner i WHERE i.iiaId = :iiaId AND i.institutionId = :institutionId AND i.organizationUnitId = :organizationUnitId")
 })
 public class IiaPartner implements Serializable{
     
     private static final String PREFIX = "eu.erasmuswithoutpaper.iia.entity.IiaPartner.";
     public static final String findAll = PREFIX + "all";
-    public static final String findByIiaIdAndInstAndOrgUnit = PREFIX + "byIiaIdAndInstAndOrgUnit";
 
     @Id
     @GeneratedValue(strategy=GenerationType.AUTO)
     long id;
     
-    private String iiaId;
     private String institutionId;
     private String organizationUnitId;
     
@@ -44,14 +41,6 @@ public class IiaPartner implements Serializable{
 
     public void setId(long id) {
         this.id = id;
-    }
-
-    public String getIiaId() {
-        return iiaId;
-    }
-
-    public void setIiaId(String iiaId) {
-        this.iiaId = iiaId;
     }
 
     public String getInstitutionId() {

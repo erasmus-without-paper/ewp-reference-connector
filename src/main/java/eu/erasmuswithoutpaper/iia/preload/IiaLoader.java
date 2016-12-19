@@ -33,13 +33,13 @@ public class IiaLoader {
     }
     
     private List<CooperationCondition> getCooperationConditions(String iiaId) throws IOException {
-        String durationIkeaToPomodoro = "{'unit':'WEEKS','number':'20'}";
-        String durationPomodoroToIkea = "{'unit':'DAYS','number':'11'}";
-        String mobilityNumber_average_3 = "{'variant':'AVERAGE','number':'3'}";
-        String mobilityNumber_total_8 = "{'variant':'TOTAL','number':'8'}";
+        String durationIkeaToPomodoro = "{'unit':'Weeks','number':'20'}";
+        String durationPomodoroToIkea = "{'unit':'Days','number':'11'}";
+        String mobilityNumber_average_3 = "{'variant':'Average','number':'3'}";
+        String mobilityNumber_total_8 = "{'variant':'Total','number':'8'}";
         List<CooperationCondition> conditions = new ArrayList<>();
-        conditions.add(getCooperationCondition("{'iiaId':'" + iiaId + "','startDate':'2016-01-01','endDate':'2016-06-29','mobilityNumber':" + mobilityNumber_average_3 + ",'duration':" + durationIkeaToPomodoro + ",'eqfLevel':'8'}", getMobilityType("Student", "Studies"), getIkeaIiaPartner(iiaId), getPomodoroIiaPartner(iiaId)));
-        conditions.add(getCooperationCondition("{'iiaId':'" + iiaId + "','startDate':'2016-03-15','endDate':'2016-04-02','mobilityNumber':" + mobilityNumber_total_8 + ",'duration':" + durationPomodoroToIkea + ",'eqfLevel':'5'}", getMobilityType("Staff", "Training"), getPomodoroIiaPartner(iiaId), getIkeaIiaPartner(iiaId)));
+        conditions.add(getCooperationCondition("{'startDate':'2016-01-01','endDate':'2016-06-29','mobilityNumber':" + mobilityNumber_average_3 + ",'duration':" + durationIkeaToPomodoro + ",'eqfLevel':'8'}", getMobilityType("Student", "Studies"), getIkeaIiaPartner(), getPomodoroIiaPartner()));
+        conditions.add(getCooperationCondition("{'startDate':'2016-03-15','endDate':'2016-04-02','mobilityNumber':" + mobilityNumber_total_8 + ",'duration':" + durationPomodoroToIkea + ",'eqfLevel':'5'}", getMobilityType("Staff", "Training"), getPomodoroIiaPartner(), getIkeaIiaPartner()));
         return conditions;
     }
     
@@ -61,11 +61,11 @@ public class IiaLoader {
         return mobilityTypes.get(0);
     }
 
-    private IiaPartner getIkeaIiaPartner(String iiaId) throws IOException {
-        return getIiaPartner("{'iiaId':'" + iiaId + "','institutionId':'ikea.university.se','organizationUnitId':'ikea.ou1.se'}", getCoordinators("ikea.university.se", "ikea.ou1.se"));
+    private IiaPartner getIkeaIiaPartner() throws IOException {
+        return getIiaPartner("{'institutionId':'ikea.university.se','organizationUnitId':'ikea.ou1.se'}", getCoordinators("ikea.university.se", "ikea.ou1.se"));
     }
-    private IiaPartner getPomodoroIiaPartner(String iiaId) throws IOException {
-        return getIiaPartner("{'iiaId':'" + iiaId + "','institutionId':'pomodoro.university.it','organizationUnitId':'pomodoro.ou1.it'}", getCoordinators("'pomodoro.university.it", "pomodoro.ou1.it"));
+    private IiaPartner getPomodoroIiaPartner() throws IOException {
+        return getIiaPartner("{'institutionId':'pomodoro.university.it','organizationUnitId':'pomodoro.ou1.it'}", getCoordinators("'pomodoro.university.it", "pomodoro.ou1.it"));
     }
 
     private IiaPartner getIiaPartner(String iiaPartnerJson, List<Coordinator> coordinators) throws IOException {

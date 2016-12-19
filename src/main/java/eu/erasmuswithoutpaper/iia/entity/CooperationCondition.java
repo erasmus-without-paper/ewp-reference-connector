@@ -22,26 +22,22 @@ import org.apache.johnzon.mapper.JohnzonConverter;
 @Entity
 @NamedQueries({
     @NamedQuery(name = CooperationCondition.findAll, query = "SELECT c FROM CooperationCondition c"),
-    @NamedQuery(name = CooperationCondition.findByIiaId, query = "SELECT c FROM CooperationCondition c WHERE c.iiaId = :iiaId")
 })
 public class CooperationCondition implements Serializable{
     
     private static final String PREFIX = "eu.erasmuswithoutpaper.iia.entity.CooperationCondition.";
     public static final String findAll = PREFIX + "all";
-    public static final String findByIiaId = PREFIX + "byIiaId";
     
     @Id
     @GeneratedValue(strategy=GenerationType.AUTO)
     long id;
 
-    private String iiaId;
-    
-    @ManyToOne(cascade = CascadeType.ALL, fetch = FetchType.EAGER)
-    @JoinColumn(name = "SENDING_PARTNER_ID", referencedColumnName = "ID")
+    @OneToOne(cascade = CascadeType.ALL, fetch = FetchType.EAGER)
+    @JoinColumn(name = "SENDING_PARTNER_ID")
     private IiaPartner sendingPartner;
     
-    @ManyToOne(cascade = CascadeType.ALL, fetch = FetchType.EAGER)
-    @JoinColumn(name = "RECEIVING_PARTNER_ID", referencedColumnName = "ID")
+    @OneToOne(cascade = CascadeType.ALL, fetch = FetchType.EAGER)
+    @JoinColumn(name = "RECEIVING_PARTNER_ID")
     private IiaPartner receivingPartner;
     
     @ManyToOne(cascade = CascadeType.DETACH, fetch = FetchType.EAGER)
@@ -62,7 +58,7 @@ public class CooperationCondition implements Serializable{
     @OneToOne(cascade = CascadeType.ALL, fetch = FetchType.EAGER)
     private Duration duration;
     
-    private String eqfLevel;
+    private int eqfLevel;
 
     public long getId() {
         return id;
@@ -70,14 +66,6 @@ public class CooperationCondition implements Serializable{
 
     public void setId(long id) {
         this.id = id;
-    }
-
-    public String getIiaId() {
-        return iiaId;
-    }
-
-    public void setIiaId(String iiaId) {
-        this.iiaId = iiaId;
     }
 
     public IiaPartner getSendingPartner() {
@@ -136,11 +124,11 @@ public class CooperationCondition implements Serializable{
         this.duration = duration;
     }
 
-    public String getEqfLevel() {
+    public int getEqfLevel() {
         return eqfLevel;
     }
 
-    public void setEqfLevel(String eqfLevel) {
+    public void setEqfLevel(int eqfLevel) {
         this.eqfLevel = eqfLevel;
     }
 

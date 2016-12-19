@@ -2,7 +2,9 @@
 package eu.erasmuswithoutpaper.course.entity;
 
 import java.io.Serializable;
+import java.math.BigDecimal;
 import javax.persistence.CascadeType;
+import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
@@ -33,7 +35,9 @@ public class LearningOpportunityInstance implements Serializable {
     @ManyToOne(cascade = CascadeType.DETACH, fetch = FetchType.EAGER)
     @JoinColumn(name = "ACADEMIC_TERM_ID", referencedColumnName = "ID")
     private AcademicTerm academicTerm;
-    private String credits;
+    
+    @Column(precision = 5, scale = 1)
+    private BigDecimal credits;
 
     public long getId() {
         return id;
@@ -75,11 +79,11 @@ public class LearningOpportunityInstance implements Serializable {
         this.academicTerm = academicTerm;
     }
 
-    public String getCredits() {
+    public BigDecimal getCredits() {
         return credits;
     }
 
-    public void setCredits(String credits) {
+    public void setCredits(BigDecimal credits) {
         this.credits = credits;
     }
 

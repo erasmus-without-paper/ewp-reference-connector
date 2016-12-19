@@ -1,0 +1,23 @@
+.hide-overflow-ellipsis {
+    overflow:hidden;
+    white-space:nowrap;
+    text-overflow:ellipsis;
+}
+
+.nav li.dropdown-submenu.active > a
+{
+    color: #000;
+    background-color: #f5f5f5;
+}
+
+input[type="date"], .width-160 {
+    width: 160px !important;
+}
+
+input[type="number"] {
+    width: 70px !important;
+}
+
+.margin-bottom-1em {
+    margin-bottom: 1em ;
+}
