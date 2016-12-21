@@ -1,6 +1,6 @@
-package eu.erasmuswithoutpaper.internal.boundary;
+package eu.erasmuswithoutpaper.home.boundary;
 
-import eu.erasmuswithoutpaper.internal.control.GlobalProperties;
+import eu.erasmuswithoutpaper.common.control.GlobalProperties;
 import java.util.Optional;
 import javax.ejb.Stateless;
 import javax.inject.Inject;

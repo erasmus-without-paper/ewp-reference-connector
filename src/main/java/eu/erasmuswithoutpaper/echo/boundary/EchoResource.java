@@ -2,8 +2,8 @@ package eu.erasmuswithoutpaper.echo.boundary;
 
 import eu.erasmuswithoutpaper.api.echo.Response;
 import eu.erasmuswithoutpaper.error.control.EwpWebApplicationException;
-import eu.erasmuswithoutpaper.internal.control.GlobalProperties;
-import eu.erasmuswithoutpaper.internal.control.RegistryClient;
+import eu.erasmuswithoutpaper.common.control.GlobalProperties;
+import eu.erasmuswithoutpaper.common.control.RegistryClient;
 import java.security.cert.X509Certificate;
 import java.util.List;
 import javax.ejb.Stateless;

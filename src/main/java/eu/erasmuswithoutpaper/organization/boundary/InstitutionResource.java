@@ -3,7 +3,7 @@ package eu.erasmuswithoutpaper.organization.boundary;
 
 import eu.erasmuswithoutpaper.api.institutions.InstitutionsResponse;
 import eu.erasmuswithoutpaper.error.control.EwpWebApplicationException;
-import eu.erasmuswithoutpaper.internal.control.GlobalProperties;
+import eu.erasmuswithoutpaper.common.control.GlobalProperties;
 import eu.erasmuswithoutpaper.organization.control.InstitutionConverter;
 import eu.erasmuswithoutpaper.organization.entity.Institution;
 import java.util.List;
@@ -34,13 +34,13 @@ public class InstitutionResource {
 
     @GET
     @Produces(MediaType.APPLICATION_XML)
-    public javax.ws.rs.core.Response save(@QueryParam("hei_id") List<String> heiIdList) {
+    public javax.ws.rs.core.Response institutionsGet(@QueryParam("hei_id") List<String> heiIdList) {
         return institution(heiIdList);
     }
     
     @POST
     @Produces(MediaType.APPLICATION_XML)
-    public javax.ws.rs.core.Response getAll(@FormParam("hei_id") List<String> heiIdList) {
+    public javax.ws.rs.core.Response institutionsPost(@FormParam("hei_id") List<String> heiIdList) {
         return institution(heiIdList);
     }
     

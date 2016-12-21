@@ -1,4 +1,4 @@
-package eu.erasmuswithoutpaper.internal.control;
+package eu.erasmuswithoutpaper.common.control;
 
 import javax.ws.rs.core.Response;
 import org.junit.After;

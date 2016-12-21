@@ -1,8 +1,8 @@
 package eu.erasmuswithoutpaper.echo.boundary;
 
-import eu.erasmuswithoutpaper.internal.control.HeiEntry;
-import eu.erasmuswithoutpaper.internal.control.RegistryClient;
-import eu.erasmuswithoutpaper.internal.control.RestClient;
+import eu.erasmuswithoutpaper.common.control.HeiEntry;
+import eu.erasmuswithoutpaper.common.control.RegistryClient;
+import eu.erasmuswithoutpaper.common.control.RestClient;
 import java.util.ArrayList;
 import java.util.List;
 import javax.ejb.Stateless;

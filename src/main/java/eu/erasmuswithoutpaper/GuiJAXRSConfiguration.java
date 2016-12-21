@@ -6,7 +6,7 @@ import eu.erasmuswithoutpaper.course.boundary.GuiLosResource;
 import eu.erasmuswithoutpaper.echo.boundary.GuiEchoResource;
 import eu.erasmuswithoutpaper.iia.boundary.GuiIiaPartnerResource;
 import eu.erasmuswithoutpaper.iia.boundary.GuiIiaResource;
-import eu.erasmuswithoutpaper.internal.boundary.GuiHomeResource;
+import eu.erasmuswithoutpaper.home.boundary.GuiHomeResource;
 import eu.erasmuswithoutpaper.organization.boundary.GuiCoordinatorResource;
 import eu.erasmuswithoutpaper.organization.boundary.GuiInstitutionResource;
 import eu.erasmuswithoutpaper.organization.boundary.GuiPersonResource;

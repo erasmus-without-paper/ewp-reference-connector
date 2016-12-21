@@ -3,7 +3,7 @@ package eu.erasmuswithoutpaper.organization.boundary;
 
 import eu.erasmuswithoutpaper.api.ounits.OunitsResponse;
 import eu.erasmuswithoutpaper.error.control.EwpWebApplicationException;
-import eu.erasmuswithoutpaper.internal.control.GlobalProperties;
+import eu.erasmuswithoutpaper.common.control.GlobalProperties;
 import eu.erasmuswithoutpaper.organization.control.OrganizationUnitConverter;
 import eu.erasmuswithoutpaper.organization.entity.Institution;
 import eu.erasmuswithoutpaper.organization.entity.OrganizationUnit;
@@ -36,13 +36,13 @@ public class OrganizationUnitResource {
     
     @GET
     @Produces(MediaType.APPLICATION_XML)
-    public javax.ws.rs.core.Response save(@QueryParam("hei_id") String heiId, @QueryParam("ounit_id") List<String> organizationUnitIdList) {
+    public javax.ws.rs.core.Response ounitsGet(@QueryParam("hei_id") String heiId, @QueryParam("ounit_id") List<String> organizationUnitIdList) {
         return organizationUnits(heiId, organizationUnitIdList);
     }
     
     @POST
     @Produces(MediaType.APPLICATION_XML)
-    public javax.ws.rs.core.Response getAll(@FormParam("hei_id") String heiId, @FormParam("ounit_id") List<String> organizationUnitIdList) {
+    public javax.ws.rs.core.Response ounitsPost(@FormParam("hei_id") String heiId, @FormParam("ounit_id") List<String> organizationUnitIdList) {
         return organizationUnits(heiId, organizationUnitIdList);
     }
     

@@ -1,4 +1,4 @@
-package eu.erasmuswithoutpaper.internal.control;
+package eu.erasmuswithoutpaper.common.control;
 
 public class HeiEntry {
     private String id;

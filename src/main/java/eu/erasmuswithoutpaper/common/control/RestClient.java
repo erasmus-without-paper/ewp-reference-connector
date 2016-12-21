@@ -1,4 +1,4 @@
-package eu.erasmuswithoutpaper.internal.control;
+package eu.erasmuswithoutpaper.common.control;
 
 import java.security.KeyManagementException;
 import java.security.KeyStore;

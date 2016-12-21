@@ -1,8 +1,8 @@
 package eu.erasmuswithoutpaper.discovery.boundary;
 
 import eu.erasmuswithoutpaper.api.discovery.Manifest;
-import eu.erasmuswithoutpaper.internal.control.EwpKeyStore;
-import eu.erasmuswithoutpaper.internal.control.GlobalProperties;
+import eu.erasmuswithoutpaper.common.control.EwpKeyStore;
+import eu.erasmuswithoutpaper.common.control.GlobalProperties;
 import eu.erasmuswithoutpaper.organization.entity.Institution;
 import java.util.ArrayList;
 import java.util.List;

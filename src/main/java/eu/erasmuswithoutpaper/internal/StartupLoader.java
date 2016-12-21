@@ -6,7 +6,7 @@ import eu.erasmuswithoutpaper.course.preload.LoiLoader;
 import eu.erasmuswithoutpaper.course.preload.LosLoader;
 import eu.erasmuswithoutpaper.iia.preload.IiaLoader;
 import eu.erasmuswithoutpaper.iia.preload.MobilityTypeLoader;
-import eu.erasmuswithoutpaper.internal.control.GlobalProperties;
+import eu.erasmuswithoutpaper.common.control.GlobalProperties;
 import eu.erasmuswithoutpaper.organization.preload.CoordinatorLoader;
 import eu.erasmuswithoutpaper.organization.preload.InstitutionLoader;
 import eu.erasmuswithoutpaper.organization.preload.PersonLoader;

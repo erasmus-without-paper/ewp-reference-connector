@@ -1,4 +1,4 @@
-package eu.erasmuswithoutpaper.internal.control;
+package eu.erasmuswithoutpaper.common.control;
 
 import eu.erasmuswithoutpaper.registryclient.ApiSearchConditions;
 import eu.erasmuswithoutpaper.registryclient.ClientImpl;

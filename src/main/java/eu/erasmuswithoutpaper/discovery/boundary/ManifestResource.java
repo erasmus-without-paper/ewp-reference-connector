@@ -10,8 +10,8 @@ import eu.erasmuswithoutpaper.api.ounits.OrganizationalUnits;
 import eu.erasmuswithoutpaper.api.registry.ApisImplemented;
 import eu.erasmuswithoutpaper.api.registry.Hei;
 import eu.erasmuswithoutpaper.api.registry.OtherHeiId;
-import eu.erasmuswithoutpaper.internal.control.EwpKeyStore;
-import eu.erasmuswithoutpaper.internal.control.GlobalProperties;
+import eu.erasmuswithoutpaper.common.control.EwpKeyStore;
+import eu.erasmuswithoutpaper.common.control.GlobalProperties;
 import eu.erasmuswithoutpaper.organization.entity.Institution;
 import java.io.IOException;
 import java.math.BigInteger;
@@ -101,21 +101,21 @@ public class ManifestResource {
     private Discovery getDiscoveryEntry() {
         Discovery discovery = new Discovery();
         discovery.setVersion("4.0.1");
-        discovery.setUrl(getBaseUri() + "rest/manifest");
+        discovery.setUrl(getBaseUri() + "manifest");
         return discovery;
     }
     
     private Echo getEchoEntry() {
         Echo echo = new Echo();
         echo.setVersion("1.0.1");
-        echo.setUrl(getBaseUri() + "rest/echo");
+        echo.setUrl(getBaseUri() + "echo");
         return echo;
     }
     
     private Institutions getInstitutionsEntry() {
         Institutions institutions = new Institutions();
         institutions.setVersion("0.3.0");
-        institutions.setUrl(getBaseUri() + "rest/institutions");
+        institutions.setUrl(getBaseUri() + "institutions");
         institutions.setMaxHeiIds(BigInteger.valueOf(globalProperties.getMaxInstitutionsIds()));
         return institutions;
     }
@@ -123,7 +123,7 @@ public class ManifestResource {
     private OrganizationalUnits getOrganizationalUnitsEntry() {
         OrganizationalUnits organizationalUnits = new OrganizationalUnits();
         organizationalUnits.setVersion("0.1.0");
-        organizationalUnits.setUrl(getBaseUri() + "rest/ounits");
+        organizationalUnits.setUrl(getBaseUri() + "ounits");
         organizationalUnits.setMaxOunitIds(BigInteger.valueOf(globalProperties.getMaxOunitsIds()));
         return organizationalUnits;
     }
@@ -160,6 +160,6 @@ public class ManifestResource {
     
     private String getBaseUri() {
         Optional<String> baseUriProperty = globalProperties.getBaseUri();
-        return baseUriProperty.isPresent() ? baseUriProperty.get() + "/" : uriInfo.getBaseUri().toString();
+        return baseUriProperty.isPresent() ? baseUriProperty.get() + "/rest/" : uriInfo.getBaseUri().toString();
     }
 }
