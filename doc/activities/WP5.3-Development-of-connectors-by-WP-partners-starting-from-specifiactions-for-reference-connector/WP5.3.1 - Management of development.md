@@ -11,9 +11,9 @@ This table shows which partner who had developed which API and are ready for int
 | Echo                                        |:star: |   -   |   -   |:star: |   -   |:soon: |   -   |:soon:  |   -   |
 | **DEVELOPMENT Chapter 5 Due:January 2017**  |       |       |       |       |       |       |       |        |       | 
 | Institutions                                |:star: |   -   |   -   |:star: |   -   |:soon: |   -   |:soon:  |   -   |
-| Organizational units                        |:soon: |   -   |   -   |   -   |   -   |   -   |   -   |   -    |   -   |
+| Organizational units                        |:star: |   -   |   -   |   -   |   -   |   -   |   -   |   -    |   -   |
 | Courses                                     |:soon: |   -   |   -   |   -   |   -   |   -   |   -   |   -    |   -   |
-| Simple course Replication                   |   -   |   -   |   -   |   -   |   -   |   -   |   -   |   -    |   -   |
+| Simple course Replication (optional         |   -   |   -   |   -   |   -   |   -   |   -   |   -   |   -    |   -   |
 | **DEVELOPMENT Chapter 6 Due:February 2017** |       |       |       |       |       |       |       |        |       |
 | IIA                                         |   -   |   -   |   -   |   -   |   -   |   -   |   -   |   -    |   -   |
 | Mobilities                                  |   -   |   -   |   -   |   -   |   -   |   -   |   -   |   -    |   -   |
