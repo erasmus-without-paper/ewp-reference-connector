@@ -18,6 +18,7 @@ import javax.persistence.OneToMany;
 @Entity(name="los")
 @NamedQueries({
     @NamedQuery(name = LearningOpportunitySpecification.findAll, query = "SELECT l FROM los l"),
+    @NamedQuery(name = LearningOpportunitySpecification.findAllTopLevelParents, query = "SELECT l FROM los l WHERE l.topLevelParent = true"),
     @NamedQuery(name = LearningOpportunitySpecification.findByLosCode, query = "SELECT l FROM los l WHERE l.losCode = :losCode"),
     @NamedQuery(name = LearningOpportunitySpecification.findByInstitutionId, query = "SELECT l FROM los l WHERE l.institutionId = :institutionId")
 })
@@ -25,6 +26,7 @@ public class LearningOpportunitySpecification implements Serializable{
     
     private static final String PREFIX = "eu.erasmuswithoutpaper.course.entity.LearningOpportunitySpecification.";
     public static final String findAll = PREFIX + "all";
+    public static final String findAllTopLevelParents = PREFIX + "allTopLevelParents";
     public static final String findByLosCode = PREFIX + "byLosCode";
     public static final String findByInstitutionId = PREFIX + "byInstitutionId";
 
@@ -41,8 +43,18 @@ public class LearningOpportunitySpecification implements Serializable{
     private List<LanguageItem> name;
     
     @OneToMany(cascade = CascadeType.ALL, fetch = FetchType.EAGER, orphanRemoval=true)
-    @JoinTable(name = "los_url")
+    @JoinTable(name = "los_urls")
     private List<LanguageItem> url;
+    
+    @OneToMany(cascade = CascadeType.ALL, fetch = FetchType.EAGER, orphanRemoval=true)
+    @JoinTable(name = "los_los")
+    private List<LearningOpportunitySpecification> learningOpportunitySpecifications;
+    
+    @OneToMany(cascade = CascadeType.ALL, fetch = FetchType.EAGER, orphanRemoval=true)
+    @JoinTable(name = "los_loi")
+    private List<LearningOpportunityInstance> learningOpportunityInstances;
+    
+    private boolean topLevelParent;
 
     public LearningOpportunitySpecification() {}
     
@@ -92,12 +104,36 @@ public class LearningOpportunitySpecification implements Serializable{
         this.name = name;
     }
 
-    public List<LanguageItem> getDescription() {
+    public List<LanguageItem> getUrl() {
         return url;
     }
 
-    public void setDescription(List<LanguageItem> url) {
+    public void setUrl(List<LanguageItem> url) {
         this.url = url;
+    }
+
+    public List<LearningOpportunitySpecification> getLearningOpportunitySpecifications() {
+        return learningOpportunitySpecifications;
+    }
+
+    public void setLearningOpportunitySpecifications(List<LearningOpportunitySpecification> learningOpportunitySpecifications) {
+        this.learningOpportunitySpecifications = learningOpportunitySpecifications;
+    }
+
+    public List<LearningOpportunityInstance> getLearningOpportunityInstances() {
+        return learningOpportunityInstances;
+    }
+
+    public void setLearningOpportunityInstances(List<LearningOpportunityInstance> learningOpportunityInstances) {
+        this.learningOpportunityInstances = learningOpportunityInstances;
+    }
+
+    public boolean isTopLevelParent() {
+        return topLevelParent;
+    }
+
+    public void setTopLevelParent(boolean topLevelParent) {
+        this.topLevelParent = topLevelParent;
     }
 
     @Override

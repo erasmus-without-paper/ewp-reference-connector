@@ -45,17 +45,23 @@ angular.module('institution').controller('InstitutionController', function ($sco
         }
         $scope.newOrganizationUnit.otherId.push({idType: '',  idValue: ''});
     };
+
+    $scope.addNameForInstitution = function() {
+        $scope.newInstitution.name.push({text: '',  lang: ''});
+    };
+
+    $scope.addNameForOrganizationUnit = function() {
+        $scope.newOrganizationUnit.name.push({text: '',  lang: ''});
+    };
     
     $scope.addInstitution = function() {
-        $scope.newInstitution.name = [{text:$scope.newInstitution.nameStr,'lang':'en'}];
         $scope.saveInstitution($scope.newInstitution);
         
         $scope.showAddInstitutionForm = false;
-        $scope.newInstitution = {};
+        $scope.cancelAddForm();
     };
     
     $scope.addOrganizationUnit = function() {
-        $scope.newOrganizationUnit.name = [{text:$scope.newOrganizationUnit.nameStr,'lang':'en'}];
         if (!$scope.currentInstOrgObject.organizationUnits) {
             $scope.currentInstOrgObject.organizationUnits = [];
         }
@@ -63,7 +69,7 @@ angular.module('institution').controller('InstitutionController', function ($sco
         $scope.saveInstitution($scope.browseInstOrgObjectList[0]);
         
         $scope.showAddOrganizationUnitForm = false;
-        $scope.newOrganizationUnit = {};
+        $scope.cancelAddForm();
     };
     
     $scope.saveInstitution = function(institution) {
@@ -75,10 +81,11 @@ angular.module('institution').controller('InstitutionController', function ($sco
     $scope.cancelAddForm = function() {
         $scope.showAddInstitutionForm = false;
         $scope.showAddOrganizationUnitForm = false;
-        $scope.newInstitution = {};
+        $scope.newInstitution = {name:[{text:'', lang: ''}]};
         $scope.newOrganizationUnit = {};
+        $scope.newOrganizationUnit = {name:[{text:'', lang: ''}]};
     };
     
-    $scope.newInstitution = {};
+    $scope.cancelAddForm();
     $scope.getAllInstitutions();
 });

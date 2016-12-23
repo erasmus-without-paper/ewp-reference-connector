@@ -37,12 +37,12 @@ public class LearningOpportunitySpecificationTest {
         names.add(nameSv);
         names.add(nameEn);
         los.setName(names);
-        List<LanguageItem> descriptions = new ArrayList<>();
-        LanguageItem descriptionSv = new LanguageItem("LearningOpSpecDescSv", LanguageItem.SWEDISH);
-        LanguageItem descriptionEn = new LanguageItem("LearningOpSpecDescEn", LanguageItem.ENGLISH);
-        descriptions.add(descriptionSv);
-        descriptions.add(descriptionEn);
-        los.setDescription(descriptions);
+        List<LanguageItem> urls = new ArrayList<>();
+        LanguageItem urlSv = new LanguageItem("www.learn.se", LanguageItem.SWEDISH);
+        LanguageItem urlEn = new LanguageItem("www.learn.en", LanguageItem.ENGLISH);
+        urls.add(urlSv);
+        urls.add(urlEn);
+        los.setUrl(urls);
         
         this.tx.begin();
         this.em.persist(los);
@@ -58,10 +58,10 @@ public class LearningOpportunitySpecificationTest {
         Assert.assertEquals("LearningOpSpecNameEn", result.getName().get(1).getText());
         Assert.assertEquals(LanguageItem.ENGLISH, result.getName().get(1).getLang());
         
-        Assert.assertEquals("LearningOpSpecDescSv", result.getDescription().get(0).getText());
-        Assert.assertEquals(LanguageItem.SWEDISH, result.getDescription().get(0).getLang());
-        Assert.assertEquals("LearningOpSpecDescEn", result.getDescription().get(1).getText());
-        Assert.assertEquals(LanguageItem.ENGLISH, result.getDescription().get(1).getLang());
+        Assert.assertEquals("www.learn.se", result.getUrl().get(0).getText());
+        Assert.assertEquals(LanguageItem.SWEDISH, result.getUrl().get(0).getLang());
+        Assert.assertEquals("www.learn.en", result.getUrl().get(1).getText());
+        Assert.assertEquals(LanguageItem.ENGLISH, result.getUrl().get(1).getLang());
     }
 
 }

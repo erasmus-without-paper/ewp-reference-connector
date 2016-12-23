@@ -1,17 +1,22 @@
-angular.module('loi').controller('LoiController', function ($scope, LoiService, InstitutionService, LosService, AcademicTermService) {
-    $scope.getAllLearningOppInstances = function(){
-        LoiService.getAll(
+angular.module('loi').controller('LoiController', function ($scope, LosService, AcademicTermService) {
+    $scope.getAllTopLevelLosParents = function(){
+        LosService.getAllTopLevelParents(
             function(result) {
-                $scope.loiList = result;
+                $scope.losList = result;
         });
     };
     
+    $scope.showLos = function(los) {
+        $scope.currentLos=los;
+    };
+
+    $scope.toggleLosMenuItem = function(los) {
+        event.preventDefault();
+        event.stopPropagation();
+        los.expanded = !los.expanded;
+    };
+    
     $scope.viewAddLearningOppInstanceForm = function() {
-        InstitutionService.getLocal(
-            function(result) {
-            $scope.institutions = result;
-        });
-        
         AcademicTermService.getAll(
             function(result) {
                 $scope.academicTerms = result;
@@ -21,64 +26,34 @@ angular.module('loi').controller('LoiController', function ($scope, LoiService, 
         $scope.showAddLearningOppInstanceForm = true;
     };
     
-    $scope.institutionChanged = function(){
-        var currentInst;
-        angular.forEach($scope.institutions, function(item) {
-            if (item.institutionId === $scope.newLearningOppInstance.institutionId) {
-                currentInst = item;
-            }
-        });
-        
-        $scope.organizations = [];
-        $scope.addOrganizationUnitsToList(currentInst);
-        
-        LosService.getByInstitutionId($scope.newLearningOppInstance.institutionId,
-            function(result) {
-                $scope.losList = result;
-        });
-    };
-    
-    $scope.addOrganizationUnitsToList = function(obj) {
-        angular.forEach(obj.organizationUnits, function(item) {
-            $scope.organizations.push(item);
-            $scope.addOrganizationUnitsToList(item);
-        });
-    };
-
-    $scope.addLearningOppInstance = function(){
-        var currentLearningOppSpec;
-        var selectedLosId = Number($scope.newLearningOppInstance.learningOppSpecId);
-        angular.forEach($scope.losList, function(item) {
-            if (item.id === selectedLosId) {
-                currentLearningOppSpec = item;
-            }
-        });
-        $scope.newLearningOppInstance.learningOppSpec = currentLearningOppSpec;
-        
-        var currentAcademicTerm;
-        var selectedAcademicTermId = Number($scope.newLearningOppInstance.academicTermId);
-        angular.forEach($scope.academicTerms, function(item) {
-            if (item.id === selectedAcademicTermId) {
-                currentAcademicTerm = item;
-            }
-        });
-        $scope.newLearningOppInstance.academicTerm = currentAcademicTerm;
-        
-        $scope.saveLearningOppInstance($scope.newLearningOppInstance);
-        $scope.showAddLearningOppInstanceForm = false;
-        $scope.newLearningOppInstance = {};
-    };
-
-    $scope.saveLearningOppInstance = function(learningOppInstance) {
-        LoiService.addNew(learningOppInstance, function(result) {
-            $scope.getAllLearningOppInstances();
-        });
-    };
-    
     $scope.cancelAddLearningOppInstance = function(){
         $scope.newLearningOppInstance = {};
         $scope.showAddLearningOppInstanceForm = false;
     };
     
-    $scope.getAllLearningOppInstances();
+    $scope.addLearningOppInstance = function(){
+        var selectedAcademicTerm;
+        var selectedAcademicTermId = Number($scope.newLearningOppInstance.academicTermId);
+        angular.forEach($scope.academicTerms, function(item) {
+            if (item.id === selectedAcademicTermId) {
+                selectedAcademicTerm = item;
+            }
+        });
+        
+        $scope.newLearningOppInstance.academicTerm = selectedAcademicTerm;
+        $scope.currentLos.learningOpportunityInstances.push($scope.newLearningOppInstance);
+        $scope.saveLearningOppSpec($scope.currentLos);
+        
+        $scope.showAddLearningOppInstanceForm = false;
+        $scope.newLearningOppInstance = {};
+        $scope.currentLos = '';
+    };
+    
+    $scope.saveLearningOppSpec = function(learningOppSpec) {
+        LosService.save(learningOppSpec, function(result) {
+            $scope.getAllTopLevelLosParents();
+        });
+    };
+    
+    $scope.getAllTopLevelLosParents();
 });

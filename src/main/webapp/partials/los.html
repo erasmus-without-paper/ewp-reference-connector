@@ -1,13 +1,63 @@
 <div class="container">
     <h1 class="page-header">Learning opportunity specification</h1>
-    <div class="panel panel-default" ng-show="showAddLearningOppSpecForm">
-        <div class="panel-heading"><h2>Add Learning opportunity specification</h2></div>
+    
+    <h2>Learning opportunity specifications</h2>
+    <div class="tree-menu">
+        <script type="text/ng-template" id="los_renderer.html">
+            <a class="clearfix" ng-click="showLos(los)">
+                <span class="expand-button">
+                    <button type="button" class="btn btn-default" ng-if="los.learningOpportunitySpecifications.length > 0" ng-click="toggleLosMenuItem(los)">
+                        <i class="glyphicon" ng-class="{'glyphicon-chevron-down': los.expanded, 'glyphicon-chevron-right': !los.expanded}"></i>
+                    </button>
+                </span>
+                {{los.losCode}} - {{(los.name | languageItem:'en').text}} ({{los.type}})
+                <div class="btn-group pull-right" ng-if="los.type !== 'Class'">
+                    <button type="submit" class="btn btn-default" ng-click="viewAddLearningOppSpecForm(los)">
+                        <i class="glyphicon glyphicon-plus-sign"></i> Add
+                    </button>
+                </div>
+            </a>
+            <ul ng-if="los.learningOpportunitySpecifications.length > 0" ng-show="los.expanded">
+                <li ng-repeat="los in los.learningOpportunitySpecifications" ng-include="'los_renderer.html'" ng-class="{'active':los===currentLos}"></li>
+            </ul>
+        </script>
+        <ul>
+            <li ng-repeat="los in losList" ng-include="'los_renderer.html'" ng-class="{'active':los===currentLos}"></li>
+        </ul>
+    </div>
+    <div class="btn-group margin-bottom-1em" ng-show="!showLearningOppSpecForm">
+        <button type="submit" class="btn btn-default" ng-click="viewAddLearningOppSpecRootForm()">
+            <i class="glyphicon glyphicon-plus-sign"></i> Add Learning Opportunity Specification
+        </button>
+    </div>
+    
+    <div class="panel panel-default" ng-show="currentLos && !showAddLearningOppSpecForm">
+        <div class="panel-heading"><h2>{{currentLos.losCode}} ({{currentLos.type}})</h2></div>
         <div class="panel-body">
-            <form class="form-horizontal"  ng-submit="addLearningOppSpec()">
-                <div class="form-group">
+            <div class="col-md-2">LOS code:</div><div class="col-md-10 hide-overflow-ellipsis">{{currentLos.losCode}}</div>
+            <div ng-repeat="name in currentLos.name">
+                <div class="col-md-2">Name ({{name.lang}}):</div><div class="col-md-10 hide-overflow-ellipsis">{{name.text}}</div>
+            </div>
+            <div ng-repeat="url in currentLos.url">
+                <div class="col-md-2">URL ({{url.lang}}):</div><div class="col-md-10 hide-overflow-ellipsis">{{url.text}}</div>
+            </div>
+            <div class="col-md-2">Type:</div><div class="col-md-10 hide-overflow-ellipsis">{{currentLos.type| capitalize}}</div>
+            <div class="col-md-2">Institution id:</div><div class="col-md-10 hide-overflow-ellipsis">{{currentLos.institutionId}}</div>
+        </div>
+    </div>
+    
+    
+    <div class="panel panel-default" ng-show="showAddLearningOppSpecForm">
+        <div class="panel-heading">
+            <h2 ng-if="!currentLos">Add Learning opportunity specification</h2>
+            <h2 ng-if="currentLos">Add LOS to {{currentLos.losCode}} - {{(currentLos.name | languageItem:'en').text}} ({{currentLos.type}})</h2>
+        </div>
+        <div class="panel-body">
+            <form class="form-horizontal" ng-submit="addLearningOppSpec()">
+                <div class="form-group" ng-if="!currentLos">
                     <label class="control-label col-sm-2" for="institution">Institution</label>
                     <div class="col-sm-10">
-                        <select id="institution" class="form-control" ng-model="newLearningOppSpec.institutionId" required="required">
+                        <select id="institution" class="form-control" ng-model="$parent.newLearningOppSpec.institutionId" required="required">
                             <option style="display:none" value="">Select institution</option>
                             <option ng-repeat="inst in institutions" value="{{inst.institutionId}}">{{(inst.name| languageItem : 'en').text}}, {{inst.country}}</option>
                         </select>
@@ -24,7 +74,7 @@
                     <div class="col-sm-4">
                         <select id="type" class="form-control" ng-model="newLearningOppSpec.type" required="required">
                             <option style="display:none" value="">Select type</option>
-                            <option ng-repeat="lostype in lostypes" value="{{lostype| uppercase}}">{{lostype}}</option>
+                            <option ng-repeat="lostype in lostypes" value="{{lostype}}">{{lostype}}</option>
                         </select>
                     </div>
                 </div>
@@ -51,45 +101,6 @@
                     </div>
                 </div>
             </form>
-        </div>
-    </div>
-
-    <div class="clearfix">
-        <h2 class="pull-left">Learning opportunity specifications</h2>
-        <div class="btn-group pull-right" ng-show="!showLearningOppSpecForm">
-            <button type="submit" class="btn btn-default" ng-click="viewAddLearningOppSpecForm()">
-                <i class="glyphicon glyphicon-plus-sign"></i>
-            </button>
-        </div>
-    </div>
-
-    <div class="input-group">
-        <input class="form-control" id="search" name="search" placeholder="Search for" ng-model="query" required="required"/>
-        <span class="input-group-btn">
-            <button type="submit" class="btn btn-default">
-                <i class="glyphicon glyphicon-search"></i>
-            </button>
-        </span>
-    </div>
-
-    <div class="list-group">
-        <div ng-repeat="los in losList| filter:query" ng-click="isopen[los.id] = !isopen[los.id]">
-            <a class="list-group-item clearfix">
-                <div class="col-md-2 hide-overflow-ellipsis"><b>{{los.losCode}}</b></div>
-                <div class="col-md-9 hide-overflow-ellipsis"><b>{{(los.name| languageItem : 'en').text}}</b></div>
-                <i class="pull-right glyphicon" ng-class="{'glyphicon-chevron-down': isopen[los.id], 'glyphicon-chevron-right': !isopen[los.id]}"></i>
-            </a>
-            <div class="list-group-item clearfix" ng-show="isopen[los.id]">
-                <div class="col-md-2">LOS code:</div><div class="col-md-10 hide-overflow-ellipsis">{{los.losCode}}</div>
-                <div ng-repeat="name in los.name">
-                    <div class="col-md-2">Name ({{name.lang}}):</div><div class="col-md-10 hide-overflow-ellipsis">{{name.text}}</div>
-                </div>
-                <div ng-repeat="url in los.url">
-                    <div class="col-md-2">URL ({{url.lang}}):</div><div class="col-md-10 hide-overflow-ellipsis">{{url.text}}</div>
-                </div>
-                <div class="col-md-2">Type:</div><div class="col-md-10 hide-overflow-ellipsis">{{los.type| capitalize}}</div>
-                <div class="col-md-2">Institution id:</div><div class="col-md-10 hide-overflow-ellipsis">{{los.institutionId}}</div>
-            </div>
         </div>
     </div>
 </div>

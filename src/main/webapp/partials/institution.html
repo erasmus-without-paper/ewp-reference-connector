@@ -35,8 +35,20 @@
                 </div>
                 <div class="form-group">
                     <label class="control-label col-sm-2" for="name">Name</label>
+                    <div ng-repeat="name in newInstitution.name">
+                        <div class="col-sm-2" ng-if="$index > 0"></div>
+                        <div class="col-sm-8">
+                            <input id="name" type="text" class="form-control" placeholder="Enter name" ng-model="name.text" required="required">
+                        </div>
+                        <div class="col-sm-2">
+                            <input id="name" type="text" class="form-control" placeholder="Language code" ng-model="name.lang" required="required">
+                        </div>
+                    </div>
+                    <div class="col-sm-2"></div>
                     <div class="col-sm-10">
-                        <input id="name" type="text" class="form-control" placeholder="Enter institution name" ng-model="newInstitution.nameStr" required="required">
+                        <button type="button" class="btn btn-default" ng-click="addNameForInstitution()">
+                            <i class="glyphicon glyphicon-plus-sign"></i>
+                        </button>
                     </div>
                 </div>
                 <div class="form-group">
@@ -90,14 +102,26 @@
                     </div>
                 </div>
                 <div class="form-group">
-                    <label class="control-label col-sm-2" for="oname">Name:</label>
+                    <label class="control-label col-sm-2" for="name">Name</label>
+                    <div ng-repeat="name in newOrganizationUnit.name">
+                        <div class="col-sm-2" ng-if="$index > 0"></div>
+                        <div class="col-sm-8">
+                            <input id="name" type="text" class="form-control" placeholder="Enter name" ng-model="name.text" required="required">
+                        </div>
+                        <div class="col-sm-2">
+                            <input id="name" type="text" class="form-control" placeholder="Language code" ng-model="name.lang" required="required">
+                        </div>
+                    </div>
+                    <div class="col-sm-2"></div>
                     <div class="col-sm-10">
-                        <input id="oname" type="text" class="form-control" placeholder="Enter institution name" ng-model="newOrganizationUnit.nameStr" required="required">
+                        <button type="button" class="btn btn-default" ng-click="addNameForOrganizationUnit()">
+                            <i class="glyphicon glyphicon-plus-sign"></i>
+                        </button>
                     </div>
                 </div>
                 <div class="form-group">
                     <label class="control-label col-sm-2" for="occode">Country Code:</label>
-                    <div class="col-sm-10">
+                    <div class="col-sm-2">
                         <input id="occode" type="text" class="form-control" placeholder="Enter country code" ng-model="newOrganizationUnit.country" required="required">
                     </div>
                 </div>
@@ -149,13 +173,13 @@
         <h2>{{browseInstOrgObjectList.length === 1 ? 'Institution' : 'Organization Unit'}}</h2>
         <div class="clearfix" ng-class="currentInstOrgObject.organizationUnits.length > 0 ? '' : 'margin-bottom-1em'">
             <div ng-repeat="name in currentInstOrgObject.name">
-                <div class="col-sm-2">Name ({{name.lang}}):</div><div class="col-md-10">{{name.text}}</div>
+                <div class="col-sm-2 hide-overflow-ellipsis">Name ({{name.lang}}):</div><div class="col-md-10">{{name.text}}</div>
             </div>
             <div>
-                <div class="col-sm-2">Country:</div><div class="col-md-10">{{currentInstOrgObject.country}}</div>
+                <div class="col-sm-2 hide-overflow-ellipsis">Country:</div><div class="col-md-10">{{currentInstOrgObject.country}}</div>
             </div>
             <div ng-repeat="otherId in currentInstOrgObject.otherId">
-                <div class="col-sm-2">Other Id ({{otherId.idType}}):</div><div class="col-md-10">{{otherId.idValue}}</div>
+                <div class="col-sm-2 hide-overflow-ellipsis">Other Id ({{otherId.idType}}):</div><div class="col-md-10">{{otherId.idValue}}</div>
             </div>
         </div>
 

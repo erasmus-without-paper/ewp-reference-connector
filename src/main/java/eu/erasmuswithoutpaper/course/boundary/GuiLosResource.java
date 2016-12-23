@@ -22,16 +22,29 @@ public class GuiLosResource {
     EntityManager em;
     
     @POST
-    @Path("add")
+    @Path("save")
     @Consumes(MediaType.APPLICATION_JSON)
-    public void add(LearningOpportunitySpecification los) {
-        em.persist(los);
+    public void save(LearningOpportunitySpecification los) {
+        if (los.getId() == 0) {
+            em.persist(los);
+        } else {
+            em.merge(los);
+        }
     }
     
     @GET
     @Path("get_all")
     public Response getAll() {
         List<LearningOpportunitySpecification> losList = em.createNamedQuery(LearningOpportunitySpecification.findAll).getResultList();
+        GenericEntity<List<LearningOpportunitySpecification>> entity = new GenericEntity<List<LearningOpportunitySpecification>>(losList) {};
+        
+        return Response.ok(entity).build();
+    }
+
+    @GET
+    @Path("get_top_level_parents")
+    public Response getAllTopLevelParents() {
+        List<LearningOpportunitySpecification> losList = em.createNamedQuery(LearningOpportunitySpecification.findAllTopLevelParents).getResultList();
         GenericEntity<List<LearningOpportunitySpecification>> entity = new GenericEntity<List<LearningOpportunitySpecification>>(losList) {};
         
         return Response.ok(entity).build();

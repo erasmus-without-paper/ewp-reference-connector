@@ -25,12 +25,7 @@ public class LearningOpportunityInstance implements Serializable {
     @GeneratedValue(strategy=GenerationType.AUTO)
     long id;
 
-    private String institutionId;
     private String organizationUnitId;
-    
-    @ManyToOne(cascade = CascadeType.DETACH, fetch = FetchType.EAGER)
-    @JoinColumn(name = "LOS_ID", referencedColumnName = "ID")
-    private LearningOpportunitySpecification learningOppSpec;
     
     @ManyToOne(cascade = CascadeType.DETACH, fetch = FetchType.EAGER)
     @JoinColumn(name = "ACADEMIC_TERM_ID", referencedColumnName = "ID")
@@ -47,14 +42,6 @@ public class LearningOpportunityInstance implements Serializable {
         this.id = id;
     }
 
-    public String getInstitutionId() {
-        return institutionId;
-    }
-
-    public void setInstitutionId(String institutionId) {
-        this.institutionId = institutionId;
-    }
-
     public String getOrganizationUnitId() {
         return organizationUnitId;
     }
@@ -63,14 +50,6 @@ public class LearningOpportunityInstance implements Serializable {
         this.organizationUnitId = organizationUnitId;
     }
     
-    public LearningOpportunitySpecification getLearningOppSpec() {
-        return learningOppSpec;
-    }
-
-    public void setLearningOppSpec(LearningOpportunitySpecification learningOppSpec) {
-        this.learningOppSpec = learningOppSpec;
-    }
-
     public AcademicTerm getAcademicTerm() {
         return academicTerm;
     }

@@ -213,35 +213,37 @@
 
     <div ng-show="selectedCoopCond">
         <h3>{{selectedCoopCond.sendingPartner.institutionId}} - {{selectedCoopCond.receivingPartner.institutionId}}</h3>
-        <div>
-            <div class="col-md-3">Sending institution:</div><div class="col-md-9">{{selectedCoopCond.sendingPartner.institutionId}}</div>
-        </div>
-        <div ng-show="selectedCoopCond.sendingPartner.organizationUnitId">
-            <div class="col-md-3">Sending organization unit:</div><div class="col-md-9">{{selectedCoopCond.sendingPartner.organizationUnitId}}</div>
-        </div>
-        <div>
-            <div class="col-md-3">Receiving institution:</div><div class="col-md-9">{{selectedCoopCond.receivingPartner.institutionId}}</div>
-        </div>
-        <div ng-show="selectedCoopCond.receivingPartner.organizationUnitId">
-            <div class="col-md-3">Receiving org unit:</div><div class="col-md-9">{{selectedCoopCond.receivingPartner.organizationUnitId}}</div>
-        </div>
-        <div>
-            <div class="col-md-3">Start date:</div><div class="col-md-9">{{selectedCoopCond.startDate| date: 'yyyy-MM-dd'}}</div>
-        </div>
-        <div>
-            <div class="col-md-3">End date:</div><div class="col-md-9">{{selectedCoopCond.endDate| date: 'yyyy-MM-dd'}}</div>
-        </div>
-        <div>
-            <div class="col-md-3">Mobility  type:</div><div class="col-md-9">{{selectedCoopCond.mobilityType.mobilityGroup}}/{{selectedCoopCond.mobilityType.mobilityCategory}}</div>
-        </div>
-        <div>
-            <div class="col-md-3">Mobility number:</div><div class="col-md-9">{{selectedCoopCond.mobilityNumber.variant| capitalize}} {{selectedCoopCond.mobilityNumber.number}}</div>
-        </div>
-        <div>
-            <div class="col-md-3">Duration:</div><div class="col-md-9">{{selectedCoopCond.duration.number}} {{selectedCoopCond.duration.unit| capitalize}}</div>
-        </div>
-        <div>
-            <div class="col-md-3">EQF level:</div><div class="col-md-9">{{selectedCoopCond.eqfLevel}}</div>
+        <div class="clearfix margin-bottom-1em">
+            <div>
+                <div class="col-md-3">Sending institution:</div><div class="col-md-9">{{selectedCoopCond.sendingPartner.institutionId}}</div>
+            </div>
+            <div ng-show="selectedCoopCond.sendingPartner.organizationUnitId">
+                <div class="col-md-3">Sending organization unit:</div><div class="col-md-9">{{selectedCoopCond.sendingPartner.organizationUnitId}}</div>
+            </div>
+            <div>
+                <div class="col-md-3">Receiving institution:</div><div class="col-md-9">{{selectedCoopCond.receivingPartner.institutionId}}</div>
+            </div>
+            <div ng-show="selectedCoopCond.receivingPartner.organizationUnitId">
+                <div class="col-md-3">Receiving org unit:</div><div class="col-md-9">{{selectedCoopCond.receivingPartner.organizationUnitId}}</div>
+            </div>
+            <div>
+                <div class="col-md-3">Start date:</div><div class="col-md-9">{{selectedCoopCond.startDate| date: 'yyyy-MM-dd'}}</div>
+            </div>
+            <div>
+                <div class="col-md-3">End date:</div><div class="col-md-9">{{selectedCoopCond.endDate| date: 'yyyy-MM-dd'}}</div>
+            </div>
+            <div>
+                <div class="col-md-3">Mobility  type:</div><div class="col-md-9">{{selectedCoopCond.mobilityType.mobilityGroup}}/{{selectedCoopCond.mobilityType.mobilityCategory}}</div>
+            </div>
+            <div>
+                <div class="col-md-3">Mobility number:</div><div class="col-md-9">{{selectedCoopCond.mobilityNumber.variant| capitalize}} {{selectedCoopCond.mobilityNumber.number}}</div>
+            </div>
+            <div>
+                <div class="col-md-3">Duration:</div><div class="col-md-9">{{selectedCoopCond.duration.number}} {{selectedCoopCond.duration.unit| capitalize}}</div>
+            </div>
+            <div>
+                <div class="col-md-3">EQF level:</div><div class="col-md-9">{{selectedCoopCond.eqfLevel}}</div>
+            </div>
         </div>
         <button ng-click="backCoopCond()" class="btn btn-default"><i class="glyphicon glyphicon-chevron-left"></i> Back</button>
     </div>

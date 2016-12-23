@@ -21,6 +21,7 @@ public class IiaLoader {
     public void createDemoDataIkea() throws IOException {
         persistIia("{'iiaId':'iiaId001','startDate':'2016-01-01','endDate':'2017-01-01'}", getCooperationConditions("iiaId001"));
     }
+    
     public void createDemoDataPomodoro() throws IOException {
         //TODO Create data for Pomodoro
         createDemoDataIkea();

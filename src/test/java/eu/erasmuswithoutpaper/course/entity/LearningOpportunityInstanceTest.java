@@ -28,21 +28,17 @@ public class LearningOpportunityInstanceTest {
     @Test
     public void testPersistLearningOpportunityInstance() {
         LearningOpportunityInstance loi = new LearningOpportunityInstance();
-        loi.setInstitutionId("instId1");
-        LearningOpportunitySpecification learningOppSpec = new LearningOpportunitySpecification();
-        learningOppSpec.setInstitutionId("instId1");
-        learningOppSpec.setLosCode("losCode1");
-        loi.setLearningOppSpec(learningOppSpec);
+        loi.setOrganizationUnitId("orgUnit123");
         loi.setCredits(new BigDecimal(10));
         
         this.tx.begin();
-        this.em.persist(learningOppSpec);
         this.em.persist(loi);
         this.tx.commit();
         this.em.clear();
         
         LearningOpportunityInstance result = em.find(LearningOpportunityInstance.class, loi.getId());
         Assert.assertNotNull(result);
+        Assert.assertEquals("orgUnit123", result.getOrganizationUnitId());
         Assert.assertEquals("10", result.getCredits().toString());
     }
     
