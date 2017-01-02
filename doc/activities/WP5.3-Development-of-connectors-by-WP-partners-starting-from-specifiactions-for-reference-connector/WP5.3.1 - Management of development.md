@@ -8,7 +8,7 @@ This table shows which partner who had developed which API and are ready for int
 | **DEVELOPMENT Chapter 3 Due:DECEMBER 2016** |       |       |       |       |Jan 17 |       |       |        |       |
 | In Registry                                 |:link: |   -   |:soon: |:link: |   -   |:link: |   -   |:link:  |   -   |
 | Discovery                                   |:star: |:soon: |:soon: |:star: |   -   |:star: |   -   |:star:  |   -   |
-| Echo                                        |:star: |   -   |:soon: |:star: |   -   |:soon: |   -   |:soon:  |   -   |
+| Echo                                        |:star: |   -   |:soon: |:star: |   -   |:soon: |:star: |:soon:  |   -   |
 | **DEVELOPMENT Chapter 5 Due:January 2017**  |       |       |       |       |       |       |       |        |       | 
 | Institutions                                |:star: |   -   |   -   |:star: |   -   |:soon: |   -   |:soon:  |   -   |
 | Organizational units                        |:star: |   -   |   -   |   -   |   -   |   -   |   -   |   -    |   -   |
