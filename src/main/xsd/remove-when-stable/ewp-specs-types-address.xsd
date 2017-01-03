@@ -71,7 +71,7 @@
                                 building number, building name (such as the name of a faculty), a post-office
                                 box number, etc. They SHOULD NOT contain values defined in `locality`,
                                 `postalCode`, `region` and `country` (you should provide those in their
-                                respective elements).
+                                respective elements if you can).
 
                                 It is recommended for server developers to provide this data in a form of
                                 multiple lines. However, it is also allowed to have it all in a single line
@@ -168,6 +168,9 @@
                         The postal code. This is often (but not always) required if the address is
                         supposed to be a postal address. It may include dashes and other formatting
                         characters. Note, that in some countries it can be as long as 10 characters.
+
+                        Why minOccurs="0"? Read on here:
+                        https://github.com/erasmus-without-paper/ewp-specs-types-address/issues/2
                     </xs:documentation>
                 </xs:annotation>
             </xs:element>
@@ -182,6 +185,9 @@
                         Note however, that a map locality is also acceptable, as the postal code will
                         usually resolve any problems here, to allow correct delivery even if the
                         official postal locality is not used.
+
+                        It is HIGHLY RECOMMENDED (but not required) for this element to exist (see
+                        examples in README.md).
                     </xs:documentation>
                 </xs:annotation>
             </xs:element>
@@ -198,6 +204,9 @@
                 <xs:annotation>
                     <xs:documentation>
                         Country identifier.
+
+                        It is HIGHLY RECOMMENDED (but not required) for this element to exist (see
+                        examples in README.md).
                     </xs:documentation>
                 </xs:annotation>
             </xs:element>

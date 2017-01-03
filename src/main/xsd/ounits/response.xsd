@@ -55,9 +55,20 @@
                     <xs:annotation>
                         <xs:documentation>
                             This represents a single organizational unit (this can be faculty, department,
-                            division, or even the whole "root" institution). Servers will produce one such
+                            division, or the whole "root" institution). Servers will produce one such
                             element for each of the `ounit_id` values passed in the Organizational Units
                             API call.
+
+                            Note that it is NOT required to expose units as a tree-like structure, and it
+                            is NOT required for a root unit to exist. Clients MUST be able to handle both
+                            cases (e.g. convert flat list of units into a "fake" tree). However, *if*
+                            servers choose to expose their units in a tree-like format, then the root unit
+                            MUST exist (this is how clients will detect which format is used), and it must
+                            have the ID as given in the `root-ounit-id` element in the Institutions API.
+
+                            It is not required to expose all units. Servers may choose which units are
+                            relevant for EWP data exchange (and, in fact, they often SHOULD limit what they
+                            expose, to avoid clutter in client user interfaces).
                         </xs:documentation>
                     </xs:annotation>
                     <xs:complexType>

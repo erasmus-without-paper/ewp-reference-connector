@@ -50,6 +50,7 @@
         namespace="http://www.w3.org/XML/1998/namespace"
     />
 
+
     <xs:annotation>
         <xs:documentation>
             This schema is a part of the Erasmus Without Paper project. Before you start
@@ -101,15 +102,6 @@
                                     </xs:documentation>
                                 </xs:annotation>
                             </xs:element>
-                            <xs:element name="country" minOccurs="0" maxOccurs="1" type="ewp:CountryCode">
-                                <xs:annotation>
-                                    <xs:documentation>
-                                        The primary country of this institution. If this institution spans multiple
-                                        countries, and none of them can be considered "primary", then this element
-                                        should be skipped.
-                                    </xs:documentation>
-                                </xs:annotation>
-                            </xs:element>
                             <xs:element ref="a:street-address" minOccurs="0" maxOccurs="1">
                                 <xs:annotation>
                                     <xs:documentation>
@@ -118,8 +110,11 @@
                                         This is the address which should work when, for example, the user pastes it
                                         into Google Maps. If this HEI has many campuses, then this address should refer
                                         to a "main" campus. If this HEI doesn't have a "main" campus, then the address
-                                        may be either skipped, or limited to the name of the institution, a city, and a
-                                        country.
+                                        should simply contain the name of the institution, a city, and a country. In
+                                        extreme cases, even a single country entry is better than nothing. Also see
+                                        a related discussion here:
+
+                                        https://github.com/erasmus-without-paper/ewp-specs-api-ounits/issues/2#issuecomment-266775582
 
                                         This is the primary address. Note, that more addresses may be provided by using
                                         the "contact" element.
@@ -201,11 +196,32 @@
                                     </xs:documentation>
                                 </xs:annotation>
                             </xs:element>
+                            <xs:element name="root-ounit-id" minOccurs="0" maxOccurs="1" type="xs:string">
+                                <xs:annotation>
+                                    <xs:documentation>
+                                        If this HEI implements Organizational Units API in a tree-like format, then
+                                        this element should contain the ID of the root unit (the unit which represents
+                                        the entire institution).
+
+                                        Note that it is NOT required to expose units as a tree-like structure. Clients
+                                        MUST be able to handle both cases (e.g. convert flat list of units into a
+                                        "fake" tree).
+                                    </xs:documentation>
+                                </xs:annotation>
+                            </xs:element>
                             <xs:element name="ounit-id" minOccurs="0" maxOccurs="unbounded" type="xs:string">
                                 <xs:annotation>
                                     <xs:documentation>
                                         A list of IDs of all significant organizational units. Clients can fetch more
                                         information on these via the Organizational Units API.
+
+                                        If this HEI implements Organizational Units API in a tree-like format, then
+                                        this list should contain IDs of all *exposed* nodes in the tree (including the
+                                        root node).
+
+                                        It is not required to expose all units. Servers may choose which units are
+                                        relevant for EWP data exchange (and, in fact, they often SHOULD limit what they
+                                        expose, to avoid clutter in client user interfaces).
                                     </xs:documentation>
                                 </xs:annotation>
                             </xs:element>

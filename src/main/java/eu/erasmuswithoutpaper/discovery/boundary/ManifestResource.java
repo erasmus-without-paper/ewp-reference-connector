@@ -114,7 +114,7 @@ public class ManifestResource {
     
     private Institutions getInstitutionsEntry() {
         Institutions institutions = new Institutions();
-        institutions.setVersion("0.3.0");
+        institutions.setVersion("0.4.0");
         institutions.setUrl(getBaseUri() + "institutions");
         institutions.setMaxHeiIds(BigInteger.valueOf(globalProperties.getMaxInstitutionsIds()));
         return institutions;
@@ -122,7 +122,7 @@ public class ManifestResource {
 
     private OrganizationalUnits getOrganizationalUnitsEntry() {
         OrganizationalUnits organizationalUnits = new OrganizationalUnits();
-        organizationalUnits.setVersion("0.1.0");
+        organizationalUnits.setVersion("0.2.0");
         organizationalUnits.setUrl(getBaseUri() + "ounits");
         organizationalUnits.setMaxOunitIds(BigInteger.valueOf(globalProperties.getMaxOunitsIds()));
         return organizationalUnits;

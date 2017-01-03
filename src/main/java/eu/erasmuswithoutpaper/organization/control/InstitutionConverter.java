@@ -4,6 +4,7 @@ import eu.erasmuswithoutpaper.api.architecture.StringWithOptionalLang;
 import eu.erasmuswithoutpaper.api.institutions.InstitutionsResponse;
 import eu.erasmuswithoutpaper.api.registry.OtherHeiId;
 import eu.erasmuswithoutpaper.api.types.contact.Contact;
+import eu.erasmuswithoutpaper.organization.entity.Coordinator;
 import eu.erasmuswithoutpaper.organization.entity.IdentificationItem;
 import eu.erasmuswithoutpaper.organization.entity.Institution;
 import eu.erasmuswithoutpaper.organization.entity.LanguageItem;
@@ -11,14 +12,20 @@ import eu.erasmuswithoutpaper.organization.entity.OrganizationUnit;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.stream.Collectors;
+import javax.persistence.EntityManager;
+import javax.persistence.PersistenceContext;
+import javax.persistence.Query;
 
 public class InstitutionConverter {
+    @PersistenceContext(unitName = "connector")
+    EntityManager em;
+    
     public List<InstitutionsResponse.Hei> convertToHei(List<Institution> institutionList) {
         return
             institutionList.stream().map((institution) -> {
                 InstitutionsResponse.Hei hei = new InstitutionsResponse.Hei();
 
-                hei.getContact().addAll(convertToContact());
+                hei.getContact().addAll(convertToContact(institution.getInstitutionId()));
                 // TODO: get URL:s
                 hei.getMobilityFactsheetUrl();
                 hei.getName().addAll(convertToStringWithOptionalLang(institution.getName()));
@@ -27,12 +34,13 @@ public class InstitutionConverter {
                 // TODO: sit URL:S
                 hei.getWebsiteUrl();
                 
-                hei.setCountry(institution.getCountry());
                 hei.setHeiId(institution.getInstitutionId());
                 // TODO: set LOGO URL
                 //hei.setLogoUrl("");
                 // TODO: set mail address
                 //hei.setMailingAddress();
+                // TODO: set root ounit
+                //hei.setRootOunitId();
                 // TODO: set street address
                 //hei.setStreetAddress();
                 
@@ -60,11 +68,19 @@ public class InstitutionConverter {
             }).collect(Collectors.toList());
     }
     
-    private List<Contact> convertToContact() {
-        List<Contact> contacts = new ArrayList<>();
-        // TODO: get contact persons from DB?
-        //List<Institution> institutionList = em.createNamedQuery(Coordinator.findByInstitutionId).setParameter("institutionId", heiId).getResultList();
-        return contacts;
+    private List<Contact> convertToContact(String institutionId) {
+        Query query = em.createNamedQuery(Coordinator.findByInstWithNoOrgUnit).setParameter("institutionId", institutionId);
+        List<Coordinator> coordinators = query.getResultList();
+
+        return
+            coordinators.stream().map((coordinator) -> {
+                Contact contact  = new Contact();
+                StringWithOptionalLang name = new StringWithOptionalLang();
+                name.setValue(coordinator.getPerson().getFirstNames() + " " + coordinator.getPerson().getLastName());
+                contact.getContactName().add(name);
+                // TODO: add more information
+                return contact;
+            }).collect(Collectors.toList());
     }
 
     private List<String> getOrganizationUnitIds(List<OrganizationUnit> organizationUnits) {

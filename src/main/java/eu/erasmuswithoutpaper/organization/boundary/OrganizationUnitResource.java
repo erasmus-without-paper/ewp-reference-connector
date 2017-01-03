@@ -2,8 +2,8 @@
 package eu.erasmuswithoutpaper.organization.boundary;
 
 import eu.erasmuswithoutpaper.api.ounits.OunitsResponse;
-import eu.erasmuswithoutpaper.error.control.EwpWebApplicationException;
 import eu.erasmuswithoutpaper.common.control.GlobalProperties;
+import eu.erasmuswithoutpaper.error.control.EwpWebApplicationException;
 import eu.erasmuswithoutpaper.organization.control.OrganizationUnitConverter;
 import eu.erasmuswithoutpaper.organization.entity.Institution;
 import eu.erasmuswithoutpaper.organization.entity.OrganizationUnit;
@@ -57,20 +57,20 @@ public class OrganizationUnitResource {
             throw new EwpWebApplicationException("Institution with id '" + heiId + "' is not found", Response.Status.BAD_REQUEST);
         }
         
-        response.getOunit().addAll(ounits(organizationUnitIdList, institutionList.get(0).getOrganizationUnits(), null));
+        response.getOunit().addAll(ounits(organizationUnitIdList, institutionList.get(0).getOrganizationUnits(), null, heiId));
         
         return javax.ws.rs.core.Response.ok(response).build();
     }
     
-    private List<OunitsResponse.Ounit> ounits(List<String> organizationUnitIdList, List<OrganizationUnit> organizationUnits, String parentOrganizationUnitId) {
+    private List<OunitsResponse.Ounit> ounits(List<String> organizationUnitIdList, List<OrganizationUnit> organizationUnits, String parentOrganizationUnitId, String parentInstitutionId) {
         List<OunitsResponse.Ounit> ounits = new ArrayList<>();
         organizationUnits.stream().map((ou) -> {
             if (organizationUnitIdList.contains(ou.getOrganizationUnitId())) {
-                ounits.add(organizationUnitConverter.convertToOunit(ou, parentOrganizationUnitId));
+                ounits.add(organizationUnitConverter.convertToOunit(ou, parentOrganizationUnitId, parentInstitutionId));
             }
             return ou;
         }).forEachOrdered((ou) -> {
-            ounits.addAll(ounits(organizationUnitIdList, ou.getOrganizationUnits(), ou.getOrganizationUnitId()));
+            ounits.addAll(ounits(organizationUnitIdList, ou.getOrganizationUnits(), ou.getOrganizationUnitId(), parentInstitutionId));
         });
         
         return ounits;

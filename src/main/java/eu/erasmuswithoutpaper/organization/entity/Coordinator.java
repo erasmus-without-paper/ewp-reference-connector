@@ -16,13 +16,15 @@ import javax.persistence.NamedQuery;
 @Entity
 @NamedQueries({
     @NamedQuery(name = Coordinator.findAll, query = "SELECT c FROM Coordinator c"),
-    @NamedQuery(name = Coordinator.findByInstAndOrgUnit, query = "SELECT c FROM Coordinator c WHERE c.institutionId = :institutionId AND c.organizationUnitId = :organizationUnitId")
+    @NamedQuery(name = Coordinator.findByInstAndOrgUnit, query = "SELECT c FROM Coordinator c WHERE c.institutionId = :institutionId AND c.organizationUnitId = :organizationUnitId"),
+    @NamedQuery(name = Coordinator.findByInstWithNoOrgUnit, query = "SELECT c FROM Coordinator c WHERE c.institutionId = :institutionId AND c.organizationUnitId is NULL")
 })
 public class Coordinator implements Serializable{
 
     private static final String PREFIX = "eu.erasmuswithoutpaper.organization.entity.Coordinator.";
     public static final String findAll = PREFIX + "all";
     public static final String findByInstAndOrgUnit = PREFIX + "byInstAndOrgUnit";
+    public static final String findByInstWithNoOrgUnit = PREFIX + "byInstWithNoOrgUnit";
     
     @Id
     @GeneratedValue(strategy=GenerationType.AUTO)
