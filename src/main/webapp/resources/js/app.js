@@ -57,7 +57,10 @@ angular
                 }
             });
 
-            return languageObject ? languageObject : languageList[0];
+            if (languageObject) {
+                return languageObject;
+            }
+            return languageList && languageList.length > 0 ? languageList[0] : '';
         };
     })
     .filter('capitalize', function() {

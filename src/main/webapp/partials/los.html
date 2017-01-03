@@ -32,7 +32,7 @@
     </div>
     
     <div class="panel panel-default" ng-show="currentLos && !showAddLearningOppSpecForm">
-        <div class="panel-heading"><h2>{{currentLos.losCode}} ({{currentLos.type}})</h2></div>
+        <div class="panel-heading"><h2>{{currentLos.losCode}} - {{(currentLos.name | languageItem:'en').text}} ({{currentLos.type}})</h2></div>
         <div class="panel-body">
             <div class="col-md-2">LOS code:</div><div class="col-md-10 hide-overflow-ellipsis">{{currentLos.losCode}}</div>
             <div ng-repeat="name in currentLos.name">

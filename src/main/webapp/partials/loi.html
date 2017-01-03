@@ -21,7 +21,7 @@
     </div>
 
     <div class="panel panel-default" ng-show="currentLos">
-        <div class="panel-heading"><h2>{{currentLos.losCode}} - ({{currentLos.type}})</h2></div>
+        <div class="panel-heading"><h2>{{currentLos.losCode}} - {{(currentLos.name | languageItem:'en').text}} ({{currentLos.type}})</h2></div>
         <div class="panel-body">
             <div class="col-md-2">LOS code:</div><div class="col-md-10 hide-overflow-ellipsis">{{currentLos.losCode}}</div>
             <div ng-repeat="name in currentLos.name">
@@ -38,23 +38,16 @@
         <div class="clearfix">
             <h2 class="col-md-10">Learning opportunity instances ({{currentLos.learningOpportunityInstances.length}})</h2>
         </div>
-        <div class="input-group">
-            <input class="form-control" id="search" name="search" placeholder="Search for" ng-model="query" required="required"/>
-            <span class="input-group-btn">
-                <button type="submit" class="btn btn-default">
-                    <i class="glyphicon glyphicon-search"></i>
-                </button>
-            </span>
-        </div>
-
-        <div ng-repeat="instance in currentLos.learningOpportunityInstances| filter:query">
-            <div class="panel-body">
-                <div ng-show="instance.organizationUnitId">
-                    <div class="col-md-2">Organization unit id:</div><div class="col-md-10 hide-overflow-ellipsis">{{instance.organizationUnitId}}</div>
+        <div class="list-group">
+            <div ng-repeat="instance in currentLos.learningOpportunityInstances | orderBy: 'academicTerm.startDate': true">
+                <div class="list-group-item clearfix">
+                    <div ng-show="instance.organizationUnitId">
+                        <div class="col-md-2">Organization unit id:</div><div class="col-md-10 hide-overflow-ellipsis">{{instance.organizationUnitId}}</div>
+                    </div>
+                    <div class="col-md-2">Start date:</div><div class="col-md-10 hide-overflow-ellipsis">{{instance.academicTerm.startDate| date: 'yyyy-MM-dd'}}</div>
+                    <div class="col-md-2">End date:</div><div class="col-md-10 hide-overflow-ellipsis">{{instance.academicTerm.endDate| date: 'yyyy-MM-dd'}}</div>
+                    <div class="col-md-2">Credits:</div><div class="col-md-10 hide-overflow-ellipsis">{{instance.credits}}</div>
                 </div>
-                <div class="col-md-2">Start date:</div><div class="col-md-10 hide-overflow-ellipsis">{{instance.academicTerm.startDate| date: 'yyyy-MM-dd'}}</div>
-                <div class="col-md-2">End date:</div><div class="col-md-10 hide-overflow-ellipsis">{{instance.academicTerm.endDate| date: 'yyyy-MM-dd'}}</div>
-                <div class="col-md-2">Credits:</div><div class="col-md-10 hide-overflow-ellipsis">{{instance.credits}}</div>
             </div>
         </div>
         <div class="btn-group margin-bottom-1em" ng-show="!showLearningOppInstanceForm">
