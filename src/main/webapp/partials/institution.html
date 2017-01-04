@@ -52,9 +52,21 @@
                     </div>
                 </div>
                 <div class="form-group">
-                    <label class="control-label col-sm-2" for="ccode">Country Code</label>
+                    <label class="control-label col-sm-2" for="address">Address</label>
+                    <div class="col-sm-10">
+                        <input id="address" type="text" class="form-control" placeholder="Enter address" ng-model="newInstitution.streetAddressLine" required="required">
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label class="control-label col-sm-2" for="locality">City</label>
+                    <div class="col-sm-10">
+                        <input id="locality" type="text" class="form-control" placeholder="Enter city" ng-model="newInstitution.streetAddress.locality" required="required">
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label class="control-label col-sm-2" for="country">Country code</label>
                     <div class="col-sm-2">
-                        <input id="ccode" type="text" class="form-control" placeholder="Enter country code" ng-model="newInstitution.country" required="required">
+                        <input id="country" type="text" class="form-control" placeholder="Enter country code" ng-model="newInstitution.streetAddress.country" required="required">
                     </div>
                 </div>
                 <div class="input-group">
@@ -120,9 +132,21 @@
                     </div>
                 </div>
                 <div class="form-group">
-                    <label class="control-label col-sm-2" for="occode">Country Code:</label>
+                    <label class="control-label col-sm-2" for="address">Address</label>
+                    <div class="col-sm-10">
+                        <input id="address" type="text" class="form-control" placeholder="Enter address" ng-model="newOrganizationUnit.streetAddressLine" required="required">
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label class="control-label col-sm-2" for="locality">City</label>
+                    <div class="col-sm-10">
+                        <input id="locality" type="text" class="form-control" placeholder="Enter city" ng-model="newOrganizationUnit.streetAddress.locality" required="required">
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label class="control-label col-sm-2" for="country">Country code</label>
                     <div class="col-sm-2">
-                        <input id="occode" type="text" class="form-control" placeholder="Enter country code" ng-model="newOrganizationUnit.country" required="required">
+                        <input id="country" type="text" class="form-control" placeholder="Enter country code" ng-model="newOrganizationUnit.streetAddress.country" required="required">
                     </div>
                 </div>
                 <div class="input-group">
@@ -161,7 +185,7 @@
             <div class="list-group">
                 <div ng-repeat="institution in institutions| filter:query" ng-click="setCurrentInstOrgObject(institution)">
                     <a class="list-group-item clearfix">
-                        <b>{{(institution.name| languageItem : 'en').text}} - {{institution.country}}</b>
+                        <b>{{(institution.name| languageItem : 'en').text}}</b>
                         <i class="pull-right glyphicon glyphicon-chevron-right"></i>
                     </a>
                 </div>
@@ -175,12 +199,13 @@
             <div ng-repeat="name in currentInstOrgObject.name">
                 <div class="col-sm-2 hide-overflow-ellipsis">Name ({{name.lang}}):</div><div class="col-md-10">{{name.text}}</div>
             </div>
-            <div>
-                <div class="col-sm-2 hide-overflow-ellipsis">Country:</div><div class="col-md-10">{{currentInstOrgObject.country}}</div>
-            </div>
             <div ng-repeat="otherId in currentInstOrgObject.otherId">
                 <div class="col-sm-2 hide-overflow-ellipsis">Other Id ({{otherId.idType}}):</div><div class="col-md-10">{{otherId.idValue}}</div>
             </div>
+            <div>
+                <div class="col-sm-2 hide-overflow-ellipsis">Country:</div><div class="col-md-10">{{currentInstOrgObject.streetAddress.country}}</div>
+            </div>
+            <div data-flexible-address data-address="currentInstOrgObject.streetAddress"></div>
         </div>
 
         <div ng-if="currentInstOrgObject.organizationUnits.length > 0">
@@ -204,7 +229,7 @@
             <div class="list-group">
                 <div ng-repeat="obj in currentInstOrgObject.organizationUnits| filter:query2" ng-click="setCurrentInstOrgObject(obj)">
                     <a class="list-group-item clearfix">
-                        <b>{{(obj.name| languageItem : 'en').text}} - {{obj.country}}</b>
+                        <b>{{(obj.name| languageItem : 'en').text}}</b>
                         <i class="pull-right glyphicon glyphicon-chevron-right"></i>
                     </a>
                 </div>

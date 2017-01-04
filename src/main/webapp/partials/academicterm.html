@@ -9,7 +9,7 @@
                     <div class="col-sm-10">
                         <select id="institution" class="form-control" ng-model="newAcademicTerm.institutionId" required="required" ng-change="institutionChanged()">
                             <option style="display:none" value="">Select institution</option>
-                            <option ng-repeat="inst in institutions" value="{{inst.institutionId}}">{{(inst.name| languageItem : 'en').text}}, {{inst.country}}</option>
+                            <option ng-repeat="inst in institutions" value="{{inst.institutionId}}">{{(inst.name| languageItem : 'en').text}} {{inst.country}}</option>
                         </select>
                     </div>
                 </div>
@@ -18,7 +18,7 @@
                     <div class="col-sm-10">
                         <select id="orgunit" class="form-control" ng-model="newAcademicTerm.organizationUnitId" required="required">
                             <option style="display:none" value="">Select organization unit</option>
-                            <option ng-repeat="org in organizations" value="{{org.organizationUnitId}}">{{(org.name| languageItem : 'en').text}}, {{org.country}}</option>
+                            <option ng-repeat="org in organizations" value="{{org.organizationUnitId}}">{{(org.name| languageItem : 'en').text}} {{org.country}}</option>
                         </select>
                     </div>
                 </div>
@@ -88,7 +88,7 @@
     </div>
 
     <div class="list-group">
-        <div ng-repeat="academicTerm in academicTerms| filter:query" ng-click="isopen[academicTerm.id] = !isopen[academicTerm.id]">
+        <div ng-repeat="academicTerm in academicTerms | filter:query" ng-click="isopen[academicTerm.id] = !isopen[academicTerm.id]">
             <a class="list-group-item clearfix">
                 <div class="col-md-2 hide-overflow-ellipsis"><b>{{(academicTerm.dispName| languageItem : 'en').text}}</b></div>
                 <i class="pull-right glyphicon" ng-class="{'glyphicon-chevron-down': isopen[academicTerm.id], 'glyphicon-chevron-right': !isopen[academicTerm.id]}"></i>

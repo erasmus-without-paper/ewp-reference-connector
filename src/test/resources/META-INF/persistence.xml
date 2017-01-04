@@ -15,6 +15,7 @@
         <class>eu.erasmuswithoutpaper.mobility.entity.ResultDistribution</class>
         <class>eu.erasmuswithoutpaper.organization.entity.Coordinator</class>
         <class>eu.erasmuswithoutpaper.organization.entity.HeiInformation</class>
+        <class>eu.erasmuswithoutpaper.organization.entity.FlexibleAddress</class>
         <class>eu.erasmuswithoutpaper.organization.entity.Institution</class>
         <class>eu.erasmuswithoutpaper.organization.entity.OrganizationUnit</class>
         <class>eu.erasmuswithoutpaper.organization.entity.Person</class>

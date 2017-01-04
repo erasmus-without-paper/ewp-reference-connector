@@ -4,10 +4,12 @@ import eu.erasmuswithoutpaper.api.architecture.StringWithOptionalLang;
 import eu.erasmuswithoutpaper.api.institutions.InstitutionsResponse;
 import eu.erasmuswithoutpaper.api.registry.OtherHeiId;
 import eu.erasmuswithoutpaper.api.types.contact.Contact;
+import static eu.erasmuswithoutpaper.common.control.ConverterHelper.convertFlexibleAddress;
+import static eu.erasmuswithoutpaper.common.control.ConverterHelper.convertToHttpWithOptionalLang;
+import static eu.erasmuswithoutpaper.common.control.ConverterHelper.convertToStringWithOptionalLang;
 import eu.erasmuswithoutpaper.organization.entity.Coordinator;
 import eu.erasmuswithoutpaper.organization.entity.IdentificationItem;
 import eu.erasmuswithoutpaper.organization.entity.Institution;
-import eu.erasmuswithoutpaper.organization.entity.LanguageItem;
 import eu.erasmuswithoutpaper.organization.entity.OrganizationUnit;
 import java.util.ArrayList;
 import java.util.List;
@@ -26,38 +28,23 @@ public class InstitutionConverter {
                 InstitutionsResponse.Hei hei = new InstitutionsResponse.Hei();
 
                 hei.getContact().addAll(convertToContact(institution.getInstitutionId()));
-                // TODO: get URL:s
-                hei.getMobilityFactsheetUrl();
+                hei.getMobilityFactsheetUrl().addAll(convertToHttpWithOptionalLang(institution.getFactsheetUrl()));
                 hei.getName().addAll(convertToStringWithOptionalLang(institution.getName()));
                 hei.getOtherId().addAll(convertToOtherHeiId(institution.getOtherId()));
                 hei.getOunitId().addAll(getOrganizationUnitIds(institution.getOrganizationUnits()));
-                // TODO: sit URL:S
-                hei.getWebsiteUrl();
+                hei.getWebsiteUrl().addAll(convertToHttpWithOptionalLang(institution.getWebsiteUrl()));
                 
                 hei.setHeiId(institution.getInstitutionId());
-                // TODO: set LOGO URL
-                //hei.setLogoUrl("");
-                // TODO: set mail address
-                //hei.setMailingAddress();
+                hei.setLogoUrl(institution.getLogoUrl());
+                hei.setMailingAddress(convertFlexibleAddress(institution.getMailingAddress()));
                 // TODO: set root ounit
                 //hei.setRootOunitId();
-                // TODO: set street address
-                //hei.setStreetAddress();
+                hei.setStreetAddress(convertFlexibleAddress(institution.getStreetAddress()));
                 
                 return hei;
             }).collect(Collectors.toList());
     }
     
-    private List<StringWithOptionalLang> convertToStringWithOptionalLang(List<LanguageItem> languageItems) {
-        return
-            languageItems.stream().map((name) -> {
-                StringWithOptionalLang institutionName = new StringWithOptionalLang();
-                institutionName.setLang(name.getLang());
-                institutionName.setValue(name.getText());
-                return institutionName;
-            }).collect(Collectors.toList());
-    }
-
     private List<OtherHeiId> convertToOtherHeiId(List<IdentificationItem> identificationItems) {
         return
             identificationItems.stream().map((identificationItem) -> {

@@ -55,6 +55,7 @@ angular.module('institution').controller('InstitutionController', function ($sco
     };
     
     $scope.addInstitution = function() {
+        $scope.newInstitution.streetAddress.addressLine = [$scope.newInstitution.streetAddressLine];
         $scope.saveInstitution($scope.newInstitution);
         
         $scope.showAddInstitutionForm = false;
@@ -65,6 +66,7 @@ angular.module('institution').controller('InstitutionController', function ($sco
         if (!$scope.currentInstOrgObject.organizationUnits) {
             $scope.currentInstOrgObject.organizationUnits = [];
         }
+        $scope.newOrganizationUnit.streetAddress.addressLine = [$scope.newOrganizationUnit.streetAddressLine];
         $scope.currentInstOrgObject.organizationUnits.push($scope.newOrganizationUnit);
         $scope.saveInstitution($scope.browseInstOrgObjectList[0]);
         
