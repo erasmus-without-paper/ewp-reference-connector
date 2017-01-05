@@ -4,10 +4,10 @@ import eu.erasmuswithoutpaper.api.courses.CoursesResponse;
 import eu.erasmuswithoutpaper.api.types.academicterm.AcademicTerm;
 import static eu.erasmuswithoutpaper.common.control.ConverterHelper.convertToStringWithOptionalLang;
 import static eu.erasmuswithoutpaper.common.control.ConverterHelper.convertToXmlGregorianCalendar;
+import eu.erasmuswithoutpaper.course.entity.Credit;
 import eu.erasmuswithoutpaper.course.entity.LearningOpportunityInstance;
 import eu.erasmuswithoutpaper.course.entity.LearningOpportunitySpecification;
-import java.math.BigDecimal;
-import java.util.ArrayList;
+import java.text.SimpleDateFormat;
 import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -16,7 +16,7 @@ import javax.xml.datatype.DatatypeConfigurationException;
 
 public class LearningOpportunitySpecificationConverter {
 
-    public CoursesResponse.LearningOpportunitySpecification convertToLos(LearningOpportunitySpecification los) {
+    public CoursesResponse.LearningOpportunitySpecification convertToLos(LearningOpportunitySpecification los, String loisBefore, String loisAfter, String losAtDate) {
         CoursesResponse.LearningOpportunitySpecification course = new CoursesResponse.LearningOpportunitySpecification();
         // TODO: add description?
         //course.getDescription().addAll();
@@ -29,10 +29,15 @@ public class LearningOpportunitySpecificationConverter {
         //course.setIscedCode();
         
         course.setLosId(los.getLosCode());
-        course.setSpecifies(convertToSpecifies(los.getLearningOpportunityInstances()));
-        //course.setSubjectArea();
-        //course.setType();
-        //course.setUrl();
+        course.setSpecifies(convertToSpecifies(los.getLearningOpportunityInstances(), loisBefore, loisAfter));
+        
+        // TODO: add subject area?
+        //course.setSubjectArea(los.get);
+        
+        course.setType(los.getType());
+        
+        // TODO: should API change to multilanguage URL
+        course.setUrl(los.getUrl() == null || los.getUrl().isEmpty() ? null : los.getUrl().get(0).getText());
         
         return course;
     }
@@ -47,13 +52,28 @@ public class LearningOpportunitySpecificationConverter {
         return contains;
     }
 
-    private CoursesResponse.LearningOpportunitySpecification.Specifies convertToSpecifies(List<LearningOpportunityInstance> loi) {
+    private CoursesResponse.LearningOpportunitySpecification.Specifies convertToSpecifies(List<LearningOpportunityInstance> loi, String loisBefore, String loisAfter) {
         if (loi == null || loi.isEmpty()) {
             return null;
         }
         CoursesResponse.LearningOpportunitySpecification.Specifies specifies = new CoursesResponse.LearningOpportunitySpecification.Specifies();
-        
-        List<CoursesResponse.LearningOpportunitySpecification.Specifies.LearningOpportunityInstance> loiList = loi.stream().map((l) -> {
+        SimpleDateFormat sdf  = new SimpleDateFormat("yyyy-MM-dd");
+        List<CoursesResponse.LearningOpportunitySpecification.Specifies.LearningOpportunityInstance> loiList = loi.stream()
+                .filter((l) -> {
+                    if (loisBefore == null || loisBefore.isEmpty()) {
+                        return true;
+                    }
+                    String endDate = sdf.format(l.getAcademicTerm().getEndDate());
+                    return endDate.compareTo(loisBefore) < 0;
+                })
+                .filter((l) -> {
+                    if (loisAfter == null || loisAfter.isEmpty()) {
+                        return true;
+                    }
+                    String startDate = sdf.format(l.getAcademicTerm().getStartDate());
+                    return startDate.compareTo(loisAfter) > 0;
+                })
+                .map((l) -> {
             CoursesResponse.LearningOpportunitySpecification.Specifies.LearningOpportunityInstance converted = new CoursesResponse.LearningOpportunitySpecification.Specifies.LearningOpportunityInstance();
             converted.getCredit().addAll(convertToCredits(l.getCredits()));
             converted.setAcademicTerm(convertToAcademicTerm(l.getAcademicTerm()));
@@ -72,7 +92,7 @@ public class LearningOpportunitySpecificationConverter {
             // TODO: add?
             //converted.setLanguageOfInstruction(value);
             
-            converted.setLoiId("MISSING IN DB MODEL");
+            converted.setLoiId("LOI" + l.getId());
             
             // TODO: add result distribution
             //converted.setResultDistribution(value);
@@ -89,16 +109,14 @@ public class LearningOpportunitySpecificationConverter {
         return specifies;
     }
 
-    private List<CoursesResponse.LearningOpportunitySpecification.Specifies.LearningOpportunityInstance.Credit> convertToCredits(BigDecimal credits) {
-        List<CoursesResponse.LearningOpportunitySpecification.Specifies.LearningOpportunityInstance.Credit> loiCredits = new ArrayList<>();
-        CoursesResponse.LearningOpportunitySpecification.Specifies.LearningOpportunityInstance.Credit loiCredit = new CoursesResponse.LearningOpportunitySpecification.Specifies.LearningOpportunityInstance.Credit();
-        // TODO: replace with content from DB
-        loiCredit.setLevel("Master");
-        loiCredit.setScheme("ECTS");
-        loiCredit.setValue(credits);
-        loiCredits.add(loiCredit);
-        
-        return loiCredits;
+    private List<CoursesResponse.LearningOpportunitySpecification.Specifies.LearningOpportunityInstance.Credit> convertToCredits(List<Credit> credits) {
+        return credits.stream().map((c) -> {
+            CoursesResponse.LearningOpportunitySpecification.Specifies.LearningOpportunityInstance.Credit credit = new CoursesResponse.LearningOpportunitySpecification.Specifies.LearningOpportunityInstance.Credit();
+            credit.setLevel(c.getLevel());
+            credit.setScheme(c.getScheme());
+            credit.setValue(c.getValue());
+            return credit;
+        }).collect(Collectors.toList());
     }
 
     private AcademicTerm convertToAcademicTerm(eu.erasmuswithoutpaper.course.entity.AcademicTerm academicTerm) {

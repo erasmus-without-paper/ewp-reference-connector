@@ -17,6 +17,7 @@ angular.module('loi').controller('LoiController', function ($scope, LosService, 
     };
     
     $scope.viewAddLearningOppInstanceForm = function() {
+        $scope.creditLevels = ['Bachelor', 'Master', 'PhD'];
         AcademicTermService.getAll(
             function(result) {
                 $scope.academicTerms = result;
@@ -27,7 +28,7 @@ angular.module('loi').controller('LoiController', function ($scope, LosService, 
     };
     
     $scope.cancelAddLearningOppInstance = function(){
-        $scope.newLearningOppInstance = {};
+        $scope.newLearningOppInstance = {credits: [{value: '',  scheme: '', level: ''}]};
         $scope.showAddLearningOppInstanceForm = false;
     };
     
@@ -45,7 +46,7 @@ angular.module('loi').controller('LoiController', function ($scope, LosService, 
         $scope.saveLearningOppSpec($scope.currentLos);
         
         $scope.showAddLearningOppInstanceForm = false;
-        $scope.newLearningOppInstance = {};
+        $scope.newLearningOppInstance = {credits: [{value: '',  scheme: '', level: ''}]};
         $scope.currentLos = '';
     };
     
@@ -55,5 +56,10 @@ angular.module('loi').controller('LoiController', function ($scope, LosService, 
         });
     };
     
+    $scope.addCredit = function() {
+        $scope.newLearningOppInstance.credits.push({value: '',  scheme: '', level: ''});
+    };
+    
     $scope.getAllTopLevelLosParents();
+    $scope.cancelAddLearningOppInstance();
 });

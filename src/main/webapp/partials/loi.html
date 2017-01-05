@@ -46,7 +46,7 @@
                     </div>
                     <div class="col-md-2">Start date:</div><div class="col-md-10 hide-overflow-ellipsis">{{instance.academicTerm.startDate| date: 'yyyy-MM-dd'}}</div>
                     <div class="col-md-2">End date:</div><div class="col-md-10 hide-overflow-ellipsis">{{instance.academicTerm.endDate| date: 'yyyy-MM-dd'}}</div>
-                    <div class="col-md-2">Credits:</div><div class="col-md-10 hide-overflow-ellipsis">{{instance.credits}}</div>
+                    <div ng-repeat="credit in instance.credits"><div class="col-md-2">{{$index === 0 ? 'Credits:' : ''}}</div><div class="col-md-10 hide-overflow-ellipsis">{{credit.value}} {{credit.scheme}} - {{credit.level}}</div></div>
                 </div>
             </div>
         </div>
@@ -71,11 +71,31 @@
                             <option ng-repeat="term in academicTerms" value="{{term.id}}">{{term.startDate| date: 'yyyy-MM-dd'}} --- {{term.endDate| date: 'yyyy-MM-dd'}} : {{(term.dispName| languageItem:'en').text}}</option>
                         </select>
                     </div>
+                    <div class="col-sm-4"></div>
                 </div>
                 <div class="form-group">
-                    <label class="control-label col-sm-2" for="credits">Credits</label>
-                    <div class="col-sm-1">
-                        <input id="credits" type="number" min="0" step="0.1" class="form-control" placeholder="0" ng-model="newLearningOppInstance.credits" required="required">
+                    <label class="control-label col-sm-2" for="creditvalue">Credits</label>
+                    <div class="clearfix" ng-repeat="credit in newLearningOppInstance.credits">
+                        <div class="col-sm-2" ng-if="$index > 0"></div>
+                        <div class="col-sm-1">
+                            <input id="creditvalue" type="number" min="0" step="0.1" class="form-control" placeholder="0" ng-model="credit.value" required="required">
+                        </div>
+                        <div class="col-sm-3">
+                            <input title="Scheme" id="scheme" type="text" class="form-control" placeholder="Scheme" ng-model="credit.scheme" required="required">
+                        </div>
+                        <div class="col-sm-2">
+                            <select title="Select level" id="level" class="form-control" ng-model="credit.level" required="required">
+                                <option style="display:none" value="">Select level</option>
+                                <option ng-repeat="level in creditLevels" value="{{level}}">{{level}}</option>
+                            </select>
+                        </div>
+                        <div class="col-sm-4"></div>
+                    </div>
+                    <div class="col-sm-2"></div>
+                    <div class="col-sm-10">
+                        <button type="button" class="btn btn-default" ng-click="addCredit()">
+                            <i class="glyphicon glyphicon-plus-sign"></i>
+                        </button>
                     </div>
                 </div>
                 <div class="input-group">

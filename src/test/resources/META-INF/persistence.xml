@@ -5,6 +5,7 @@
         <class>eu.erasmuswithoutpaper.course.entity.AcademicYear</class>
         <class>eu.erasmuswithoutpaper.course.entity.LearningOpportunitySpecification</class>
         <class>eu.erasmuswithoutpaper.course.entity.LearningOpportunityInstance</class>
+        <class>eu.erasmuswithoutpaper.course.entity.Credit</class>
         <class>eu.erasmuswithoutpaper.iia.entity.CooperationCondition</class>
         <class>eu.erasmuswithoutpaper.iia.entity.Iia</class>
         <class>eu.erasmuswithoutpaper.iia.entity.IiaPartner</class>

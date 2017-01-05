@@ -16,12 +16,14 @@
                     <div class="col-sm-2">
                         <input id="startdate" type="date" class="form-control" ng-model="newIia.startDate" required="required">
                     </div>
+                    <div class="col-sm-8"></div>
                 </div>
                 <div class="form-group">
                     <label class="control-label col-sm-2" for="enddate">End date</label>
                     <div class="col-sm-2">
                         <input id="enddate" type="date" class="form-control" ng-model="newIia.endDate" required="required">
                     </div>
+                    <div class="col-sm-8"></div>
                 </div>
                 <div class="panel panel-default">
                     <div class="panel-heading clearfix">
@@ -97,12 +99,14 @@
                         <div class="col-sm-3">
                             <input id="startdate" type="date" class="form-control" ng-model="newCondition.startDate" required="required">
                         </div>
+                        <div class="col-sm-6"></div>
                     </div>
                     <div class="form-group">
                         <label class="control-label col-sm-3" for="enddate">End date</label>
                         <div class="col-sm-3">
                             <input id="enddate" type="date" class="form-control" ng-model="newCondition.endDate" required="required">
                         </div>
+                        <div class="col-sm-6"></div>
                     </div>
                     <div class="form-group">
                         <label class="control-label col-sm-3" for="mobilitynumber">Mobility number</label>
@@ -115,6 +119,7 @@
                                 <option ng-repeat="mobNumberVar in mobilityNumberVariants" value="{{mobNumberVar}}">{{mobNumberVar}}</option>
                             </select>
                         </div>
+                        <div class="col-sm-6"></div>
                     </div>
                     <div class="form-group">
                         <label class="control-label col-sm-3" for="duration">Duration</label>
@@ -127,12 +132,14 @@
                                 <option ng-repeat="durationUnit in durationUnits" value="{{durationUnit}}">{{durationUnit}}</option>
                             </select>
                         </div>
+                        <div class="col-sm-6"></div>
                     </div>
-                    <div class="form-group">
+                    <div class="row form-group">
                         <label class="control-label col-sm-3" for="eqflevel">EQF level</label>
                         <div class="col-sm-1">
                             <input id="eqflevel" type="number" min="0" class="form-control" placeholder="0" ng-model="newCondition.eqfLevel" required="required">
                         </div>
+                        <div class="col-sm-8"></div>
                     </div>
                     <div class="input-group">
                         <div class="btn-group">

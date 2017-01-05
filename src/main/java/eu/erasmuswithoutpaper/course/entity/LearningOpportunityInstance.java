@@ -2,17 +2,18 @@
 package eu.erasmuswithoutpaper.course.entity;
 
 import java.io.Serializable;
-import java.math.BigDecimal;
+import java.util.List;
 import javax.persistence.CascadeType;
-import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
+import javax.persistence.JoinTable;
 import javax.persistence.ManyToOne;
 import javax.persistence.NamedQuery;
+import javax.persistence.OneToMany;
 
 @Entity(name="loi")
 @NamedQuery(name = LearningOpportunityInstance.findAll, query = "SELECT l FROM loi l")
@@ -31,8 +32,9 @@ public class LearningOpportunityInstance implements Serializable {
     @JoinColumn(name = "ACADEMIC_TERM_ID", referencedColumnName = "ID")
     private AcademicTerm academicTerm;
     
-    @Column(precision = 5, scale = 1)
-    private BigDecimal credits;
+    @OneToMany(cascade = CascadeType.ALL, fetch = FetchType.EAGER)
+    @JoinTable(name = "loi_credits")
+    private List<Credit> credits;
 
     public long getId() {
         return id;
@@ -58,11 +60,11 @@ public class LearningOpportunityInstance implements Serializable {
         this.academicTerm = academicTerm;
     }
 
-    public BigDecimal getCredits() {
+    public List<Credit> getCredits() {
         return credits;
     }
 
-    public void setCredits(BigDecimal credits) {
+    public void setCredits(List<Credit> credits) {
         this.credits = credits;
     }
 

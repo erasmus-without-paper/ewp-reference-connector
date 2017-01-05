@@ -2,6 +2,8 @@
 package eu.erasmuswithoutpaper.course.entity;
 
 import java.math.BigDecimal;
+import java.util.ArrayList;
+import java.util.List;
 import javax.persistence.EntityManager;
 import javax.persistence.EntityTransaction;
 import javax.persistence.Persistence;
@@ -29,7 +31,11 @@ public class LearningOpportunityInstanceTest {
     public void testPersistLearningOpportunityInstance() {
         LearningOpportunityInstance loi = new LearningOpportunityInstance();
         loi.setOrganizationUnitId("orgUnit123");
-        loi.setCredits(new BigDecimal(10));
+        Credit credit = new Credit();
+        credit.setValue(new BigDecimal(10));
+        List<Credit> credits = new ArrayList<>();
+        credits.add(credit);
+        loi.setCredits(credits);
         
         this.tx.begin();
         this.em.persist(loi);
@@ -39,7 +45,7 @@ public class LearningOpportunityInstanceTest {
         LearningOpportunityInstance result = em.find(LearningOpportunityInstance.class, loi.getId());
         Assert.assertNotNull(result);
         Assert.assertEquals("orgUnit123", result.getOrganizationUnitId());
-        Assert.assertEquals("10", result.getCredits().toString());
+        Assert.assertEquals("10", result.getCredits().get(0).getValue().toString());
     }
     
 }
