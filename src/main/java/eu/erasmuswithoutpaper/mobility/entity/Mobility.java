@@ -29,10 +29,17 @@ public class Mobility implements Serializable{
     private MobilityStatus status;
     
     @Temporal(TemporalType.DATE)
-    private Date startDate;
+    private Date plannedArrivalDate;
     
     @Temporal(TemporalType.DATE)
-    private Date endDate;
+    private Date actualArrivalDate;
+    
+    @Temporal(TemporalType.DATE)
+    private Date plannedDepartureDate;
+    
+    @Temporal(TemporalType.DATE)
+    private Date actualDepartureDate;
+    
     private String iscedCode;
     private String eqfLevel;
 
@@ -130,20 +137,36 @@ public class Mobility implements Serializable{
         this.status = status;
     }
 
-    public Date getStartDate() {
-        return startDate;
+    public Date getPlannedArrivalDate() {
+        return plannedArrivalDate;
     }
 
-    public void setStartDate(Date startDate) {
-        this.startDate = startDate;
+    public void setPlannedArrivalDate(Date plannedArrivalDate) {
+        this.plannedArrivalDate = plannedArrivalDate;
     }
 
-    public Date getEndDate() {
-        return endDate;
+    public Date getActualArrivalDate() {
+        return actualArrivalDate;
     }
 
-    public void setEndDate(Date endDate) {
-        this.endDate = endDate;
+    public void setActualArrivalDate(Date actualArrivalDate) {
+        this.actualArrivalDate = actualArrivalDate;
+    }
+
+    public Date getPlannedDepartureDate() {
+        return plannedDepartureDate;
+    }
+
+    public void setPlannedDepartureDate(Date plannedDepartureDate) {
+        this.plannedDepartureDate = plannedDepartureDate;
+    }
+
+    public Date getActualDepartureDate() {
+        return actualDepartureDate;
+    }
+
+    public void setActualDepartureDate(Date actualDepartureDate) {
+        this.actualDepartureDate = actualDepartureDate;
     }
 
     public String getIscedCode() {

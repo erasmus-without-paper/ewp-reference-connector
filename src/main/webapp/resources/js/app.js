@@ -1,5 +1,5 @@
 angular
-    .module('connector', ['menu', 'home', 'echo', 'iia', 'institution', 'ngResource', 'ngRoute', 'person', 'coordinator', 'academicterm', 'los', 'loi'])
+    .module('connector', ['menu', 'home', 'echo', 'iia', 'institution', 'ngResource', 'ngRoute', 'person', 'contact', 'academicterm', 'los', 'loi'])
     .config(function ($routeProvider) {
         $routeProvider.when('/iia', {
                 templateUrl: 'partials/iia.html',
@@ -29,9 +29,9 @@ angular
                 controller: 'LoiController'
             }).when('/mobility', {
                 templateUrl: 'partials/todo.html'
-            }).when('/coordinator', {
-                templateUrl: 'partials/coordinator.html',
-                controller: 'CoordinatorController'
+            }).when('/contact', {
+                templateUrl: 'partials/contact.html',
+                controller: 'ContactController'
             }).when('/person', {
                 templateUrl: 'partials/person.html',
                 controller: 'PersonController'

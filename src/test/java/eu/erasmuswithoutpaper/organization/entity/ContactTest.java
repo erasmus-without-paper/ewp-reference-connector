@@ -9,7 +9,7 @@ import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Test;
 
-public class CoordinatorTest {
+public class ContactTest {
     
     EntityManager em;
     EntityTransaction tx;
@@ -25,22 +25,25 @@ public class CoordinatorTest {
     }
 
     @Test
-    public void testPersistCoordinator() {
+    public void testPersistContact() {
         Person person = new Person();
         person.setPersonId("9002023344");
         person.setFirstNames("Albin");
         person.setLastName("Ek");
-        Coordinator coordinator = new Coordinator("instId1", "unitId1", CoordinatorRoles.ADMISSION);
-        coordinator.setPerson(person);
+        Contact contact = new Contact();
+        contact.setInstitutionId("instId1");
+        contact.setOrganizationUnitId("unitId1");
+        contact.setRole("ADMISSION");
+        contact.setPerson(person);
         
         this.tx.begin();
         this.em.persist(person);
-        this.em.persist(coordinator);
+        this.em.persist(contact);
         this.tx.commit();
         this.em.clear();
         
-        long id = coordinator.getId();
-        Coordinator result = em.find(Coordinator.class, id);
+        long id = contact.getId();
+        Contact result = em.find(Contact.class, id);
         Assert.assertNotNull(result);
         Assert.assertEquals("9002023344", result.getPerson().getPersonId());
     }

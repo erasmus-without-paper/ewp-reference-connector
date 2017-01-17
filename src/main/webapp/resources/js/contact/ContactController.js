@@ -1,13 +1,13 @@
-angular.module('coordinator').controller('CoordinatorController', function ($scope, CoordinatorService, PersonService, InstitutionService) {
+angular.module('contact').controller('ContactController', function ($scope, ContactService, PersonService, InstitutionService) {
 
-    $scope.getAllCoordinators = function() {
-        CoordinatorService.getAll(
+    $scope.getAllContacts = function() {
+       ContactService.getAll(
             function(result) {
-            $scope.coordinators = result;
+            $scope.contacts = result;
         });
     };
     
-    $scope.viewAddCoordinatorForm = function() {
+    $scope.viewAddContactForm = function() {
         InstitutionService.getLocal(
             function(result) {
             $scope.institutions = result;
@@ -20,7 +20,7 @@ angular.module('coordinator').controller('CoordinatorController', function ($sco
         
         $scope.roles = ['Admission', 'Course', 'Housing', 'Insurance', 'Visas'];
         $scope.organizations = [];
-        $scope.showAddCoordinatorForm = true;
+        $scope.showAddContactForm = true;
     };
 
     $scope.addOrganizationUnitsToList = function(obj) {
@@ -33,7 +33,7 @@ angular.module('coordinator').controller('CoordinatorController', function ($sco
     $scope.institutionChanged = function() {
         var currentInst;
         angular.forEach($scope.institutions, function(item) {
-            if (item.institutionId === $scope.newCoordinator.institutionId) {
+            if (item.institutionId === $scope.newContact.institutionId) {
                 currentInst = item;
             }
         });
@@ -42,26 +42,26 @@ angular.module('coordinator').controller('CoordinatorController', function ($sco
         $scope.addOrganizationUnitsToList(currentInst);
     };
     
-    $scope.addCoordinator  = function(){
+    $scope.addContact  = function(){
         var currentPerson;
         angular.forEach($scope.persons, function(item) {
-            if (item.personId === $scope.newCoordinator.personId) {
+            if (item.personId === $scope.newContact.personId) {
                 currentPerson = item;
             }
         });
-        $scope.newCoordinator.person = currentPerson;
-        CoordinatorService.addNew($scope.newCoordinator,
+        $scope.newContact.person = currentPerson;
+        ContactService.addNew($scope.newContact,
             function(result) {
-                $scope.newCoordinator = {};
-                $scope.showAddCoordinatorForm = false;
-                $scope.getAllCoordinators();
+                $scope.newContact = {};
+                $scope.showAddContactForm = false;
+                $scope.getAllContacts();
         });
     };
     
-    $scope.cancelAddCoordinator = function(){
-        $scope.newCoordinator = {};
-        $scope.showAddCoordinatorForm = false;
+    $scope.cancelAddContact = function(){
+        $scope.newContact = {};
+        $scope.showAddContactForm = false;
     };
     
-    $scope.getAllCoordinators();
+    $scope.getAllContacts();
 });

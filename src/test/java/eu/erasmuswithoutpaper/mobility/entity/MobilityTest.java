@@ -32,8 +32,8 @@ public class MobilityTest {
     @Test
     public void testPersistMobility() {
         Mobility mobility = new Mobility("mobId1", 1);
-        mobility.setStartDate(new Date());
-        mobility.setEndDate(new Date());
+        mobility.setPlannedArrivalDate(new Date());
+        mobility.setActualArrivalDate(new Date());
         mobility.setPersonId("9101015566");
         mobility.setStatus(MobilityStatus.ACCEPTED);
         

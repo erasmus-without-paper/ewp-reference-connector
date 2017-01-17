@@ -1,6 +1,6 @@
 
 package eu.erasmuswithoutpaper.organization.entity;
 
-public enum CoordinatorRoles {
+public enum ContactRoles {
     ADMISSION, HOUSING, COURSE, VISAS, INSURANCE
 }

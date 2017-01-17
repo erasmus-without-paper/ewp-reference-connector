@@ -6,7 +6,6 @@ import eu.erasmuswithoutpaper.api.types.contact.Contact;
 import static eu.erasmuswithoutpaper.common.control.ConverterHelper.convertFlexibleAddress;
 import static eu.erasmuswithoutpaper.common.control.ConverterHelper.convertToHttpWithOptionalLang;
 import static eu.erasmuswithoutpaper.common.control.ConverterHelper.convertToStringWithOptionalLang;
-import eu.erasmuswithoutpaper.organization.entity.Coordinator;
 import eu.erasmuswithoutpaper.organization.entity.OrganizationUnit;
 import java.util.List;
 import java.util.stream.Collectors;
@@ -33,14 +32,14 @@ public class OrganizationUnitConverter {
     }
     
     private List<Contact> convertToContact(String institutionId, String organizationUnitId) {
-        Query query = em.createNamedQuery(Coordinator.findByInstAndOrgUnit).setParameter("institutionId", institutionId).setParameter("organizationUnitId", organizationUnitId);
-        List<Coordinator> coordinators = query.getResultList();
+        Query query = em.createNamedQuery(eu.erasmuswithoutpaper.organization.entity.Contact.findByInstAndOrgUnit).setParameter("institutionId", institutionId).setParameter("organizationUnitId", organizationUnitId);
+        List<eu.erasmuswithoutpaper.organization.entity.Contact> contacts = query.getResultList();
 
         return
-            coordinators.stream().map((coordinator) -> {
+            contacts.stream().map((cont) -> {
                 Contact contact  = new Contact();
                 StringWithOptionalLang name = new StringWithOptionalLang();
-                name.setValue(coordinator.getPerson().getFirstNames() + " " + coordinator.getPerson().getLastName());
+                name.setValue(cont.getPerson().getFirstNames() + " " + cont.getPerson().getLastName());
                 contact.getContactName().add(name);
                 // TODO: add more information
                 return contact;

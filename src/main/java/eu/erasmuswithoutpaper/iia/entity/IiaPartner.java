@@ -1,7 +1,7 @@
 
 package eu.erasmuswithoutpaper.iia.entity;
 
-import eu.erasmuswithoutpaper.organization.entity.Coordinator;
+import eu.erasmuswithoutpaper.organization.entity.Contact;
 import java.io.Serializable;
 import java.util.List;
 import javax.persistence.CascadeType;
@@ -32,8 +32,8 @@ public class IiaPartner implements Serializable{
     private String organizationUnitId;
     
     @ManyToMany(cascade = CascadeType.DETACH, fetch = FetchType.EAGER)
-    @JoinTable(name = "iia_partner_coordinator")
-    private List<Coordinator> coordinators;
+    @JoinTable(name = "iia_partner_contacts")
+    private List<Contact> contacts;
 
     public long getId() {
         return id;
@@ -58,13 +58,13 @@ public class IiaPartner implements Serializable{
     public void setOrganizationUnitId(String organizationUnitId) {
         this.organizationUnitId = organizationUnitId;
     }
-    
-    public List<Coordinator> getCoordinators() {
-        return coordinators;
+
+    public List<Contact> getContacts() {
+        return contacts;
     }
 
-    public void setCoordinators(List<Coordinator> coordinators) {
-        this.coordinators = coordinators;
+    public void setContacts(List<Contact> contacts) {
+        this.contacts = contacts;
     }
     
     @Override

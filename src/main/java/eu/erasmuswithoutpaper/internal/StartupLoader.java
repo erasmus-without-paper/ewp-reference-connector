@@ -7,7 +7,7 @@ import eu.erasmuswithoutpaper.course.preload.LosLoader;
 import eu.erasmuswithoutpaper.iia.preload.IiaLoader;
 import eu.erasmuswithoutpaper.iia.preload.MobilityTypeLoader;
 import eu.erasmuswithoutpaper.common.control.GlobalProperties;
-import eu.erasmuswithoutpaper.organization.preload.CoordinatorLoader;
+import eu.erasmuswithoutpaper.organization.preload.ContactLoader;
 import eu.erasmuswithoutpaper.organization.preload.InstitutionLoader;
 import eu.erasmuswithoutpaper.organization.preload.PersonLoader;
 import java.io.IOException;
@@ -32,7 +32,7 @@ public class StartupLoader {
     private PersonLoader personLoader;
     
     @Inject
-    private CoordinatorLoader coordinatorLoader;
+    private ContactLoader contactLoader;
 
     @Inject
     private AcademicTermLoader academicTermLoader;
@@ -66,7 +66,7 @@ public class StartupLoader {
                 case IKEA_U:
                     institutionLoader.createDemoDataIkea();
                     personLoader.createDemoDataIkea();
-                    coordinatorLoader.createDemoDataIkea();
+                    contactLoader.createDemoDataIkea();
                     academicYearLoader.createDemoDataIkea();
                     academicTermLoader.createDemoDataIkea();
                     mobilityTypeLoader.createDemoDataIkea();
@@ -77,7 +77,7 @@ public class StartupLoader {
                 case POMODORO_U:
                     institutionLoader.createDemoDataPomodoro();
                     personLoader.createDemoDataPomodoro();
-                    coordinatorLoader.createDemoDataPomodoro();
+                    contactLoader.createDemoDataPomodoro();
                     academicYearLoader.createDemoDataPomodoro();
                     academicTermLoader.createDemoDataPomodoro();
                     mobilityTypeLoader.createDemoDataPomodoro();

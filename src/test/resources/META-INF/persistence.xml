@@ -14,7 +14,8 @@
         <class>eu.erasmuswithoutpaper.mobility.entity.LearningAgreementComponent</class>
         <class>eu.erasmuswithoutpaper.mobility.entity.Mobility</class>
         <class>eu.erasmuswithoutpaper.mobility.entity.ResultDistribution</class>
-        <class>eu.erasmuswithoutpaper.organization.entity.Coordinator</class>
+        <class>eu.erasmuswithoutpaper.organization.entity.PhoneNumber</class>
+        <class>eu.erasmuswithoutpaper.organization.entity.Contact</class>
         <class>eu.erasmuswithoutpaper.organization.entity.HeiInformation</class>
         <class>eu.erasmuswithoutpaper.organization.entity.FlexibleAddress</class>
         <class>eu.erasmuswithoutpaper.organization.entity.Institution</class>

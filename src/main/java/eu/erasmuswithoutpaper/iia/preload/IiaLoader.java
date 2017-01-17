@@ -6,7 +6,7 @@ import eu.erasmuswithoutpaper.iia.entity.Iia;
 import eu.erasmuswithoutpaper.iia.entity.IiaPartner;
 import eu.erasmuswithoutpaper.iia.entity.MobilityType;
 import eu.erasmuswithoutpaper.internal.JsonHelper;
-import eu.erasmuswithoutpaper.organization.entity.Coordinator;
+import eu.erasmuswithoutpaper.organization.entity.Contact;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
@@ -63,23 +63,23 @@ public class IiaLoader {
     }
 
     private IiaPartner getIkeaIiaPartner() throws IOException {
-        return getIiaPartner("{'institutionId':'ikea.university.se','organizationUnitId':'ikea.ou1.se'}", getCoordinators("ikea.university.se", "ikea.ou1.se"));
+        return getIiaPartner("{'institutionId':'ikea.university.se','organizationUnitId':'ikea.ou1.se'}", getContacts("ikea.university.se", "ikea.ou1.se"));
     }
     private IiaPartner getPomodoroIiaPartner() throws IOException {
-        return getIiaPartner("{'institutionId':'pomodoro.university.it','organizationUnitId':'pomodoro.ou1.it'}", getCoordinators("'pomodoro.university.it", "pomodoro.ou1.it"));
+        return getIiaPartner("{'institutionId':'pomodoro.university.it','organizationUnitId':'pomodoro.ou1.it'}", getContacts("'pomodoro.university.it", "pomodoro.ou1.it"));
     }
 
-    private IiaPartner getIiaPartner(String iiaPartnerJson, List<Coordinator> coordinators) throws IOException {
+    private IiaPartner getIiaPartner(String iiaPartnerJson, List<Contact> contacts) throws IOException {
         IiaPartner iiaPartner = JsonHelper.mapToObject(IiaPartner.class, iiaPartnerJson);
-        iiaPartner.setCoordinators(coordinators);
+        iiaPartner.setContacts(contacts);
         return iiaPartner;
     }
     
-    private List<Coordinator> getCoordinators(String institutionId, String orgUnitId) throws IOException {
-        Query query = em.createNamedQuery(Coordinator.findByInstAndOrgUnit).setParameter("institutionId", institutionId).setParameter("organizationUnitId", orgUnitId);
-        List<Coordinator> coordinators = query.getResultList();
+    private List<Contact> getContacts(String institutionId, String orgUnitId) throws IOException {
+        Query query = em.createNamedQuery(Contact.findByInstAndOrgUnit).setParameter("institutionId", institutionId).setParameter("organizationUnitId", orgUnitId);
+        List<Contact> contacts = query.getResultList();
 
-        return coordinators;
+        return contacts;
     }
     
 }

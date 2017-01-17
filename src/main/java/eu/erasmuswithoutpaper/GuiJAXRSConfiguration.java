@@ -7,7 +7,7 @@ import eu.erasmuswithoutpaper.echo.boundary.GuiEchoResource;
 import eu.erasmuswithoutpaper.iia.boundary.GuiIiaPartnerResource;
 import eu.erasmuswithoutpaper.iia.boundary.GuiIiaResource;
 import eu.erasmuswithoutpaper.home.boundary.GuiHomeResource;
-import eu.erasmuswithoutpaper.organization.boundary.GuiCoordinatorResource;
+import eu.erasmuswithoutpaper.organization.boundary.GuiContactResource;
 import eu.erasmuswithoutpaper.organization.boundary.GuiInstitutionResource;
 import eu.erasmuswithoutpaper.organization.boundary.GuiPersonResource;
 import java.util.HashSet;
@@ -23,7 +23,7 @@ public class GuiJAXRSConfiguration extends Application {
         resources.add(GuiHomeResource.class);
         resources.add(GuiInstitutionResource.class);
         resources.add(GuiPersonResource.class);
-        resources.add(GuiCoordinatorResource.class);
+        resources.add(GuiContactResource.class);
         resources.add(GuiAcademicTermResource.class);
         resources.add(GuiLosResource.class);
         resources.add(GuiLoiResource.class);
