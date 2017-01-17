@@ -3,13 +3,13 @@ package eu.erasmuswithoutpaper.organization.entity;
 
 import java.io.Serializable;
 import java.util.List;
+import java.util.Objects;
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.ElementCollection;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.JoinTable;
@@ -33,8 +33,8 @@ public class Contact implements Serializable {
     public static final String findByInstWithNoOrgUnit = PREFIX + "byInstWithNoOrgUnit";
     
     @Id
-    @GeneratedValue(strategy=GenerationType.AUTO)
-    long id;
+    @GeneratedValue(generator="system-uuid")
+    String id;
     
     private String institutionId;
     private String organizationUnitId;
@@ -73,11 +73,11 @@ public class Contact implements Serializable {
     @JoinColumn(name = "address")
     private FlexibleAddress address;
 
-    public long getId() {
+    public String getId() {
         return id;
     }
 
-    public void setId(long id) {
+    public void setId(String id) {
         this.id = id;
     }
 
@@ -171,8 +171,8 @@ public class Contact implements Serializable {
 
     @Override
     public int hashCode() {
-        int hash = 7;
-        hash = 61 * hash + (int) (this.id ^ (this.id >>> 32));
+        int hash = 3;
+        hash = 97 * hash + Objects.hashCode(this.id);
         return hash;
     }
 
@@ -188,10 +188,9 @@ public class Contact implements Serializable {
             return false;
         }
         final Contact other = (Contact) obj;
-        if (this.id != other.id) {
+        if (!Objects.equals(this.id, other.id)) {
             return false;
         }
         return true;
     }
-    
 }

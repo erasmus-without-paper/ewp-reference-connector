@@ -138,7 +138,7 @@ public class LoiLoader {
     }
 
     private AcademicTerm getAcademicTerm(AcademicYear academicYear, String academicTermId) throws IOException {
-        long academicYearId = academicYear.getId();
+        String academicYearId = academicYear.getId();
         Query query = em.createNamedQuery(AcademicTerm.findByAcademicYearAndTermId).setParameter("academicYearId", academicYearId).setParameter("academicTermId", academicTermId);
         List<AcademicTerm> academicTermList = query.getResultList();
         if (academicTermList.size() != 1) {

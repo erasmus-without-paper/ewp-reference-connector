@@ -3,18 +3,18 @@ package eu.erasmuswithoutpaper.course.entity;
 
 import java.io.Serializable;
 import java.math.BigDecimal;
+import java.util.Objects;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
 import javax.persistence.Id;
 
 @Entity
 public class Credit implements Serializable {
 
     @Id
-    @GeneratedValue(strategy=GenerationType.AUTO)
-    long id;
+    @GeneratedValue(generator="system-uuid")
+    String id;
     
     private String scheme;
     
@@ -24,11 +24,11 @@ public class Credit implements Serializable {
     @Column(name = "credit_value", precision = 5, scale = 1)
     private BigDecimal value;
 
-    public long getId() {
+    public String getId() {
         return id;
     }
 
-    public void setId(long id) {
+    public void setId(String id) {
         this.id = id;
     }
 
@@ -59,7 +59,7 @@ public class Credit implements Serializable {
     @Override
     public int hashCode() {
         int hash = 7;
-        hash = 17 * hash + (int) (this.id ^ (this.id >>> 32));
+        hash = 17 * hash + Objects.hashCode(this.id);
         return hash;
     }
 
@@ -75,10 +75,9 @@ public class Credit implements Serializable {
             return false;
         }
         final Credit other = (Credit) obj;
-        if (this.id != other.id) {
+        if (!Objects.equals(this.id, other.id)) {
             return false;
         }
         return true;
     }
-    
 }

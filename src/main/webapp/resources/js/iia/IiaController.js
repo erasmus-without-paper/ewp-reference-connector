@@ -53,9 +53,8 @@ angular.module('iia').controller('IiaController', function ($scope, IiaService) 
     $scope.conditions = [];
     $scope.addCondition = function(){
         var selectedMobilityType;
-        var selectedMobilityTypeId = Number($scope.newCondition.mobilityTypeId);
         angular.forEach($scope.mobilityTypes, function(mobType) {
-            if (mobType.id === selectedMobilityTypeId) {
+            if (mobType.id === $scope.newCondition.mobilityTypeId) {
                 selectedMobilityType = mobType;
             }
         });

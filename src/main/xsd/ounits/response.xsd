@@ -73,15 +73,36 @@
                     </xs:annotation>
                     <xs:complexType>
                         <xs:sequence>
-                            <xs:element name="ounit-id" type="xs:string">
+                            <xs:element name="ounit-id" type="xs:string" minOccurs="1" maxOccurs="1">
                                 <xs:annotation>
                                     <xs:documentation>
-                                        The ID of this organizational unit.
+                                        Unique identifier of this organizational unit. Will always match one of the
+                                        `ounit_id` values passed in the Organization Units API call. It SHOULD NOT be
+                                        displayed to the user (use `ounit-code` for that).
 
-                                        These IDs MUST be unique within a single institution, and SHOULD NOT change in
-                                        time. It is up to the server developers to come up with ID naming schema that
-                                        guarantees that (UUIDs are often the safest choice). Note, that these IDs will
-                                        be used in other APIs too.
+                                        Server implementers SHOULD use immutable surrogate keys for their work with EWP
+                                        (we recommend choosing UUID surrogate keys). Avoid using natural/business keys!
+
+                                        Related links:
+                                        https://github.com/erasmus-without-paper/ewp-specs-api-mobilities/issues/9
+                                        https://en.wikipedia.org/wiki/Surrogate_key
+                                        https://en.wikipedia.org/wiki/Natural_key
+                                    </xs:documentation>
+                                </xs:annotation>
+                            </xs:element>
+                            <xs:element name="ounit-code" type="xs:string" minOccurs="0" maxOccurs="1">
+                                <xs:annotation>
+                                    <xs:documentation>
+                                        Since `ounit-id` values should contain surrogate identifiers (and, as such,
+                                        should not be displayed to the user), we allow additional "human readable"
+                                        unique codes (aka "natural identifiers") to be provided here. These codes MAY
+                                        be displayed to the user along the unit name, and they MAY be used for
+                                        searching, but they are *not used* to identify entities in EWP network.
+
+                                        Related links:
+                                        https://github.com/erasmus-without-paper/ewp-specs-api-mobilities/issues/9
+                                        https://en.wikipedia.org/wiki/Surrogate_key
+                                        https://en.wikipedia.org/wiki/Natural_key
                                     </xs:documentation>
                                 </xs:annotation>
                             </xs:element>

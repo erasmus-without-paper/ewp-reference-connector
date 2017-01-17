@@ -2,17 +2,17 @@
 package eu.erasmuswithoutpaper.mobility.entity;
 
 import java.io.Serializable;
+import java.util.Objects;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
 import javax.persistence.Id;
 
 @Entity
 public class ResultDistribution implements Serializable{
 
     @Id
-    @GeneratedValue(strategy=GenerationType.AUTO)
-    long id;
+    @GeneratedValue(generator="system-uuid")
+    String id;
     
     private String institutionId;
     private String losCode;
@@ -21,11 +21,11 @@ public class ResultDistribution implements Serializable{
     private String label;
     private int distrubutionCount;
 
-    public long getId() {
+    public String getId() {
         return id;
     }
 
-    public void setId(long id) {
+    public void setId(String id) {
         this.id = id;
     }
 
@@ -79,8 +79,8 @@ public class ResultDistribution implements Serializable{
 
     @Override
     public int hashCode() {
-        int hash = 5;
-        hash = 29 * hash + (int) (this.id ^ (this.id >>> 32));
+        int hash = 7;
+        hash = 71 * hash + Objects.hashCode(this.id);
         return hash;
     }
 
@@ -96,7 +96,7 @@ public class ResultDistribution implements Serializable{
             return false;
         }
         final ResultDistribution other = (ResultDistribution) obj;
-        if (this.id != other.id) {
+        if (!Objects.equals(this.id, other.id)) {
             return false;
         }
         return true;

@@ -24,7 +24,7 @@ public class GuiInstitutionResource {
     @Path("save")
     @Consumes(MediaType.APPLICATION_JSON)
     public void save(Institution institution) {
-        if (institution.getId() == 0) {
+        if (institution.getId() == null || institution.getId().isEmpty()) {
             em.persist(institution);
         } else {
             em.merge(institution);

@@ -2,16 +2,16 @@
 package eu.erasmuswithoutpaper.mobility.entity;
 
 import java.io.Serializable;
+import java.util.Objects;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
 import javax.persistence.Id;
 
 @Entity
 public class LearningAgreement implements Serializable{
     @Id
-    @GeneratedValue(strategy=GenerationType.AUTO)
-    long id;
+    @GeneratedValue(generator="system-uuid")
+    String id;
     
     private String mobilityId;
     private int mobilityRevision;
@@ -24,11 +24,11 @@ public class LearningAgreement implements Serializable{
         this.learningAgreementRevision = learningAgreementRevision;
     }
 
-    public long getId() {
+    public String getId() {
         return id;
     }
 
-    public void setId(long id) {
+    public void setId(String id) {
         this.id = id;
     }
 
@@ -58,8 +58,8 @@ public class LearningAgreement implements Serializable{
 
     @Override
     public int hashCode() {
-        int hash = 3;
-        hash = 29 * hash + (int) (this.id ^ (this.id >>> 32));
+        int hash = 5;
+        hash = 17 * hash + Objects.hashCode(this.id);
         return hash;
     }
 
@@ -75,11 +75,10 @@ public class LearningAgreement implements Serializable{
             return false;
         }
         final LearningAgreement other = (LearningAgreement) obj;
-        if (this.id != other.id) {
+        if (!Objects.equals(this.id, other.id)) {
             return false;
         }
         return true;
     }
-
     
 }

@@ -34,9 +34,8 @@ angular.module('loi').controller('LoiController', function ($scope, LosService, 
     
     $scope.addLearningOppInstance = function(){
         var selectedAcademicTerm;
-        var selectedAcademicTermId = Number($scope.newLearningOppInstance.academicTermId);
         angular.forEach($scope.academicTerms, function(item) {
-            if (item.id === selectedAcademicTermId) {
+            if (item.id === $scope.newLearningOppInstance.academicTermId) {
                 selectedAcademicTerm = item;
             }
         });

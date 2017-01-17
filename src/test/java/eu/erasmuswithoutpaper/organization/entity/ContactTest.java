@@ -42,7 +42,7 @@ public class ContactTest {
         this.tx.commit();
         this.em.clear();
         
-        long id = contact.getId();
+        String id = contact.getId();
         Contact result = em.find(Contact.class, id);
         Assert.assertNotNull(result);
         Assert.assertEquals("9002023344", result.getPerson().getPersonId());

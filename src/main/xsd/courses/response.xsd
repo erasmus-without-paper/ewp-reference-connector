@@ -54,14 +54,39 @@
                     </xs:annotation>
                     <xs:complexType>
                         <xs:sequence>
-                            <xs:element name="los-id" minOccurs="1" maxOccurs="1" type="xs:string">
+                            <xs:element name="los-id" minOccurs="1" maxOccurs="1" type="LosID">
                                 <xs:annotation>
                                     <xs:documentation>
                                         Unique identifier of this LOS. Will always match one of the `los_id` values
-                                        passed in the Courses API call.
+                                        passed in the Courses API call. It SHOULD NOT be displayed to the user (use
+                                        `los-code` for that).
 
-                                        Server implementers! Please read this introduction:
+                                        Read an introduction on LOS and LOI IDs here:
                                         https://github.com/erasmus-without-paper/ewp-specs-api-courses#unique-identifiers
+
+                                        Server implementers SHOULD use immutable surrogate keys for their work with EWP
+                                        (we recommend choosing UUID surrogate keys). Avoid using natural/business keys!
+
+                                        Related links:
+                                        https://github.com/erasmus-without-paper/ewp-specs-api-mobilities/issues/9
+                                        https://en.wikipedia.org/wiki/Surrogate_key
+                                        https://en.wikipedia.org/wiki/Natural_key
+                                    </xs:documentation>
+                                </xs:annotation>
+                            </xs:element>
+                            <xs:element name="los-code" minOccurs="0" maxOccurs="1" type="xs:string">
+                                <xs:annotation>
+                                    <xs:documentation>
+                                        Since LOS IDs should be surrogate identifiers (and, as such, should not be
+                                        displayed to the user), we allow additional "human readable" unique codes (aka
+                                        "natural identifiers") to be provided here. These codes MAY be displayed to the
+                                        user along the LOS title, but they are *not used* to identify entities in EWP
+                                        network.
+
+                                        Related links:
+                                        https://github.com/erasmus-without-paper/ewp-specs-api-mobilities/issues/9
+                                        https://en.wikipedia.org/wiki/Surrogate_key
+                                        https://en.wikipedia.org/wiki/Natural_key
                                     </xs:documentation>
                                 </xs:annotation>
                             </xs:element>
@@ -217,10 +242,12 @@
                                             </xs:annotation>
                                             <xs:complexType>
                                                 <xs:sequence>
-                                                    <xs:element name="loi-id" minOccurs="1" maxOccurs="1" type="xs:string">
+                                                    <xs:element name="loi-id" minOccurs="1" maxOccurs="1" type="LoiID">
                                                         <xs:annotation>
                                                             <xs:documentation>
-                                                                Unique identifier of this LOI.
+                                                                Unique identifier of this LOI. It SHOULD NOT be displayed to the user (use
+                                                                `los-code` and start/end dates if you want the user to be able to uniquely
+                                                                identify this LOI).
 
                                                                 Server implementers! Please read this introduction:
                                                                 https://github.com/erasmus-without-paper/ewp-specs-api-courses#unique-identifiers
@@ -424,7 +451,7 @@
                                 </xs:annotation>
                                 <xs:complexType>
                                     <xs:sequence>
-                                        <xs:element name="los-id" type="xs:string" minOccurs="0" maxOccurs="unbounded">
+                                        <xs:element name="los-id" type="LosID" minOccurs="0" maxOccurs="unbounded">
                                             <xs:annotation>
                                                 <xs:documentation>
                                                     A list of IDs of LOSes which are considered to be "part of" this LOS. For
@@ -445,5 +472,69 @@
             </xs:sequence>
         </xs:complexType>
     </xs:element>
+
+    <xs:simpleType name="LosID">
+        <xs:annotation>
+            <xs:documentation>
+                Unique local identifier of Learning Opportunity Specification. These IDs take
+                form of a "Type/X" string, where "Type" is a short code of the LOS'es type, and
+                "X" is the internal surrogate key of the LOS, as exposed by the owner HEI
+                (prefferably an UUID, but any other values are also permitted).
+
+                Read a detailed introduction here:
+                https://github.com/erasmus-without-paper/ewp-specs-api-courses#unique-identifiers
+            </xs:documentation>
+        </xs:annotation>
+        <xs:restriction base="xs:string">
+            <xs:pattern value="(CR|CLS|MOD|DEP)/(.{1,40})">
+                <xs:annotation>
+                    <xs:documentation>
+                        The actual internal ID of the LOS entity MUST be prefixed with one of the
+                        following strings:
+
+                        - "CR/" - if it is a "Course" type LOS,
+                        - "CLS/" - if it is a "Class" type LOS,
+                        - "MOD/" - if it is a "Module" type LOS,
+                        - "DEP/" - if it is a "Degree Programme" type LOS.
+
+                        More prefixes MAY be introduced in the future. Clients SHOULD expect that (e.g.
+                        they should accept unknown prefixes and behave as if the referenced entity did
+                        not exist).
+                    </xs:documentation>
+                </xs:annotation>
+            </xs:pattern>
+        </xs:restriction>
+    </xs:simpleType>
+
+    <xs:simpleType name="LoiID">
+        <xs:annotation>
+            <xs:documentation>
+                Unique local identifier of Learning Opportunity Instance. This is very similar
+                to LosID type, but it is used for instances (not specifications).
+
+                Read a detailed introduction here:
+                https://github.com/erasmus-without-paper/ewp-specs-api-courses#unique-identifiers
+            </xs:documentation>
+        </xs:annotation>
+        <xs:restriction base="xs:string">
+            <xs:pattern value="(CRI|CLSI|MODI|DEPI)/(.{1,40})">
+                <xs:annotation>
+                    <xs:documentation>
+                        The actual internal ID of the LOS entity MUST be prefixed with one of the
+                        following strings:
+
+                        - "CRI/" - if it is an instance of "Course" type LOS,
+                        - "CLSI/" - if it is an instance of "Class" type LOS,
+                        - "MODI/" - if it is an instance of "Module" type LOS,
+                        - "DEPI/" - if it is an instance of "Degree Programme" type LOS.
+
+                        More prefixes MAY be introduced in the future. Clients SHOULD expect that (e.g.
+                        they should accept unknown prefixes and behave as if the referenced entity did
+                        not exist).
+                    </xs:documentation>
+                </xs:annotation>
+            </xs:pattern>
+        </xs:restriction>
+    </xs:simpleType>
 
 </xs:schema>

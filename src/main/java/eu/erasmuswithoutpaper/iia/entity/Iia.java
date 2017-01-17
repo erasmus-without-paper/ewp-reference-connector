@@ -10,7 +10,6 @@ import javax.persistence.CascadeType;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.NamedQuery;
@@ -27,8 +26,8 @@ public class Iia implements Serializable{
     public static final String findAll = PREFIX + "all";
     
     @Id
-    @GeneratedValue(strategy=GenerationType.AUTO)
-    long id;
+    @GeneratedValue(generator="system-uuid")
+    String id;
     
     private String iiaId;
     
@@ -55,11 +54,11 @@ public class Iia implements Serializable{
         this.iiaId = iiaId;
     }
 
-    public long getId() {
+    public String getId() {
         return id;
     }
 
-    public void setId(long id) {
+    public void setId(String id) {
         this.id = id;
     }
 
@@ -102,11 +101,11 @@ public class Iia implements Serializable{
     public void setCooperationConditions(List<CooperationCondition> cooperationConditions) {
         this.cooperationConditions = cooperationConditions;
     }
-    
+
     @Override
     public int hashCode() {
         int hash = 7;
-        hash = 71 * hash + Objects.hashCode(this.iiaId);
+        hash = 53 * hash + Objects.hashCode(this.id);
         return hash;
     }
 
@@ -122,11 +121,10 @@ public class Iia implements Serializable{
             return false;
         }
         final Iia other = (Iia) obj;
-        if (!Objects.equals(this.iiaId, other.iiaId)) {
+        if (!Objects.equals(this.id, other.id)) {
             return false;
         }
         return true;
     }
-    
     
 }

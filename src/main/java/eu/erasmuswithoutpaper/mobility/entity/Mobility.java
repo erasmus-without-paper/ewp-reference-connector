@@ -3,9 +3,9 @@ package eu.erasmuswithoutpaper.mobility.entity;
 
 import java.io.Serializable;
 import java.util.Date;
+import java.util.Objects;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
@@ -14,8 +14,8 @@ import javax.persistence.TemporalType;
 public class Mobility implements Serializable{
 
     @Id
-    @GeneratedValue(strategy=GenerationType.AUTO)
-    long id;
+    @GeneratedValue(generator="system-uuid")
+    String id;
     
     private String mobilityId;
     private int mobilityRevision;
@@ -49,11 +49,11 @@ public class Mobility implements Serializable{
         this.mobilityRevision = mobilityRevision;
     }
 
-    public long getId() {
+    public String getId() {
         return id;
     }
 
-    public void setId(long id) {
+    public void setId(String id) {
         this.id = id;
     }
 
@@ -188,7 +188,7 @@ public class Mobility implements Serializable{
     @Override
     public int hashCode() {
         int hash = 7;
-        hash = 19 * hash + (int) (this.id ^ (this.id >>> 32));
+        hash = 37 * hash + Objects.hashCode(this.id);
         return hash;
     }
 
@@ -204,11 +204,10 @@ public class Mobility implements Serializable{
             return false;
         }
         final Mobility other = (Mobility) obj;
-        if (this.id != other.id) {
+        if (!Objects.equals(this.id, other.id)) {
             return false;
         }
         return true;
     }
 
-    
 }

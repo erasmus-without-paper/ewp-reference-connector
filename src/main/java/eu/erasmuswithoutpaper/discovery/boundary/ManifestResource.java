@@ -2,6 +2,7 @@ package eu.erasmuswithoutpaper.discovery.boundary;
 
 import eu.erasmuswithoutpaper.api.architecture.MultilineString;
 import eu.erasmuswithoutpaper.api.architecture.StringWithOptionalLang;
+import eu.erasmuswithoutpaper.api.courses.Courses;
 import eu.erasmuswithoutpaper.api.discovery.Discovery;
 import eu.erasmuswithoutpaper.api.discovery.Manifest;
 import eu.erasmuswithoutpaper.api.echo.Echo;
@@ -68,6 +69,7 @@ public class ManifestResource {
         apisImplemented.getAny().add(getEchoEntry());
         apisImplemented.getAny().add(getInstitutionsEntry());
         apisImplemented.getAny().add(getOrganizationalUnitsEntry());
+        apisImplemented.getAny().add(getCoursesEntry());
         manifest.setApisImplemented(apisImplemented);
         
         manifest.setInstitutionsCovered(getInstitutionsCovered());
@@ -114,7 +116,7 @@ public class ManifestResource {
     
     private Institutions getInstitutionsEntry() {
         Institutions institutions = new Institutions();
-        institutions.setVersion("0.4.0");
+        institutions.setVersion("0.5.0");
         institutions.setUrl(getBaseUri() + "institutions");
         institutions.setMaxHeiIds(BigInteger.valueOf(globalProperties.getMaxInstitutionsIds()));
         return institutions;
@@ -122,10 +124,18 @@ public class ManifestResource {
 
     private OrganizationalUnits getOrganizationalUnitsEntry() {
         OrganizationalUnits organizationalUnits = new OrganizationalUnits();
-        organizationalUnits.setVersion("0.2.0");
+        organizationalUnits.setVersion("0.3.0");
         organizationalUnits.setUrl(getBaseUri() + "ounits");
         organizationalUnits.setMaxOunitIds(BigInteger.valueOf(globalProperties.getMaxOunitsIds()));
         return organizationalUnits;
+    }
+
+    private Courses getCoursesEntry() {
+        Courses courses = new Courses();
+        courses.setVersion("0.3.0");
+        courses.setUrl(getBaseUri() + "courses");
+        courses.setMaxLosIds(BigInteger.valueOf(globalProperties.getMaxLosIds()));
+        return courses;
     }
     
     private Hei createHei(Institution institution) {

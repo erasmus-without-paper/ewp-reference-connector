@@ -4,11 +4,11 @@ package eu.erasmuswithoutpaper.iia.entity;
 import eu.erasmuswithoutpaper.organization.entity.Contact;
 import java.io.Serializable;
 import java.util.List;
+import java.util.Objects;
 import javax.persistence.CascadeType;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinTable;
 import javax.persistence.ManyToMany;
@@ -25,8 +25,8 @@ public class IiaPartner implements Serializable{
     public static final String findAll = PREFIX + "all";
 
     @Id
-    @GeneratedValue(strategy=GenerationType.AUTO)
-    long id;
+    @GeneratedValue(generator="system-uuid")
+    String id;
     
     private String institutionId;
     private String organizationUnitId;
@@ -35,11 +35,11 @@ public class IiaPartner implements Serializable{
     @JoinTable(name = "iia_partner_contacts")
     private List<Contact> contacts;
 
-    public long getId() {
+    public String getId() {
         return id;
     }
 
-    public void setId(long id) {
+    public void setId(String id) {
         this.id = id;
     }
 
@@ -66,11 +66,11 @@ public class IiaPartner implements Serializable{
     public void setContacts(List<Contact> contacts) {
         this.contacts = contacts;
     }
-    
+
     @Override
     public int hashCode() {
-        int hash = 7;
-        hash = 97 * hash + (int) (this.id ^ (this.id >>> 32));
+        int hash = 5;
+        hash = 97 * hash + Objects.hashCode(this.id);
         return hash;
     }
 
@@ -86,11 +86,9 @@ public class IiaPartner implements Serializable{
             return false;
         }
         final IiaPartner other = (IiaPartner) obj;
-        if (this.id != other.id) {
+        if (!Objects.equals(this.id, other.id)) {
             return false;
         }
         return true;
     }
-
-    
 }

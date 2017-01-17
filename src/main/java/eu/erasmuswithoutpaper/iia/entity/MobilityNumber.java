@@ -2,26 +2,26 @@
 package eu.erasmuswithoutpaper.iia.entity;
 
 import java.io.Serializable;
+import java.util.Objects;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
 import javax.persistence.Id;
 
 @Entity
 public class MobilityNumber implements Serializable {
     
     @Id
-    @GeneratedValue(strategy=GenerationType.AUTO)
-    long id;
+    @GeneratedValue(generator="system-uuid")
+    String id;
     
     private String variant;
     private int number;
     
-    public long getId() {
+    public String getId() {
         return id;
     }
 
-    public void setId(long id) {
+    public void setId(String id) {
         this.id = id;
     }
 
@@ -44,7 +44,7 @@ public class MobilityNumber implements Serializable {
     @Override
     public int hashCode() {
         int hash = 7;
-        hash = 53 * hash + (int) (this.id ^ (this.id >>> 32));
+        hash = 37 * hash + Objects.hashCode(this.id);
         return hash;
     }
 
@@ -60,10 +60,10 @@ public class MobilityNumber implements Serializable {
             return false;
         }
         final MobilityNumber other = (MobilityNumber) obj;
-        if (this.id != other.id) {
+        if (!Objects.equals(this.id, other.id)) {
             return false;
         }
         return true;
     }
-    
+
 }

@@ -4,9 +4,9 @@ package eu.erasmuswithoutpaper.organization.entity;
 import eu.erasmuswithoutpaper.internal.StandardDateConverter;
 import java.io.Serializable;
 import java.util.Date;
+import java.util.Objects;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.NamedQueries;
 import javax.persistence.NamedQuery;
@@ -26,8 +26,8 @@ public class Person implements Serializable {
     public static final String findByPersonId = PREFIX + "byPersonId";
     
     @Id
-    @GeneratedValue(strategy=GenerationType.AUTO)
-    private long id;
+    @GeneratedValue(generator="system-uuid")
+    String id;
     
     private String institutionId;
     private String personId;
@@ -38,11 +38,11 @@ public class Person implements Serializable {
     @Temporal(TemporalType.DATE)
     private Date birthDate;
 
-    public long getId() {
+    public String getId() {
         return id;
     }
 
-    public void setId(long id) {
+    public void setId(String id) {
         this.id = id;
     }
 
@@ -89,7 +89,7 @@ public class Person implements Serializable {
     @Override
     public int hashCode() {
         int hash = 5;
-        hash = 89 * hash + (int) (this.id ^ (this.id >>> 32));
+        hash = 17 * hash + Objects.hashCode(this.id);
         return hash;
     }
 
@@ -105,11 +105,9 @@ public class Person implements Serializable {
             return false;
         }
         final Person other = (Person) obj;
-        if (this.id != other.id) {
+        if (!Objects.equals(this.id, other.id)) {
             return false;
         }
         return true;
     }
-    
-    
 }

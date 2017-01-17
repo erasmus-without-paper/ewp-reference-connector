@@ -8,9 +8,8 @@ angular.module('academicterm').controller('AcademicTermController', function ($s
     
     $scope.addAcademicTerm = function(){
         var selectedAcademicYear;
-        var selectedAcademicYearId = Number($scope.newAcademicTerm.academicYearId);
         angular.forEach($scope.academicYears, function(item) {
-            if (item.id === selectedAcademicYearId) {
+            if (item.id === $scope.newAcademicTerm.academicYearId) {
                 selectedAcademicYear = item;
             }
         });

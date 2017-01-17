@@ -3,18 +3,18 @@ package eu.erasmuswithoutpaper.organization.entity;
 
 import java.io.Serializable;
 import java.util.List;
+import java.util.Objects;
 import javax.persistence.ElementCollection;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
 import javax.persistence.Id;
 
 @Entity
 public class FlexibleAddress implements Serializable {
 
     @Id
-    @GeneratedValue(strategy=GenerationType.AUTO)
-    long id;
+    @GeneratedValue(generator="system-uuid")
+    String id;
     
     private List<String> recipientName;
     
@@ -32,11 +32,11 @@ public class FlexibleAddress implements Serializable {
     private String region;
     private String country;
 
-    public long getId() {
+    public String getId() {
         return id;
     }
 
-    public void setId(long id) {
+    public void setId(String id) {
         this.id = id;
     }
 
@@ -146,8 +146,8 @@ public class FlexibleAddress implements Serializable {
 
     @Override
     public int hashCode() {
-        int hash = 7;
-        hash = 61 * hash + (int) (this.id ^ (this.id >>> 32));
+        int hash = 3;
+        hash = 41 * hash + Objects.hashCode(this.id);
         return hash;
     }
 
@@ -163,10 +163,9 @@ public class FlexibleAddress implements Serializable {
             return false;
         }
         final FlexibleAddress other = (FlexibleAddress) obj;
-        if (this.id != other.id) {
+        if (!Objects.equals(this.id, other.id)) {
             return false;
         }
         return true;
     }
-    
 }

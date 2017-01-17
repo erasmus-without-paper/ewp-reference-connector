@@ -25,7 +25,7 @@ public class GuiLosResource {
     @Path("save")
     @Consumes(MediaType.APPLICATION_JSON)
     public void save(LearningOpportunitySpecification los) {
-        if (los.getId() == 0) {
+        if (los.getId() == null || los.getId().isEmpty()) {
             em.persist(los);
         } else {
             em.merge(los);
