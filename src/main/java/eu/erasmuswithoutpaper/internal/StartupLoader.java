@@ -1,12 +1,13 @@
 package eu.erasmuswithoutpaper.internal;
 
+import eu.erasmuswithoutpaper.common.control.GlobalProperties;
 import eu.erasmuswithoutpaper.course.preload.AcademicTermLoader;
 import eu.erasmuswithoutpaper.course.preload.AcademicYearLoader;
 import eu.erasmuswithoutpaper.course.preload.LoiLoader;
 import eu.erasmuswithoutpaper.course.preload.LosLoader;
 import eu.erasmuswithoutpaper.iia.preload.IiaLoader;
 import eu.erasmuswithoutpaper.iia.preload.MobilityTypeLoader;
-import eu.erasmuswithoutpaper.common.control.GlobalProperties;
+import eu.erasmuswithoutpaper.mobility.preload.MobilityLoader;
 import eu.erasmuswithoutpaper.organization.preload.ContactLoader;
 import eu.erasmuswithoutpaper.organization.preload.InstitutionLoader;
 import eu.erasmuswithoutpaper.organization.preload.PersonLoader;
@@ -42,6 +43,9 @@ public class StartupLoader {
     
     @Inject
     private MobilityTypeLoader mobilityTypeLoader;
+   
+    @Inject
+    private MobilityLoader mobilityLoader;
     
     @Inject
     private LosLoader learningOppSpecLoader;
@@ -73,6 +77,7 @@ public class StartupLoader {
                     learningOppSpecLoader.createDemoDataIkea();
                     learningOppInstLoader.createDemoDataIkea();
                     iiaLoader.createDemoDataIkea();
+                    mobilityLoader.createDemoDataIkea();
                     break;
                 case POMODORO_U:
                     institutionLoader.createDemoDataPomodoro();
@@ -84,6 +89,7 @@ public class StartupLoader {
                     learningOppSpecLoader.createDemoDataPomodoro();
                     learningOppInstLoader.createDemoDataPomodoro();
                     iiaLoader.createDemoDataPomodoro();
+                    mobilityLoader.createDemoDataPomodoro();
                     break;
             }
         } catch (IOException ex) {

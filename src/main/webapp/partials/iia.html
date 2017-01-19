@@ -175,7 +175,7 @@
                 </span>
             </div>
             <div class="list-group">
-                <div ng-repeat="iia in iiaList| filter:query" ng-click="setSelectedIia(iia)">
+                <div ng-repeat="iia in iiaList| filter:query | orderBy:['startDate']:true" ng-click="setSelectedIia(iia)">
                     <a class="list-group-item clearfix">
                         <b>IIA id: {{iia.iiaId}}</b>
                         <i class="pull-right glyphicon glyphicon-chevron-right"></i>
@@ -207,7 +207,7 @@
                 </span>
             </div>
             <div class="list-group">
-                <div ng-repeat="cooperationCondition in selectedIia.cooperationConditions| filter:query2" ng-click="setSelectedCoopCond(cooperationCondition)">
+                <div ng-repeat="cooperationCondition in selectedIia.cooperationConditions| filter:query2 | orderBy:['startDate']:true" ng-click="setSelectedCoopCond(cooperationCondition)">
                     <a class="list-group-item clearfix">
                         <b>{{cooperationCondition.sendingPartner.institutionId}} - {{cooperationCondition.receivingPartner.institutionId}}</b>
                         <i class="pull-right glyphicon glyphicon-chevron-right"></i>

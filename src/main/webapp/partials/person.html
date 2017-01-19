@@ -61,7 +61,7 @@
           </span>
     </div>
     <div class="list-group">
-        <div ng-repeat="person in persons | filter:query" ng-click="isopen[person.personId] = !isopen[person.personId]">
+        <div ng-repeat="person in persons | filter:query | orderBy:['personId']:true" ng-click="isopen[person.personId] = !isopen[person.personId]">
             <a class="list-group-item clearfix">
                 <div class="col-md-2 hide-overflow-ellipsis"><b>{{person.personId}}</b></div>
                 <div class="col-md-9 hide-overflow-ellipsis"><b>{{person.firstNames}} {{person.lastName}}</b></div>

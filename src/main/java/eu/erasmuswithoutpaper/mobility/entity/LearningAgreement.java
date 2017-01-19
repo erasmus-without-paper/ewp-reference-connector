@@ -2,27 +2,28 @@
 package eu.erasmuswithoutpaper.mobility.entity;
 
 import java.io.Serializable;
+import java.util.List;
 import java.util.Objects;
+import javax.persistence.CascadeType;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
+import javax.persistence.JoinTable;
+import javax.persistence.OneToMany;
 
 @Entity
-public class LearningAgreement implements Serializable{
+public class LearningAgreement implements Serializable {
+    
     @Id
     @GeneratedValue(generator="system-uuid")
     String id;
     
-    private String mobilityId;
-    private int mobilityRevision;
     private int learningAgreementRevision;
-
-    public LearningAgreement() {}
-    public LearningAgreement(String mobilityId, int mobilityRevision, int learningAgreementRevision) {
-        this.mobilityId = mobilityId;
-        this.mobilityRevision = mobilityRevision;
-        this.learningAgreementRevision = learningAgreementRevision;
-    }
+    
+    @OneToMany(cascade = CascadeType.ALL, fetch = FetchType.EAGER, orphanRemoval=true)
+    @JoinTable(name = "la_agreement_component")
+    private List<LearningAgreementComponent> laComponents;
 
     public String getId() {
         return id;
@@ -30,22 +31,6 @@ public class LearningAgreement implements Serializable{
 
     public void setId(String id) {
         this.id = id;
-    }
-
-    public String getMobilityId() {
-        return mobilityId;
-    }
-
-    public void setMobilityId(String mobilityId) {
-        this.mobilityId = mobilityId;
-    }
-
-    public int getMobilityRevision() {
-        return mobilityRevision;
-    }
-
-    public void setMobilityRevision(int mobilityRevision) {
-        this.mobilityRevision = mobilityRevision;
     }
 
     public int getLearningAgreementRevision() {
@@ -56,6 +41,14 @@ public class LearningAgreement implements Serializable{
         this.learningAgreementRevision = learningAgreementRevision;
     }
 
+    public List<LearningAgreementComponent> getLaComponents() {
+        return laComponents;
+    }
+
+    public void setLaComponents(List<LearningAgreementComponent> laComponents) {
+        this.laComponents = laComponents;
+    }
+    
     @Override
     public int hashCode() {
         int hash = 5;

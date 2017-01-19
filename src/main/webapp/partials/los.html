@@ -22,7 +22,7 @@
             </ul>
         </script>
         <ul>
-            <li ng-repeat="los in losList" ng-include="'los_renderer.html'" ng-class="{'active':los===currentLos}"></li>
+            <li ng-repeat="los in losList | orderBy:['losCode']" ng-include="'los_renderer.html'" ng-class="{'active':los===currentLos}"></li>
         </ul>
     </div>
     <div class="btn-group margin-bottom-1em" ng-show="!showLearningOppSpecForm">

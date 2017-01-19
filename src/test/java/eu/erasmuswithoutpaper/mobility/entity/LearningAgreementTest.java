@@ -29,7 +29,8 @@ public class LearningAgreementTest {
 
     @Test
     public void testPersistLearningAgreement() {
-        LearningAgreement learningAgreement = new LearningAgreement("laId1", 1, 2);
+        LearningAgreement learningAgreement = new LearningAgreement();
+        learningAgreement.setLearningAgreementRevision(1);
         
         this.tx.begin();
         this.em.persist(learningAgreement);
@@ -38,7 +39,7 @@ public class LearningAgreementTest {
         
         LearningAgreement result = em.find(LearningAgreement.class, learningAgreement.getId());
         assertNotNull(result);
-        assertEquals("laId1", result.getMobilityId());
+        assertEquals(1, result.getLearningAgreementRevision());
     }
     
 }

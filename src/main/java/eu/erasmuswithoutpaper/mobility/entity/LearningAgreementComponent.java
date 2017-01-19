@@ -8,20 +8,14 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
 
 @Entity
-public class LearningAgreementComponent implements Serializable{
+public class LearningAgreementComponent implements Serializable {
 
     @Id
     @GeneratedValue(generator="system-uuid")
     String id;
     
-    private String mobilityId;
-    private int mobilityRevision;
-    private int learningAgreementRevision;
-    private String academicYearId;
-    private String academicTermId;
-    private String institutionId;
-    private String organizationUnitId;
-    private String losCode;
+    private String losId;
+    private String loiId;
     private LearningAgreementComponentStatus status;
 
     public String getId() {
@@ -32,68 +26,20 @@ public class LearningAgreementComponent implements Serializable{
         this.id = id;
     }
 
-    public String getMobilityId() {
-        return mobilityId;
+    public String getLosId() {
+        return losId;
     }
 
-    public void setMobilityId(String mobilityId) {
-        this.mobilityId = mobilityId;
+    public void setLosId(String losId) {
+        this.losId = losId;
     }
 
-    public int getMobilityRevision() {
-        return mobilityRevision;
+    public String getLoiId() {
+        return loiId;
     }
 
-    public void setMobilityRevision(int mobilityRevision) {
-        this.mobilityRevision = mobilityRevision;
-    }
-
-    public int getLearningAgreementRevision() {
-        return learningAgreementRevision;
-    }
-
-    public void setLearningAgreementRevision(int learningAgreementRevision) {
-        this.learningAgreementRevision = learningAgreementRevision;
-    }
-
-    public String getAcademicYearId() {
-        return academicYearId;
-    }
-
-    public void setAcademicYearId(String academicYearId) {
-        this.academicYearId = academicYearId;
-    }
-
-    public String getAcademicTermId() {
-        return academicTermId;
-    }
-
-    public void setAcademicTermId(String academicTermId) {
-        this.academicTermId = academicTermId;
-    }
-
-    public String getInstitutionId() {
-        return institutionId;
-    }
-
-    public void setInstitutionId(String institutionId) {
-        this.institutionId = institutionId;
-    }
-
-    public String getOrganizationUnitId() {
-        return organizationUnitId;
-    }
-
-    public void setOrganizationUnitId(String organizationUnitId) {
-        this.organizationUnitId = organizationUnitId;
-    }
-
-    public String getLosCode() {
-        return losCode;
-    }
-
-    public void setLosCode(String losCode) {
-        this.losCode = losCode;
+    public void setLoiId(String loiId) {
+        this.loiId = loiId;
     }
 
     public LearningAgreementComponentStatus getStatus() {
@@ -103,7 +49,7 @@ public class LearningAgreementComponent implements Serializable{
     public void setStatus(LearningAgreementComponentStatus status) {
         this.status = status;
     }
-
+    
     @Override
     public int hashCode() {
         int hash = 5;

@@ -71,7 +71,7 @@
         </span>
     </div>
     <div class="list-group">
-        <div ng-repeat="contact in contacts| filter:query">
+        <div ng-repeat="contact in contacts | filter:query | orderBy:['institutionId','person.firstNames']">
             <a class="list-group-item clearfix" ng-click="isopen[contact.id] = !isopen[contact.id]">
                 <div class="col-md-2 hide-overflow-ellipsis"><b>{{contact.person.firstNames}} {{contact.person.lastName}}</b></div>
                 <div class="col-md-9 hide-overflow-ellipsis"><b>{{contact.institutionId}}</b></div>

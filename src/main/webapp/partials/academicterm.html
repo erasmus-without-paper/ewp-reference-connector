@@ -91,7 +91,7 @@
     </div>
 
     <div class="list-group">
-        <div ng-repeat="academicTerm in academicTerms | filter:query" ng-click="isopen[academicTerm.id] = !isopen[academicTerm.id]">
+        <div ng-repeat="academicTerm in academicTerms | filter:query | orderBy:['endDate']:true" ng-click="isopen[academicTerm.id] = !isopen[academicTerm.id]">
             <a class="list-group-item clearfix">
                 <div class="col-md-2 hide-overflow-ellipsis"><b>{{(academicTerm.dispName| languageItem : 'en').text}}</b></div>
                 <i class="pull-right glyphicon" ng-class="{'glyphicon-chevron-down': isopen[academicTerm.id], 'glyphicon-chevron-right': !isopen[academicTerm.id]}"></i>

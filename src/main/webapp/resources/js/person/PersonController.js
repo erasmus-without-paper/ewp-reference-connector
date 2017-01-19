@@ -1,4 +1,4 @@
-angular.module('person').controller('PersonController', function ($scope, $filter, PersonService) {
+angular.module('person').controller('PersonController', function ($scope, PersonService) {
     $scope.getAllPersons = function(){
         PersonService.getAll(
             function(result) {

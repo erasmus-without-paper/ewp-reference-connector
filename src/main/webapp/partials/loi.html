@@ -16,7 +16,7 @@
             </ul>
         </script>
         <ul>
-            <li ng-repeat="los in losList" ng-include="'los_renderer.html'" ng-class="{'active':los === currentLos}"></li>
+            <li ng-repeat="los in losList | orderBy:['losCode']" ng-include="'los_renderer.html'" ng-class="{'active':los === currentLos}"></li>
         </ul>
     </div>
 
@@ -68,7 +68,7 @@
                     <div class="col-sm-6">
                         <select id="academicterm" class="form-control" ng-model="newLearningOppInstance.academicTermId" required="required">
                             <option style="display:none" value="">Select Academic term</option>
-                            <option ng-repeat="term in academicTerms" value="{{term.id}}">{{term.startDate| date: 'yyyy-MM-dd'}} --- {{term.endDate| date: 'yyyy-MM-dd'}} : {{(term.dispName| languageItem:'en').text}}</option>
+                            <option ng-repeat="term in academicTerms | orderBy:['endDate']:true" value="{{term.id}}">{{term.startDate| date: 'yyyy-MM-dd'}} --- {{term.endDate| date: 'yyyy-MM-dd'}} : {{(term.dispName| languageItem:'en').text}}</option>
                         </select>
                     </div>
                     <div class="col-sm-4"></div>

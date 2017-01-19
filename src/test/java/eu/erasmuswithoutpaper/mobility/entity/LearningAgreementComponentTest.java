@@ -27,12 +27,6 @@ public class LearningAgreementComponentTest {
     @Test
     public void testPersistLearningAgreementComponent() {
         LearningAgreementComponent learningAgreementComponent = new LearningAgreementComponent();
-        learningAgreementComponent.setInstitutionId("instId1");
-        learningAgreementComponent.setOrganizationUnitId("orgUnitId1");
-        learningAgreementComponent.setMobilityId("mobId1");
-        learningAgreementComponent.setMobilityRevision(1);
-        learningAgreementComponent.setLearningAgreementRevision(2);
-        learningAgreementComponent.setLosCode("AAA111");
         learningAgreementComponent.setStatus(LearningAgreementComponentStatus.RECOMMENDED);
         
         this.tx.begin();
@@ -42,7 +36,6 @@ public class LearningAgreementComponentTest {
         
         LearningAgreementComponent result = em.find(LearningAgreementComponent.class, learningAgreementComponent.getId());
         Assert.assertNotNull(result);
-        Assert.assertEquals("AAA111", result.getLosCode());
         Assert.assertEquals(LearningAgreementComponentStatus.RECOMMENDED, result.getStatus());
     }
     

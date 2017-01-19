@@ -1,8 +1,4 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
+
 package eu.erasmuswithoutpaper.mobility.entity;
 
 import java.util.Date;
@@ -31,9 +27,8 @@ public class MobilityTest {
 
     @Test
     public void testPersistMobility() {
-        Mobility mobility = new Mobility("mobId1", 1);
+        Mobility mobility = new Mobility();
         mobility.setPlannedArrivalDate(new Date());
-        mobility.setActualArrivalDate(new Date());
         mobility.setPersonId("9101015566");
         mobility.setStatus(MobilityStatus.ACCEPTED);
         

@@ -42,7 +42,7 @@ public class AcademicTerm implements Serializable{
     private String academicTermId;
     
     @ManyToOne(cascade = CascadeType.DETACH, fetch = FetchType.EAGER)
-    @JoinColumn(name = "ACADEMIC_YEAR_ID", referencedColumnName = "ID")
+    @JoinColumn(name = "academic_year_id", referencedColumnName = "id")
     private AcademicYear academicYear;
 
     @OneToMany(cascade = CascadeType.ALL, fetch = FetchType.EAGER, orphanRemoval=true)

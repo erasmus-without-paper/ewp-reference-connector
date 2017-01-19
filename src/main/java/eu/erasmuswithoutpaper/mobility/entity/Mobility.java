@@ -1,68 +1,74 @@
 
 package eu.erasmuswithoutpaper.mobility.entity;
 
+import eu.erasmuswithoutpaper.iia.entity.MobilityType;
+import eu.erasmuswithoutpaper.internal.StandardDateConverter;
 import java.io.Serializable;
 import java.util.Date;
 import java.util.Objects;
+import javax.persistence.CascadeType;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
+import javax.persistence.NamedQueries;
+import javax.persistence.NamedQuery;
+import javax.persistence.OneToOne;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
+import org.apache.johnzon.mapper.JohnzonConverter;
 
 @Entity
-public class Mobility implements Serializable{
+@NamedQueries({
+    @NamedQuery(name = Mobility.findAll, query = "SELECT m FROM Mobility m"),
+})
+public class Mobility implements Serializable {
 
+    private static final String PREFIX = "eu.erasmuswithoutpaper.mobility.entity.Mobility.";
+    public static final String findAll = PREFIX + "all";
+    
     @Id
     @GeneratedValue(generator="system-uuid")
     String id;
     
-    private String mobilityId;
     private int mobilityRevision;
     private String iiaId;
+    private String cooperationConditionId;
     private String sendingInstitutionId;
-    private String receivingInstitutionId;
     private String sendingOrganizationUnitId;
+    private String receivingInstitutionId;
     private String receivingOrganizationUnitId;
     private String personId;
-    private String mobilityType;
+    
+    @ManyToOne(cascade = CascadeType.DETACH, fetch = FetchType.EAGER)
+    @JoinColumn(name = "mobility_type_id", referencedColumnName = "id")
+    private MobilityType mobilityType;
+    
     private MobilityStatus status;
     
+    @JohnzonConverter(StandardDateConverter.class)
     @Temporal(TemporalType.DATE)
     private Date plannedArrivalDate;
     
-    @Temporal(TemporalType.DATE)
-    private Date actualArrivalDate;
-    
+    @JohnzonConverter(StandardDateConverter.class)
     @Temporal(TemporalType.DATE)
     private Date plannedDepartureDate;
     
-    @Temporal(TemporalType.DATE)
-    private Date actualDepartureDate;
-    
     private String iscedCode;
-    private String eqfLevel;
-
-    public Mobility() {}
-    public Mobility(String mobilityId, int mobilityRevision) {
-        this.mobilityId = mobilityId;
-        this.mobilityRevision = mobilityRevision;
-    }
-
+    private int eqfLevel;
+    
+    @OneToOne(cascade = CascadeType.ALL, fetch = FetchType.EAGER)
+    @JoinColumn(name = "learning_agreement")
+    private LearningAgreement learningAgreement;
+    
     public String getId() {
         return id;
     }
 
     public void setId(String id) {
         this.id = id;
-    }
-
-    public String getMobilityId() {
-        return mobilityId;
-    }
-
-    public void setMobilityId(String mobilityId) {
-        this.mobilityId = mobilityId;
     }
 
     public int getMobilityRevision() {
@@ -81,6 +87,14 @@ public class Mobility implements Serializable{
         this.iiaId = iiaId;
     }
 
+    public String getCooperationConditionId() {
+        return cooperationConditionId;
+    }
+
+    public void setCooperationConditionId(String cooperationConditionId) {
+        this.cooperationConditionId = cooperationConditionId;
+    }
+    
     public String getSendingInstitutionId() {
         return sendingInstitutionId;
     }
@@ -121,11 +135,11 @@ public class Mobility implements Serializable{
         this.personId = personId;
     }
 
-    public String getMobilityType() {
+    public MobilityType getMobilityType() {
         return mobilityType;
     }
 
-    public void setMobilityType(String mobilityType) {
+    public void setMobilityType(MobilityType mobilityType) {
         this.mobilityType = mobilityType;
     }
 
@@ -145,28 +159,12 @@ public class Mobility implements Serializable{
         this.plannedArrivalDate = plannedArrivalDate;
     }
 
-    public Date getActualArrivalDate() {
-        return actualArrivalDate;
-    }
-
-    public void setActualArrivalDate(Date actualArrivalDate) {
-        this.actualArrivalDate = actualArrivalDate;
-    }
-
     public Date getPlannedDepartureDate() {
         return plannedDepartureDate;
     }
 
     public void setPlannedDepartureDate(Date plannedDepartureDate) {
         this.plannedDepartureDate = plannedDepartureDate;
-    }
-
-    public Date getActualDepartureDate() {
-        return actualDepartureDate;
-    }
-
-    public void setActualDepartureDate(Date actualDepartureDate) {
-        this.actualDepartureDate = actualDepartureDate;
     }
 
     public String getIscedCode() {
@@ -177,14 +175,22 @@ public class Mobility implements Serializable{
         this.iscedCode = iscedCode;
     }
 
-    public String getEqfLevel() {
+    public int getEqfLevel() {
         return eqfLevel;
     }
 
-    public void setEqfLevel(String eqfLevel) {
+    public void setEqfLevel(int eqfLevel) {
         this.eqfLevel = eqfLevel;
     }
 
+    public LearningAgreement getLearningAgreement() {
+        return learningAgreement;
+    }
+
+    public void setLearningAgreement(LearningAgreement learningAgreement) {
+        this.learningAgreement = learningAgreement;
+    }
+    
     @Override
     public int hashCode() {
         int hash = 7;

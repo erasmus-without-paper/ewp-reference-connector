@@ -35,7 +35,6 @@ angular.module('academicterm').controller('AcademicTermController', function ($s
     $scope.addOrganizationUnitsToList = function(obj) {
         angular.forEach(obj.organizationUnits, function(item) {
             $scope.organizations.push(item);
-            $scope.addOrganizationUnitsToList(item);
         });
     };
     

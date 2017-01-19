@@ -12,6 +12,7 @@ import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
+import javax.persistence.NamedQueries;
 import javax.persistence.NamedQuery;
 import javax.persistence.OneToMany;
 import javax.persistence.Temporal;
@@ -19,11 +20,15 @@ import javax.persistence.TemporalType;
 import org.apache.johnzon.mapper.JohnzonConverter;
 
 @Entity
-@NamedQuery(name = Iia.findAll, query = "SELECT i FROM Iia i")
+@NamedQueries({
+    @NamedQuery(name = Iia.findAll, query = "SELECT i FROM Iia i"),
+    @NamedQuery(name = Iia.findByIiaId, query = "SELECT i FROM Iia i WHERE i.iiaId = :iiaId")
+})
 public class Iia implements Serializable{
     
     private static final String PREFIX = "eu.erasmuswithoutpaper.iia.entity.Iia.";
     public static final String findAll = PREFIX + "all";
+    public static final String findByIiaId = PREFIX + "byIiaId";
     
     @Id
     @GeneratedValue(generator="system-uuid")
@@ -44,7 +49,7 @@ public class Iia implements Serializable{
     private Date modifyDate;
     
     @OneToMany(cascade = CascadeType.ALL, fetch = FetchType.EAGER, orphanRemoval=true)
-    @JoinColumn(name = "IIA_ID")
+    @JoinColumn(name = "iia_id")
     List<CooperationCondition> cooperationConditions;
     
     public Iia(){
