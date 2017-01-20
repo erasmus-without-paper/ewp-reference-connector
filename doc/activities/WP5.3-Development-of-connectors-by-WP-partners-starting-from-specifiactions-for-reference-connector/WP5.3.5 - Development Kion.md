@@ -8,14 +8,14 @@
 #### Project manager / Contact person
 | Contact info      | Details                        |
 | ----------------- | ------------------------------ |
-| **Name**          |  _First, Surname_              |
-| **Email adress**  |  _email@domain.com_            |
-| **Telephone no**  |  _+46 70-555 555_              |
+| **Name**          |  _Stefano Russo_              |
+| **Email adress**  |  _st.russo@kion.it_            |
+| **Telephone no**  |  _+39 0815593732_              |
 
 #### Developing members
 |     Role       |      Name         |              Email adress                 |
 | -------------  | ----------------- | ----------------------------------------- |
-|      -         |                   |                                           |
+| Developer      |  Dario Orlando    |  dorlando@kion.it                         |
 |      -         |                   |                                           |
 |      -         |                   |                                           |             
 
