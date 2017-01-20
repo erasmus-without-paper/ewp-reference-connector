@@ -18,18 +18,18 @@ import javax.persistence.OneToOne;
 
 @Entity
 @NamedQueries({
-    @NamedQuery(name = OrganizationUnit.findByOrganizationUnitId, query = "SELECT o FROM OrganizationUnit o WHERE o.organizationUnitId = :organizationUnitId")
+    @NamedQuery(name = OrganizationUnit.findByOrganizationUnitCode, query = "SELECT o FROM OrganizationUnit o WHERE o.organizationUnitCode = :organizationUnitCode")
 })
 public class OrganizationUnit implements Serializable{
     
     private static final String PREFIX = "eu.erasmuswithoutpaper.organization.entity.OrganizationUnit.";
-    public static final String findByOrganizationUnitId = PREFIX + "byOrganizationUnitId";
+    public static final String findByOrganizationUnitCode = PREFIX + "byOrganizationUnitCode";
 
     @Id
     @GeneratedValue(generator="system-uuid")
     String id;
     
-    private String organizationUnitId;
+    private String organizationUnitCode;
     
     @OneToMany(cascade = CascadeType.ALL, fetch = FetchType.EAGER, orphanRemoval=true)
     @JoinTable(name = "OU_OTHER_ID")
@@ -69,12 +69,12 @@ public class OrganizationUnit implements Serializable{
         this.id = id;
     }
     
-    public String getOrganizationUnitId() {
-        return organizationUnitId;
+    public String getOrganizationUnitCode() {
+        return organizationUnitCode;
     }
 
-    public void setOrganizationUnitId(String organizationUnitId) {
-        this.organizationUnitId = organizationUnitId;
+    public void setOrganizationUnitCode(String organizationUnitCode) {
+        this.organizationUnitCode = organizationUnitCode;
     }
 
     public List<IdentificationItem> getOtherId() {

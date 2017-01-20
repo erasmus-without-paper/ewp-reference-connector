@@ -3,6 +3,7 @@ package eu.erasmuswithoutpaper.common.control;
 public class HeiEntry {
     private String id;
     private String name;
+    private String url;
 
     public HeiEntry() {
     }
@@ -27,5 +28,11 @@ public class HeiEntry {
     public void setName(String name) {
         this.name = name;
     }
-    
+
+    public String getUrl() {
+        return this.url;
+    }
+    public void setUrl(String url) {
+        this.url = url;
+    }
 }

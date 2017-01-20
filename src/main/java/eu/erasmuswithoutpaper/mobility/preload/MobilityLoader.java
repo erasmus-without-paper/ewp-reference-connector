@@ -9,6 +9,8 @@ import eu.erasmuswithoutpaper.mobility.entity.LearningAgreement;
 import eu.erasmuswithoutpaper.mobility.entity.LearningAgreementComponent;
 import eu.erasmuswithoutpaper.mobility.entity.LearningAgreementComponentStatus;
 import eu.erasmuswithoutpaper.mobility.entity.Mobility;
+import eu.erasmuswithoutpaper.organization.entity.OrganizationUnit;
+import eu.erasmuswithoutpaper.organization.preload.InstitutionLoader;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
@@ -22,7 +24,9 @@ public class MobilityLoader {
     EntityManager em;
     
     public void createDemoDataIkea() throws IOException {
-        persistMobility("{'mobilityRevision':'1','iiaId':'iiaId001','sendingInstitutionId':'ikea.university.se','sendingOrganizationUnitId':'ikea.ou1.se','receivingInstitutionId':'pomodoro.university.it','receivingOrganizationUnitId':'pomodoro.ou1.it','personId':'9011046365','status':'NOMINATED','plannedArrivalDate':'2017-03-14','plannedDepartureDate':'2017-05-15','iscedCode':'ISC123','eqfLevel':'3'}", getMobilityType("Student", "Studies"), getLearningAgreement("{'learningAgreementRevision':'1'}", getLearningAgreementComponents("IU001")), getCoopConditionId("iiaId001"));
+        String ouIdIkea = InstitutionLoader.IKEA_OU1_ID;
+        String ouIdPomodoro = InstitutionLoader.POMODORO_OU1_ID;
+        persistMobility("{'mobilityRevision':'1','iiaId':'iiaId001','sendingInstitutionId':'ikea.university.se','sendingOrganizationUnitId':'" + ouIdIkea + "','receivingInstitutionId':'pomodoro.university.it','receivingOrganizationUnitId':'" + ouIdPomodoro + "','personId':'9011046365','status':'NOMINATED','plannedArrivalDate':'2017-03-14','plannedDepartureDate':'2017-05-15','iscedCode':'ISC123','eqfLevel':'3'}", getMobilityType("Student", "Studies"), getLearningAgreement("{'learningAgreementRevision':'1'}", getLearningAgreementComponents("IU001")), getCoopConditionId("iiaId001"));
     }
     
     public void createDemoDataPomodoro() throws IOException {
@@ -87,5 +91,15 @@ public class MobilityLoader {
         
         // Returning the first cooperation conditions id in the list, to keep it simple
         return iias.get(0).getCooperationConditions().get(0).getId();
+    }
+    
+    private String getOrganizationUnitId(String organizationUnitCode) throws IOException {
+        Query query = em.createNamedQuery(OrganizationUnit.findByOrganizationUnitCode).setParameter("organizationUnitCode", organizationUnitCode);
+        List<OrganizationUnit> organizationUnitList = query.getResultList();
+        if (organizationUnitList.size() != 1) {
+           throw new IllegalArgumentException("Organization unit code " + organizationUnitCode + " doesn't return an unique organization unit.");
+        }
+        
+        return organizationUnitList.get(0).getId();
     }
 }

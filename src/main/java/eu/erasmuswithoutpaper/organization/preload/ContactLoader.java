@@ -15,17 +15,16 @@ public class ContactLoader {
     EntityManager em;
     
     public void createDemoDataIkea() throws IOException {
-        
-        // IKEA
-        persistContact("{'institutionId':'ikea.university.se','organizationUnitId':'ikea.ou1.se','role':'INSURANCE','email':['ikeauniversity@hei.ewp']}", getPerson("9001013344"));
-        persistContact("{'institutionId':'ikea.university.se','organizationUnitId':'ikea.ou1.se','role':'ADMISSION'}", getPerson("9011046365"));
+        String ouIdIkea = InstitutionLoader.IKEA_OU1_ID ;
+        persistContact("{'institutionId':'ikea.university.se','organizationUnitId':'" + ouIdIkea + "','role':'INSURANCE','email':['ikeauniversity@hei.ewp']}", getPerson("9001013344"));
+        persistContact("{'institutionId':'ikea.university.se','organizationUnitId':'" + ouIdIkea + "','role':'ADMISSION'}", getPerson("9011046365"));
         persistContact("{'institutionId':'ikea.university.se','role':'ADMISSION'}", getPerson("9107146991"));
-        persistContact("{'institutionId':'ikea.university.se','organizationUnitId':'ikea.ou2.se','role':'COURSE'}", getPerson("8906093845"));
-        
-        // Pomodoro
-        persistContact("{'institutionId':'pomodoro.university.it','organizationUnitId':'pomodoro.ou1.it','role':'COURSE'}", getPerson("8810126789"));
+        persistContact("{'institutionId':'ikea.university.se','organizationUnitId':'" + ouIdIkea + "','role':'COURSE'}", getPerson("8906093845"));
+
+        String ouIdPomodoro = InstitutionLoader.POMODORO_OU1_ID;
+        persistContact("{'institutionId':'pomodoro.university.it','organizationUnitId':'" + ouIdPomodoro + "','role':'COURSE'}", getPerson("8810126789"));
         persistContact("{'institutionId':'pomodoro.university.it','role':'ADMISSION'}", getPerson("8602181287"));
-        persistContact("{'institutionId':'pomodoro.university.it','organizationUnitId':'pomodoro.ou1.it','role':'INSURANCE'}", getPerson("9104125620"));
+        persistContact("{'institutionId':'pomodoro.university.it','organizationUnitId':'" + ouIdPomodoro + "','role':'INSURANCE'}", getPerson("9104125620"));
     }
     public void createDemoDataPomodoro() throws IOException {
         createDemoDataIkea();

@@ -12,7 +12,8 @@ angular.module('menu').controller('MenuController', function ($scope, $location)
                        {name:'Mobility', page:'mobility'},
                        {name:'Other Connectors',
                         subItems:[{name:'Echo', page:'echo'},
-                                  {name:'Discovery', page:'manifest'}]}];
+                                  {name:'Discovery', page:'manifest'},
+                                  {name:'Institution', page:'institution-client'}]}];
 
     $scope.selectedRootItem = '';
     $scope.selectHomeItem = function() {

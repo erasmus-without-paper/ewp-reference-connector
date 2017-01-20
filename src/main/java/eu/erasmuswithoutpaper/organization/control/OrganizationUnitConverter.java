@@ -19,14 +19,15 @@ public class OrganizationUnitConverter {
 
     public OunitsResponse.Ounit convertToOunit(OrganizationUnit organizationUnit, String parentOrganizationUnitId,  String parentInstitutionId) {
         OunitsResponse.Ounit ounit = new OunitsResponse.Ounit();
-        ounit.getContact().addAll(convertToContact(parentInstitutionId, organizationUnit.getOrganizationUnitId()));
+        ounit.getContact().addAll(convertToContact(parentInstitutionId, organizationUnit.getId()));
         ounit.getMobilityFactsheetUrl().addAll(convertToHttpWithOptionalLang(organizationUnit.getFactsheetUrl()));
         ounit.getName().addAll(convertToStringWithOptionalLang(organizationUnit.getName()));
         ounit.getWebsiteUrl().addAll(convertToHttpWithOptionalLang(organizationUnit.getWebsiteUrl()));
         ounit.setMailingAddress(convertFlexibleAddress(organizationUnit.getMailingAddress()));
-        ounit.setOunitId(organizationUnit.getOrganizationUnitId());
+        ounit.setOunitId(organizationUnit.getId());
         ounit.setParentOunitId(parentOrganizationUnitId);
         ounit.setStreetAddress(convertFlexibleAddress(organizationUnit.getStreetAddress()));
+        ounit.setOunitCode(organizationUnit.getOrganizationUnitCode());
         
         return ounit;
     }

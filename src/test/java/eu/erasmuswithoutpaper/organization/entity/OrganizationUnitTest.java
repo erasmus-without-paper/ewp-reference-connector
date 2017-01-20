@@ -29,7 +29,7 @@ public class OrganizationUnitTest {
     @Test
     public void testPersistOrganizationUnit() {
         OrganizationUnit organizationUnit = new OrganizationUnit();
-        organizationUnit.setOrganizationUnitId("OrgUnitId1");
+        organizationUnit.setOrganizationUnitCode("OrgUnitId1");
         List<LanguageItem> names = new ArrayList<>();
         LanguageItem nameSv = new LanguageItem("TestInstSv", LanguageItem.SWEDISH);
         LanguageItem nameEn = new LanguageItem("TestInstEn", LanguageItem.ENGLISH);

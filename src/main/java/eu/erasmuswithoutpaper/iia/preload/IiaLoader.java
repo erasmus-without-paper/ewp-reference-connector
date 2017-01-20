@@ -7,6 +7,8 @@ import eu.erasmuswithoutpaper.iia.entity.IiaPartner;
 import eu.erasmuswithoutpaper.iia.entity.MobilityType;
 import eu.erasmuswithoutpaper.internal.JsonHelper;
 import eu.erasmuswithoutpaper.organization.entity.Contact;
+import eu.erasmuswithoutpaper.organization.entity.OrganizationUnit;
+import eu.erasmuswithoutpaper.organization.preload.InstitutionLoader;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
@@ -63,10 +65,12 @@ public class IiaLoader {
     }
 
     private IiaPartner getIkeaIiaPartner() throws IOException {
-        return getIiaPartner("{'institutionId':'ikea.university.se','organizationUnitId':'ikea.ou1.se'}", getContacts("ikea.university.se", "ikea.ou1.se"));
+        String ouId = InstitutionLoader.IKEA_OU1_ID;
+        return getIiaPartner("{'institutionId':'ikea.university.se','organizationUnitId':'" + ouId + "'}", getContacts("ikea.university.se", ouId));
     }
     private IiaPartner getPomodoroIiaPartner() throws IOException {
-        return getIiaPartner("{'institutionId':'pomodoro.university.it','organizationUnitId':'pomodoro.ou1.it'}", getContacts("'pomodoro.university.it", "pomodoro.ou1.it"));
+        String ouId = InstitutionLoader.POMODORO_OU1_ID;
+        return getIiaPartner("{'institutionId':'pomodoro.university.it','organizationUnitId':'" + ouId + "'}", getContacts("'pomodoro.university.it", ouId));
     }
 
     private IiaPartner getIiaPartner(String iiaPartnerJson, List<Contact> contacts) throws IOException {
@@ -82,4 +86,13 @@ public class IiaLoader {
         return contacts;
     }
     
+    private String getOrganizationUnitId(String organizationUnitCode) throws IOException {
+        Query query = em.createNamedQuery(OrganizationUnit.findByOrganizationUnitCode).setParameter("organizationUnitCode", organizationUnitCode);
+        List<OrganizationUnit> organizationUnitList = query.getResultList();
+        if (organizationUnitList.size() != 1) {
+           throw new IllegalArgumentException("Organization unit code " + organizationUnitCode + " doesn't return an unique organization unit.");
+        }
+        
+        return organizationUnitList.get(0).getId();
+    }
 }

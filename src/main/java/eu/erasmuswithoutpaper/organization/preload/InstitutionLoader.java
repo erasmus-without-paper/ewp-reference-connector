@@ -8,6 +8,10 @@ import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
 
 public class InstitutionLoader {
+    public static final String IKEA_OU1_ID = "8965F285-E763-42EA-8163-C52C8B654035";
+    public static final String IKEA_OU2_ID = "8965F285-E763-42EA-8163-C52C8B654036";
+    public static final String POMODORO_OU1_ID = "8965F285-E763-42EA-8163-C52C8B654030";
+    
     @PersistenceContext(unitName = "connector")
     EntityManager em;
 
@@ -23,7 +27,7 @@ public class InstitutionLoader {
         String streetAddressOrgUnit2 = "{'addressLine':['Furniture street 12'],'locality':'Assemble city','country':'se'}";
         String otherIdsOrgUnit1 = "[{'idType':'erasmus','idValue':'S Ikea331'},{'idType':'local','idValue':'IKORG01'}]";
         String otherIdsOrgUnit2 = "[{'idType':'erasmus','idValue':'S Ikea332'},{'idType':'local','idValue':'IKORG02'}]";
-        String organizationUnits="[{'organizationUnitId':'ikea.ou1.se','otherId':" + otherIdsOrgUnit1 + ",'name':" + organizationUnit1Names + ",'streetAddress':" + streetAddressOrgUnit1 + ",'websiteUrl':" + websiteUrlForOrgUnit1 + "},{'organizationUnitId':'ikea.ou2.se','otherId':" + otherIdsOrgUnit2 + ",'name':" + organizationUnit2Names + ",'streetAddress':" + streetAddressOrgUnit2 + "}]";
+        String organizationUnits="[{'id':'" + IKEA_OU1_ID + "','organizationUnitCode':'ikea.ou1.se','otherId':" + otherIdsOrgUnit1 + ",'name':" + organizationUnit1Names + ",'streetAddress':" + streetAddressOrgUnit1 + ",'websiteUrl':" + websiteUrlForOrgUnit1 + "},{'id':'" + IKEA_OU2_ID + "','organizationUnitCode':'ikea.ou2.se','otherId':" + otherIdsOrgUnit2 + ",'name':" + organizationUnit2Names + ",'streetAddress':" + streetAddressOrgUnit2 + "}]";
         persistInstitution("{'institutionId':'ikea.university.se','otherId':" + otherIds + ",'name':" + names + ",'streetAddress':" + streetAddressForIkea + ",'organizationUnits':" + organizationUnits + ",'websiteUrl':" + websiteUrlForIkea + "}");
     }
     
@@ -36,7 +40,7 @@ public class InstitutionLoader {
         String streetAddressOrgUnit1 = "{'addressLine':['Pizza valley 121'],'locality':'Sunny town','country':'it'}";
         String websiteUrlForOrgUnit1 = "[{'text':'www.pomodoromatematik.it','lang':'it'},{'text':'www.pomodoromath.it','lang':'en'}]";
         String otherIdsOrgUnit1 = "[{'idType':'euc','idValue':'23998'},{'idType':'local','idValue':'P5445'}]";
-        String organizationUnits = "[{'organizationUnitId':'pomodoro.ou1.it','otherId':" + otherIdsOrgUnit1 + ",'name':" + organizationUnit1Names + ",'streetAddress':" + streetAddressOrgUnit1 + ",'websiteUrl':" + websiteUrlForOrgUnit1 + "}]";
+        String organizationUnits = "[{'id':'" + IKEA_OU1_ID + "','organizationUnitCode':'pomodoro.ou1.it','otherId':" + otherIdsOrgUnit1 + ",'name':" + organizationUnit1Names + ",'streetAddress':" + streetAddressOrgUnit1 + ",'websiteUrl':" + websiteUrlForOrgUnit1 + "}]";
         persistInstitution("{'institutionId':'pomodoro.university.it','otherId':" + otherIds + ",'name':" + names + ",'streetAddress':" + streetAddressForPomodoro + ",'organizationUnits':" + organizationUnits + ",'websiteUrl':" + websiteUrlForPomodoro + "}");
     }
     

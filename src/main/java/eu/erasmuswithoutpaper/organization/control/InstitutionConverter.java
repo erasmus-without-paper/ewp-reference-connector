@@ -72,7 +72,7 @@ public class InstitutionConverter {
     private List<String> getOrganizationUnitIds(List<OrganizationUnit> organizationUnits) {
         List<String> organizationUnitIds = new ArrayList<>();
         organizationUnits.stream().map((ou) -> {
-            organizationUnitIds.add(ou.getOrganizationUnitId());
+            organizationUnitIds.add(ou.getId());
             return ou;
         }).forEachOrdered((ou) -> {
             organizationUnitIds.addAll(getOrganizationUnitIds(ou.getOrganizationUnits()));

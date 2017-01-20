@@ -65,12 +65,12 @@ public class OrganizationUnitResource {
     private List<OunitsResponse.Ounit> ounits(List<String> organizationUnitIdList, List<OrganizationUnit> organizationUnits, String parentOrganizationUnitId, String parentInstitutionId) {
         List<OunitsResponse.Ounit> ounits = new ArrayList<>();
         organizationUnits.stream().map((ou) -> {
-            if (organizationUnitIdList.contains(ou.getOrganizationUnitId())) {
+            if (organizationUnitIdList.contains(ou.getId())) {
                 ounits.add(organizationUnitConverter.convertToOunit(ou, parentOrganizationUnitId, parentInstitutionId));
             }
             return ou;
         }).forEachOrdered((ou) -> {
-            ounits.addAll(ounits(organizationUnitIdList, ou.getOrganizationUnits(), ou.getOrganizationUnitId(), parentInstitutionId));
+            ounits.addAll(ounits(organizationUnitIdList, ou.getOrganizationUnits(), ou.getId(), parentInstitutionId));
         });
         
         return ounits;

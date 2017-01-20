@@ -38,6 +38,9 @@ angular
             }).when('/mobility', {
                 templateUrl: 'partials/mobility.html',
                 controller: 'MobilityController'
+            }).when('/institution-client', {
+                templateUrl: 'partials/institution_client.html',
+                controller: 'InstitutionClientController'
             }).otherwise({
                 redirectTo: '/home'
             });

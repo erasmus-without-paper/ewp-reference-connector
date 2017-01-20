@@ -20,7 +20,6 @@ import org.w3c.dom.NodeList;
 @Singleton
 public class RegistryClient {
     
-    private final String ECHO_NAMESPACE = "https://github.com/erasmus-without-paper/ewp-specs-api-echo/blob/stable-v1/manifest-entry.xsd";
     
     private eu.erasmuswithoutpaper.registryclient.RegistryClient client;
     
@@ -59,34 +58,53 @@ public class RegistryClient {
         return new ArrayList<>();
     }
     
-    public List<HeiEntry> getEchoHeis() {
-        ApiSearchConditions myEchoConditions = new ApiSearchConditions();
-        myEchoConditions.setApiClassRequired(ECHO_NAMESPACE, "echo", "1.0.1");
-        
-        List<HeiEntry> heis = client.findHeis(myEchoConditions).stream().map(e -> new HeiEntry(e.getId(), e.getName())).collect(Collectors.toList());
-        
+    public List<HeiEntry> getEwpInstanceHeisWithUrl() {
+        List<HeiEntry> heis = getHeis(EwpConstants.INSTITUTION_NAMESPACE, "institutions", "0.4.0");
+        heis.stream().forEach(hei -> hei.setUrl(getEwpInstanceHeiUrl(hei.getId())));
         return heis;
+    }
+    
+    public String getEwpInstanceHeiUrl(String heiId) {
+        return getHeiUrl(heiId, EwpConstants.INSTITUTION_NAMESPACE, "institutions", "0.4.0");
+    }
+    
+    public List<HeiEntry> getEchoHeis() {
+        return getHeis(EwpConstants.ECHO_NAMESPACE, "echo", EwpConstants.ECHO_VERSION);
     }
 
     public String getEchoHeiUrl(String heiId) {
-        ApiSearchConditions myEchoConditions = new ApiSearchConditions();
-        myEchoConditions.setApiClassRequired(ECHO_NAMESPACE, "echo", "1.0.1");
-        myEchoConditions.setRequiredHei(heiId);
-        Element manifest = client.findApi(myEchoConditions);
-
-        return parseEchoManifest(manifest);
+        return getHeiUrl(heiId, EwpConstants.ECHO_NAMESPACE, "echo", EwpConstants.ECHO_VERSION);
     }
     
-    private String parseEchoManifest(Element echoManifestElement) {
-        String echoUrl = null;
-        NodeList echoChildNodeList = echoManifestElement.getChildNodes();
-        for (int i = 0; i < echoChildNodeList.getLength(); i++) {
-            Node echoChildNode = echoChildNodeList.item(i);
-            if ("url".equalsIgnoreCase(echoChildNode.getLocalName())) {
-                echoUrl = echoChildNode.getFirstChild().getNodeValue();
+    private String getHeiUrl(String heiId, String namespace, String name, String version) {
+        ApiSearchConditions myConditions = new ApiSearchConditions();
+        myConditions.setApiClassRequired(namespace, name, version);
+        myConditions.setRequiredHei(heiId);
+        Element manifest = client.findApi(myConditions);
+
+        return getUrlFromManifestElement(manifest);
+    }
+    
+    private List<HeiEntry> getHeis(String namespace, String name, String version) {
+        ApiSearchConditions myConditions = new ApiSearchConditions();
+        myConditions.setApiClassRequired(namespace, name, version);
+        
+        Collection<eu.erasmuswithoutpaper.registryclient.HeiEntry> list = client.findHeis(myConditions);
+        List<HeiEntry> heis = list.stream().map(e -> new HeiEntry(e.getId(), e.getName())).collect(Collectors.toList());
+        
+        return heis;
+    }
+     
+   private String getUrlFromManifestElement(Element manifestElement) {
+        String url = null;
+        NodeList childNodeList = manifestElement.getChildNodes();
+        for (int i = 0; i < childNodeList.getLength(); i++) {
+            Node childNode = childNodeList.item(i);
+            if ("url".equalsIgnoreCase(childNode.getLocalName())) {
+                url = childNode.getFirstChild().getNodeValue();
             }
         }
         
-        return echoUrl;
+        return url;
     }
 }

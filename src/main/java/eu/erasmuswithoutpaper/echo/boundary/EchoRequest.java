@@ -1,15 +1,13 @@
 package eu.erasmuswithoutpaper.echo.boundary;
 
+import eu.erasmuswithoutpaper.common.boundary.HttpMethodEnum;
 import java.io.Serializable;
 import java.util.List;
 
 public class EchoRequest implements Serializable {
-    public static enum Method {
-        GET, POST, PUT
-    }
     private String heiId;
     private List<String> echo;
-    private Method method;
+    private HttpMethodEnum method;
 
     public String getHeiId() {
         return heiId;
@@ -27,11 +25,11 @@ public class EchoRequest implements Serializable {
         this.echo = echo;
     }
 
-    public Method getMethod() {
+    public HttpMethodEnum getMethod() {
         return method;
     }
 
-    public void setMethod(Method method) {
+    public void setMethod(HttpMethodEnum method) {
         this.method = method;
     }
 
