@@ -31,4 +31,9 @@ angular.module('connector')
                 return firstLetter.toUpperCase() + otherLetters.toLowerCase();
             }
         };
+    })
+    .filter('prettyprint', function() {
+        return function(xml) {
+            return xml ? vkbeautify.xml(xml) : "";
+        };
     });

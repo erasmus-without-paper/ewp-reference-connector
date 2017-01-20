@@ -3,6 +3,8 @@ package eu.erasmuswithoutpaper.echo.boundary;
 import eu.erasmuswithoutpaper.common.control.HeiEntry;
 import eu.erasmuswithoutpaper.common.control.RegistryClient;
 import eu.erasmuswithoutpaper.common.control.RestClient;
+import java.time.Instant;
+import java.time.temporal.ChronoUnit;
 import java.util.ArrayList;
 import java.util.List;
 import javax.ejb.Stateless;
@@ -46,6 +48,7 @@ public class GuiEchoResource {
         try {
             WebTarget target = restClient.client().target(heiUrl);
             Response response;
+            Instant start = Instant.now();
             switch (echoRequest.getMethod()) {
                 case POST:
                     Form form = new Form();
@@ -62,9 +65,16 @@ public class GuiEchoResource {
                     response = target.request().get();
                     break;
             }
+            
+            echoResponse.setDuration(ChronoUnit.MILLIS.between(start,Instant.now()));
+            
             echoResponse.setStatusCode(response.getStatus());
             echoResponse.setMediaType(response.getMediaType().toString());
             if (response.getStatus() == Response.Status.OK.getStatusCode()) {
+                response.bufferEntity();
+                
+                String raw = response.readEntity(String.class);
+                echoResponse.setRawResponse(raw);
                 eu.erasmuswithoutpaper.api.echo.Response echo = response.readEntity(eu.erasmuswithoutpaper.api.echo.Response.class);
 
                 echoResponse.setEcho(new ArrayList<>(echo.getEcho()));
@@ -72,12 +82,13 @@ public class GuiEchoResource {
             } else {
                 if (response.hasEntity()) {
                     response.bufferEntity();
+                    String raw = response.readEntity(String.class);
+                    echoResponse.setRawResponse(raw);
                     try {
                         eu.erasmuswithoutpaper.api.architecture.ErrorResponse error = response.readEntity(eu.erasmuswithoutpaper.api.architecture.ErrorResponse.class);
                         echoResponse.setErrorMessage(error.getDeveloperMessage().getValue());
                     } catch (Exception e) {
-                        String error = response.readEntity(String.class);
-                        echoResponse.setErrorMessage(error);
+                        echoResponse.setErrorMessage(raw);
                     }
                 }
             }

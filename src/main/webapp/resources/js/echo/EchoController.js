@@ -8,6 +8,7 @@ angular.module('echo').controller('EchoController', function ($scope, EchoServic
     };
     
     $scope.sendEcho = function() {
+        $scope.echoResult = '';
         EchoService.echo($scope.echoRequest,
             function(result) {
                 $scope.echoResult = result;
