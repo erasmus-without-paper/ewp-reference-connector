@@ -5,7 +5,7 @@ import java.util.Arrays;
 import java.util.stream.Collectors;
 
 public enum MobilityStatus {
-    NOMINATED, LIVE, REJECTED, CANCELLED, ACCEPTED, RECOGNIZED;
+    ACCEPTED, CANCELLED, LIVE, NOMINATED, RECOGNIZED, REJECTED;
     
     public static String[] names() {
         MobilityStatus[] statuses = values();

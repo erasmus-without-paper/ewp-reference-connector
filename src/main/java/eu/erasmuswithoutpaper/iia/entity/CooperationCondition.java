@@ -33,15 +33,15 @@ public class CooperationCondition implements Serializable{
     String id;
 
     @OneToOne(cascade = CascadeType.ALL, fetch = FetchType.EAGER)
-    @JoinColumn(name = "sending_partner_id")
+    @JoinColumn(name = "SENDING_PARTNER_ID")
     private IiaPartner sendingPartner;
     
     @OneToOne(cascade = CascadeType.ALL, fetch = FetchType.EAGER)
-    @JoinColumn(name = "receiving_partner_id")
+    @JoinColumn(name = "RECEIVING_PARTNER_ID")
     private IiaPartner receivingPartner;
     
     @ManyToOne(cascade = CascadeType.DETACH, fetch = FetchType.EAGER)
-    @JoinColumn(name = "mobility_type_id", referencedColumnName = "id")
+    @JoinColumn(name = "MOBILITY_TYPE_ID", referencedColumnName = "ID")
     private MobilityType mobilityType;
     
     @JohnzonConverter(StandardDateConverter.class)

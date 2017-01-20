@@ -59,7 +59,7 @@
                     <div class="col-sm-10">
                         <select id="institution" class="form-control" ng-model="$parent.newLearningOppSpec.institutionId" required="required">
                             <option style="display:none" value="">Select institution</option>
-                            <option ng-repeat="inst in institutions" value="{{inst.institutionId}}">{{(inst.name| languageItem : 'en').text}} {{inst.country}}</option>
+                            <option ng-repeat="inst in institutions | orderBy:['name']" value="{{inst.institutionId}}">{{(inst.name| languageItem : 'en').text}} {{inst.country}}</option>
                         </select>
                     </div>
                 </div>

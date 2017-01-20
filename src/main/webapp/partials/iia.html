@@ -90,7 +90,7 @@
                         <div class="col-sm-9">
                             <select id="mobilitytype" class="form-control" ng-model="newCondition.mobilityTypeId" required="required">
                                 <option style="display:none" value="">Select mobility type</option>
-                                <option ng-repeat="mobilityType in mobilityTypes" value="{{mobilityType.id}}">{{mobilityType.mobilityGroup}} : {{mobilityType.mobilityCategory}}</option>
+                                <option ng-repeat="mobilityType in mobilityTypes | orderBy:['mobilityGroup','mobilityCategory']" value="{{mobilityType.id}}">{{mobilityType.mobilityGroup}} : {{mobilityType.mobilityCategory}}</option>
                             </select>
                         </div>
                     </div>

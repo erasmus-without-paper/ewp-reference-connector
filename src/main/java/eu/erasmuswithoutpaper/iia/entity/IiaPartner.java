@@ -32,7 +32,7 @@ public class IiaPartner implements Serializable{
     private String organizationUnitId;
     
     @ManyToMany(cascade = CascadeType.DETACH, fetch = FetchType.EAGER)
-    @JoinTable(name = "iia_partner_contacts")
+    @JoinTable(name = "IIA_PARTNER_CONTACTS")
     private List<Contact> contacts;
 
     public String getId() {

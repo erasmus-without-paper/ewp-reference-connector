@@ -9,7 +9,7 @@
                     <div class="col-sm-10">
                         <select id="institution" class="form-control" ng-model="newAcademicTerm.institutionId" required="required" ng-change="institutionChanged()">
                             <option style="display:none" value="">Select institution</option>
-                            <option ng-repeat="inst in institutions" value="{{inst.institutionId}}">{{(inst.name| languageItem : 'en').text}} {{inst.country}}</option>
+                            <option ng-repeat="inst in institutions | orderBy:['name']" value="{{inst.institutionId}}">{{(inst.name| languageItem : 'en').text}} {{inst.country}}</option>
                         </select>
                     </div>
                 </div>
@@ -18,7 +18,7 @@
                     <div class="col-sm-10">
                         <select id="orgunit" class="form-control" ng-model="newAcademicTerm.organizationUnitId" required="required">
                             <option style="display:none" value="">Select organization unit</option>
-                            <option ng-repeat="org in organizations" value="{{org.organizationUnitId}}">{{(org.name| languageItem : 'en').text}} {{org.country}}</option>
+                            <option ng-repeat="org in organizations | orderBy:['name']" value="{{org.organizationUnitId}}">{{(org.name| languageItem : 'en').text}} {{org.country}}</option>
                         </select>
                     </div>
                 </div>
@@ -27,7 +27,7 @@
                     <div class="col-sm-2">
                         <select id="academicyear" class="form-control width-160" ng-model="newAcademicTerm.academicYearId" required="required">
                             <option style="display:none" value="">Select year</option>
-                            <option ng-repeat="academicYear in academicYears" value="{{academicYear.id}}">{{academicYear.startYear}}/{{academicYear.endYear}}</option>
+                            <option ng-repeat="academicYear in academicYears | orderBy:['startYear']:true" value="{{academicYear.id}}">{{academicYear.startYear}}/{{academicYear.endYear}}</option>
                         </select>
                     </div>
                     <div class="col-sm-8"></div>

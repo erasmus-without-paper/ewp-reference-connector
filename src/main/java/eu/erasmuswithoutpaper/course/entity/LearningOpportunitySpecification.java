@@ -39,19 +39,19 @@ public class LearningOpportunitySpecification implements Serializable{
     private String type;
     
     @OneToMany(cascade = CascadeType.ALL, fetch = FetchType.EAGER, orphanRemoval=true)
-    @JoinTable(name = "los_name")
+    @JoinTable(name = "LOS_NAME")
     private List<LanguageItem> name;
     
     @OneToMany(cascade = CascadeType.ALL, fetch = FetchType.EAGER, orphanRemoval=true)
-    @JoinTable(name = "los_urls")
+    @JoinTable(name = "LOS_URLS")
     private List<LanguageItem> url;
     
     @OneToMany(cascade = CascadeType.ALL, fetch = FetchType.EAGER, orphanRemoval=true)
-    @JoinTable(name = "los_los")
+    @JoinTable(name = "LOS_LOS")
     private List<LearningOpportunitySpecification> learningOpportunitySpecifications;
     
     @OneToMany(cascade = CascadeType.ALL, fetch = FetchType.EAGER, orphanRemoval=true)
-    @JoinTable(name = "los_loi")
+    @JoinTable(name = "LOS_LOI")
     private List<LearningOpportunityInstance> learningOpportunityInstances;
     
     private boolean topLevelParent;

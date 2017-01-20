@@ -29,11 +29,11 @@ public class LearningOpportunityInstance implements Serializable {
     private String organizationUnitId;
     
     @ManyToOne(cascade = CascadeType.DETACH, fetch = FetchType.EAGER)
-    @JoinColumn(name = "academic_term_id", referencedColumnName = "id")
+    @JoinColumn(name = "ACADEMIC_TERM_ID", referencedColumnName = "ID")
     private AcademicTerm academicTerm;
     
     @OneToMany(cascade = CascadeType.ALL, fetch = FetchType.EAGER)
-    @JoinTable(name = "loi_credits")
+    @JoinTable(name = "LOI_CREDITS")
     private List<Credit> credits;
 
     public String getId() {

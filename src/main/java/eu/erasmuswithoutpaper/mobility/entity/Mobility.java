@@ -43,7 +43,7 @@ public class Mobility implements Serializable {
     private String personId;
     
     @ManyToOne(cascade = CascadeType.DETACH, fetch = FetchType.EAGER)
-    @JoinColumn(name = "mobility_type_id", referencedColumnName = "id")
+    @JoinColumn(name = "MOBILITY_TYPE_ID", referencedColumnName = "ID")
     private MobilityType mobilityType;
     
     private MobilityStatus status;
@@ -60,7 +60,7 @@ public class Mobility implements Serializable {
     private int eqfLevel;
     
     @OneToOne(cascade = CascadeType.ALL, fetch = FetchType.EAGER)
-    @JoinColumn(name = "learning_agreement")
+    @JoinColumn(name = "LEARNING_AGREEMENT")
     private LearningAgreement learningAgreement;
     
     public String getId() {

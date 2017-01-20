@@ -49,7 +49,7 @@ public class Iia implements Serializable{
     private Date modifyDate;
     
     @OneToMany(cascade = CascadeType.ALL, fetch = FetchType.EAGER, orphanRemoval=true)
-    @JoinColumn(name = "iia_id")
+    @JoinColumn(name = "IIA_ID")
     List<CooperationCondition> cooperationConditions;
     
     public Iia(){

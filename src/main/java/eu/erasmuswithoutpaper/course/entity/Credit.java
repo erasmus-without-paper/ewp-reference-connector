@@ -18,10 +18,10 @@ public class Credit implements Serializable {
     
     private String scheme;
     
-    @Column(name = "credit_level")
+    @Column(name = "CREDIT_LEVEL")
     private String level;
     
-    @Column(name = "credit_value", precision = 5, scale = 1)
+    @Column(name = "CREDIT_VALUE", precision = 5, scale = 1)
     private BigDecimal value;
 
     public String getId() {

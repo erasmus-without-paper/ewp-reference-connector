@@ -32,31 +32,31 @@ public class OrganizationUnit implements Serializable{
     private String organizationUnitId;
     
     @OneToMany(cascade = CascadeType.ALL, fetch = FetchType.EAGER, orphanRemoval=true)
-    @JoinTable(name = "ou_other_id")
+    @JoinTable(name = "OU_OTHER_ID")
     private List<IdentificationItem> otherId;
 
     @OneToMany(cascade = CascadeType.ALL, fetch = FetchType.EAGER, orphanRemoval=true)
-    @JoinTable(name = "organization_unit_name")
+    @JoinTable(name = "ORGANIZATION_UNIT_NAME")
     private List<LanguageItem> name;
 
     @OneToMany(cascade = CascadeType.ALL, fetch = FetchType.EAGER, orphanRemoval=true)
-    @JoinTable(name = "org_unit_org_unit")
+    @JoinTable(name = "ORG_UNIT_ORG_UNIT")
     private List<OrganizationUnit> organizationUnits;
     
     @OneToOne(cascade = CascadeType.ALL, fetch = FetchType.EAGER)
-    @JoinColumn(name = "street_address")
+    @JoinColumn(name = "STREET_ADDRESS")
     private FlexibleAddress streetAddress;
     
     @OneToOne(cascade = CascadeType.ALL, fetch = FetchType.EAGER)
-    @JoinColumn(name = "mailing_address")
+    @JoinColumn(name = "MAILING_ADDRESS")
     private FlexibleAddress mailingAddress;
     
     @OneToMany(cascade = CascadeType.ALL, fetch = FetchType.EAGER, orphanRemoval=true)
-    @JoinTable(name = "ou_website_url")
+    @JoinTable(name = "OU_WEBSITE_URL")
     private List<LanguageItem> websiteUrl;
     
     @OneToMany(cascade = CascadeType.ALL, fetch = FetchType.EAGER, orphanRemoval=true)
-    @JoinTable(name = "ou_factsheet_url")
+    @JoinTable(name = "OU_FACTSHEET_URL")
     private List<LanguageItem> factsheetUrl;
     
     private String logoUrl;

@@ -8,8 +8,8 @@
                     <label class="control-label col-sm-2" for="institution">Institution</label>
                     <div class="col-sm-10">
                         <select id="institution" class="form-control" ng-model="newContact.institutionId" required="required" ng-change="institutionChanged()">
-                            <option style="display:none" value="">Select an institution</option>
-                            <option ng-repeat="inst in institutions" value="{{inst.institutionId}}">{{(inst.name| languageItem : 'en').text}} {{inst.country}}</option>
+                            <option style="display:none" value="">Select institution</option>
+                            <option ng-repeat="inst in institutions | orderBy:['name']" value="{{inst.institutionId}}">{{(inst.name| languageItem : 'en').text}} {{inst.country}}</option>
                         </select>
                     </div>
                 </div>
@@ -17,8 +17,8 @@
                     <label class="control-label col-sm-2" for="orgunit">Organization Unit</label>
                     <div class="col-sm-10">
                         <select id="orgunit" class="form-control" ng-model="newContact.organizationUnitId">
-                            <option value="">Select an organization unit (optional)</option>
-                            <option ng-repeat="org in organizations" value="{{org.organizationUnitId}}">{{(org.name| languageItem : 'en').text}} {{org.country}}</option>
+                            <option value="">Select organization unit (optional)</option>
+                            <option ng-repeat="org in organizations | orderBy:['name']" value="{{org.organizationUnitId}}">{{(org.name| languageItem : 'en').text}} {{org.country}}</option>
                         </select>
                     </div>
                 </div>
@@ -27,7 +27,7 @@
                     <div class="col-sm-10">
                         <select id="person" class="form-control" ng-model="newContact.personId" required="required">
                             <option style="display:none" value="">Select a person</option>
-                            <option ng-repeat="person in persons" value="{{person.personId}}">{{person.personId}} - {{person.firstNames}} {{person.lastName}}</option>
+                            <option ng-repeat="person in persons | orderBy:['personId']:true" value="{{person.personId}}">{{person.personId}} - {{person.firstNames}} {{person.lastName}}</option>
                         </select>
                     </div>
                 </div>

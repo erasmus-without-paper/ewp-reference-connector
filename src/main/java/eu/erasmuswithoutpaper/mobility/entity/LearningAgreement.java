@@ -22,7 +22,7 @@ public class LearningAgreement implements Serializable {
     private int learningAgreementRevision;
     
     @OneToMany(cascade = CascadeType.ALL, fetch = FetchType.EAGER, orphanRemoval=true)
-    @JoinTable(name = "la_agreement_component")
+    @JoinTable(name = "LA_AGREEMENT_COMPONENT")
     private List<LearningAgreementComponent> laComponents;
 
     public String getId() {

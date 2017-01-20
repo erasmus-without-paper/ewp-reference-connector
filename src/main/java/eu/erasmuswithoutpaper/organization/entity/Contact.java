@@ -39,38 +39,38 @@ public class Contact implements Serializable {
     private String institutionId;
     private String organizationUnitId;
     
-    @Column(name = "contact_role")
+    @Column(name = "CONTACT_ROLE")
     private String role;
     
     @ManyToOne(cascade = CascadeType.DETACH, fetch = FetchType.EAGER)
-    @JoinColumn(name = "person_id", referencedColumnName = "id")
+    @JoinColumn(name = "PERSON_ID", referencedColumnName = "ID")
     private Person person;
     
     @OneToMany(cascade = CascadeType.ALL, fetch = FetchType.EAGER, orphanRemoval=true)
-    @JoinTable(name = "contact_name")
+    @JoinTable(name = "CONTACT_NAME")
     private List<LanguageItem> name;
     
     @OneToMany(cascade = CascadeType.ALL, fetch = FetchType.EAGER, orphanRemoval=true)
-    @JoinTable(name = "contact_description")
+    @JoinTable(name = "CONTACT_DESCRIPTION")
     private List<LanguageItem> description;
     
     @ElementCollection
     private List<String> email;
     
     @OneToMany(cascade = CascadeType.ALL, fetch = FetchType.EAGER, orphanRemoval=true)
-    @JoinTable(name = "contact_url")
+    @JoinTable(name = "CONTACT_URL")
     private List<LanguageItem> url;
     
     @OneToOne(cascade = CascadeType.ALL, fetch = FetchType.EAGER)
-    @JoinColumn(name = "phone_number")
+    @JoinColumn(name = "PHONE_NUMBER")
     private PhoneNumber phoneNumber;
     
     @OneToOne(cascade = CascadeType.ALL, fetch = FetchType.EAGER)
-    @JoinColumn(name = "fax_number")
+    @JoinColumn(name = "fFAX_NUMBER")
     private PhoneNumber faxNumber;
     
     @OneToOne(cascade = CascadeType.ALL, fetch = FetchType.EAGER)
-    @JoinColumn(name = "address")
+    @JoinColumn(name = "ADDRESS")
     private FlexibleAddress address;
 
     public String getId() {

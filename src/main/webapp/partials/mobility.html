@@ -9,7 +9,7 @@
                     <div class="col-sm-9">
                         <select id="iia" class="form-control" ng-model="newMobility.iiaId" required="required" ng-change="iiaChanged()">
                             <option style="display:none" value="">Select IIA</option>
-                            <option ng-repeat="iia in iiaList" value="{{iia.iiaId}}">{{iia.iiaId}} : From {{iia.startDate| date: 'yyyy-MM-dd'}} to {{iia.endDate| date: 'yyyy-MM-dd'}}</option>
+                            <option ng-repeat="iia in iiaList | orderBy:['iiaId']" value="{{iia.iiaId}}">{{iia.iiaId}} : From {{iia.startDate| date: 'yyyy-MM-dd'}} to {{iia.endDate| date: 'yyyy-MM-dd'}}</option>
                         </select>
                     </div>
                 </div>
@@ -18,7 +18,7 @@
                     <div class="col-sm-9">
                         <select id="coopconditions" class="form-control" ng-model="newMobility.cooperationConditionId" required="required" ng-change="cooperationConditionChanged()">
                             <option style="display:none" value="">Select cooperation condition</option>
-                            <option ng-repeat="condition in cooperationConditionList" value="{{condition.id}}">{{condition.mobilityType.mobilityGroup}}/{{condition.mobilityType.mobilityCategory}}, {{condition.duration.number}} {{condition.duration.unit}}, {{condition.receivingPartner.institutionId}} - {{condition.sendingPartner.institutionId}}, from {{condition.startDate| date: 'yyyy-MM-dd'}} to {{condition.endDate| date: 'yyyy-MM-dd'}}</option>
+                            <option ng-repeat="condition in cooperationConditionList | orderBy:['mobilityGroup']" value="{{condition.id}}">{{condition.mobilityType.mobilityGroup}}/{{condition.mobilityType.mobilityCategory}}, {{condition.duration.number}} {{condition.duration.unit}}, {{condition.receivingPartner.institutionId}} - {{condition.sendingPartner.institutionId}}, from {{condition.startDate| date: 'yyyy-MM-dd'}} to {{condition.endDate| date: 'yyyy-MM-dd'}}</option>
                         </select>
                     </div>
                 </div>
@@ -27,7 +27,7 @@
                     <div class="col-sm-9">
                         <select id="person" class="form-control" ng-model="newMobility.personId" required="required">
                             <option style="display:none" value="">Select a person</option>
-                            <option ng-repeat="person in persons" value="{{person.personId}}">{{person.personId}} - {{person.firstNames}} {{person.lastName}}</option>
+                            <option ng-repeat="person in persons | orderBy:['personId']:true" value="{{person.personId}}">{{person.personId}} - {{person.firstNames}} {{person.lastName}}</option>
                         </select>
                     </div>
                 </div>
@@ -50,7 +50,7 @@
                     <div class="col-sm-2">
                         <select id="mobilitystatus" class="form-control" ng-model="newMobility.status" required="required">
                             <option style="display:none" value="">Select status</option>
-                            <option ng-repeat="status in mobilityStatuses" value="{{status}}">{{status| capitalize}}</option>
+                            <option ng-repeat="status in mobilityStatuses | orderBy:['status']" value="{{status}}">{{status| capitalize}}</option>
                         </select>
                     </div>
                     <div class="col-sm-7"></div>
