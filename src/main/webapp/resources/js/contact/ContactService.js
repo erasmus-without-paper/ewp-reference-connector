@@ -7,6 +7,9 @@ angular.module('contact').service('ContactService', function ($http) {
         },
         addNew: function (contact, callback) {
             $http.post('gui/contact/add', contact).success(callback);
+        },
+        getContactRoles: function (callback) {
+            $http.get('gui/contact/contact_roles').success(callback);
         }
     };
 });

@@ -18,7 +18,9 @@ angular.module('contact').controller('ContactController', function ($scope, Cont
             $scope.persons = result;
         });
         
-        $scope.roles = ['Admission', 'Course', 'Housing', 'Insurance', 'Visas'];
+        ContactService.getContactRoles(function(result) {
+            $scope.roles = result;
+        });
         $scope.organizations = [];
         $scope.showAddContactForm = true;
     };

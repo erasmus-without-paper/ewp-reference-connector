@@ -6,8 +6,19 @@ angular.module('iia').controller('IiaController', function ($scope, IiaService) 
         });
     };
     
-    $scope.durationUnits = ['Hours', 'Days', 'Weeks', 'Months', 'Years'];
-    $scope.mobilityNumberVariants = ['Total', 'Average'];
+    $scope.getMobilityNumberVariants = function(){
+        IiaService.getMobilityNumberVariants(
+            function(result) {
+                $scope.mobilityNumberVariants = result;
+        });
+    };
+   
+    $scope.getDurationUnitVariants = function(){
+        IiaService.getDurationUnitVariants(
+            function(result) {
+                $scope.durationUnits = result;
+        });
+    };
     
     $scope.setSelectedIia = function(iia) {
         $scope.selectedIia = iia;
@@ -68,5 +79,7 @@ angular.module('iia').controller('IiaController', function ($scope, IiaService) 
         $scope.showAddConditionForm = false;
     };
     
+    $scope.getMobilityNumberVariants();
+    $scope.getDurationUnitVariants();
     $scope.getAllIias();
 });

@@ -7,7 +7,13 @@ angular.module('iia').service('IiaService', function ($http) {
             $http.post('gui/iia/add', $iia).success(callback);
         },
         getMobilityTypes: function (callback) {
-            $http.get('gui/iia/get_mobility_types').success(callback);
+            $http.get('gui/iia/mobility_types').success(callback);
+        },
+        getMobilityNumberVariants: function (callback) {
+            $http.get('gui/iia/mobility_unit_variants').success(callback);
+        },
+        getDurationUnitVariants: function (callback) {
+            $http.get('gui/iia/duration_unit_variants').success(callback);
         }
     };
 });

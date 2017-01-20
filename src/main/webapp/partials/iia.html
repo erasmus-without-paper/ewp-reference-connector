@@ -116,7 +116,7 @@
                         <div class="col-sm-2">
                             <select id="mobilitynumbervariant" class="form-control" ng-model="newCondition.mobilityNumber.variant" required="required">
                                 <option style="display:none" value="">Select variant</option>
-                                <option ng-repeat="mobNumberVar in mobilityNumberVariants" value="{{mobNumberVar}}">{{mobNumberVar}}</option>
+                                <option ng-repeat="mobNumberVar in mobilityNumberVariants" value="{{mobNumberVar}}">{{mobNumberVar | capitalize}}</option>
                             </select>
                         </div>
                         <div class="col-sm-6"></div>
@@ -129,7 +129,7 @@
                         <div class="col-sm-2">
                             <select id="durationunit" class="form-control" ng-model="newCondition.duration.unit" required="required">
                                 <option style="display:none" value="">Select unit</option>
-                                <option ng-repeat="durationUnit in durationUnits" value="{{durationUnit}}">{{durationUnit}}</option>
+                                <option ng-repeat="durationUnit in durationUnits" value="{{durationUnit}}">{{durationUnit | capitalize}}</option>
                             </select>
                         </div>
                         <div class="col-sm-6"></div>

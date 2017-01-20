@@ -1,6 +1,8 @@
 package eu.erasmuswithoutpaper.iia.boundary;
 
+import eu.erasmuswithoutpaper.iia.entity.DurationUnitVariants;
 import eu.erasmuswithoutpaper.iia.entity.Iia;
+import eu.erasmuswithoutpaper.iia.entity.MobilityNumberVariants;
 import eu.erasmuswithoutpaper.iia.entity.MobilityType;
 import java.util.List;
 import javax.ejb.Stateless;
@@ -30,10 +32,28 @@ public class GuiIiaResource {
     }
 
     @GET
-    @Path("get_mobility_types")
+    @Path("mobility_types")
     public Response getMobilityTypes() {
         List<MobilityType> mobilityTypeList = em.createNamedQuery(MobilityType.findAll).getResultList();
         GenericEntity<List<MobilityType>> entity = new GenericEntity<List<MobilityType>>(mobilityTypeList) {};
+        
+        return Response.ok(entity).build();
+    }
+    
+    @GET
+    @Path("mobility_unit_variants")
+    public Response getMobilityNumberVariants() {
+        String[] statuses = MobilityNumberVariants.names();
+        GenericEntity<String[]> entity = new GenericEntity<String[]>(statuses) {};
+        
+        return Response.ok(entity).build();
+    }
+
+    @GET
+    @Path("duration_unit_variants")
+    public Response getDurationUnitVariants() {
+        String[] statuses = DurationUnitVariants.names();
+        GenericEntity<String[]> entity = new GenericEntity<String[]>(statuses) {};
         
         return Response.ok(entity).build();
     }

@@ -2,6 +2,7 @@
 package eu.erasmuswithoutpaper.organization.boundary;
 
 import eu.erasmuswithoutpaper.organization.entity.Contact;
+import eu.erasmuswithoutpaper.organization.entity.ContactRoles;
 import java.util.List;
 import javax.ejb.Stateless;
 import javax.persistence.EntityManager;
@@ -33,6 +34,15 @@ public class GuiContactResource {
         List<Contact> contactList = em.createNamedQuery(Contact.findAll).getResultList();
             
         GenericEntity<List<Contact>> entity = new GenericEntity<List<Contact>>(contactList) {};
+        return Response.ok(entity).build();
+    }
+    
+    @GET
+    @Path("contact_roles")
+    public Response getContactRoles() {
+        String[] statuses = ContactRoles.names();
+        GenericEntity<String[]> entity = new GenericEntity<String[]>(statuses) {};
+        
         return Response.ok(entity).build();
     }
 }
