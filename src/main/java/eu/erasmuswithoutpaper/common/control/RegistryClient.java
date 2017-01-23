@@ -13,6 +13,7 @@ import java.util.logging.Logger;
 import java.util.stream.Collectors;
 import javax.annotation.PostConstruct;
 import javax.ejb.Singleton;
+import javax.inject.Inject;
 import org.w3c.dom.Element;
 import org.w3c.dom.Node;
 import org.w3c.dom.NodeList;
@@ -20,14 +21,18 @@ import org.w3c.dom.NodeList;
 @Singleton
 public class RegistryClient {
     
-    
     private eu.erasmuswithoutpaper.registryclient.RegistryClient client;
+    
+    @Inject
+    private GlobalProperties properties;
     
     @PostConstruct
     private void loadRegistryClient() {
         try {
             ClientImplOptions options = new ClientImplOptions();
-            options.setCatalogueFetcher(new DefaultCatalogueFetcher("dev-registry.erasmuswithoutpaper.eu"));
+            options.setCatalogueFetcher(new DefaultCatalogueFetcher(properties.getRegistryUrl()));
+            options.setAutoRefreshing(properties.isRegistryAutoRefreshing());
+            options.setTimeBetweenRetries(properties.getRegistryTimeBetweenRetries());
             client = new ClientImpl(options);
             
             client.refresh();
@@ -59,15 +64,25 @@ public class RegistryClient {
     }
     
     public List<HeiEntry> getEwpInstanceHeisWithUrl() {
-        List<HeiEntry> heis = getHeis(EwpConstants.INSTITUTION_NAMESPACE, "institutions", "0.4.0");
+        List<HeiEntry> heis = getHeis(EwpConstants.INSTITUTION_NAMESPACE, "institutions", EwpConstants.INSTITUTION_VERSION);
         heis.stream().forEach(hei -> hei.setUrl(getEwpInstanceHeiUrl(hei.getId())));
         return heis;
     }
     
     public String getEwpInstanceHeiUrl(String heiId) {
-        return getHeiUrl(heiId, EwpConstants.INSTITUTION_NAMESPACE, "institutions", "0.4.0");
+        return getHeiUrl(heiId, EwpConstants.INSTITUTION_NAMESPACE, "institutions", EwpConstants.INSTITUTION_VERSION);
     }
     
+    public List<HeiEntry> getEwpOrganizationUnitHeisWithUrl() {
+        List<HeiEntry> heis = getHeis(EwpConstants.ORGANIZATION_UNIT_NAMESPACE, "organizational-units", EwpConstants.ORGANIZATION_UNIT_VERSION);
+        heis.stream().forEach(hei -> hei.setUrl(getEwpOrganizationUnitHeiUrl(hei.getId())));
+        return heis;
+    }
+    
+    public String getEwpOrganizationUnitHeiUrl(String heiId) {
+        return getHeiUrl(heiId, EwpConstants.ORGANIZATION_UNIT_NAMESPACE, "organizational-units", EwpConstants.ORGANIZATION_UNIT_VERSION);
+    }
+
     public List<HeiEntry> getEchoHeis() {
         return getHeis(EwpConstants.ECHO_NAMESPACE, "echo", EwpConstants.ECHO_VERSION);
     }

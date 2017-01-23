@@ -41,6 +41,9 @@ angular
             }).when('/institution-client', {
                 templateUrl: 'partials/institution_client.html',
                 controller: 'InstitutionClientController'
+            }).when('/ounit-client', {
+                templateUrl: 'partials/ounit_client.html',
+                controller: 'OrganizationUnitClientController'
             }).otherwise({
                 redirectTo: '/home'
             });

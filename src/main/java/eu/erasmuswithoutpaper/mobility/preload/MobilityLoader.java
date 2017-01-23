@@ -31,7 +31,7 @@ public class MobilityLoader {
     
     public void createDemoDataPomodoro() throws IOException {
         //TODO Create data for Pomodoro
-        createDemoDataIkea();
+        //createDemoDataIkea();
     }
     
     private void persistMobility(String mobilityJson, MobilityType mobilityType, LearningAgreement learningAgreement, String coopConditionId) throws IOException {

@@ -102,10 +102,9 @@ public class GuiInstitutionResource {
                 
                 String raw = response.readEntity(String.class);
                 institutionResponse.setRawResponse(raw);
-                //eu.erasmuswithoutpaper.api.echo.Response echo = response.readEntity(eu.erasmuswithoutpaper.api.echo.Response.class);
+                eu.erasmuswithoutpaper.api.institutions.InstitutionsResponse institutionsResponse = response.readEntity(eu.erasmuswithoutpaper.api.institutions.InstitutionsResponse.class);
 
-                //echoResponse.setEcho(new ArrayList<>(echo.getEcho()));
-                //echoResponse.setHeiId(new ArrayList<>(echo.getHeiId()));
+                institutionResponse.setHeis(institutionsResponse.getHei());
             } else {
                 if (response.hasEntity()) {
                     response.bufferEntity();
@@ -126,4 +125,73 @@ public class GuiInstitutionResource {
         return javax.ws.rs.core.Response.ok(institutionResponse).build();
     }
 
+    @GET
+    @Path("ounits-heis")
+    @Produces(MediaType.APPLICATION_JSON)
+    public javax.ws.rs.core.Response organizationUnitsHeis() {
+        List<HeiEntry> organizationUnitHeis = registryClient.getEwpOrganizationUnitHeisWithUrl();
+        
+        GenericEntity<List<HeiEntry>> entity = new GenericEntity<List<HeiEntry>>(organizationUnitHeis) {};
+        return javax.ws.rs.core.Response.ok(entity).build();
+    }
+    
+    @POST
+    @Path("ounits-heis")
+    @Produces(MediaType.APPLICATION_JSON)
+    public javax.ws.rs.core.Response organizationUnits(OrganizationUnitRequest organizationUnitRequest) {
+
+        OrganizationUnitResponse organizationUnitResponse = new OrganizationUnitResponse();
+        try {
+            WebTarget target = restClient.client().target(organizationUnitRequest.getUrl());
+            Response response;
+            Instant start = Instant.now();
+            switch (organizationUnitRequest.getMethod()) {
+                case POST:
+                    Form form = new Form();
+                    form.param("hei_id", organizationUnitRequest.getHeiId());
+                    organizationUnitRequest.getOrganizationUnitIds().stream().forEach(e -> form.param("ounit_id", e));
+                    response = target.request().post(Entity.entity(form, MediaType.APPLICATION_FORM_URLENCODED_TYPE));
+                    break;
+                case PUT:
+                    response = target.request().put(null);
+                    break;
+                default:
+                    target = target.queryParam("hei_id", organizationUnitRequest.getHeiId());
+                    for (String heiId : organizationUnitRequest.getOrganizationUnitIds()) {
+                        target = target.queryParam("ounit_id", heiId);
+                    }
+                    response = target.request().get();
+                    break;
+            }
+            
+            organizationUnitResponse.setDuration(ChronoUnit.MILLIS.between(start,Instant.now()));
+            
+            organizationUnitResponse.setStatusCode(response.getStatus());
+            organizationUnitResponse.setMediaType(response.getMediaType().toString());
+            if (response.getStatus() == Response.Status.OK.getStatusCode()) {
+                response.bufferEntity();
+                
+                String raw = response.readEntity(String.class);
+                organizationUnitResponse.setRawResponse(raw);
+                eu.erasmuswithoutpaper.api.ounits.OunitsResponse ounitResponse = response.readEntity(eu.erasmuswithoutpaper.api.ounits.OunitsResponse.class);
+                organizationUnitResponse.setOrganizationUnits(ounitResponse.getOunit());
+            } else {
+                if (response.hasEntity()) {
+                    response.bufferEntity();
+                    String raw = response.readEntity(String.class);
+                    organizationUnitResponse.setRawResponse(raw);
+                    try {
+                        eu.erasmuswithoutpaper.api.architecture.ErrorResponse error = response.readEntity(eu.erasmuswithoutpaper.api.architecture.ErrorResponse.class);
+                        organizationUnitResponse.setErrorMessage(error.getDeveloperMessage().getValue());
+                    } catch (Exception e) {
+                        organizationUnitResponse.setErrorMessage(raw);
+                    }
+                }
+            }
+        } catch (Exception e) {
+            organizationUnitResponse.setErrorMessage(e.getMessage());
+        }
+ 
+        return javax.ws.rs.core.Response.ok(organizationUnitResponse).build();
+    }
 }

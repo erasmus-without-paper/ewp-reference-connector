@@ -40,42 +40,5 @@
         
     </div>
 
-    <div class="panel panel-default" ng-show="echoResult">
-        <div class="panel-heading"><h2>Response</h2></div>
-        <div class="panel-body">
-            <div class="well">
-                Response time: {{echoResult.duration}}ms
-            </div>
-            
-            <ul class="nav nav-tabs">
-                <li ng-class="{'active':!isRaw}"><a ng-click="isRaw=false">Formatted</a></li>
-                <li ng-class="{'active':isRaw}"><a ng-click="isRaw=true">Raw</a></li>
-            </ul>
-            <div ng-show="!isRaw">
-                <div class="alert alert-success" ng-if="echoResult.statusCode === 200">
-                    <div class="row" ng-repeat="echo in echoResult.echo">
-                        <div class="col-md-2">{{$index === 0 ? 'Echo: ' : ''}}</div>
-                        <div class="col-md-10">{{echo}}</div>
-                    </div><br/>
-                    <div class="row" ng-repeat="heiId in echoResult.heiId">
-                        <div class="col-md-2">{{$index === 0 ? 'Hei Id: ' : ''}}</div>
-                        <div class="col-md-10">{{heiId}}</div>
-                    </div>
-                </div>
-
-                <div class="alert alert-danger" ng-if="echoResult.statusCode !== 200">
-                    <div class="row">
-                        <div ng-if="echoResult.statusCode > 0">
-                            <div class="col-md-2">Status Code: </div><div class="col-md-10">{{echoResult.statusCode}}</div>
-                            <div class="col-md-2">Media Type: </div><div class="col-md-10">{{echoResult.mediaType}}</div>
-                        </div>
-                        <div class="col-md-2">Error Message: </div><div class="col-md-10">{{echoResult.errorMessage}}</div>
-                    </div>
-                </div>
-            </div>
-            <div ng-show="isRaw">
-                <pre><code>{{echoResult.rawResponse | prettyprint}}</code></pre>
-            </div>
-        </div>
-    </div>
+    <div data-client-result data-result="echoResult" data-formatted-template="'partials/echo_formatted_result.html'"></div>
 </div>

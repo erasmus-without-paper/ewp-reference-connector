@@ -91,6 +91,18 @@ public class GlobalProperties {
         return "true".equalsIgnoreCase(getProperty("ewp.allow.missing.client.certificate"));
     }
     
+    public String getRegistryUrl() {
+        return getProperty("ewp.registry.url", "dev-registry.erasmuswithoutpaper.eu");
+    }
+    
+    public boolean isRegistryAutoRefreshing() {
+        return "true".equalsIgnoreCase(getProperty("ewp.registry.auto.refreshing"));
+    }
+    
+    public int getRegistryTimeBetweenRetries() {
+        return getIntProperty("ewp.registry.time.between.retries", 180000);
+    }
+
     public int getMaxInstitutionsIds() {
         return getIntProperty("ewp.api.institutions.max.ids", 1);
     }

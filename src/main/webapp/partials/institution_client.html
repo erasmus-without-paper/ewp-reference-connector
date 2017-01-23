@@ -22,7 +22,7 @@
             <div class="form-group">
                 <label class="control-label" for="hei">Institution:</label>
                 <select id="hei" class="form-control" ng-model="institutionRequest.heiIds" required="required" multiple>
-                    <option style="display:none" value="">Select an institutions</option>
+                    <option style="display:none" value="">Select institutions</option>
                     <option ng-repeat="hei in urlHeis | orderBy: 'name'" value="{{hei.id}}">{{hei.name}}</option>
                 </select>
             </div>
@@ -38,35 +38,5 @@
         </form>
     </div>
 
-    <div class="panel panel-default" ng-show="institutionResult">
-        <div class="panel-heading"><h2>Response</h2></div>
-        <div class="panel-body">
-            <div class="well">
-                Response time: {{institutionResult.duration}}ms
-            </div>
-            
-            <ul class="nav nav-tabs">
-                <li ng-class="{'active':!isRaw}"><a ng-click="isRaw=false">Formatted</a></li>
-                <li ng-class="{'active':isRaw}"><a ng-click="isRaw=true">Raw</a></li>
-            </ul>
-            <div ng-show="!isRaw">
-                <div class="alert alert-success" ng-if="institutionResult.statusCode === 200">
-                    TODO!!!
-                </div>
-
-                <div class="alert alert-danger" ng-if="institutionResult.statusCode !== 200">
-                    <div class="row">
-                        <div ng-if="institutionResult.statusCode > 0">
-                            <div class="col-md-2">Status Code: </div><div class="col-md-10">{{institutionResult.statusCode}}</div>
-                            <div class="col-md-2">Media Type: </div><div class="col-md-10">{{institutionResult.mediaType}}</div>
-                        </div>
-                        <div class="col-md-2">Error Message: </div><div class="col-md-10">{{institutionResult.errorMessage}}</div>
-                    </div>
-                </div>
-            </div>
-            <div ng-show="isRaw">
-                <pre><code>{{institutionResult.rawResponse | prettyprint}}</code></pre>
-            </div>
-        </div>
-    </div>
+    <div data-client-result data-result="institutionResult" data-formatted-template="'partials/institution_formatted_result.html'"></div>
 </div>

@@ -11,6 +11,12 @@ angular.module('institution').service('InstitutionService', function ($http) {
         },
         getHeis: function (callback) {
             $http.get('gui/institution/heis').success(callback);
+        },
+        getOrganizationUnits: function (institutionRequest, callback) {
+            $http.post('gui/institution/ounits-heis', institutionRequest).success(callback);
+        },
+        getOrganizationUnitHeis: function (callback) {
+            $http.get('gui/institution/ounits-heis').success(callback);
         }
     };
 });

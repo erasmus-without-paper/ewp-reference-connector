@@ -1,51 +1,18 @@
 package eu.erasmuswithoutpaper.organization.boundary;
 
+import eu.erasmuswithoutpaper.api.institutions.InstitutionsResponse;
+import eu.erasmuswithoutpaper.common.boundary.BaseClientResponse;
 import java.io.Serializable;
+import java.util.List;
 
-class InstitutionResponse implements Serializable {
-    private int statusCode;
-    private String mediaType;
-    private String errorMessage;
-    private String rawResponse;
-    private long duration;
+public class InstitutionResponse extends BaseClientResponse implements Serializable {
+    private List<InstitutionsResponse.Hei> heiList;
 
-    public int getStatusCode() {
-        return statusCode;
-    }
-
-    public void setStatusCode(int statusCode) {
-        this.statusCode = statusCode;
-    }
-
-    public String getMediaType() {
-        return mediaType;
-    }
-
-    public void setMediaType(String mediaType) {
-        this.mediaType = mediaType;
-    }
-
-    public String getErrorMessage() {
-        return errorMessage;
-    }
-
-    public void setErrorMessage(String errorMessage) {
-        this.errorMessage = errorMessage;
-    }
-
-    public String getRawResponse() {
-        return this.rawResponse;
+    public List<InstitutionsResponse.Hei> getHeis() {
+        return this.heiList;
     }
     
-    public void setRawResponse(String raw) {
-        this.rawResponse = raw;
-    }
-
-    public long getDuration() {
-        return this.duration;
-    }
-    
-    public void setDuration(long duration) {
-        this.duration = duration;
+    public void setHeis(List<InstitutionsResponse.Hei> hei) {
+        this.heiList = hei;
     }
 }

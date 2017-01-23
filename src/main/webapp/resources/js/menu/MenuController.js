@@ -13,7 +13,8 @@ angular.module('menu').controller('MenuController', function ($scope, $location)
                        {name:'Other Connectors',
                         subItems:[{name:'Echo', page:'echo'},
                                   {name:'Discovery', page:'manifest'},
-                                  {name:'Institution', page:'institution-client'}]}];
+                                  {name:'Institution', page:'institution-client'},
+                                  {name:'Organization unit', page:'ounit-client'}]}];
 
     $scope.selectedRootItem = '';
     $scope.selectHomeItem = function() {
