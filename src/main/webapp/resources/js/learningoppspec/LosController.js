@@ -33,7 +33,6 @@ angular.module('los').controller('LosController', function ($scope, LosService, 
     };
     
     $scope.addLearningOppSpec = function(){
-        $scope.newLearningOppSpec.name = [{text:$scope.newLearningOppSpec.nameStr,'lang':'en'}];
         $scope.newLearningOppSpec.url = [{text:$scope.newLearningOppSpec.urlStr,'lang':'en'}];
         
         if ($scope.currentLos) {
@@ -47,6 +46,7 @@ angular.module('los').controller('LosController', function ($scope, LosService, 
         
         $scope.showAddLearningOppSpecForm = false;
         $scope.newLearningOppSpec = {};
+        $scope.newLearningOppSpec = {name:[{text:'', lang: ''}]};
         $scope.currentLos = '';
     };
     
@@ -58,11 +58,13 @@ angular.module('los').controller('LosController', function ($scope, LosService, 
     
     $scope.cancelAddLearningOppSpec = function(){
         $scope.newLearningOppSpec = {};
+        $scope.newLearningOppSpec = {name:[{text:'', lang: ''}]};
         $scope.showAddLearningOppSpecForm = false;
     };
     
-    
-    
+    $scope.addNameForLearningOppSpec = function() {
+        $scope.newLearningOppSpec.name.push({text: '',  lang: ''});
+    };
     
     $scope.showLos = function(los) {
         $scope.currentLos=los;
@@ -74,4 +76,5 @@ angular.module('los').controller('LosController', function ($scope, LosService, 
     };
     
     $scope.getAllTopLevelLosParents();
+    $scope.cancelAddLearningOppSpec();
 });
