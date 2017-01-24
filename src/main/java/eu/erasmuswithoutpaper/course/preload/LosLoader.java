@@ -20,7 +20,7 @@ public class LosLoader {
         // Course
         String namesCourse1Ikea = "[{'text':'Analytisk kemi','lang':'sv'},{'text':'Analytical Chemistry','lang':'en'}]";
         String urlCourse1Ikea = "[{'text':'www.iu.se/analytiskkemi','lang':'sv'},{'text':'www.iu.se/analyticalchemistry','lang':'en'}]";
-        persistLearningOppSpecFromJson("{'id':" + IKEA_LOS1_ID + ",'institutionId':'ikea.university.se','losCode':'IU001','type':'Course','name':" + namesCourse1Ikea + ",'url':" + urlCourse1Ikea + "}");
+        persistLearningOppSpecFromJson("{'id':'" + IKEA_LOS1_ID + "','institutionId':'ikea.university.se','losCode':'IU001','type':'Course','name':" + namesCourse1Ikea + ",'url':" + urlCourse1Ikea + "}");
         
         // Course
         String namesCourse2Ikea = "[{'text':'Kärnfysik','lang':'sv'},{'text':'Nuclear physics','lang':'en'}]";
