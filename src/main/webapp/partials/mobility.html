@@ -18,7 +18,7 @@
                     <div class="col-sm-9">
                         <select id="coopconditions" class="form-control" ng-model="newMobility.cooperationConditionId" required="required" ng-change="cooperationConditionChanged()">
                             <option style="display:none" value="">Select cooperation condition</option>
-                            <option ng-repeat="condition in cooperationConditionList | orderBy:['mobilityGroup']" value="{{condition.id}}">{{condition.mobilityType.mobilityGroup}}/{{condition.mobilityType.mobilityCategory}}, {{condition.duration.number}} {{condition.duration.unit}}, {{condition.receivingPartner.institutionId}} - {{condition.sendingPartner.institutionId}}, from {{condition.startDate| date: 'yyyy-MM-dd'}} to {{condition.endDate| date: 'yyyy-MM-dd'}}</option>
+                            <option ng-repeat="condition in cooperationConditionList | orderBy:['mobilityGroup']" value="{{condition.id}}">{{condition.mobilityType.mobilityGroup}}/{{condition.mobilityType.mobilityCategory}}, {{condition.duration.number}} {{condition.duration.unit}}, {{condition.sendingPartner.institutionId}} - {{condition.receivingPartner.institutionId}}, from {{condition.startDate| date: 'yyyy-MM-dd'}} to {{condition.endDate| date: 'yyyy-MM-dd'}}</option>
                         </select>
                     </div>
                 </div>

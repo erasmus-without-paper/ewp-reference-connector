@@ -1,7 +1,8 @@
 
 package eu.erasmuswithoutpaper.mobility.preload;
 
-import eu.erasmuswithoutpaper.course.entity.LearningOpportunitySpecification;
+import eu.erasmuswithoutpaper.course.preload.LoiLoader;
+import eu.erasmuswithoutpaper.course.preload.LosLoader;
 import eu.erasmuswithoutpaper.iia.entity.Iia;
 import eu.erasmuswithoutpaper.iia.entity.MobilityType;
 import eu.erasmuswithoutpaper.internal.JsonHelper;
@@ -26,12 +27,13 @@ public class MobilityLoader {
     public void createDemoDataIkea() throws IOException {
         String ouIdIkea = InstitutionLoader.IKEA_OU1_ID;
         String ouIdPomodoro = InstitutionLoader.POMODORO_OU1_ID;
-        persistMobility("{'mobilityRevision':'1','iiaId':'iiaId001','sendingInstitutionId':'ikea.university.se','sendingOrganizationUnitId':'" + ouIdIkea + "','receivingInstitutionId':'pomodoro.university.it','receivingOrganizationUnitId':'" + ouIdPomodoro + "','personId':'9011046365','status':'NOMINATED','plannedArrivalDate':'2017-03-14','plannedDepartureDate':'2017-05-15','iscedCode':'ISC123','eqfLevel':'3'}", getMobilityType("Student", "Studies"), getLearningAgreement("{'learningAgreementRevision':'1'}", getLearningAgreementComponents("IU001")), getCoopConditionId("iiaId001"));
+        String losId = LosLoader.IKEA_LOS1_ID;
+        String loiId = LoiLoader.IKEA_LOI1_ID;
+        persistMobility("{'mobilityRevision':'1','iiaId':'iiaId001','sendingInstitutionId':'ikea.university.se','sendingOrganizationUnitId':'" + ouIdIkea + "','receivingInstitutionId':'pomodoro.university.it','receivingOrganizationUnitId':'" + ouIdPomodoro + "','personId':'9011046365','status':'NOMINATED','plannedArrivalDate':'2017-03-14','plannedDepartureDate':'2017-05-15','iscedCode':'ISC123','eqfLevel':'3'}", getMobilityType("Student", "Studies"), getLearningAgreement("{'learningAgreementRevision':'1'}", getLearningAgreementComponents(losId, loiId)), getCoopConditionId("iiaId001"));
     }
     
     public void createDemoDataPomodoro() throws IOException {
-        //TODO Create data for Pomodoro
-        //createDemoDataIkea();
+        createDemoDataIkea(); // Same data for Ikea and Pomodoro since they both are part of the same mobility.
     }
     
     private void persistMobility(String mobilityJson, MobilityType mobilityType, LearningAgreement learningAgreement, String coopConditionId) throws IOException {
@@ -59,27 +61,38 @@ public class MobilityLoader {
         return la;
     }
 
-    private List<LearningAgreementComponent> getLearningAgreementComponents(String losCode) {
+    private List<LearningAgreementComponent> getLearningAgreementComponents(String losId, String loiId) {
         List<LearningAgreementComponent> laComponents = new ArrayList<>();
-        
-        Query query = em.createNamedQuery(LearningOpportunitySpecification.findByLosCode).setParameter("losCode", losCode);
-        List<LearningOpportunitySpecification> los = query.getResultList();
-        
-        if(los.size() != 1){
-            throw new IllegalArgumentException("losCode " + losCode + " doesn't return a unique LearningOpportunitySpecification.");
-        }
-        
         LearningAgreementComponent laComponent = new LearningAgreementComponent();
         laComponent.setStatus(LearningAgreementComponentStatus.PLANNED);
-        laComponent.setLosId(los.get(0).getId());
-        
-        // Returning the first learning opp instance in the list, to keep it simple
-        laComponent.setLoiId(los.get(0).getLearningOpportunityInstances().get(0).getId());
-        
+        laComponent.setLosId(losId);
+        laComponent.setLoiId(loiId);
         laComponents.add(laComponent);
         
         return laComponents;
     }
+
+//    private List<LearningAgreementComponent> getLearningAgreementComponents(String losCode) {
+//        List<LearningAgreementComponent> laComponents = new ArrayList<>();
+//        
+//        Query query = em.createNamedQuery(LearningOpportunitySpecification.findByLosCode).setParameter("losCode", losCode);
+//        List<LearningOpportunitySpecification> los = query.getResultList();
+//        
+//        if(los.size() != 1){
+//            throw new IllegalArgumentException("losCode " + losCode + " doesn't return a unique LearningOpportunitySpecification.");
+//        }
+//        
+//        LearningAgreementComponent laComponent = new LearningAgreementComponent();
+//        laComponent.setStatus(LearningAgreementComponentStatus.PLANNED);
+//        laComponent.setLosId(los.get(0).getId());
+//        
+//        // Returning the first learning opp instance in the list, to keep it simple
+//        laComponent.setLoiId(los.get(0).getLearningOpportunityInstances().get(0).getId());
+//        
+//        laComponents.add(laComponent);
+//        
+//        return laComponents;
+//    }
 
     private String getCoopConditionId(String iiaId) {
         Query query = em.createNamedQuery(Iia.findByIiaId).setParameter("iiaId", iiaId);

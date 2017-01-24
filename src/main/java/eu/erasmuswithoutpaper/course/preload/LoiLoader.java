@@ -15,6 +15,8 @@ import javax.persistence.PersistenceContext;
 import javax.persistence.Query;
 
 public class LoiLoader {
+    public static final String IKEA_LOI1_ID = "8965F285-E763-IKEA-8163-C52C8B654032";
+    
 @PersistenceContext(unitName = "connector")
     EntityManager em;
     
@@ -33,7 +35,7 @@ public class LoiLoader {
         LearningOpportunitySpecification course1Los = getLos("IU001");
         LearningOpportunityInstance course1Loi1 = createLearningOppInst("{'credits':" + credit1 + "}", getAcademicTerm(getAcademicYear("2015", "2016"), "Fall"));
         LearningOpportunityInstance course1Loi2 = createLearningOppInst("{'organizationUnitId':'" + ouId + "','credits':" + credit2 + "}", getAcademicTerm(getAcademicYear("2015", "2016"), "Spring"));
-        LearningOpportunityInstance course1Loi3 = createLearningOppInst("{'organizationUnitId':'" + ouId + "','credits':" + credit2 + "}", getAcademicTerm(getAcademicYear("2016", "2017"), "Fall"));
+        LearningOpportunityInstance course1Loi3 = createLearningOppInst("{'id':" + IKEA_LOI1_ID + ",'organizationUnitId':'" + ouId + "','credits':" + credit2 + "}", getAcademicTerm(getAcademicYear("2016", "2017"), "Fall"));
         List<LearningOpportunityInstance> course1LoiList = new ArrayList<>();
         course1LoiList.add(course1Loi1);
         course1LoiList.add(course1Loi2);
@@ -93,7 +95,7 @@ public class LoiLoader {
     }
 
     public void createDemoDataPomodoro() throws IOException {
-        //TODO Create data for Pomodoro
+        //TODO Create more data for Pomodoro
         
         // Credits
         String credit1 = "[{'scheme':'ects','level':'Bachelor','value':'5'}]";
