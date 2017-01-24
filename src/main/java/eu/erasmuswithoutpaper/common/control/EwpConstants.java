@@ -10,4 +10,5 @@ public class EwpConstants {
     public static final String DISCOVERY_VERSION = "4.0.1";
     public static final String ORGANIZATION_UNIT_VERSION = "0.3.0";
     public static final String COURSES_VERSION = "0.3.0";
+    public static final String MOBILITIES_VERSION = "0.2.0";
 }

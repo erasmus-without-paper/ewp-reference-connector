@@ -3,6 +3,7 @@ package eu.erasmuswithoutpaper;
 import eu.erasmuswithoutpaper.course.boundary.LosResource;
 import eu.erasmuswithoutpaper.discovery.boundary.ManifestResource;
 import eu.erasmuswithoutpaper.echo.boundary.EchoResource;
+import eu.erasmuswithoutpaper.mobility.boundary.MobilityResource;
 import eu.erasmuswithoutpaper.organization.boundary.InstitutionResource;
 import eu.erasmuswithoutpaper.organization.boundary.OrganizationUnitResource;
 import java.util.HashSet;
@@ -20,6 +21,7 @@ public class RestJAXRSConfiguration extends Application {
         resources.add(InstitutionResource.class);
         resources.add(OrganizationUnitResource.class);
         resources.add(LosResource.class);
+        resources.add(MobilityResource.class);
         return resources;
     }
 }

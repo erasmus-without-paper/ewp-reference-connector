@@ -23,11 +23,13 @@ import org.apache.johnzon.mapper.JohnzonConverter;
 @Entity
 @NamedQueries({
     @NamedQuery(name = Mobility.findAll, query = "SELECT m FROM Mobility m"),
+    @NamedQuery(name = Mobility.findBySendingInstitutionId, query = "SELECT m FROM Mobility m WHERE m.sendingInstitutionId=:sendingInstitutionId"),
 })
 public class Mobility implements Serializable {
 
     private static final String PREFIX = "eu.erasmuswithoutpaper.mobility.entity.Mobility.";
     public static final String findAll = PREFIX + "all";
+    public static final String findBySendingInstitutionId = PREFIX + "findBySendingInstitutionId";
     
     @Id
     @GeneratedValue(generator="system-uuid")

@@ -7,6 +7,7 @@ import eu.erasmuswithoutpaper.api.discovery.Discovery;
 import eu.erasmuswithoutpaper.api.discovery.Manifest;
 import eu.erasmuswithoutpaper.api.echo.Echo;
 import eu.erasmuswithoutpaper.api.institutions.Institutions;
+import eu.erasmuswithoutpaper.api.mobilities.Mobilities;
 import eu.erasmuswithoutpaper.api.ounits.OrganizationalUnits;
 import eu.erasmuswithoutpaper.api.registry.ApisImplemented;
 import eu.erasmuswithoutpaper.api.registry.Hei;
@@ -71,6 +72,7 @@ public class ManifestResource {
         apisImplemented.getAny().add(getInstitutionsEntry());
         apisImplemented.getAny().add(getOrganizationalUnitsEntry());
         apisImplemented.getAny().add(getCoursesEntry());
+        apisImplemented.getAny().add(getMobilitiesEntry());
         manifest.setApisImplemented(apisImplemented);
         
         manifest.setInstitutionsCovered(getInstitutionsCovered());
@@ -137,6 +139,15 @@ public class ManifestResource {
         courses.setUrl(getBaseUri() + "courses");
         courses.setMaxLosIds(BigInteger.valueOf(globalProperties.getMaxLosIds()));
         return courses;
+    }
+
+    private Mobilities getMobilitiesEntry() {
+        Mobilities mobilities = new Mobilities();
+        mobilities.setVersion(EwpConstants.MOBILITIES_VERSION);
+        mobilities.setIndexUrl(getBaseUri() + "mobilities/index");
+        mobilities.setGetUrl(getBaseUri() + "mobilities/get");
+        mobilities.setMaxMobilityIds(BigInteger.valueOf(globalProperties.getMaxMobilityIds()));
+        return mobilities;
     }
     
     private Hei createHei(Institution institution) {

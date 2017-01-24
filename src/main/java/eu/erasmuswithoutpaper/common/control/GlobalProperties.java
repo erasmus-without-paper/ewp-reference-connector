@@ -114,6 +114,10 @@ public class GlobalProperties {
     public int getMaxLosIds() {
         return getIntProperty("ewp.api.los.max.ids", 1);
     }
+    
+    public int getMaxMobilityIds() {
+        return getIntProperty("ewp.api.mobilities.max.ids", 1);
+    }
             
     private int getIntProperty(String key, int defaultValue) {
         String value = getProperty(key);
