@@ -7,6 +7,7 @@ import static eu.erasmuswithoutpaper.common.control.ConverterHelper.convertToXml
 import eu.erasmuswithoutpaper.course.entity.Credit;
 import eu.erasmuswithoutpaper.course.entity.LearningOpportunityInstance;
 import eu.erasmuswithoutpaper.course.entity.LearningOpportunitySpecification;
+import eu.erasmuswithoutpaper.course.entity.LearningOpportunitySpecificationType;
 import java.text.SimpleDateFormat;
 import java.util.List;
 import java.util.logging.Level;
@@ -28,13 +29,14 @@ public class LearningOpportunitySpecificationConverter {
         // TODO: add ISCED code?
         //course.setIscedCode();
         
-        course.setLosId(los.getLosCode());
-        course.setSpecifies(convertToSpecifies(los.getLearningOpportunityInstances(), loisBefore, loisAfter));
+        course.setLosId(LearningOpportunitySpecificationType.abbreviation(los.getType()) + "/" + los.getId());
+        course.setLosCode(los.getLosCode());
+        course.setSpecifies(convertToSpecifies(los.getLearningOpportunityInstances(), LearningOpportunitySpecificationType.loiAbbreviation(los.getType()), loisBefore, loisAfter));
         
         // TODO: add subject area?
         //course.setSubjectArea(los.get);
         
-        course.setType(los.getType());
+        course.setType(LearningOpportunitySpecificationType.displayName(los.getType()));
         
         // TODO: should API change to multilanguage URL
         course.setUrl(los.getUrl() == null || los.getUrl().isEmpty() ? null : los.getUrl().get(0).getText());
@@ -52,7 +54,7 @@ public class LearningOpportunitySpecificationConverter {
         return contains;
     }
 
-    private CoursesResponse.LearningOpportunitySpecification.Specifies convertToSpecifies(List<LearningOpportunityInstance> loi, String loisBefore, String loisAfter) {
+    private CoursesResponse.LearningOpportunitySpecification.Specifies convertToSpecifies(List<LearningOpportunityInstance> loi, String loiAbbreviation, String loisBefore, String loisAfter) {
         if (loi == null || loi.isEmpty()) {
             return null;
         }
@@ -92,7 +94,7 @@ public class LearningOpportunitySpecificationConverter {
             // TODO: add?
             //converted.setLanguageOfInstruction(value);
             
-            converted.setLoiId("LOI" + l.getId());
+            converted.setLoiId(loiAbbreviation + "/" + l.getId());
             
             // TODO: add result distribution
             //converted.setResultDistribution(value);

@@ -10,8 +10,8 @@
 <div ng-if="contact.email.length > 0" ng-repeat="line in contact.email">
     <div class="col-sm-2 hide-overflow-ellipsis">{{$index === 0 ? 'Email:' : ''}}</div><div class="col-md-10">{{line}}</div>
 </div>
-<div data-flexible-address data-address="contact.streetAddress"></div>
-<div data-flexible-address data-address="contact.mailingAddress"></div>
+<div data-flexible-address="contact.streetAddress"></div>
+<div data-flexible-address="contact.mailingAddress"></div>
 <div ng-if="contact.roleDescription.length > 0" ng-repeat="line in contact.roleDescription">
     <div class="col-sm-2 hide-overflow-ellipsis">{{$index === 0 ? 'Description:' : ''}}</div><div class="col-md-10">{{line.value}}{{line.lang ? ' (' + line.lang + ')' : ''}}</div>
 </div>

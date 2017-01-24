@@ -30,7 +30,7 @@ public class LearningOpportunitySpecificationTest {
     @Test
     public void testPersistLearningOpportunitySpecification() {
         LearningOpportunitySpecification los = new LearningOpportunitySpecification("instId1", "losCode1");
-        los.setType("Test");
+        los.setType(LearningOpportunitySpecificationType.COURSE);
         List<LanguageItem> names = new ArrayList<>();
         LanguageItem nameSv = new LanguageItem("LearningOpSpecNameSv", LanguageItem.SWEDISH);
         LanguageItem nameEn = new LanguageItem("LearningOpSpecNameEn", LanguageItem.ENGLISH);
@@ -51,7 +51,7 @@ public class LearningOpportunitySpecificationTest {
         
         LearningOpportunitySpecification result = em.find(LearningOpportunitySpecification.class, los.getId());
         Assert.assertNotNull(result);
-        Assert.assertEquals("Test", result.getType());
+        Assert.assertEquals(LearningOpportunitySpecificationType.COURSE, result.getType());
         
         Assert.assertEquals("LearningOpSpecNameSv", result.getName().get(0).getText());
         Assert.assertEquals(LanguageItem.SWEDISH, result.getName().get(0).getLang());

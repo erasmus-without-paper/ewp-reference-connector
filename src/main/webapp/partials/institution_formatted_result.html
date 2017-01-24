@@ -11,17 +11,19 @@
         <div class="col-md-2">{{$index === 0 ? 'Name: ' : ''}}</div>
         <div class="col-md-10">{{name.value}} ({{name.lang}})</div>
     </div>
-    <div class="clearfix" data-flexible-address data-address="hei.streetAddress"></div>
     <div class="clearfix" ng-repeat="url in hei.websiteUrl">
         <div class="col-md-2">{{$index === 0 ? 'Website url: ' : ''}}</div>
         <div class="col-md-10">{{url.value}} ({{url.lang}})</div>
     </div>
-    <div class="well" ng-repeat="contact in hei.contact">
-        <b>Contact</b>
-        <div data-contact="contact"></div>
-    </div>
     <div class="clearfix" ng-repeat="ounitId in hei.ounitId">
         <div class="col-md-2">{{$index === 0 ? 'Org. unit id: ' : ''}}</div>
         <div class="col-md-10">{{ounitId}}</div>
+    </div>
+    <div class="clearfix" data-flexible-address="hei.streetAddress"></div>
+    <div class="clearfix" ng-if="hei.contact">
+        <div class="col-md-12">Contact:</div>
+    </div>
+    <div class="well" ng-repeat="contact in hei.contact">
+        <div class="clearfix" data-contact="contact"></div>
     </div>
 </div>

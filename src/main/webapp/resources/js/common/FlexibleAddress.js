@@ -2,8 +2,8 @@ angular.module('connector').directive('flexibleAddress', function() {
         return {
             restrict: 'A',
             scope: {
-                address: '=address'
+                address: '=flexibleAddress'
             },
-            templateUrl: 'partials/flexible-address.html'
+            templateUrl: 'partials/flexible_address.html'
         };
     });

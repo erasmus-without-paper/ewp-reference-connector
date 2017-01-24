@@ -9,7 +9,7 @@
             <i class="glyphicon" ng-class="{'glyphicon-chevron-down': los.expanded, 'glyphicon-chevron-right': !los.expanded}"></i>
             </button>
             </span>
-            {{los.losCode}} - {{(los.name | languageItem:'en').text}}, {{los.type}} ({{los.learningOpportunityInstances.length}})
+            {{los.losCode}} - {{(los.name | languageItem:'en').text}}, {{los.type | losTypeDisplayName}} ({{los.learningOpportunityInstances.length}})
             </a>
             <ul ng-if="los.learningOpportunitySpecifications.length > 0" ng-show="los.expanded">
             <li ng-repeat="los in los.learningOpportunitySpecifications" ng-include="'los_renderer.html'" ng-class="{'active':los===currentLos}"></li>
@@ -21,7 +21,7 @@
     </div>
 
     <div class="panel panel-default" ng-show="currentLos">
-        <div class="panel-heading"><h2>{{currentLos.losCode}} - {{(currentLos.name | languageItem:'en').text}} ({{currentLos.type}})</h2></div>
+        <div class="panel-heading"><h2>{{currentLos.losCode}} - {{(currentLos.name | languageItem:'en').text}} ({{currentLos.type | losTypeDisplayName}})</h2></div>
         <div class="panel-body">
             <div class="col-md-2">LOS code:</div><div class="col-md-10 hide-overflow-ellipsis">{{currentLos.losCode}}</div>
             <div ng-repeat="name in currentLos.name">
@@ -30,7 +30,7 @@
             <div ng-repeat="url in currentLos.url">
                 <div class="col-md-2">URL ({{url.lang}}):</div><div class="col-md-10 hide-overflow-ellipsis">{{url.text}}</div>
             </div>
-            <div class="col-md-2">Type:</div><div class="col-md-10 hide-overflow-ellipsis">{{currentLos.type| capitalize}}</div>
+            <div class="col-md-2">Type:</div><div class="col-md-10 hide-overflow-ellipsis">{{currentLos.type | losTypeDisplayName}}</div>
             <div class="col-md-2">Institution id:</div><div class="col-md-10 hide-overflow-ellipsis">{{currentLos.institutionId}}</div>
         </div>
 

@@ -65,7 +65,7 @@ public class LosResource {
     private List<CoursesResponse.LearningOpportunitySpecification> los(List<String> losIdList, List<LearningOpportunitySpecification> losList, String loisBefore, String loisAfter, String losAtDate) {
         List<CoursesResponse.LearningOpportunitySpecification> courses = new ArrayList<>();
         losList.stream().forEachOrdered((los) -> {
-            if (losIdList.contains(los.getLosCode())) {
+            if (losIdList.contains(los.getId())) {
                 courses.add(losConverter.convertToLos(los, loisBefore, loisAfter, losAtDate));
             }
         });
