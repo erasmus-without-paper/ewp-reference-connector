@@ -11,6 +11,7 @@ import javax.persistence.PersistenceContext;
 
 public class LosLoader {
     public static final String IKEA_LOS1_ID = "8965F285-E763-IKEA-8163-C52C8B654033";
+    public static final String POMODORO_LOS1_ID = "8965F285-E763-POMO-8163-C52C8B654033";
     
 @PersistenceContext(unitName = "connector")
     EntityManager em;
@@ -73,7 +74,7 @@ public class LosLoader {
         // Course
         String namesCourse1Pomodoro = "[{'text':'Datainsamling och analys','lang':'sv'},{'text':'Data Collection and Analysis','lang':'en'}]";
         String urlCourse1Pomodoro = "[{'text':'www.pu.it/datainsamlinganalys','lang':'sv'},{'text':'www.pu.it/datacollectionanalysis','lang':'en'}]";
-        persistLearningOppSpecFromJson("{'institutionId':'pomodoro.university.it','losCode':'PU001','type':'Course','name':" + namesCourse1Pomodoro + ",'url':" + urlCourse1Pomodoro + "}");
+        persistLearningOppSpecFromJson("{'id':'" + POMODORO_LOS1_ID + "','institutionId':'pomodoro.university.it','losCode':'PU001','type':'Course','name':" + namesCourse1Pomodoro + ",'url':" + urlCourse1Pomodoro + "}");
         
         // Course
         String namesCourse2Pomodoro = "[{'text':'Datormoln','lang':'sv'},{'text':'Cloud computing','lang':'en'}]";

@@ -25,8 +25,7 @@ public class IiaLoader {
     }
     
     public void createDemoDataPomodoro() throws IOException {
-        //TODO Create data for Pomodoro
-        createDemoDataIkea();
+        createDemoDataIkea(); // Same data for both HEIs since they are partners in this IIA.
     }
     
     private void persistIia(String iiaJson, List<CooperationCondition> cooperationConditions) throws IOException {

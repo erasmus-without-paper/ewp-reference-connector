@@ -22,8 +22,12 @@ public class LearningAgreement implements Serializable {
     private int learningAgreementRevision;
     
     @OneToMany(cascade = CascadeType.ALL, fetch = FetchType.EAGER, orphanRemoval=true)
-    @JoinTable(name = "LA_AGREEMENT_COMPONENT")
-    private List<LearningAgreementComponent> laComponents;
+    @JoinTable(name = "STUDIED_LA_COMPONENT")
+    private List<StudiedLaComponent> studiedLaComponents;
+    
+    @OneToMany(cascade = CascadeType.ALL, fetch = FetchType.EAGER, orphanRemoval=true)
+    @JoinTable(name = "RECOGNIZED_LA_COMPONENT")
+    private List<RecognizedLaComponent> recognizedLaComponents;
 
     public String getId() {
         return id;
@@ -41,14 +45,22 @@ public class LearningAgreement implements Serializable {
         this.learningAgreementRevision = learningAgreementRevision;
     }
 
-    public List<LearningAgreementComponent> getLaComponents() {
-        return laComponents;
+    public List<StudiedLaComponent> getStudiedLaComponents() {
+        return studiedLaComponents;
     }
 
-    public void setLaComponents(List<LearningAgreementComponent> laComponents) {
-        this.laComponents = laComponents;
+    public void setStudiedLaComponents(List<StudiedLaComponent> studiedLaComponents) {
+        this.studiedLaComponents = studiedLaComponents;
     }
-    
+
+    public List<RecognizedLaComponent> getRecognizedLaComponents() {
+        return recognizedLaComponents;
+    }
+
+    public void setRecognizedLaComponents(List<RecognizedLaComponent> recognizedLaComponents) {
+        this.recognizedLaComponents = recognizedLaComponents;
+    }
+
     @Override
     public int hashCode() {
         int hash = 5;

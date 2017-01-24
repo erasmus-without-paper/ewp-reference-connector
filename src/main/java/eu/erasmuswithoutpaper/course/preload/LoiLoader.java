@@ -16,6 +16,7 @@ import javax.persistence.Query;
 
 public class LoiLoader {
     public static final String IKEA_LOI1_ID = "8965F285-E763-IKEA-8163-C52C8B654032";
+    public static final String POMODORO_LOI1_ID = "8965F285-E763-POMO-8163-C52C8B654030";
     
 @PersistenceContext(unitName = "connector")
     EntityManager em;
@@ -35,7 +36,7 @@ public class LoiLoader {
         LearningOpportunitySpecification course1Los = getLos("IU001");
         LearningOpportunityInstance course1Loi1 = createLearningOppInst("{'credits':" + credit1 + "}", getAcademicTerm(getAcademicYear("2015", "2016"), "Fall"));
         LearningOpportunityInstance course1Loi2 = createLearningOppInst("{'organizationUnitId':'" + ouId + "','credits':" + credit2 + "}", getAcademicTerm(getAcademicYear("2015", "2016"), "Spring"));
-        LearningOpportunityInstance course1Loi3 = createLearningOppInst("{'id':" + IKEA_LOI1_ID + ",'organizationUnitId':'" + ouId + "','credits':" + credit2 + "}", getAcademicTerm(getAcademicYear("2016", "2017"), "Fall"));
+        LearningOpportunityInstance course1Loi3 = createLearningOppInst("{'id':'" + IKEA_LOI1_ID + "','organizationUnitId':'" + ouId + "','credits':" + credit2 + "}", getAcademicTerm(getAcademicYear("2016", "2017"), "Fall"));
         List<LearningOpportunityInstance> course1LoiList = new ArrayList<>();
         course1LoiList.add(course1Loi1);
         course1LoiList.add(course1Loi2);
@@ -105,7 +106,7 @@ public class LoiLoader {
         String ouId = getOrganizationUnitId("pomodoro.ou1.it");
         // Course1
         LearningOpportunitySpecification course1Los = getLos("PU001");
-        LearningOpportunityInstance course1Loi1 = createLearningOppInst("{'credits':" + credit1 + "}", getAcademicTerm(getAcademicYear("2015", "2016"), "Fall"));
+        LearningOpportunityInstance course1Loi1 = createLearningOppInst("{'id':'" + POMODORO_LOI1_ID + "','credits':" + credit1 + "}", getAcademicTerm(getAcademicYear("2015", "2016"), "Fall"));
         LearningOpportunityInstance course1Loi2 = createLearningOppInst("{'organizationUnitId':'" + ouId + "','credits':" + credit2 + "}", getAcademicTerm(getAcademicYear("2015", "2016"), "Spring"));
         LearningOpportunityInstance course1Loi3 = createLearningOppInst("{'organizationUnitId':'" + ouId + "','credits':" + credit2 + "}", getAcademicTerm(getAcademicYear("2016", "2017"), "Fall"));
         List<LearningOpportunityInstance> course1LoiList = new ArrayList<>();

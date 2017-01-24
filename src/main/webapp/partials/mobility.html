@@ -57,15 +57,30 @@
                 </div>
                 <div class="panel panel-default">
                     <div class="panel-heading clearfix">
-                        <h4 class="pull-left">Learning Agreement Components</h4>
+                        <h4 class="pull-left">Studied Learning Agreement Components</h4>
                         <div class="btn-group pull-right">
-                            <button type="button" class="btn btn-default" ng-click="viewAddLaComponentsForm()">
+                            <button type="button" class="btn btn-default" ng-click="viewAddStudiedLaComponentsForm()">
                                 <i class="glyphicon glyphicon-plus-sign"></i>
                             </button>
                         </div>
                     </div>
-                    <div ng-show="newMobility.learningAgreement.laComponents.length > 0" class="panel-body">
-                        <div ng-repeat="component in newMobility.learningAgreement.laComponents">
+                    <div ng-show="newMobility.learningAgreement.studiedLaComponents.length > 0" class="panel-body">
+                        <div ng-repeat="component in newMobility.learningAgreement.studiedLaComponents">
+                            <div class="col-sm-12">{{component.title}}</div>
+                        </div>
+                    </div>
+                </div>
+                <div class="panel panel-default">
+                    <div class="panel-heading clearfix">
+                        <h4 class="pull-left">Recognized Learning Agreement Components</h4>
+                        <div class="btn-group pull-right">
+                            <button type="button" class="btn btn-default" ng-click="viewAddRecognizedLaComponentsForm()">
+                                <i class="glyphicon glyphicon-plus-sign"></i>
+                            </button>
+                        </div>
+                    </div>
+                    <div ng-show="newMobility.learningAgreement.recognizedLaComponents.length > 0" class="panel-body">
+                        <div ng-repeat="component in newMobility.learningAgreement.recognizedLaComponents">
                             <div class="col-sm-12">{{laComponentsDescription[component.losId+"."+component.loiId]}}</div>
                         </div>
                     </div>
@@ -83,12 +98,53 @@
             </form>
         </div>
 
-        <div class="panel panel-default" ng-show="showAddLaConditionForm">
+        <div class="panel panel-default" ng-show="showAddStudiedLaConditionForm">
             <div class="panel-heading">
-                <h4>New Learning Agreement Component</h4>
+                <h4>New Studied Learning Agreement Component</h4>
             </div>
             <div class="panel-body">
-                <form class="form-horizontal" ng-submit="addLaComponent()">
+                <form class="form-horizontal" ng-submit="addStudiedLaComponent()">
+                    <div class="form-group">
+                        <label class="control-label col-sm-3" for="los-title">Learning opp. spec. title</label>
+                        <div class="col-sm-9">
+                            <input id="los-title" class="form-control" placeholder="Enter title" ng-model="newLaComponent.title"/>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label class="control-label col-sm-3" for="academic-term">Academic term display name</label>
+                        <div class="col-sm-9">
+                            <input id="academic-term" class="form-control" placeholder="Enter academic term display name" ng-model="newLaComponent.academicTermDisplayName"/>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label class="control-label col-sm-3" for="componentstatus">Status</label>
+                        <div class="col-sm-2">
+                            <select id="componentstatus" class="form-control" ng-model="newLaComponent.status" required="required">
+                                <option style="display:none" value="">Select status</option>
+                                <option ng-repeat="status in laComponentStatuses" value="{{status}}">{{status| capitalize}}</option>
+                            </select>
+                        </div>
+                        <div class="col-sm-7"></div>
+                    </div>
+                    <div class="input-group">
+                        <div class="btn-group">
+                            <button type="submit" class="btn btn-default">
+                                <span class="glyphicon glyphicon-ok-circle"></span> Add component
+                            </button>
+                            <button type="button" class="btn btn-default" ng-click="cancelAddLaComponents()">
+                                <span class="glyphicon glyphicon-remove-circle"></span> Cancel
+                            </button>
+                        </div>
+                    </div>
+                </form>
+            </div>
+        </div>
+        <div class="panel panel-default" ng-show="showAddRecognizedLaConditionForm">
+            <div class="panel-heading">
+                <h4>New Recognized Learning Agreement Component</h4>
+            </div>
+            <div class="panel-body">
+                <form class="form-horizontal" ng-submit="addRecognizedLaComponent()">
                     <div class="form-group">
                         <label class="control-label col-sm-3" for="los">Learning opportunity specification</label>
                         <div class="col-sm-9">
@@ -106,16 +162,6 @@
                                 <option ng-repeat="option in loiOptions" value="{{option.id}}">{{option.text}}</option>
                             </select>
                         </div>
-                    </div>
-                    <div class="form-group">
-                        <label class="control-label col-sm-3" for="componentstatus">Status</label>
-                        <div class="col-sm-2">
-                            <select id="componentstatus" class="form-control" ng-model="newLaComponent.status" required="required">
-                                <option style="display:none" value="">Select status</option>
-                                <option ng-repeat="status in laComponentStatuses" value="{{status}}">{{status| capitalize}}</option>
-                            </select>
-                        </div>
-                        <div class="col-sm-7"></div>
                     </div>
                     <div class="input-group">
                         <div class="btn-group">

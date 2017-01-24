@@ -11,7 +11,8 @@
         <class>eu.erasmuswithoutpaper.iia.entity.IiaPartner</class>
         <class>eu.erasmuswithoutpaper.iias.entity.Partner</class>
         <class>eu.erasmuswithoutpaper.mobility.entity.LearningAgreement</class>
-        <class>eu.erasmuswithoutpaper.mobility.entity.LearningAgreementComponent</class>
+        <class>eu.erasmuswithoutpaper.mobility.entity.StudiedLaComponent</class>
+        <class>eu.erasmuswithoutpaper.mobility.entity.RecognizedLaComponent</class>
         <class>eu.erasmuswithoutpaper.mobility.entity.Mobility</class>
         <class>eu.erasmuswithoutpaper.mobility.entity.ResultDistribution</class>
         <class>eu.erasmuswithoutpaper.organization.entity.PhoneNumber</class>

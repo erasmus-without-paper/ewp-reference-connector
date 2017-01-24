@@ -26,7 +26,7 @@ public class LearningAgreementComponentTest {
 
     @Test
     public void testPersistLearningAgreementComponent() {
-        LearningAgreementComponent learningAgreementComponent = new LearningAgreementComponent();
+        RecognizedLaComponent learningAgreementComponent = new RecognizedLaComponent();
         learningAgreementComponent.setStatus(LearningAgreementComponentStatus.RECOMMENDED);
         
         this.tx.begin();
@@ -34,7 +34,7 @@ public class LearningAgreementComponentTest {
         this.tx.commit();
         this.em.clear();
         
-        LearningAgreementComponent result = em.find(LearningAgreementComponent.class, learningAgreementComponent.getId());
+        RecognizedLaComponent result = em.find(RecognizedLaComponent.class, learningAgreementComponent.getId());
         Assert.assertNotNull(result);
         Assert.assertEquals(LearningAgreementComponentStatus.RECOMMENDED, result.getStatus());
     }

@@ -8,7 +8,7 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
 
 @Entity
-public class LearningAgreementComponent implements Serializable {
+public class StudiedLaComponent implements Serializable {
 
     @Id
     @GeneratedValue(generator="system-uuid")
@@ -16,6 +16,9 @@ public class LearningAgreementComponent implements Serializable {
     
     private String losId;
     private String loiId;
+    private String title;
+    private String losCode;
+    private String academicTermDisplayName;
     private LearningAgreementComponentStatus status;
 
     public String getId() {
@@ -42,6 +45,30 @@ public class LearningAgreementComponent implements Serializable {
         this.loiId = loiId;
     }
 
+    public String getTitle() {
+        return title;
+    }
+
+    public void setTitle(String title) {
+        this.title = title;
+    }
+
+    public String getLosCode() {
+        return losCode;
+    }
+
+    public void setLosCode(String losCode) {
+        this.losCode = losCode;
+    }
+
+    public String getAcademicTermDisplayName() {
+        return academicTermDisplayName;
+    }
+
+    public void setAcademicTermDisplayName(String academicTermDisplayName) {
+        this.academicTermDisplayName = academicTermDisplayName;
+    }
+    
     public LearningAgreementComponentStatus getStatus() {
         return status;
     }
@@ -68,7 +95,7 @@ public class LearningAgreementComponent implements Serializable {
         if (getClass() != obj.getClass()) {
             return false;
         }
-        final LearningAgreementComponent other = (LearningAgreementComponent) obj;
+        final RecognizedLaComponent other = (RecognizedLaComponent) obj;
         if (!Objects.equals(this.id, other.id)) {
             return false;
         }

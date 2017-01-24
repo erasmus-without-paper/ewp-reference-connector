@@ -7,9 +7,10 @@ import eu.erasmuswithoutpaper.iia.entity.Iia;
 import eu.erasmuswithoutpaper.iia.entity.MobilityType;
 import eu.erasmuswithoutpaper.internal.JsonHelper;
 import eu.erasmuswithoutpaper.mobility.entity.LearningAgreement;
-import eu.erasmuswithoutpaper.mobility.entity.LearningAgreementComponent;
 import eu.erasmuswithoutpaper.mobility.entity.LearningAgreementComponentStatus;
 import eu.erasmuswithoutpaper.mobility.entity.Mobility;
+import eu.erasmuswithoutpaper.mobility.entity.RecognizedLaComponent;
+import eu.erasmuswithoutpaper.mobility.entity.StudiedLaComponent;
 import eu.erasmuswithoutpaper.organization.entity.OrganizationUnit;
 import eu.erasmuswithoutpaper.organization.preload.InstitutionLoader;
 import java.io.IOException;
@@ -29,7 +30,11 @@ public class MobilityLoader {
         String ouIdPomodoro = InstitutionLoader.POMODORO_OU1_ID;
         String losId = LosLoader.IKEA_LOS1_ID;
         String loiId = LoiLoader.IKEA_LOI1_ID;
-        persistMobility("{'mobilityRevision':'1','iiaId':'iiaId001','sendingInstitutionId':'ikea.university.se','sendingOrganizationUnitId':'" + ouIdIkea + "','receivingInstitutionId':'pomodoro.university.it','receivingOrganizationUnitId':'" + ouIdPomodoro + "','personId':'9011046365','status':'NOMINATED','plannedArrivalDate':'2017-03-14','plannedDepartureDate':'2017-05-15','iscedCode':'ISC123','eqfLevel':'3'}", getMobilityType("Student", "Studies"), getLearningAgreement("{'learningAgreementRevision':'1'}", getLearningAgreementComponents(losId, loiId)), getCoopConditionId("iiaId001"));
+        persistMobility("{'mobilityRevision':'1','iiaId':'iiaId001','sendingInstitutionId':'ikea.university.se','sendingOrganizationUnitId':'" + ouIdIkea + 
+                "','receivingInstitutionId':'pomodoro.university.it','receivingOrganizationUnitId':'" + ouIdPomodoro + 
+                "','personId':'9011046365','status':'NOMINATED','plannedArrivalDate':'2017-03-14','plannedDepartureDate':'2017-05-15','iscedCode':'ISC123','eqfLevel':'3'}", 
+                getMobilityType("Student", "Studies"), getLearningAgreement("{'learningAgreementRevision':'1'}", 
+                        getStudiedLearningAgreementComponents(losId, loiId, "Data Collection and Analysis", "Fall semester 2015"), getRecognizedLearningAgreementComponents(losId, loiId)), getCoopConditionId("iiaId001"));
     }
     
     public void createDemoDataPomodoro() throws IOException {
@@ -54,45 +59,35 @@ public class MobilityLoader {
         return mobilityTypes.get(0);
     }
 
-    private LearningAgreement getLearningAgreement(String learningAgreementJson, List<LearningAgreementComponent> laComponents) throws IOException {
+    private LearningAgreement getLearningAgreement(String learningAgreementJson, List<StudiedLaComponent> studiedLaComponents, List<RecognizedLaComponent> recognizedLaComponents) throws IOException {
         LearningAgreement la = JsonHelper.mapToObject(LearningAgreement.class, learningAgreementJson);
-        la.setLaComponents(laComponents);
-        
+        la.setStudiedLaComponents(studiedLaComponents);
+        la.setRecognizedLaComponents(recognizedLaComponents);
         return la;
     }
 
-    private List<LearningAgreementComponent> getLearningAgreementComponents(String losId, String loiId) {
-        List<LearningAgreementComponent> laComponents = new ArrayList<>();
-        LearningAgreementComponent laComponent = new LearningAgreementComponent();
-        laComponent.setStatus(LearningAgreementComponentStatus.PLANNED);
+    private List<RecognizedLaComponent> getRecognizedLearningAgreementComponents(String losId, String loiId) {
+        List<RecognizedLaComponent> laComponents = new ArrayList<>();
+        RecognizedLaComponent laComponent = new RecognizedLaComponent();
         laComponent.setLosId(losId);
         laComponent.setLoiId(loiId);
         laComponents.add(laComponent);
         
         return laComponents;
     }
-
-//    private List<LearningAgreementComponent> getLearningAgreementComponents(String losCode) {
-//        List<LearningAgreementComponent> laComponents = new ArrayList<>();
-//        
-//        Query query = em.createNamedQuery(LearningOpportunitySpecification.findByLosCode).setParameter("losCode", losCode);
-//        List<LearningOpportunitySpecification> los = query.getResultList();
-//        
-//        if(los.size() != 1){
-//            throw new IllegalArgumentException("losCode " + losCode + " doesn't return a unique LearningOpportunitySpecification.");
-//        }
-//        
-//        LearningAgreementComponent laComponent = new LearningAgreementComponent();
-//        laComponent.setStatus(LearningAgreementComponentStatus.PLANNED);
-//        laComponent.setLosId(los.get(0).getId());
-//        
-//        // Returning the first learning opp instance in the list, to keep it simple
-//        laComponent.setLoiId(los.get(0).getLearningOpportunityInstances().get(0).getId());
-//        
-//        laComponents.add(laComponent);
-//        
-//        return laComponents;
-//    }
+    
+    private List<StudiedLaComponent> getStudiedLearningAgreementComponents(String losId, String loiId, String title, String academicTermDisplayName) {
+        List<StudiedLaComponent> laComponents = new ArrayList<>();
+        StudiedLaComponent laComponent = new StudiedLaComponent();
+        laComponent.setStatus(LearningAgreementComponentStatus.PLANNED);
+        laComponent.setLosId(losId);
+        laComponent.setLoiId(loiId);
+        laComponent.setTitle(title);
+        laComponent.setAcademicTermDisplayName(academicTermDisplayName);
+        laComponents.add(laComponent);
+        
+        return laComponents;
+    }
 
     private String getCoopConditionId(String iiaId) {
         Query query = em.createNamedQuery(Iia.findByIiaId).setParameter("iiaId", iiaId);

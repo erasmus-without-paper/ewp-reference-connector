@@ -100,11 +100,18 @@ angular.module('mobility').controller('MobilityController', function ($scope, $f
         });
     };
     
-    $scope.viewAddLaComponentsForm = function() {
+    $scope.viewAddStudiedLaComponentsForm = function() {
         MobilityService.getLaComponentStatuses(function(result) {
             $scope.laComponentStatuses = result;
         });
-        $scope.showAddLaConditionForm = true;
+        $scope.showAddStudiedLaConditionForm = true;
+        $scope.showAddRecognizedLaConditionForm = false;
+        $scope.getAllTopLevelLosParents();
+    };
+    
+    $scope.viewAddRecognizedLaComponentsForm = function() {
+        $scope.showAddRecognizedLaConditionForm = true;
+        $scope.showAddStudiedLaConditionForm = false;
         $scope.getAllTopLevelLosParents();
     };
     
@@ -142,23 +149,37 @@ angular.module('mobility').controller('MobilityController', function ($scope, $f
     };
     
     $scope.cancelAddLaComponents = function() {
-        $scope.showAddLaConditionForm = false;
+        $scope.showAddRecognizedLaConditionForm = false;
+        $scope.showAddStudiedLaConditionForm = false;
         $scope.newLaComponent = {};
     };
     
-    $scope.addLaComponent = function() {
+    $scope.addStudiedLaComponent = function() {
         if (!$scope.newMobility.learningAgreement) {
             $scope.newMobility.learningAgreement = {};
         }
-        if (!$scope.newMobility.learningAgreement.laComponents) {
-            $scope.newMobility.learningAgreement.laComponents = [];
+        if (!$scope.newMobility.learningAgreement.studiedLaComponents) {
+            $scope.newMobility.learningAgreement.studiedLaComponents = [];
+        }
+        
+        $scope.newMobility.learningAgreement.studiedLaComponents.push($scope.newLaComponent);
+        $scope.newMobility.learningAgreement.learningAgreementRevision = 1;
+        $scope.cancelAddLaComponents();
+    };
+    
+    $scope.addRecognizedLaComponent = function() {
+        if (!$scope.newMobility.learningAgreement) {
+            $scope.newMobility.learningAgreement = {};
+        }
+        if (!$scope.newMobility.learningAgreement.recognizedLaComponents) {
+            $scope.newMobility.learningAgreement.recognizedLaComponents = [];
         }
         
         $scope.laComponentsDescription[$scope.newLaComponent.losId + "." + $scope.newLaComponent.loiId] = 
                 $scope.getLosOption($scope.newLaComponent.losId).text + ", " + 
                 $scope.getLoiOption($scope.newLaComponent.loiId).text;
         
-        $scope.newMobility.learningAgreement.laComponents.push($scope.newLaComponent);
+        $scope.newMobility.learningAgreement.recognizedLaComponents.push($scope.newLaComponent);
         $scope.newMobility.learningAgreement.learningAgreementRevision = 1;
         $scope.cancelAddLaComponents();
     };
