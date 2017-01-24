@@ -12,19 +12,19 @@ angular.module('los').controller('LosController', function ($scope, LosService, 
             $scope.institutions = result;
         });
         
-        $scope.lostypes = ['Degree Programme', 'Module', 'Course'];
+        $scope.lostypes = ['DEGREE_PROGRAMME', 'MODULE', 'COURSE'];
         
         $scope.showAddLearningOppSpecForm = true;
         $scope.currentLos = undefined;
     };
 
     $scope.viewAddLearningOppSpecForm = function(los) {
-        if (los.type === 'Degree Programme') {
-            $scope.lostypes = ['Module', 'Course'];
-        } else if (los.type === 'Module') {
-            $scope.lostypes = ['Course'];
-        } else if (los.type === 'Course') {
-            $scope.lostypes = ['Class'];
+        if (los.type === 'DEGREE_PROGRAMME') {
+            $scope.lostypes = ['MODULE', 'COURSE'];
+        } else if (los.type === 'MODULE') {
+            $scope.lostypes = ['COURSE'];
+        } else if (los.type === 'COURSE') {
+            $scope.lostypes = ['CLASS'];
         }
         
         $scope.institutions = [];

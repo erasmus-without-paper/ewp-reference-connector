@@ -36,4 +36,17 @@ angular.module('connector')
         return function(xml) {
             return xml ? vkbeautify.xml(xml) : "";
         };
+    })
+    .filter('losTypeDisplayName', function() {
+        return function(type) {
+            if(type) {
+                if (type === "DEGREE_PROGRAMME") {
+                    return "Degree Programme";
+                } else {
+                    var firstLetter = type[0];
+                    var otherLetters = type.substring(1);
+                    return firstLetter.toUpperCase() + otherLetters.toLowerCase();
+                }
+            }
+        };
     });

@@ -36,7 +36,7 @@ public class LearningOpportunitySpecification implements Serializable{
 
     private String institutionId;
     private String losCode;
-    private String type;
+    private LearningOpportunitySpecificationType type;
     
     @OneToMany(cascade = CascadeType.ALL, fetch = FetchType.EAGER, orphanRemoval=true)
     @JoinTable(name = "LOS_NAME")
@@ -88,11 +88,11 @@ public class LearningOpportunitySpecification implements Serializable{
         this.losCode = losCode;
     }
 
-    public String getType() {
+    public LearningOpportunitySpecificationType getType() {
         return type;
     }
 
-    public void setType(String type) {
+    public void setType(LearningOpportunitySpecificationType type) {
         this.type = type;
     }
 
