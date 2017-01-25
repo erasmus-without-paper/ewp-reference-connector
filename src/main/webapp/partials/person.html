@@ -28,6 +28,20 @@
                         <input id="bday" type="date" class="form-control" placeholder="Enter birth date" ng-model="newPerson.birthDate" required="required">
                     </div>
                 </div>
+                <div class="form-group">
+                    <label class="control-label col-sm-2" for="gender">Gender</label>
+                    <div class="col-sm-10">
+                        <select id="gender" class="form-control" ng-model="newPerson.gender" required="required">
+                            <option ng-repeat="gender in genders" value="{{gender}}">{{gender | enumToReadable}}</option>
+                        </select>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label class="control-label col-sm-2" for="ccode">Country code</label>
+                    <div class="col-sm-10">
+                        <input id="ccode" type="text" class="form-control" placeholder="Enter country code (optional)" style="text-transform:uppercase" ng-model="newPerson.countryCode">
+                    </div>
+                </div>
                 <div class="input-group">
                     <div class="btn-group">
                         <button type="submit" class="btn btn-default">
@@ -45,7 +59,7 @@
     <div class="clearfix">
         <h2 class="pull-left">Persons</h2>
         <div class="btn-group pull-right" ng-show="!showAddPersonForm">
-            <button type="submit" class="btn btn-default" ng-click="showAddPersonForm = true">
+            <button type="submit" class="btn btn-default" ng-click="showAddForm()">
                 <i class="glyphicon glyphicon-plus-sign"></i>
             </button>
         </div>
@@ -61,8 +75,8 @@
           </span>
     </div>
     <div class="list-group">
-        <div ng-repeat="person in persons | filter:query | orderBy:['personId']:true" ng-click="isopen[person.personId] = !isopen[person.personId]">
-            <a class="list-group-item clearfix">
+        <div ng-repeat="person in persons | filter:query | orderBy:['personId']:true">
+            <a class="list-group-item clearfix" ng-click="isopen[person.personId] = !isopen[person.personId]">
                 <div class="col-md-2 hide-overflow-ellipsis"><b>{{person.personId}}</b></div>
                 <div class="col-md-9 hide-overflow-ellipsis"><b>{{person.firstNames}} {{person.lastName}}</b></div>
                 <i class="pull-right glyphicon" ng-class="{'glyphicon-chevron-down': isopen[person.personId], 'glyphicon-chevron-right': !isopen[person.personId]}"></i>
@@ -72,6 +86,8 @@
                 <div class="col-md-2">First names:</div><div class="col-md-10 hide-overflow-ellipsis">{{person.firstNames}}</div>
                 <div class="col-md-2">Last name:</div><div class="col-md-10 hide-overflow-ellipsis">{{person.lastName}}</div>
                 <div class="col-md-2">Birth date:</div><div class="col-md-10 hide-overflow-ellipsis">{{person.birthDate | date: 'yyyy-MM-dd'}}</div>
+                <div class="col-md-2">Gender:</div><div class="col-md-10 hide-overflow-ellipsis">{{person.gender | enumToReadable}}</div>
+                <div class="col-md-2">Country code:</div><div class="col-md-10 hide-overflow-ellipsis">{{person.countryCode}}</div>
             </div>
         </div>
     </div>

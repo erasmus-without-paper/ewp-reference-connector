@@ -27,6 +27,9 @@
         <class>eu.erasmuswithoutpaper.iia.entity.Duration</class>
         <class>eu.erasmuswithoutpaper.iia.entity.MobilityType</class>
         <class>eu.erasmuswithoutpaper.organization.entity.IdentificationItem</class>
+        <class>eu.erasmuswithoutpaper.organization.entity.ContactDetails</class>
+        <class>eu.erasmuswithoutpaper.organization.entity.FactSheet</class>
+        <class>eu.erasmuswithoutpaper.organization.entity.Student</class>
         
         <properties>
             <property name="javax.persistence.jdbc.url" value="jdbc:derby:memory:testDB;create=true"/>

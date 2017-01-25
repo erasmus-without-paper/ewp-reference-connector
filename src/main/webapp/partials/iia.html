@@ -137,9 +137,11 @@
                     <div class="row form-group">
                         <label class="control-label col-sm-3" for="eqflevel">EQF level</label>
                         <div class="col-sm-1">
-                            <input id="eqflevel" type="number" min="0" class="form-control" placeholder="0" ng-model="newCondition.eqfLevel" required="required">
+                            <select id="eqflevel" class="form-control" ng-model="newCondition.eqfLevel" required="required">
+                                <option ng-repeat="eqfLevel in eqfLevels" value="{{eqfLevel}}">{{eqfLevel}}</option>
+                            </select>
                         </div>
-                        <div class="col-sm-8"></div>
+                        <div class="col-sm-1"><a class="btn btn-default" target="_blank" href="https://en.wikipedia.org/wiki/European_Qualifications_Framework" title="More information about EQF level"><span class="glyphicon glyphicon-info-sign"></span></a></div><div class="col-sm-7"></div>
                     </div>
                     <div class="input-group">
                         <div class="btn-group">

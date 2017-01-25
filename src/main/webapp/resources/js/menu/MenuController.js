@@ -2,6 +2,7 @@ angular.module('menu').controller('MenuController', function ($scope, $location)
     $scope.rootMenu = [{name:'Organization',
                         subItems:[{name:'Institution', page:'institution'},
                                   {name:'Contact', page:'contact'},
+                                  {name:'Mobility participant', page:'mobility-participant'},
                                   {name:'Person', page:'person'}]},
                        {name:'Course', 
                         subItems:[{name:'Academic term', page:'academicterm'},

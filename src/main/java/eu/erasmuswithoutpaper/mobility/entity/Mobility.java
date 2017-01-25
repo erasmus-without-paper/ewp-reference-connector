@@ -42,7 +42,7 @@ public class Mobility implements Serializable {
     private String sendingOrganizationUnitId;
     private String receivingInstitutionId;
     private String receivingOrganizationUnitId;
-    private String personId;
+    private String mobilityParticipantId;
     
     @ManyToOne(cascade = CascadeType.DETACH, fetch = FetchType.EAGER)
     @JoinColumn(name = "MOBILITY_TYPE_ID", referencedColumnName = "ID")
@@ -59,7 +59,7 @@ public class Mobility implements Serializable {
     private Date plannedDepartureDate;
     
     private String iscedCode;
-    private int eqfLevel;
+    private byte eqfLevel;
     
     @OneToOne(cascade = CascadeType.ALL, fetch = FetchType.EAGER)
     @JoinColumn(name = "LEARNING_AGREEMENT")
@@ -129,12 +129,12 @@ public class Mobility implements Serializable {
         this.receivingOrganizationUnitId = receivingOrganizationUnitId;
     }
 
-    public String getPersonId() {
-        return personId;
+    public String getMobilityParticipantId() {
+        return mobilityParticipantId;
     }
 
-    public void setPersonId(String personId) {
-        this.personId = personId;
+    public void setMobilityParticipantId(String mobilityParticipantId) {
+        this.mobilityParticipantId = mobilityParticipantId;
     }
 
     public MobilityType getMobilityType() {
@@ -177,11 +177,11 @@ public class Mobility implements Serializable {
         this.iscedCode = iscedCode;
     }
 
-    public int getEqfLevel() {
+    public byte getEqfLevel() {
         return eqfLevel;
     }
 
-    public void setEqfLevel(int eqfLevel) {
+    public void setEqfLevel(byte eqfLevel) {
         this.eqfLevel = eqfLevel;
     }
 

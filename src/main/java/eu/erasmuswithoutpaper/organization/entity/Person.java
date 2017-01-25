@@ -29,7 +29,6 @@ public class Person implements Serializable {
     @GeneratedValue(generator="system-uuid")
     String id;
     
-    private String institutionId;
     private String personId;
     private String firstNames;
     private String lastName;
@@ -37,6 +36,9 @@ public class Person implements Serializable {
     @JohnzonConverter(StandardDateConverter.class)
     @Temporal(TemporalType.DATE)
     private Date birthDate;
+    
+    private Gender gender;
+    private String countryCode;
 
     public String getId() {
         return id;
@@ -44,14 +46,6 @@ public class Person implements Serializable {
 
     public void setId(String id) {
         this.id = id;
-    }
-
-    public String getInstitutionId() {
-        return institutionId;
-    }
-
-    public void setInstitutionId(String institutionId) {
-        this.institutionId = institutionId;
     }
 
     public String getPersonId() {
@@ -84,6 +78,22 @@ public class Person implements Serializable {
 
     public void setBirthDate(Date birthDate) {
         this.birthDate = birthDate;
+    }
+
+    public Gender getGender() {
+        return gender;
+    }
+
+    public void setGender(Gender gender) {
+        this.gender = gender;
+    }
+
+    public String getCountryCode() {
+        return countryCode;
+    }
+
+    public void setCountryCode(String countryCode) {
+        this.countryCode = countryCode;
     }
 
     @Override

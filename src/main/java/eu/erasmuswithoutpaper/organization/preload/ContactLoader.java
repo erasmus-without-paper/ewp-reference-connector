@@ -16,18 +16,16 @@ public class ContactLoader {
     
     public void createDemoDataIkea() throws IOException {
         String ouIdIkea = InstitutionLoader.IKEA_OU1_ID ;
-        persistContact("{'institutionId':'ikea.university.se','organizationUnitId':'" + ouIdIkea + "','role':'INSURANCE','email':['ikeauniversity@hei.ewp']}", getPerson("9001013344"));
+        persistContact("{'institutionId':'ikea.university.se','organizationUnitId':'" + ouIdIkea + "','role':'INSURANCE','contactDetails':{'email':['ikeauniversity@hei.ewp']}}", getPerson("9001013344"));
         persistContact("{'institutionId':'ikea.university.se','organizationUnitId':'" + ouIdIkea + "','role':'ADMISSION'}", getPerson("9011046365"));
         persistContact("{'institutionId':'ikea.university.se','role':'ADMISSION'}", getPerson("9107146991"));
         persistContact("{'institutionId':'ikea.university.se','organizationUnitId':'" + ouIdIkea + "','role':'COURSE'}", getPerson("8906093845"));
-
+    }
+    public void createDemoDataPomodoro() throws IOException {
         String ouIdPomodoro = InstitutionLoader.POMODORO_OU1_ID;
         persistContact("{'institutionId':'pomodoro.university.it','organizationUnitId':'" + ouIdPomodoro + "','role':'COURSE'}", getPerson("8810126789"));
         persistContact("{'institutionId':'pomodoro.university.it','role':'ADMISSION'}", getPerson("8602181287"));
         persistContact("{'institutionId':'pomodoro.university.it','organizationUnitId':'" + ouIdPomodoro + "','role':'INSURANCE'}", getPerson("9104125620"));
-    }
-    public void createDemoDataPomodoro() throws IOException {
-        createDemoDataIkea();
     }
 
     private void persistContact(String contactJson, Person person) throws IOException {

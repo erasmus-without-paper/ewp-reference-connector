@@ -4,7 +4,9 @@ package eu.erasmuswithoutpaper.common.control;
 import eu.erasmuswithoutpaper.api.architecture.HTTPWithOptionalLang;
 import eu.erasmuswithoutpaper.api.architecture.StringWithOptionalLang;
 import eu.erasmuswithoutpaper.api.types.address.FlexibleAddress;
+import eu.erasmuswithoutpaper.api.types.phonenumber.PhoneNumber;
 import eu.erasmuswithoutpaper.organization.entity.LanguageItem;
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.GregorianCalendar;
 import java.util.List;
@@ -15,7 +17,7 @@ import javax.xml.datatype.DatatypeFactory;
 import javax.xml.datatype.XMLGregorianCalendar;
 
 public class ConverterHelper {
-    public static FlexibleAddress convertFlexibleAddress(eu.erasmuswithoutpaper.organization.entity.FlexibleAddress flexibleAddress) {
+    public static FlexibleAddress convertToFlexibleAddress(eu.erasmuswithoutpaper.organization.entity.FlexibleAddress flexibleAddress) {
         if (flexibleAddress == null) {
             return null;
         }
@@ -36,6 +38,19 @@ public class ConverterHelper {
         address.setUnit(flexibleAddress.getUnit());
         
         return address;
+    }
+    
+    public static List<PhoneNumber> convertToPhoneNumber(eu.erasmuswithoutpaper.organization.entity.PhoneNumber phoneNumber) {
+        List<PhoneNumber> phoneNumbers = new ArrayList<>();
+        if (phoneNumber != null) {
+            PhoneNumber pn = new PhoneNumber();
+            pn.setE164(phoneNumber.getE164());
+            pn.setExt(phoneNumber.getExtensionNumber());
+            pn.setOtherFormat(phoneNumber.getOtherFormat());
+            phoneNumbers.add(pn);
+        }
+        
+        return phoneNumbers;
     }
     
     public static List<StringWithOptionalLang> convertToStringWithOptionalLang(List<LanguageItem> languageItems) {

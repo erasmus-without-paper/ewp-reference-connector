@@ -10,6 +10,7 @@ import eu.erasmuswithoutpaper.iia.preload.MobilityTypeLoader;
 import eu.erasmuswithoutpaper.mobility.preload.MobilityLoader;
 import eu.erasmuswithoutpaper.organization.preload.ContactLoader;
 import eu.erasmuswithoutpaper.organization.preload.InstitutionLoader;
+import eu.erasmuswithoutpaper.organization.preload.MobilityParticipantLoader;
 import eu.erasmuswithoutpaper.organization.preload.PersonLoader;
 import java.io.IOException;
 import java.util.logging.Level;
@@ -34,6 +35,9 @@ public class StartupLoader {
     
     @Inject
     private ContactLoader contactLoader;
+
+    @Inject
+    MobilityParticipantLoader mobilityParticipantLoader;
 
     @Inject
     private AcademicTermLoader academicTermLoader;
@@ -71,6 +75,7 @@ public class StartupLoader {
                     institutionLoader.createDemoDataIkea();
                     personLoader.createDemoDataIkea();
                     contactLoader.createDemoDataIkea();
+                    mobilityParticipantLoader.createDemoDataIkea();
                     academicYearLoader.createDemoDataIkea();
                     academicTermLoader.createDemoDataIkea();
                     mobilityTypeLoader.createDemoDataIkea();
@@ -83,6 +88,7 @@ public class StartupLoader {
                     institutionLoader.createDemoDataPomodoro();
                     personLoader.createDemoDataPomodoro();
                     contactLoader.createDemoDataPomodoro();
+                    mobilityParticipantLoader.createDemoDataPomodoro();
                     academicYearLoader.createDemoDataPomodoro();
                     academicTermLoader.createDemoDataPomodoro();
                     mobilityTypeLoader.createDemoDataPomodoro();

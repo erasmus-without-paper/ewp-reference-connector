@@ -1,4 +1,4 @@
-angular.module('mobility').controller('MobilityController', function ($scope, $filter, MobilityService, IiaService, PersonService, LosService) {
+angular.module('mobility').controller('MobilityController', function ($scope, $filter, MobilityService, IiaService, MobilityParticipantService, LosService) {
     $scope.getAllMobilities = function(){
         MobilityService.getAll(
             function(result) {
@@ -23,9 +23,9 @@ angular.module('mobility').controller('MobilityController', function ($scope, $f
                 $scope.iiaList = result;
         });
         
-        PersonService.getAll(
+        MobilityParticipantService.getAll(
             function(result) {
-                $scope.persons = result;
+                $scope.mobilityParticipants = result;
         });
         
         $scope.cooperationConditionList = [];

@@ -8,14 +8,21 @@ import eu.erasmuswithoutpaper.common.control.ConverterHelper;
 import eu.erasmuswithoutpaper.mobility.entity.Mobility;
 import eu.erasmuswithoutpaper.mobility.entity.RecognizedLaComponent;
 import eu.erasmuswithoutpaper.mobility.entity.StudiedLaComponent;
+import eu.erasmuswithoutpaper.organization.entity.Person;
+import eu.erasmuswithoutpaper.organization.entity.MobilityParticipant;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import java.util.stream.Collectors;
+import javax.persistence.EntityManager;
+import javax.persistence.PersistenceContext;
 import javax.xml.datatype.DatatypeConfigurationException;
 
 public class MobilityConverter {
+    @PersistenceContext(unitName = "connector")
+    EntityManager em;
+
     public StudentMobilityForStudies convertToStudentMobilityForStudies(Mobility mobility) {
         StudentMobilityForStudies studentMobilityForStudies = new StudentMobilityForStudies();
         if (mobility.getLearningAgreement() != null) {
@@ -30,7 +37,7 @@ public class MobilityConverter {
         studentMobilityForStudies.setMobilityId(mobility.getId());
         
         // TODO: add this
-        //studentMobilityForStudies.setNomineeEqfLevel(0);
+        studentMobilityForStudies.setNomineeEqfLevel(mobility.getEqfLevel());
         //studentMobilityForStudies.setNomineeIscedFCode(value);
         
         try {
@@ -49,7 +56,7 @@ public class MobilityConverter {
         studentMobilityForStudies.setReceivingHei(convertToReceivingHei(null, mobility.getReceivingInstitutionId(), mobility.getReceivingOrganizationUnitId()));
         studentMobilityForStudies.setSendingHei(convertToSendingHei(mobility.getIiaId(), mobility.getSendingInstitutionId(), mobility.getSendingOrganizationUnitId()));
         studentMobilityForStudies.setStatus(convertToMobilityStatus(mobility.getStatus()));
-        studentMobilityForStudies.setStudent(convertToStudent(mobility.getPersonId()));
+        studentMobilityForStudies.setStudent(convertToStudent(mobility.getMobilityParticipantId()));
         
         // TODO: add this
         //studentMobilityForStudies.setTimeline(value);
@@ -104,41 +111,34 @@ public class MobilityConverter {
     }
 
     private MobilityStatus convertToMobilityStatus(eu.erasmuswithoutpaper.mobility.entity.MobilityStatus status) {
-        MobilityStatus mobilityStatus = MobilityStatus.CANCELLED;
-        switch (status) {
-            case CANCELLED:
-                mobilityStatus = MobilityStatus.CANCELLED;
-                break;
-            case LIVE:
-                mobilityStatus = MobilityStatus.LIVE;
-                break;
-            case NOMINATED:
-                mobilityStatus = MobilityStatus.NOMINATION;
-                break;
-            case RECOGNIZED:
-                mobilityStatus = MobilityStatus.RECOGNIZED;
-                break;
-            case REJECTED:
-                mobilityStatus = MobilityStatus.REJECTED;
-                break;
-                
-        }
-        
+        MobilityStatus mobilityStatus = MobilityStatus.fromValue(status.value());
         return mobilityStatus;
     }
 
-    private StudentMobilityForStudies.Student convertToStudent(String personId) {
-        StudentMobilityForStudies.Student student = new StudentMobilityForStudies.Student();
-        // TODO: Add this
-        //student.getPhoneNumber();
-        //student.setBirthDate(value);
-        //student.setCitizenship(personId);
-        //student.setEmail(personId);
-        //student.setFamilyName(personId);
-        //student.setGender(BigInteger.ONE);
-        //student.setGivenNames(personId);
-        //student.setMailingAddress(value);
-        //student.setStreetAddress(value);
-        return student;
+    private StudentMobilityForStudies.Student convertToStudent(String studentId) {
+        MobilityParticipant student =  em.find(MobilityParticipant.class, studentId);
+        StudentMobilityForStudies.Student mobilityStudent = new StudentMobilityForStudies.Student();
+        if (student != null) {
+            Person person = student.getPerson();
+            mobilityStudent.getPhoneNumber().addAll(ConverterHelper.convertToPhoneNumber(student.getContactDetails().getPhoneNumber()));
+            
+            try {
+                mobilityStudent.setBirthDate(ConverterHelper.convertToXmlGregorianCalendar(person.getBirthDate()));
+            } catch (DatatypeConfigurationException ex) {
+                Logger.getLogger(MobilityConverter.class.getName()).log(Level.SEVERE, null, ex);
+            }
+
+            mobilityStudent.setCitizenship(person.getCountryCode());
+            if (student.getContactDetails().getEmail() != null && student.getContactDetails().getEmail().size() > 0) {
+                mobilityStudent.setEmail(student.getContactDetails().getEmail().get(0));
+            }
+
+            mobilityStudent.setFamilyName(person.getLastName());
+            mobilityStudent.setGender(person.getGender().value());
+            mobilityStudent.setGivenNames(person.getFirstNames());
+            mobilityStudent.setMailingAddress(ConverterHelper.convertToFlexibleAddress(student.getContactDetails().getMailingAddress()));
+            mobilityStudent.setStreetAddress(ConverterHelper.convertToFlexibleAddress(student.getContactDetails().getStreetAddress()));
+        }
+        return mobilityStudent;
     }
 }

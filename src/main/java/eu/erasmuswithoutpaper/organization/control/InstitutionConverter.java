@@ -4,7 +4,6 @@ import eu.erasmuswithoutpaper.api.architecture.StringWithOptionalLang;
 import eu.erasmuswithoutpaper.api.institutions.InstitutionsResponse;
 import eu.erasmuswithoutpaper.api.registry.OtherHeiId;
 import eu.erasmuswithoutpaper.api.types.contact.Contact;
-import static eu.erasmuswithoutpaper.common.control.ConverterHelper.convertFlexibleAddress;
 import static eu.erasmuswithoutpaper.common.control.ConverterHelper.convertToHttpWithOptionalLang;
 import static eu.erasmuswithoutpaper.common.control.ConverterHelper.convertToStringWithOptionalLang;
 import eu.erasmuswithoutpaper.organization.entity.IdentificationItem;
@@ -16,6 +15,7 @@ import java.util.stream.Collectors;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
 import javax.persistence.Query;
+import static eu.erasmuswithoutpaper.common.control.ConverterHelper.convertToFlexibleAddress;
 
 public class InstitutionConverter {
     @PersistenceContext(unitName = "connector")
@@ -35,10 +35,10 @@ public class InstitutionConverter {
                 
                 hei.setHeiId(institution.getInstitutionId());
                 hei.setLogoUrl(institution.getLogoUrl());
-                hei.setMailingAddress(convertFlexibleAddress(institution.getMailingAddress()));
+                hei.setMailingAddress(convertToFlexibleAddress(institution.getMailingAddress()));
                 // TODO: set root ounit
                 //hei.setRootOunitId();
-                hei.setStreetAddress(convertFlexibleAddress(institution.getStreetAddress()));
+                hei.setStreetAddress(convertToFlexibleAddress(institution.getStreetAddress()));
                 
                 return hei;
             }).collect(Collectors.toList());

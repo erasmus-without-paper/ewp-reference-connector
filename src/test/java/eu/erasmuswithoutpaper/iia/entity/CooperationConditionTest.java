@@ -34,7 +34,7 @@ public class CooperationConditionTest {
         cooperationCondition.setMobilityType(mobilityType);
         cooperationCondition.setStartDate(new Date());
         cooperationCondition.setEndDate(new Date());
-        cooperationCondition.setEqfLevel(123);
+        cooperationCondition.setEqfLevel((byte)3);
         MobilityNumber moblilityNumber = new MobilityNumber();
         moblilityNumber.setVariant("AVERAGE");
         moblilityNumber.setNumber(5);
@@ -48,7 +48,7 @@ public class CooperationConditionTest {
      
         CooperationCondition result = em.find(CooperationCondition.class, cooperationCondition.getId());
         Assert.assertNotNull(result);
-        Assert.assertEquals(123, result.getEqfLevel());
+        Assert.assertEquals(3, result.getEqfLevel());
         Assert.assertEquals("Studies", result.getMobilityType().getMobilityGroup());
         Assert.assertEquals("AVERAGE", result.getMobilityNumber().getVariant());
     }

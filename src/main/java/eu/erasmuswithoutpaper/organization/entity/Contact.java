@@ -6,7 +6,6 @@ import java.util.List;
 import java.util.Objects;
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
-import javax.persistence.ElementCollection;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
@@ -54,24 +53,8 @@ public class Contact implements Serializable {
     @JoinTable(name = "CONTACT_DESCRIPTION")
     private List<LanguageItem> description;
     
-    @ElementCollection
-    private List<String> email;
-    
-    @OneToMany(cascade = CascadeType.ALL, fetch = FetchType.EAGER, orphanRemoval=true)
-    @JoinTable(name = "CONTACT_URL")
-    private List<LanguageItem> url;
-    
-    @OneToOne(cascade = CascadeType.ALL, fetch = FetchType.EAGER)
-    @JoinColumn(name = "PHONE_NUMBER")
-    private PhoneNumber phoneNumber;
-    
-    @OneToOne(cascade = CascadeType.ALL, fetch = FetchType.EAGER)
-    @JoinColumn(name = "fFAX_NUMBER")
-    private PhoneNumber faxNumber;
-    
-    @OneToOne(cascade = CascadeType.ALL, fetch = FetchType.EAGER)
-    @JoinColumn(name = "ADDRESS")
-    private FlexibleAddress address;
+    @OneToOne(cascade = CascadeType.ALL, fetch = FetchType.EAGER, orphanRemoval=true)
+    private ContactDetails contactDetails;
 
     public String getId() {
         return id;
@@ -129,50 +112,18 @@ public class Contact implements Serializable {
         this.description = description;
     }
 
-    public List<String> getEmail() {
-        return email;
+    public ContactDetails getContactDetails() {
+        return contactDetails;
     }
 
-    public void setEmail(List<String> email) {
-        this.email = email;
-    }
-
-    public List<LanguageItem> getUrl() {
-        return url;
-    }
-
-    public void setUrl(List<LanguageItem> url) {
-        this.url = url;
-    }
-
-    public PhoneNumber getPhone() {
-        return phoneNumber;
-    }
-
-    public void setPhone(PhoneNumber phoneNumber) {
-        this.phoneNumber = phoneNumber;
-    }
-
-    public PhoneNumber getFax() {
-        return faxNumber;
-    }
-
-    public void setFax(PhoneNumber faxNumber) {
-        this.faxNumber = faxNumber;
-    }
-
-    public FlexibleAddress getAddress() {
-        return address;
-    }
-
-    public void setAddress(FlexibleAddress address) {
-        this.address = address;
+    public void setContactDetails(ContactDetails contactDetails) {
+        this.contactDetails = contactDetails;
     }
 
     @Override
     public int hashCode() {
-        int hash = 3;
-        hash = 97 * hash + Objects.hashCode(this.id);
+        int hash = 7;
+        hash = 29 * hash + Objects.hashCode(this.id);
         return hash;
     }
 

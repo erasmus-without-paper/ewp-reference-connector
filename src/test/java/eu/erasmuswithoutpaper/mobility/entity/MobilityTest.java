@@ -29,8 +29,8 @@ public class MobilityTest {
     public void testPersistMobility() {
         Mobility mobility = new Mobility();
         mobility.setPlannedArrivalDate(new Date());
-        mobility.setPersonId("9101015566");
-        mobility.setStatus(MobilityStatus.NOMINATED);
+        mobility.setMobilityParticipantId("9101015566");
+        mobility.setStatus(MobilityStatus.NOMINATION);
         
         this.tx.begin();
         this.em.persist(mobility);
@@ -39,8 +39,8 @@ public class MobilityTest {
         
         Mobility result = em.find(Mobility.class, mobility.getId());
         Assert.assertNotNull(result);
-        Assert.assertEquals("9101015566", result.getPersonId());
-        Assert.assertEquals(MobilityStatus.NOMINATED, result.getStatus());
+        Assert.assertEquals("9101015566", result.getMobilityParticipantId());
+        Assert.assertEquals(MobilityStatus.NOMINATION, result.getStatus());
     }
     
 }

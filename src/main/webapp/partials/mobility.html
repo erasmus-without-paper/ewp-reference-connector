@@ -23,11 +23,11 @@
                     </div>
                 </div>
                 <div class="form-group">
-                    <label class="control-label col-sm-3" for="person">Person</label>
+                    <label class="control-label col-sm-3" for="participant">Participant</label>
                     <div class="col-sm-9">
-                        <select id="person" class="form-control" ng-model="newMobility.personId" required="required">
-                            <option style="display:none" value="">Select a person</option>
-                            <option ng-repeat="person in persons | orderBy:['personId']:true" value="{{person.personId}}">{{person.personId}} - {{person.firstNames}} {{person.lastName}}</option>
+                        <select id="participant" class="form-control" ng-model="newMobility.mobilityParticipantId" required="required">
+                            <option style="display:none" value="">Select a participant</option>
+                            <option ng-repeat="mobilityParticipant in mobilityParticipants | orderBy:['person.personId']:true" value="{{mobilityParticipant.id}}">{{mobilityParticipant.person.personId}} - {{mobilityParticipant.person.firstNames}} {{mobilityParticipant.person.lastName}}</option>
                         </select>
                     </div>
                 </div>
@@ -198,14 +198,14 @@
     </div>
 
     <div class="list-group">
-        <div ng-repeat="mobility in mobilities| filter:query | orderBy:['plannedArrivalDate']:true" ng-click="isopen[mobility.id] = !isopen[mobility.id]">
-            <a class="list-group-item clearfix">
+        <div ng-repeat="mobility in mobilities| filter:query | orderBy:['plannedArrivalDate']:true">
+            <a class="list-group-item clearfix" ng-click="isopen[mobility.id] = !isopen[mobility.id]">
                 <div class="col-md-11 hide-overflow-ellipsis"><b>{{mobility.sendingInstitutionId}} - {{mobility.receivingInstitutionId}}</b></div>
                 <i class="pull-right glyphicon" ng-class="{'glyphicon-chevron-down': isopen[mobility.id], 'glyphicon-chevron-right': !isopen[mobility.id]}"></i>
             </a>
             <div class="list-group-item clearfix" ng-show="isopen[mobility.id]">
                 <div class="col-md-2">IIA id:</div><div class="col-md-10 hide-overflow-ellipsis">{{mobility.iiaId}}</div>
-                <div class="col-md-2">Person id:</div><div class="col-md-10 hide-overflow-ellipsis">{{mobility.personId}}</div>
+                <div class="col-md-2">Participant id:</div><div class="col-md-10 hide-overflow-ellipsis">{{mobility.mobilityParticipantId}}</div>
                 <div class="col-md-2">Planned arrival date:</div><div class="col-md-10 hide-overflow-ellipsis">{{mobility.plannedArrivalDate| date: 'yyyy-MM-dd'}}</div>
                 <div class="col-md-2">Planned departure date:</div><div class="col-md-10 hide-overflow-ellipsis">{{mobility.plannedArrivalDate| date: 'yyyy-MM-dd'}}</div>
                 <div class="col-md-2">Sending institution id:</div><div class="col-md-10 hide-overflow-ellipsis">{{mobility.sendingInstitutionId}}</div>

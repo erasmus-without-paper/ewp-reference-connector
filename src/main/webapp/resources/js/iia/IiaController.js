@@ -37,6 +37,7 @@ angular.module('iia').controller('IiaController', function ($scope, IiaService) 
     };
     
     $scope.viewAddCooperationConditionForm = function() {
+        $scope.cancelAddCondition();
         IiaService.getMobilityTypes(
             function(result) {
             $scope.mobilityTypes = result;
@@ -71,14 +72,16 @@ angular.module('iia').controller('IiaController', function ($scope, IiaService) 
         });
         $scope.newCondition.mobilityType = selectedMobilityType;
         $scope.conditions.push($scope.newCondition);
-        $scope.newCondition = {};
         $scope.showAddConditionForm = false;
+        $scope.cancelAddCondition();
     };
  
     $scope.cancelAddCondition = function(){
         $scope.showAddConditionForm = false;
+        $scope.newCondition = {eqfLevel:'1'};
     };
     
+    $scope.eqfLevels=['1','2','3','4','5','6','7','8'];
     $scope.getMobilityNumberVariants();
     $scope.getDurationUnitVariants();
     $scope.getAllIias();

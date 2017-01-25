@@ -58,7 +58,7 @@ public class CooperationCondition implements Serializable{
     @OneToOne(cascade = CascadeType.ALL, fetch = FetchType.EAGER)
     private Duration duration;
     
-    private int eqfLevel;
+    private byte eqfLevel;
 
     public String getId() {
         return id;
@@ -124,11 +124,11 @@ public class CooperationCondition implements Serializable{
         this.duration = duration;
     }
 
-    public int getEqfLevel() {
+    public byte getEqfLevel() {
         return eqfLevel;
     }
 
-    public void setEqfLevel(int eqfLevel) {
+    public void setEqfLevel(byte eqfLevel) {
         this.eqfLevel = eqfLevel;
     }
 

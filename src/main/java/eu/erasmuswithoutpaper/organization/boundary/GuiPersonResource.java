@@ -1,6 +1,7 @@
 
 package eu.erasmuswithoutpaper.organization.boundary;
 
+import eu.erasmuswithoutpaper.organization.entity.Gender;
 import eu.erasmuswithoutpaper.organization.entity.Person;
 import java.util.List;
 import javax.ejb.Stateless;
@@ -36,4 +37,12 @@ public class GuiPersonResource {
         return Response.ok(entity).build();
     }
 
+    @GET
+    @Path("get_gender_names")
+    public Response getGenderNamnes() {
+        String[] genderNames = Gender.names();
+        GenericEntity<String[]> entity = new GenericEntity<String[]>(genderNames) {};
+        
+        return Response.ok(entity).build();
+    }
 }

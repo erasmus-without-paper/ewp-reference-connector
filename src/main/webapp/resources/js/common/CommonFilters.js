@@ -37,16 +37,14 @@ angular.module('connector')
             return xml ? vkbeautify.xml(xml) : "";
         };
     })
-    .filter('losTypeDisplayName', function() {
-        return function(type) {
-            if(type) {
-                if (type === "DEGREE_PROGRAMME") {
-                    return "Degree Programme";
-                } else {
-                    var firstLetter = type[0];
-                    var otherLetters = type.substring(1);
-                    return firstLetter.toUpperCase() + otherLetters.toLowerCase();
-                }
+    .filter('enumToReadable', function() {
+        return function(enumName) {
+            if(enumName) {
+                var readable = enumName.replace(/_/g, ' ');
+                var firstLetter = readable[0];
+                var otherLetters = readable.substring(1);
+                return firstLetter.toUpperCase() + otherLetters.toLowerCase();
             }
+            return '';
         };
     });
