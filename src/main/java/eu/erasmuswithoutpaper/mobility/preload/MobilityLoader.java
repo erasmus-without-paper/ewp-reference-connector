@@ -31,11 +31,11 @@ public class MobilityLoader {
         String ouIdPomodoro = InstitutionLoader.POMODORO_OU1_ID;
         String losId = LosLoader.IKEA_LOS1_ID;
         String loiId = LoiLoader.IKEA_LOI1_ID;
-        persistMobility("{'mobilityRevision':'1','iiaId':'iiaId001','sendingInstitutionId':'ikea.university.se','sendingOrganizationUnitId':'" + ouIdIkea + 
+        persistMobility("{'mobilityRevision':'1','iiaId':'" + getIiaId("IK-POM-01") + "','sendingInstitutionId':'ikea.university.se','sendingOrganizationUnitId':'" + ouIdIkea + 
                 "','receivingInstitutionId':'pomodoro.university.it','receivingOrganizationUnitId':'" + ouIdPomodoro + 
                 "','mobilityParticipantId':'" + MobilityParticipantLoader.IKEA_MOBILITY_PARTICIPANT1_ID + "','status':'NOMINATION','plannedArrivalDate':'2017-03-14','plannedDepartureDate':'2017-05-15','iscedCode':'ISC123','eqfLevel':'3'}", 
                 getMobilityType("Student", "Studies"), getLearningAgreement("{'learningAgreementRevision':'1'}", 
-                        getStudiedLearningAgreementComponents(losId, loiId, "Data Collection and Analysis", "Fall semester 2015"), getRecognizedLearningAgreementComponents(losId, loiId)), getCoopConditionId("iiaId001"));
+                        getStudiedLearningAgreementComponents(losId, loiId, "Data Collection and Analysis", "Fall semester 2015"), getRecognizedLearningAgreementComponents(losId, loiId)), getCoopConditionId("IK-POM-01"));
     }
     
     public void createDemoDataPomodoro() throws IOException {
@@ -90,12 +90,12 @@ public class MobilityLoader {
         return laComponents;
     }
 
-    private String getCoopConditionId(String iiaId) {
-        Query query = em.createNamedQuery(Iia.findByIiaId).setParameter("iiaId", iiaId);
+    private String getCoopConditionId(String iiaCode) {
+        Query query = em.createNamedQuery(Iia.findByIiaCode).setParameter("iiaCode", iiaCode);
         List<Iia> iias = query.getResultList();
         
         if(iias.isEmpty()){
-            throw new IllegalArgumentException("iiaId " + iiaId + " doesn't return any IIA");
+            throw new IllegalArgumentException("iiaCode " + iiaCode + " doesn't return any IIA");
         }
         
         // Returning the first cooperation conditions id in the list, to keep it simple
@@ -110,5 +110,16 @@ public class MobilityLoader {
         }
         
         return organizationUnitList.get(0).getId();
+    }
+
+    private String getIiaId(String iiaCode) {
+        Query query = em.createNamedQuery(Iia.findByIiaCode).setParameter("iiaCode", iiaCode);
+        List<Iia> iiaList = query.getResultList();
+        
+        if (iiaList.size() != 1) {
+           throw new IllegalArgumentException("Iia code " + iiaCode + " doesn't return an unique IIA.");
+        }
+        
+        return iiaList.get(0).getId();
     }
 }

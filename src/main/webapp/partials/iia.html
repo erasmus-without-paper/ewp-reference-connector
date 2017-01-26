@@ -6,9 +6,9 @@
         <div class="panel-body">
             <form class="form-horizontal" ng-submit="addIia()">
                 <div class="form-group">
-                    <label class="control-label col-sm-2" for="iiaid">IIA id</label>
+                    <label class="control-label col-sm-2" for="iiacode">IIA code</label>
                     <div class="col-sm-10">
-                        <input id="iiaid" type="text" class="form-control" placeholder="Enter IIA id" ng-model="newIia.iiaId" required="required">
+                        <input id="iiacode" type="text" class="form-control" placeholder="Enter IIA code" ng-model="newIia.iiaCode" required="required">
                     </div>
                 </div>
                 <div class="form-group">
@@ -137,7 +137,7 @@
                     <div class="row form-group">
                         <label class="control-label col-sm-3" for="eqflevel">EQF level</label>
                         <div class="col-sm-1">
-                            <select id="eqflevel" class="form-control" ng-model="newCondition.eqfLevel" required="required">
+                            <select id="eqflevel" class="form-control" ng-model="newCondition.eqfLevel" convert-to-number required="required">
                                 <option ng-repeat="eqfLevel in eqfLevels" value="{{eqfLevel}}">{{eqfLevel}}</option>
                             </select>
                         </div>
@@ -179,7 +179,7 @@
             <div class="list-group">
                 <div ng-repeat="iia in iiaList| filter:query | orderBy:['startDate']:true" ng-click="setSelectedIia(iia)">
                     <a class="list-group-item clearfix">
-                        <b>IIA id: {{iia.iiaId}}</b>
+                        <b>IIA code: {{iia.iiaCode}}</b>
                         <i class="pull-right glyphicon glyphicon-chevron-right"></i>
                     </a>
                 </div>
@@ -188,7 +188,12 @@
     </div>
 
     <div ng-show="selectedIia && !selectedCoopCond">
-        <h2>{{selectedIia.iiaId}}</h2>
+        <div>
+            <div class="col-md-2">Code:</div><div class="col-md-10">{{selectedIia.iiaCode}}</div>
+        </div>
+        <div>
+            <div class="col-md-2">Id:</div><div class="col-md-10">{{selectedIia.id}}</div>
+        </div>
         <div>
             <div class="col-md-2">Start date:</div><div class="col-md-10">{{selectedIia.startDate| date: 'yyyy-MM-dd'}}</div>
         </div>

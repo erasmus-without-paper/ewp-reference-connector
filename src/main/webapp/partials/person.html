@@ -87,7 +87,9 @@
                 <div class="col-md-2">Last name:</div><div class="col-md-10 hide-overflow-ellipsis">{{person.lastName}}</div>
                 <div class="col-md-2">Birth date:</div><div class="col-md-10 hide-overflow-ellipsis">{{person.birthDate | date: 'yyyy-MM-dd'}}</div>
                 <div class="col-md-2">Gender:</div><div class="col-md-10 hide-overflow-ellipsis">{{person.gender | enumToReadable}}</div>
-                <div class="col-md-2">Country code:</div><div class="col-md-10 hide-overflow-ellipsis">{{person.countryCode}}</div>
+                <div ng-if="person.countryCode">
+                    <div class="col-md-2">Country code:</div><div class="col-md-10 hide-overflow-ellipsis">{{person.countryCode}}</div>
+                </div>
             </div>
         </div>
     </div>

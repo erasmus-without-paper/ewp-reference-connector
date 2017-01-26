@@ -22,19 +22,21 @@ import org.apache.johnzon.mapper.JohnzonConverter;
 @Entity
 @NamedQueries({
     @NamedQuery(name = Iia.findAll, query = "SELECT i FROM Iia i"),
-    @NamedQuery(name = Iia.findByIiaId, query = "SELECT i FROM Iia i WHERE i.iiaId = :iiaId")
+    @NamedQuery(name = Iia.findById, query = "SELECT i FROM Iia i WHERE i.id = :id"),
+    @NamedQuery(name = Iia.findByIiaCode, query = "SELECT i FROM Iia i WHERE i.iiaCode = :iiaCode")
 })
 public class Iia implements Serializable{
     
     private static final String PREFIX = "eu.erasmuswithoutpaper.iia.entity.Iia.";
     public static final String findAll = PREFIX + "all";
-    public static final String findByIiaId = PREFIX + "byIiaId";
+    public static final String findById = PREFIX + "byId";
+    public static final String findByIiaCode = PREFIX + "byIiaCode";
     
     @Id
     @GeneratedValue(generator="system-uuid")
     String id;
     
-    private String iiaId;
+    private String iiaCode;
     
     @JohnzonConverter(StandardDateConverter.class)
     @Temporal(TemporalType.DATE)
@@ -55,8 +57,8 @@ public class Iia implements Serializable{
     public Iia(){
     }
     
-    public Iia(String iiaId){
-        this.iiaId = iiaId;
+    public Iia(String iiaCode){
+        this.iiaCode = iiaCode;
     }
 
     public String getId() {
@@ -67,12 +69,12 @@ public class Iia implements Serializable{
         this.id = id;
     }
 
-    public String getIiaId() {
-        return iiaId;
+    public String getIiaCode() {
+        return iiaCode;
     }
 
-    public void setIiaId(String iiaId) {
-        this.iiaId = iiaId;
+    public void setIiaCode(String iiaCode) {
+        this.iiaCode = iiaCode;
     }
 
     public Date getStartDate() {

@@ -21,7 +21,7 @@ public class IiaLoader {
     EntityManager em;
     
     public void createDemoDataIkea() throws IOException {
-        persistIia("{'iiaId':'iiaId001','startDate':'2016-01-01','endDate':'2017-01-01'}", getCooperationConditions("iiaId001"));
+        persistIia("{'iiaCode':'IK-POM-01','startDate':'2016-01-01','endDate':'2017-01-01'}", getCooperationConditions());
     }
     
     public void createDemoDataPomodoro() throws IOException {
@@ -34,7 +34,7 @@ public class IiaLoader {
         em.persist(iia);
     }
     
-    private List<CooperationCondition> getCooperationConditions(String iiaId) throws IOException {
+    private List<CooperationCondition> getCooperationConditions() throws IOException {
         String durationIkeaToPomodoro = "{'unit':'Weeks','number':'20'}";
         String durationPomodoroToIkea = "{'unit':'Days','number':'11'}";
         String mobilityNumber_average_3 = "{'variant':'Average','number':'3'}";
@@ -67,6 +67,7 @@ public class IiaLoader {
         String ouId = InstitutionLoader.IKEA_OU1_ID;
         return getIiaPartner("{'institutionId':'ikea.university.se','organizationUnitId':'" + ouId + "'}", getContacts("ikea.university.se", ouId));
     }
+    
     private IiaPartner getPomodoroIiaPartner() throws IOException {
         String ouId = InstitutionLoader.POMODORO_OU1_ID;
         return getIiaPartner("{'institutionId':'pomodoro.university.it','organizationUnitId':'" + ouId + "'}", getContacts("'pomodoro.university.it", ouId));

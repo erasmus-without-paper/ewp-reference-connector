@@ -38,7 +38,7 @@ angular.module('mobility').controller('MobilityController', function ($scope, $f
     $scope.iiaChanged = function() {
         var selectedIia;
         angular.forEach($scope.iiaList, function(item) {
-            if (item.iiaId === $scope.newMobility.iiaId) {
+            if (item.id === $scope.newMobility.iiaId) {
                 selectedIia = item;
             }
         });

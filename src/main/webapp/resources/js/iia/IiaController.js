@@ -78,7 +78,7 @@ angular.module('iia').controller('IiaController', function ($scope, IiaService) 
  
     $scope.cancelAddCondition = function(){
         $scope.showAddConditionForm = false;
-        $scope.newCondition = {eqfLevel:'1'};
+        $scope.newCondition = {eqfLevel:1};
     };
     
     $scope.eqfLevels=['1','2','3','4','5','6','7','8'];

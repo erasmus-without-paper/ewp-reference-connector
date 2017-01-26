@@ -9,7 +9,7 @@
                     <div class="col-sm-9">
                         <select id="iia" class="form-control" ng-model="newMobility.iiaId" required="required" ng-change="iiaChanged()">
                             <option style="display:none" value="">Select IIA</option>
-                            <option ng-repeat="iia in iiaList | orderBy:['iiaId']" value="{{iia.iiaId}}">{{iia.iiaId}} : From {{iia.startDate| date: 'yyyy-MM-dd'}} to {{iia.endDate| date: 'yyyy-MM-dd'}}</option>
+                            <option ng-repeat="iia in iiaList | orderBy:['iiaCode']" value="{{iia.id}}">{{iia.iiaCode}} : From {{iia.startDate| date: 'yyyy-MM-dd'}} to {{iia.endDate| date: 'yyyy-MM-dd'}}</option>
                         </select>
                     </div>
                 </div>
