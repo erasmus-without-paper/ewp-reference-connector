@@ -33,10 +33,9 @@ public class PersonTest {
         
         this.tx.begin();
         this.em.persist(person);
-        this.tx.commit();
-        this.em.clear();
-        
         Person result = em.find(Person.class, person.getId());
+        this.tx.rollback();
+
         Assert.assertNotNull(result);
         Assert.assertEquals("Albin", result.getFirstNames());
     }

@@ -39,10 +39,9 @@ public class LearningOpportunityInstanceTest {
         
         this.tx.begin();
         this.em.persist(loi);
-        this.tx.commit();
-        this.em.clear();
-        
         LearningOpportunityInstance result = em.find(LearningOpportunityInstance.class, loi.getId());
+        this.tx.rollback();
+
         Assert.assertNotNull(result);
         Assert.assertEquals("orgUnit123", result.getOrganizationUnitId());
         Assert.assertEquals("10", result.getCredits().get(0).getValue().toString());

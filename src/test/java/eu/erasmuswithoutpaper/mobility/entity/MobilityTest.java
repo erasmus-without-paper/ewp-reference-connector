@@ -34,10 +34,9 @@ public class MobilityTest {
         
         this.tx.begin();
         this.em.persist(mobility);
-        this.tx.commit();
-        this.em.clear();
-        
         Mobility result = em.find(Mobility.class, mobility.getId());
+        this.tx.rollback();
+
         Assert.assertNotNull(result);
         Assert.assertEquals("9101015566", result.getMobilityParticipantId());
         Assert.assertEquals(MobilityStatus.NOMINATION, result.getStatus());

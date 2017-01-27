@@ -1,20 +1,17 @@
 package eu.erasmuswithoutpaper.organization.preload;
 
+import eu.erasmuswithoutpaper.internal.AbstractStartupLoader;
 import eu.erasmuswithoutpaper.internal.JsonHelper;
 import eu.erasmuswithoutpaper.organization.entity.Institution;
 import java.io.IOException;
 import java.util.List;
-import javax.persistence.EntityManager;
-import javax.persistence.PersistenceContext;
 
-public class InstitutionLoader {
+public class InstitutionLoader extends AbstractStartupLoader {
     public static final String IKEA_OU1_ID = "8965F285-E763-IKEA-8163-C52C8B654035";
     public static final String IKEA_OU2_ID = "8965F285-E763-IKEA-8163-C52C8B654036";
     public static final String POMODORO_OU1_ID = "8965F285-E763-POMO-8163-C52C8B654030";
     
-    @PersistenceContext(unitName = "connector")
-    EntityManager em;
-
+    @Override
     public void createDemoDataIkea() throws IOException {
         String otherIds = "[{'idType':'erasmus','idValue':'S Ikea01'},{'idType':'local','idValue':'IK1234'}]";
         String names = "[{'text':'IKEA universitet','lang':'sv'},{'text':'IKEA university','lang':'en'}]";
@@ -31,6 +28,7 @@ public class InstitutionLoader {
         persistInstitution("{'institutionId':'ikea.university.se','otherId':" + otherIds + ",'name':" + names + ",'streetAddress':" + streetAddressForIkea + ",'organizationUnits':" + organizationUnits + ",'websiteUrl':" + websiteUrlForIkea + "}");
     }
     
+    @Override
     public void createDemoDataPomodoro() throws IOException {
         String otherIds = "[{'idType':'euc','idValue':'23654'},{'idType':'local','idValue':'POMO22'}]";
         String names = "[{'text':'Pomodoro Universitet','lang':'sv'},{'text':'Pomodoro University','lang':'en'}]";

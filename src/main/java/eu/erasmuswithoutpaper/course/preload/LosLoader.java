@@ -2,20 +2,17 @@
 package eu.erasmuswithoutpaper.course.preload;
 
 import eu.erasmuswithoutpaper.course.entity.LearningOpportunitySpecification;
+import eu.erasmuswithoutpaper.internal.AbstractStartupLoader;
 import eu.erasmuswithoutpaper.internal.JsonHelper;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
-import javax.persistence.EntityManager;
-import javax.persistence.PersistenceContext;
 
-public class LosLoader {
+public class LosLoader extends AbstractStartupLoader {
     public static final String IKEA_LOS1_ID = "8965F285-E763-IKEA-8163-C52C8B654033";
     public static final String POMODORO_LOS1_ID = "8965F285-E763-POMO-8163-C52C8B654033";
     
-@PersistenceContext(unitName = "connector")
-    EntityManager em;
-    
+    @Override
     public void createDemoDataIkea() throws IOException {
         
         // Course
@@ -68,6 +65,7 @@ public class LosLoader {
         persistLearningOppSpecFromObject(module);
     }
     
+    @Override
     public void createDemoDataPomodoro() throws IOException {
         //TODO create more data for Pomodoro
         

@@ -43,10 +43,9 @@ public class AcademicTermTest {
         this.tx.begin();
         this.em.persist(year);
         this.em.persist(academicTerm);
-        this.tx.commit();
-        this.em.clear();
-        
         AcademicTerm result = em.find(AcademicTerm.class, academicTerm.getId());
+        this.tx.rollback();
+        
         Assert.assertNotNull(result);
         Assert.assertEquals("DispNameEn", result.getDispName().get(0).getText());
     }

@@ -39,10 +39,9 @@ public class InstitutionTest {
         
         this.tx.begin();
         this.em.persist(institution);
-        this.tx.commit();
-        this.em.clear();
-        
         Institution result = em.find(Institution.class, institution.getId());
+        this.tx.rollback();
+
         Assert.assertNotNull(result);
         Assert.assertEquals("TestInstSv", result.getName().get(0).getText());
         Assert.assertEquals(LanguageItem.SWEDISH, result.getName().get(0).getLang());

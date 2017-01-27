@@ -46,10 +46,9 @@ public class LearningOpportunitySpecificationTest {
         
         this.tx.begin();
         this.em.persist(los);
-        this.tx.commit();
-        this.em.clear();
-        
         LearningOpportunitySpecification result = em.find(LearningOpportunitySpecification.class, los.getId());
+        this.tx.rollback();
+        
         Assert.assertNotNull(result);
         Assert.assertEquals(LearningOpportunitySpecificationType.COURSE, result.getType());
         

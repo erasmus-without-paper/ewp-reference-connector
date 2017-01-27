@@ -3,18 +3,16 @@ package eu.erasmuswithoutpaper.course.preload;
 
 import eu.erasmuswithoutpaper.course.entity.AcademicTerm;
 import eu.erasmuswithoutpaper.course.entity.AcademicYear;
+import eu.erasmuswithoutpaper.internal.AbstractStartupLoader;
 import eu.erasmuswithoutpaper.internal.JsonHelper;
 import eu.erasmuswithoutpaper.organization.entity.OrganizationUnit;
 import java.io.IOException;
 import java.util.List;
-import javax.persistence.EntityManager;
-import javax.persistence.PersistenceContext;
 import javax.persistence.Query;
 
-public class AcademicTermLoader {
-    @PersistenceContext(unitName = "connector")
-    EntityManager em;
+public class AcademicTermLoader extends AbstractStartupLoader {
     
+    @Override
     public void createDemoDataIkea() throws IOException {
         String ouId = getOrganizationUnitId("ikea.ou1.se");
         String dispNames2014Spring = "[{'text':'Vårtermin 2014','lang':'sv'},{'text':'Spring semester 2014','lang':'en'}]";
@@ -35,6 +33,7 @@ public class AcademicTermLoader {
         persistAcademicTerm("{'institutionId':'ikea.university.se','organizationUnitId':'" + ouId + "','academicTermId':'Fall','dispName':" + dispNames2017Fall + ",'startDate':'2017-09-05','endDate':'2018-01-16'}", getAcademicYear("2017", "2018"));
     }
 
+    @Override
     public void createDemoDataPomodoro() throws IOException {
         String ouId = getOrganizationUnitId("pomodoro.ou1.it");
         String dispNames2014Spring = "[{'text':'Vårtermin 2014','lang':'sv'},{'text':'Spring semester 2014','lang':'en'}]";
@@ -65,7 +64,8 @@ public class AcademicTermLoader {
         Query query = em.createNamedQuery(AcademicYear.findByKeys).setParameter("startYear", startYear).setParameter("endYear", endYear);
         List<AcademicYear> academicYearList = query.getResultList();
         if (academicYearList.size() != 1) {
-           throw new IllegalArgumentException("Academic year " + startYear + "/" + endYear + " doesn't return an unique academic year.");
+            academicYearList.stream().forEach(ay->{System.out.println("Academic Year: " + ay.getAcademicYear() + ", Start Year: " + ay.getStartYear() + ", End Year: " + ay.getEndYear() + ", Id: " + ay.getId());});
+           throw new IllegalArgumentException("Academic year " + startYear + "/" + endYear + " doesn't return an unique academic year. Found " + academicYearList.size() + ".");
         }
         
         return academicYearList.get(0);

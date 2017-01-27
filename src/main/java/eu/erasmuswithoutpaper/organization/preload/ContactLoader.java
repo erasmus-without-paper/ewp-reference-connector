@@ -1,19 +1,17 @@
 
 package eu.erasmuswithoutpaper.organization.preload;
 
+import eu.erasmuswithoutpaper.internal.AbstractStartupLoader;
 import eu.erasmuswithoutpaper.internal.JsonHelper;
 import eu.erasmuswithoutpaper.organization.entity.Contact;
 import eu.erasmuswithoutpaper.organization.entity.Person;
 import java.io.IOException;
 import java.util.List;
-import javax.persistence.EntityManager;
-import javax.persistence.PersistenceContext;
 import javax.persistence.Query;
 
-public class ContactLoader {
-    @PersistenceContext(unitName = "connector")
-    EntityManager em;
+public class ContactLoader extends AbstractStartupLoader {
     
+    @Override
     public void createDemoDataIkea() throws IOException {
         String ouIdIkea = InstitutionLoader.IKEA_OU1_ID ;
         persistContact("{'institutionId':'ikea.university.se','organizationUnitId':'" + ouIdIkea + "','role':'INSURANCE','contactDetails':{'email':['ikeauniversity@hei.ewp']}}", getPerson("9001013344"));
@@ -21,6 +19,8 @@ public class ContactLoader {
         persistContact("{'institutionId':'ikea.university.se','role':'ADMISSION'}", getPerson("9107146991"));
         persistContact("{'institutionId':'ikea.university.se','organizationUnitId':'" + ouIdIkea + "','role':'COURSE'}", getPerson("8906093845"));
     }
+
+    @Override
     public void createDemoDataPomodoro() throws IOException {
         String ouIdPomodoro = InstitutionLoader.POMODORO_OU1_ID;
         persistContact("{'institutionId':'pomodoro.university.it','organizationUnitId':'" + ouIdPomodoro + "','role':'COURSE'}", getPerson("8810126789"));

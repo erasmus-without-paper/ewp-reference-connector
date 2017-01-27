@@ -5,22 +5,19 @@ import eu.erasmuswithoutpaper.course.entity.AcademicTerm;
 import eu.erasmuswithoutpaper.course.entity.AcademicYear;
 import eu.erasmuswithoutpaper.course.entity.LearningOpportunityInstance;
 import eu.erasmuswithoutpaper.course.entity.LearningOpportunitySpecification;
+import eu.erasmuswithoutpaper.internal.AbstractStartupLoader;
 import eu.erasmuswithoutpaper.internal.JsonHelper;
 import eu.erasmuswithoutpaper.organization.entity.OrganizationUnit;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
-import javax.persistence.EntityManager;
-import javax.persistence.PersistenceContext;
 import javax.persistence.Query;
 
-public class LoiLoader {
+public class LoiLoader extends AbstractStartupLoader {
     public static final String IKEA_LOI1_ID = "8965F285-E763-IKEA-8163-C52C8B654032";
     public static final String POMODORO_LOI1_ID = "8965F285-E763-POMO-8163-C52C8B654030";
     
-@PersistenceContext(unitName = "connector")
-    EntityManager em;
-    
+    @Override
     public void createDemoDataIkea() throws IOException {
 
         // Credits
@@ -95,6 +92,7 @@ public class LoiLoader {
         em.merge(class2Los);
     }
 
+    @Override
     public void createDemoDataPomodoro() throws IOException {
         //TODO Create more data for Pomodoro
         

@@ -5,6 +5,7 @@ import eu.erasmuswithoutpaper.course.preload.LoiLoader;
 import eu.erasmuswithoutpaper.course.preload.LosLoader;
 import eu.erasmuswithoutpaper.iia.entity.Iia;
 import eu.erasmuswithoutpaper.iia.entity.MobilityType;
+import eu.erasmuswithoutpaper.internal.AbstractStartupLoader;
 import eu.erasmuswithoutpaper.internal.JsonHelper;
 import eu.erasmuswithoutpaper.mobility.entity.LearningAgreement;
 import eu.erasmuswithoutpaper.mobility.entity.LearningAgreementComponentStatus;
@@ -17,15 +18,11 @@ import eu.erasmuswithoutpaper.organization.preload.MobilityParticipantLoader;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
-import javax.persistence.EntityManager;
-import javax.persistence.PersistenceContext;
 import javax.persistence.Query;
 
-public class MobilityLoader {
+public class MobilityLoader extends AbstractStartupLoader {
     
-    @PersistenceContext(unitName = "connector")
-    EntityManager em;
-    
+    @Override
     public void createDemoDataIkea() throws IOException {
         String ouIdIkea = InstitutionLoader.IKEA_OU1_ID;
         String ouIdPomodoro = InstitutionLoader.POMODORO_OU1_ID;
@@ -38,6 +35,7 @@ public class MobilityLoader {
                         getStudiedLearningAgreementComponents(losId, loiId, "Data Collection and Analysis", "Fall semester 2015"), getRecognizedLearningAgreementComponents(losId, loiId)), getCoopConditionId("IK-POM-01"));
     }
     
+    @Override
     public void createDemoDataPomodoro() throws IOException {
         createDemoDataIkea(); // Same data for Ikea and Pomodoro since they both are part of the same mobility.
     }
