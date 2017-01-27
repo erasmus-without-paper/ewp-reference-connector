@@ -9,7 +9,7 @@
             <i class="glyphicon" ng-class="{'glyphicon-chevron-down': los.expanded, 'glyphicon-chevron-right': !los.expanded}"></i>
             </button>
             </span>
-            {{los.losCode}} - {{(los.name | languageItem:'en').text}}, {{los.type | enumToReadable}} ({{los.learningOpportunityInstances.length}})
+            {{los.losCode ? los.losCode + ' - ' : ''}}{{(los.name | languageItem:'en').text}}, {{los.type | enumToReadable}} ({{los.learningOpportunityInstances.length}})
             </a>
             <ul ng-if="los.learningOpportunitySpecifications.length > 0" ng-show="los.expanded">
             <li ng-repeat="los in los.learningOpportunitySpecifications" ng-include="'los_renderer.html'" ng-class="{'active':los===currentLos}"></li>
@@ -21,19 +21,24 @@
     </div>
 
     <div class="panel panel-default" ng-show="currentLos">
-        <div class="panel-heading"><h2>{{currentLos.losCode}} - {{(currentLos.name | languageItem:'en').text}} ({{currentLos.type | enumToReadable}})</h2></div>
+        <div class="panel-heading"><h2>{{currentLos.losCode ? currentLos.losCode + ' - ' : ''}}{{(currentLos.name | languageItem:'en').text}} ({{currentLos.type | enumToReadable}})</h2></div>
         <div class="panel-body">
-            <div class="col-md-2">LOS code:</div><div class="col-md-10 hide-overflow-ellipsis">{{currentLos.losCode}}</div>
+            <div ng-if="currentLos.losCode">
+                <div class="col-md-2">LOS code:</div><div class="col-md-10">{{currentLos.losCode}}</div>
+            </div>
             <div ng-repeat="name in currentLos.name">
                 <div class="col-md-2">Name ({{name.lang}}):</div><div class="col-md-10 hide-overflow-ellipsis">{{name.text}}</div>
             </div>
-            <div ng-repeat="url in currentLos.url">
-                <div class="col-md-2">URL ({{url.lang}}):</div><div class="col-md-10 hide-overflow-ellipsis">{{url.text}}</div>
+            <div ng-if="currentLos.url.length > 0">
+                <div ng-repeat="url in currentLos.url">
+                    <div class="col-md-2">URL ({{url.lang}}):</div><div class="col-md-10 hide-overflow-ellipsis">{{url.text}}</div>
+                </div>
             </div>
-            <div class="col-md-2">Type:</div><div class="col-md-10 hide-overflow-ellipsis">{{currentLos.type | enumToReadable}}</div>
+            <div ng-if="currentLos.type">
+                <div class="col-md-2">Type:</div><div class="col-md-10 hide-overflow-ellipsis">{{currentLos.type | enumToReadable}}</div>
+            </div>
             <div class="col-md-2">Institution id:</div><div class="col-md-10 hide-overflow-ellipsis">{{currentLos.institutionId}}</div>
         </div>
-
 
         <div class="clearfix">
             <h2 class="col-md-10">Learning opportunity instances ({{currentLos.learningOpportunityInstances.length}})</h2>
@@ -59,12 +64,12 @@
 
     <div class="panel panel-default" ng-show="showAddLearningOppInstanceForm">
         <div class="panel-heading">
-            <h2 ng-if="currentLos">Add an instance of {{currentLos.losCode}} - {{(currentLos.name| languageItem:'en').text}}</h2>
+            <h2 ng-if="currentLos">Add an instance of {{currentLos.losCode ? currentLos.losCode + ' - ' : ''}}{{(currentLos.name| languageItem:'en').text}}</h2>
         </div>
         <div class="panel-body">
             <form class="form-horizontal" ng-submit="addLearningOppInstance(currentLos)">
                 <div class="form-group">
-                    <label class="control-label col-sm-2" for="academicterm">Academic term</label>
+                    <label class="control-label mandatory-control col-sm-2" for="academicterm">Academic term</label>
                     <div class="col-sm-6">
                         <select id="academicterm" class="form-control" ng-model="newLearningOppInstance.academicTermId" required="required">
                             <option style="display:none" value="">Select Academic term</option>
@@ -74,7 +79,7 @@
                     <div class="col-sm-4"></div>
                 </div>
                 <div class="form-group">
-                    <label class="control-label col-sm-2" for="creditvalue">Credits</label>
+                    <label class="control-label mandatory-control col-sm-2" for="creditvalue">Credits</label>
                     <div class="clearfix" ng-repeat="credit in newLearningOppInstance.credits">
                         <div class="col-sm-2" ng-if="$index > 0"></div>
                         <div class="col-sm-1">

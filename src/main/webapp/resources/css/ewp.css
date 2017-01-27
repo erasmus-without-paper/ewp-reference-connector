@@ -60,3 +60,39 @@ input[type="number"] {
 .tree-menu .active > a { background-color: #f5f5f5; }
 
 .tree-menu .expand-button { width: 50px; display: inline-block;}
+
+.header-line, .header-line-double {
+    font-size:1em;
+	font-weight:bold;
+    position: relative;
+    text-align: center;
+    text-transform: uppercase;
+    z-index: 1;
+}
+
+.header-line:before, .header-line-double:before {
+    border-top: 1px solid #dfdfdf;
+    content:"";
+    margin: 0 auto;
+    position: absolute;
+    width: 100%;
+    z-index: -1;
+}
+
+.header-line:before {
+    top: 50%; left: 0; right: 0; bottom: 0;
+}
+.header-line-double:before {
+    border-bottom: 1px solid #dfdfdf;
+    top: 40%; left: 0; right: 0; bottom: 0;
+	height: 5px;
+}
+
+.header-line span, .header-line-double span { 
+    background: #fff; 
+    padding: 0 1em; 
+}
+
+.cursor-pointer {
+    cursor: pointer;
+}

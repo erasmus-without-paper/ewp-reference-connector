@@ -14,15 +14,18 @@ angular.module('academicterm').controller('AcademicTermController', function ($s
             }
         });
         $scope.newAcademicTerm.academicYear = selectedAcademicYear;
-        $scope.newAcademicTerm.dispName = [{text:$scope.newAcademicTerm.dispNameStr,'lang':'en'}];
+        var academicYearText = $scope.newAcademicTerm_selectedTerm === 0 ? selectedAcademicYear.startYear : selectedAcademicYear.endYear;
+        var enAcademicTermText = $scope.terms[$scope.newAcademicTerm_selectedTerm].en + ' ' + academicYearText;
+        var seAcademicTermText = $scope.terms[$scope.newAcademicTerm_selectedTerm].se + ' ' + academicYearText;
+        $scope.newAcademicTerm.dispName = [{text:enAcademicTermText,'lang':'en'}, {text:seAcademicTermText,'lang':'se'}];
         $scope.saveAcademicTerm($scope.newAcademicTerm);
         
-        $scope.showAddAcademicTermForm = false;
-        $scope.newAcademicTerm = {};
+        $scope.cancelAddAcademicTerm();
     };
     
     $scope.cancelAddAcademicTerm = function(){
         $scope.newAcademicTerm = {};
+        $scope.newAcademicTerm_selectedTerm = 0;
         $scope.showAddAcademicTermForm = false;
     };
     
@@ -65,5 +68,7 @@ angular.module('academicterm').controller('AcademicTermController', function ($s
         $scope.addOrganizationUnitsToList(currentInst);
     };
     
+    $scope.terms = [{label:'Fall', en:'Fall semester', se:'Hösttermin'}, {label:'Spring', en:'Spring semester', se:'Vårtermin'}];
+    $scope.cancelAddAcademicTerm();
     $scope.getAllAcademicTerms();
 });

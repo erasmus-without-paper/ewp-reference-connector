@@ -7,6 +7,7 @@
         <div class="panel-heading"><h2>Add Institution</h2></div>
         <div class="panel-body">
             <form class="form-horizontal"  ng-submit="addInstitution()">
+                <h3 class="header-line-double"><span>New institution</span></h3>
                 <div class="form-group">
                     <label class="control-label mandatory-control col-sm-2" for="instid">Institution Id</label>
                     <div class="col-sm-10">
@@ -63,82 +64,91 @@
                         <input id="logo-url" type="text" class="form-control" placeholder="Enter logo URL" ng-model="newInstitution.logoUrl">
                     </div>
                 </div>
-                <div class="form-group">
-                    <label class="control-label col-sm-2" for="address-line">Address line</label>
-                    <div class="col-sm-10">
-                        <input id="address-line" type="text" class="form-control" placeholder="Enter address line" ng-model="newInstitution.addressLine">
+                <h3 class="header-line cursor-pointer" ng-click="viewStreetAdressForm = !viewStreetAdressForm"><span>Street adress <i class="glyphicon" ng-class="{'glyphicon-chevron-down': viewStreetAdressForm, 'glyphicon-chevron-right': !viewStreetAdressForm}"></i></span></h3>
+                <div ng-show="viewStreetAdressForm">
+                    <div class="form-group">
+                        <label class="control-label col-sm-2" for="address-line">Address line</label>
+                        <div class="col-sm-10">
+                            <input id="address-line" type="text" class="form-control" placeholder="Enter address line" ng-model="newInstitution.addressLine">
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label class="control-label col-sm-2" for="building-number">Building number</label>
+                        <div class="col-sm-3">
+                            <input id="building-number" type="text" class="form-control" placeholder="Enter building number" ng-model="newInstitution.factSheet.contactDetails.streetAddress.buildingNumber">
+                        </div>
+                        <div class="col-sm-7"></div>
+                    </div>
+                    <div class="form-group">
+                        <label class="control-label col-sm-2" for="building-name">Building name</label>
+                        <div class="col-sm-10">
+                            <input id="building-name" type="text" class="form-control" placeholder="Enter building name" ng-model="newInstitution.factSheet.contactDetails.streetAddress.buildingName">
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label class="control-label col-sm-2" for="street-name">Street name</label>
+                        <div class="col-sm-10">
+                            <input id="street-name" type="text" class="form-control" placeholder="Enter street name" ng-model="newInstitution.factSheet.contactDetails.streetAddress.streetName">
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label class="control-label col-sm-2" for="unit">Unit</label>
+                        <div class="col-sm-10">
+                            <input id="unit" type="text" class="form-control" placeholder="Enter unit" ng-model="newInstitution.factSheet.contactDetails.streetAddress.unit">
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label class="control-label col-sm-2" for="floor">Floor</label>
+                        <div class="col-sm-3">
+                            <input id="floor" type="text" class="form-control" placeholder="Enter floor" ng-model="newInstitution.factSheet.contactDetails.streetAddress.floor">
+                        </div>
+                        <div class="col-sm-7"></div>
+                    </div>
+                    <div class="form-group">
+                        <label class="control-label col-sm-2" for="box">Post office box</label>
+                        <div class="col-sm-10">
+                            <input id="box" type="text" class="form-control" placeholder="Enter post office box" ng-model="newInstitution.factSheet.contactDetails.streetAddress.postOfficeBox">
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label class="control-label col-sm-2" for="delivery-point-code">Delivery point code</label>
+                        <div class="col-sm-10">
+                            <input id="delivery-point-code" type="text" class="form-control" placeholder="Enter delivery point code" ng-model="newInstitution.deliveryPointCode">
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label class="control-label col-sm-2" for="postal-code">Postal code</label>
+                        <div class="col-sm-3">
+                            <input id="postal-code" type="text" class="form-control" placeholder="Enter postal code" ng-model="newInstitution.factSheet.contactDetails.streetAddress.postalCode">
+                        </div>
+                        <div class="col-sm-7"></div>
+                    </div>
+                    <div class="form-group">
+                        <label class="control-label col-sm-2" for="locality">City</label>
+                        <div class="col-sm-10">
+                            <input id="locality" type="text" class="form-control" placeholder="Enter city/locality" ng-model="newInstitution.factSheet.contactDetails.streetAddress.locality">
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label class="control-label col-sm-2" for="region">Region</label>
+                        <div class="col-sm-10">
+                            <input id="region" type="text" class="form-control" placeholder="Enter region" ng-model="newInstitution.factSheet.contactDetails.streetAddress.region">
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label class="control-label col-sm-2" for="country">Country code</label>
+                        <div class="col-sm-3">
+                            <input id="country" type="text" class="form-control" placeholder="Enter country code" ng-model="newInstitution.factSheet.contactDetails.streetAddress.country">
+                        </div>
+                        <div class="col-sm-7"></div>
                     </div>
                 </div>
-                <div class="form-group">
-                    <label class="control-label col-sm-2" for="building-number">Building number</label>
-                    <div class="col-sm-3">
-                        <input id="building-number" type="text" class="form-control" placeholder="Enter building number" ng-model="newInstitution.factSheet.contactDetails.streetAddress.buildingNumber">
-                    </div>
-                    <div class="col-sm-7"></div>
-                </div>
-                <div class="form-group">
-                    <label class="control-label col-sm-2" for="building-name">Building name</label>
-                    <div class="col-sm-10">
-                        <input id="building-name" type="text" class="form-control" placeholder="Enter building name" ng-model="newInstitution.factSheet.contactDetails.streetAddress.buildingName">
-                    </div>
-                </div>
-                <div class="form-group">
-                    <label class="control-label col-sm-2" for="street-name">Street name</label>
-                    <div class="col-sm-10">
-                        <input id="street-name" type="text" class="form-control" placeholder="Enter street name" ng-model="newInstitution.factSheet.contactDetails.streetAddress.streetName">
-                    </div>
-                </div>
-                <div class="form-group">
-                    <label class="control-label col-sm-2" for="unit">Unit</label>
-                    <div class="col-sm-10">
-                        <input id="unit" type="text" class="form-control" placeholder="Enter unit" ng-model="newInstitution.factSheet.contactDetails.streetAddress.unit">
-                    </div>
-                </div>
-                <div class="form-group">
-                    <label class="control-label col-sm-2" for="floor">Floor</label>
-                    <div class="col-sm-3">
-                        <input id="floor" type="text" class="form-control" placeholder="Enter floor" ng-model="newInstitution.factSheet.contactDetails.streetAddress.floor">
-                    </div>
-                    <div class="col-sm-7"></div>
-                </div>
-                <div class="form-group">
-                    <label class="control-label col-sm-2" for="box">Post office box</label>
-                    <div class="col-sm-10">
-                        <input id="box" type="text" class="form-control" placeholder="Enter post office box" ng-model="newInstitution.factSheet.contactDetails.streetAddress.postOfficeBox">
-                    </div>
-                </div>
-                <div class="form-group">
-                    <label class="control-label col-sm-2" for="delivery-point-code">Delivery point code</label>
-                    <div class="col-sm-10">
-                        <input id="delivery-point-code" type="text" class="form-control" placeholder="Enter delivery point code" ng-model="newInstitution.deliveryPointCode">
-                    </div>
-                </div>
-                <div class="form-group">
-                    <label class="control-label col-sm-2" for="postal-code">Postal code</label>
-                    <div class="col-sm-3">
-                        <input id="postal-code" type="text" class="form-control" placeholder="Enter postal code" ng-model="newInstitution.factSheet.contactDetails.streetAddress.postalCode">
-                    </div>
-                    <div class="col-sm-7"></div>
-                </div>
-                <div class="form-group">
-                    <label class="control-label col-sm-2" for="locality">City</label>
-                    <div class="col-sm-10">
-                        <input id="locality" type="text" class="form-control" placeholder="Enter city/locality" ng-model="newInstitution.factSheet.contactDetails.streetAddress.locality">
-                    </div>
-                </div>
-                <div class="form-group">
-                    <label class="control-label col-sm-2" for="region">Region</label>
-                    <div class="col-sm-10">
-                        <input id="region" type="text" class="form-control" placeholder="Enter region" ng-model="newInstitution.factSheet.contactDetails.streetAddress.region">
-                    </div>
-                </div>
-                <div class="form-group">
-                    <label class="control-label col-sm-2" for="country">Country code</label>
-                    <div class="col-sm-3">
-                        <input id="country" type="text" class="form-control" placeholder="Enter country code" ng-model="newInstitution.factSheet.contactDetails.streetAddress.country">
-                    </div>
-                    <div class="col-sm-7"></div>
-                </div>
+                
+                <!--<h3 class="header-line cursor-pointer" ng-click="viewMailingAdressForm = !viewMailingAdressForm"><span>Mailing adress <i class="glyphicon" ng-class="{'glyphicon-chevron-down': viewMailingAdressForm, 'glyphicon-chevron-right': !viewMailingAdressForm}"></i></span></h3>-->
+<!--                <div ng-show="viewMailingAdressForm">
+                    <div data-flexible-address-form="newInstitution.factSheet.contactDetails.mailingAddress"></div>
+                </div>-->
+                
                 <div class="input-group">
                     <div class="btn-group">
                         <button type="submit" class="btn btn-default">

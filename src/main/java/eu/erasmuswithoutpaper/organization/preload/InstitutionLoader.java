@@ -18,10 +18,10 @@ public class InstitutionLoader extends AbstractStartupLoader {
         String streetAddressForIkea = "{'addressLine':['Furniture street 1','1st floor'],'locality':'Assemble city','country':'se'}";
         String websiteUrlForIkea = "[{'text':'www.ikeauniversitet.se','lang':'sv'},{'text':'www.ikeauniversity.se','lang':'en'}]";
         String organizationUnit1Names = "[{'text':'Institutionen för psykologi','lang':'sv'},{'text':'Department of Psychology','lang':'en'}]";
-        String streetAddressOrgUnit1 = "{'addressLine':['Furniture street 11'],'buildingNumber':'4','floor':'2','postalCode';'92056',locality':'Assemble city','country':'se'}";
+        String streetAddressOrgUnit1 = "{'addressLine':['Furniture street 11'],'buildingNumber':'4','floor':'2','postalCode':'92056','locality':'Assemble city','country':'se'}";
         String websiteUrlForOrgUnit1 = "[{'text':'www.ikeapsykologi.se','lang':'sv'},{'text':'www.ikeapsychology.se','lang':'en'}]";
         String organizationUnit2Names = "[{'text':'Institutionen för Datavetenskap','lang':'sv'},{'text':'Department of Computing Science','lang':'en'}]";
-        String streetAddressOrgUnit2 = "{'addressLine':['Furniture street 12'],'postalCode';'92056','locality':'Assemble city','country':'se'}";
+        String streetAddressOrgUnit2 = "{'addressLine':['Furniture street 12'],'postalCode':'92056','locality':'Assemble city','country':'se'}";
         String otherIdsOrgUnit1 = "[{'idType':'erasmus','idValue':'S Ikea331'},{'idType':'local','idValue':'IKORG01'}]";
         String otherIdsOrgUnit2 = "[{'idType':'erasmus','idValue':'S Ikea332'},{'idType':'local','idValue':'IKORG02'}]";
         String factSheetOrgUnit1 = "{'url':[{'text':'http://mobility-factsheet.ikea.se/orgunit1','lang':'en'}],'contactDetails':{'streetAddress':" + streetAddressOrgUnit1 + ",'url':" + websiteUrlForOrgUnit1 + "}}";

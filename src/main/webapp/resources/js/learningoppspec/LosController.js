@@ -33,7 +33,9 @@ angular.module('los').controller('LosController', function ($scope, LosService, 
     };
     
     $scope.addLearningOppSpec = function(){
-        $scope.newLearningOppSpec.url = [{text:$scope.newLearningOppSpec.urlStr,'lang':'en'}];
+        if($scope.newLearningOppSpec_urlStr){
+            $scope.newLearningOppSpec.url = [{text:$scope.newLearningOppSpec_urlStr,'lang':'en'}];
+        }
         
         if ($scope.currentLos) {
             $scope.newLearningOppSpec.institutionId = $scope.currentLos.institutionId;

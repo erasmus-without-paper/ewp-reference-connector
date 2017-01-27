@@ -101,6 +101,7 @@ public class StartupLoader {
             }
         } catch (IOException ex) {
             Logger.getLogger(StartupLoader.class.getName()).log(Level.SEVERE, null, ex);
+            throw new RuntimeException(ex);
         }
     }
 

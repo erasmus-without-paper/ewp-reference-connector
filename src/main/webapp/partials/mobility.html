@@ -5,16 +5,16 @@
         <div class="panel-body">{{mobility}}
             <form class="form-horizontal" ng-submit="addMobility()">
                 <div class="form-group">
-                    <label class="control-label col-sm-3" for="iia">IIA</label>
+                    <label class="control-label mandatory-control col-sm-3" for="iia">IIA</label>
                     <div class="col-sm-9">
                         <select id="iia" class="form-control" ng-model="newMobility.iiaId" required="required" ng-change="iiaChanged()">
                             <option style="display:none" value="">Select IIA</option>
-                            <option ng-repeat="iia in iiaList | orderBy:['iiaCode']" value="{{iia.id}}">{{iia.iiaCode}} : From {{iia.startDate| date: 'yyyy-MM-dd'}} to {{iia.endDate| date: 'yyyy-MM-dd'}}</option>
+                            <option ng-repeat="iia in iiaList | orderBy:['iiaCode']" value="{{iia.id}}">{{iia.iiaCode}} : From {{iia.startDate| date: 'yyyy-MM-dd'}} {{iia.endDate ? ' to ' + (iia.endDate | date: 'yyyy-MM-dd') : ''}}</option>
                         </select>
                     </div>
                 </div>
                 <div class="form-group">
-                    <label class="control-label col-sm-3" for="coopconditions">Cooperation conditions</label>
+                    <label class="control-label mandatory-control col-sm-3" for="coopconditions">Cooperation conditions</label>
                     <div class="col-sm-9">
                         <select id="coopconditions" class="form-control" ng-model="newMobility.cooperationConditionId" required="required" ng-change="cooperationConditionChanged()">
                             <option style="display:none" value="">Select cooperation condition</option>
@@ -23,7 +23,7 @@
                     </div>
                 </div>
                 <div class="form-group">
-                    <label class="control-label col-sm-3" for="participant">Participant</label>
+                    <label class="control-label mandatory-control col-sm-3" for="participant">Participant</label>
                     <div class="col-sm-9">
                         <select id="participant" class="form-control" ng-model="newMobility.mobilityParticipantId" required="required">
                             <option style="display:none" value="">Select a participant</option>
@@ -32,23 +32,23 @@
                     </div>
                 </div>
                 <div class="form-group">
-                    <label class="control-label col-sm-3" for="plannedarrival">Planned arrival Date</label>
+                    <label class="control-label mandatory-control col-sm-3" for="planned-arrival">Planned arrival Date</label>
                     <div class="col-sm-2">
-                        <input id="plannedarrival" type="date" class="form-control" ng-model="newMobility.plannedArrivalDate" required="required">
+                        <input id="planned-arrival" type="date" class="form-control" ng-model="newMobility.plannedArrivalDate" required="required">
                     </div>
                     <div class="col-sm-7"></div>
                 </div>
                 <div class="form-group">
-                    <label class="control-label col-sm-3" for="planneddeparture">Planned departure Date</label>
+                    <label class="control-label mandatory-control col-sm-3" for="planned-departure">Planned departure Date</label>
                     <div class="col-sm-2">
-                        <input id="planneddeparture" type="date" class="form-control" ng-model="newMobility.plannedDepartureDate" required="required">
+                        <input id="planned-departure" type="date" class="form-control" ng-model="newMobility.plannedDepartureDate" required="required">
                     </div>
                     <div class="col-sm-7"></div>
                 </div>
                 <div class="form-group">
-                    <label class="control-label col-sm-3" for="mobilitystatus">Status</label>
+                    <label class="control-label mandatory-control col-sm-3" for="mobility-status">Status</label>
                     <div class="col-sm-2">
-                        <select id="mobilitystatus" class="form-control" ng-model="newMobility.status" required="required">
+                        <select id="mobility-status" class="form-control" ng-model="newMobility.status" required="required">
                             <option style="display:none" value="">Select status</option>
                             <option ng-repeat="status in mobilityStatuses | orderBy:['status']" value="{{status}}">{{status| capitalize}}</option>
                         </select>

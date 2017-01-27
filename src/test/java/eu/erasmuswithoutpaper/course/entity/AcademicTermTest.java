@@ -34,7 +34,6 @@ public class AcademicTermTest {
         academicTerm.setOrganizationUnitId("orgUnitId33");
         AcademicYear year = new AcademicYear("2016", "2017");
         academicTerm.setAcademicYear(year);
-        academicTerm.setAcademicTermId("academicTermId1");
         List<LanguageItem> dispName = new ArrayList();
         LanguageItem dispNameEn = new LanguageItem("DispNameEn", LanguageItem.ENGLISH);
         dispName.add(dispNameEn);

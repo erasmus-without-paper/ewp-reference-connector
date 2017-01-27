@@ -6,13 +6,13 @@
         <div class="panel-body">
             <form class="form-horizontal" ng-submit="addIia()">
                 <div class="form-group">
-                    <label class="control-label col-sm-2" for="iiacode">IIA code</label>
+                    <label class="control-label mandatory-control col-sm-2" for="iiacode">IIA code</label>
                     <div class="col-sm-10">
                         <input id="iiacode" type="text" class="form-control" placeholder="Enter IIA code" ng-model="newIia.iiaCode" required="required">
                     </div>
                 </div>
                 <div class="form-group">
-                    <label class="control-label col-sm-2" for="startdate">Start date</label>
+                    <label class="control-label mandatory-control col-sm-2" for="startdate">Start date</label>
                     <div class="col-sm-2">
                         <input id="startdate" type="date" class="form-control" ng-model="newIia.startDate" required="required">
                     </div>
@@ -21,7 +21,7 @@
                 <div class="form-group">
                     <label class="control-label col-sm-2" for="enddate">End date</label>
                     <div class="col-sm-2">
-                        <input id="enddate" type="date" class="form-control" ng-model="newIia.endDate" required="required">
+                        <input id="enddate" type="date" class="form-control" ng-model="newIia.endDate">
                     </div>
                     <div class="col-sm-8"></div>
                 </div>
@@ -62,31 +62,31 @@
             <div class="panel-body">
                 <form class="form-horizontal" ng-submit="addCondition()">
                     <div class="form-group">
-                        <label class="control-label col-sm-3" for="sendinginst">Sending institution</label>
+                        <label class="control-label mandatory-control col-sm-3" for="sendinginst">Sending institution id</label>
                         <div class="col-sm-9">
-                            <input id="sendinginst" type="text" class="form-control" placeholder="Enter institution id" ng-model="newCondition.sendingPartner.institutionId" required="required">
+                            <input id="sendinginst" type="text" class="form-control" placeholder="Enter SCHAC identifier" ng-model="newCondition.sendingPartner.institutionId" required="required">
                         </div>
                     </div>
                     <div class="form-group">
-                        <label class="control-label col-sm-3" for="sendingorgunit">Sending organization unit</label>
+                        <label class="control-label col-sm-3" for="sendingorgunit">Sending organization unit id</label>
                         <div class="col-sm-9">
-                            <input id="sendingorgunit" type="text" class="form-control" placeholder="Enter organization unit id (optional)" ng-model="newCondition.sendingPartner.organizationUnitId">
+                            <input id="sendingorgunit" type="text" class="form-control" placeholder="Enter organization unit id" ng-model="newCondition.sendingPartner.organizationUnitId">
                         </div>
                     </div>
                     <div class="form-group">
-                        <label class="control-label col-sm-3" for="receivinginst">Receiving institution</label>
+                        <label class="control-label mandatory-control col-sm-3" for="receivinginst">Receiving institution id</label>
                         <div class="col-sm-9">
-                            <input id="receivinginst" type="text" class="form-control" placeholder="Enter institution id" ng-model="newCondition.receivingPartner.institutionId" required="required">
+                            <input id="receivinginst" type="text" class="form-control" placeholder="Enter SCHAC identifier" ng-model="newCondition.receivingPartner.institutionId" required="required">
                         </div>
                     </div>
                     <div class="form-group">
-                        <label class="control-label col-sm-3" for="receivingorgunit">Receiving organization unit</label>
+                        <label class="control-label col-sm-3" for="receivingorgunit">Receiving organization unit id</label>
                         <div class="col-sm-9">
-                            <input id="receivingorgunit" type="text" class="form-control" placeholder="Enter organization unit id (optional)" ng-model="newCondition.receivingPartner.organizationUnitId">
+                            <input id="receivingorgunit" type="text" class="form-control" placeholder="Enter organization unit id" ng-model="newCondition.receivingPartner.organizationUnitId">
                         </div>
                     </div>
                     <div class="form-group">
-                        <label class="control-label col-sm-3" for="mobilitytype">Mobility type</label>
+                        <label class="control-label mandatory-control col-sm-3" for="mobilitytype">Mobility type</label>
                         <div class="col-sm-9">
                             <select id="mobilitytype" class="form-control" ng-model="newCondition.mobilityTypeId" required="required">
                                 <option style="display:none" value="">Select mobility type</option>
@@ -95,21 +95,21 @@
                         </div>
                     </div>
                     <div class="form-group">
-                        <label class="control-label col-sm-3" for="startdate">Start date</label>
+                        <label class="control-label mandatory-control col-sm-3" for="startdate">Start date</label>
                         <div class="col-sm-3">
                             <input id="startdate" type="date" class="form-control" ng-model="newCondition.startDate" required="required">
                         </div>
                         <div class="col-sm-6"></div>
                     </div>
                     <div class="form-group">
-                        <label class="control-label col-sm-3" for="enddate">End date</label>
+                        <label class="control-label mandatory-control col-sm-3" for="enddate">End date</label>
                         <div class="col-sm-3">
                             <input id="enddate" type="date" class="form-control" ng-model="newCondition.endDate" required="required">
                         </div>
                         <div class="col-sm-6"></div>
                     </div>
                     <div class="form-group">
-                        <label class="control-label col-sm-3" for="mobilitynumber">Mobility number</label>
+                        <label class="control-label mandatory-control col-sm-3" for="mobilitynumber">Mobility number</label>
                         <div class="col-sm-1">
                             <input id="mobilitynumber" type="number" min="0" class="form-control" placeholder="0" ng-model="newCondition.mobilityNumber.number" required="required">
                         </div>
@@ -122,7 +122,7 @@
                         <div class="col-sm-6"></div>
                     </div>
                     <div class="form-group">
-                        <label class="control-label col-sm-3" for="duration">Duration</label>
+                        <label class="control-label mandatory-control col-sm-3" for="duration">Duration</label>
                         <div class="col-sm-1">
                             <input id="duration" type="number" min="0" step="0.1" class="form-control" placeholder="0" ng-model="newCondition.duration.number" required="required">
                         </div>
@@ -135,7 +135,7 @@
                         <div class="col-sm-6"></div>
                     </div>
                     <div class="row form-group">
-                        <label class="control-label col-sm-3" for="eqflevel">EQF level</label>
+                        <label class="control-label mandatory-control col-sm-3" for="eqflevel">EQF level</label>
                         <div class="col-sm-1">
                             <select id="eqflevel" class="form-control" ng-model="newCondition.eqfLevel" convert-to-number required="required">
                                 <option ng-repeat="eqfLevel in eqfLevels" value="{{eqfLevel}}">{{eqfLevel}}</option>
@@ -197,7 +197,7 @@
         <div>
             <div class="col-md-2">Start date:</div><div class="col-md-10">{{selectedIia.startDate| date: 'yyyy-MM-dd'}}</div>
         </div>
-        <div>
+        <div ng-if="selectedIia.endDate">
             <div class="col-md-2">End date:</div><div class="col-md-10">{{selectedIia.endDate| date: 'yyyy-MM-dd'}}</div>
         </div>
 

@@ -10,7 +10,7 @@
                         <i class="glyphicon" ng-class="{'glyphicon-chevron-down': los.expanded, 'glyphicon-chevron-right': !los.expanded}"></i>
                     </button>
                 </span>
-                {{los.losCode}} - {{(los.name | languageItem:'en').text}} ({{los.type | enumToReadable}})
+                {{los.losCode ? los.losCode + ' - ' : ''}}{{(los.name | languageItem:'en').text}} ({{los.type | enumToReadable}})
                 <div class="btn-group pull-right" ng-if="los.type !== 'CLASS'">
                     <button type="submit" class="btn btn-default" ng-click="viewAddLearningOppSpecForm(los)">
                         <i class="glyphicon glyphicon-plus-sign"></i> Add
@@ -32,16 +32,22 @@
     </div>
     
     <div class="panel panel-default" ng-show="currentLos && !showAddLearningOppSpecForm">
-        <div class="panel-heading"><h2>{{currentLos.losCode}} - {{(currentLos.name | languageItem:'en').text}} ({{currentLos.type | enumToReadable}})</h2></div>
+        <div class="panel-heading"><h2>{{currentLos.losCode ? currentLos.losCode + ' - ' : ''}}{{(currentLos.name | languageItem:'en').text}} ({{currentLos.type | enumToReadable}})</h2></div>
         <div class="panel-body">
-            <div class="col-md-2">LOS code:</div><div class="col-md-10 hide-overflow-ellipsis">{{currentLos.losCode}}</div>
+            <div ng-if="currentLos.losCode">
+                <div class="col-md-2">LOS code:</div><div class="col-md-10">{{currentLos.losCode}}</div>
+            </div>
             <div ng-repeat="name in currentLos.name">
                 <div class="col-md-2">Name ({{name.lang}}):</div><div class="col-md-10 hide-overflow-ellipsis">{{name.text}}</div>
             </div>
-            <div ng-repeat="url in currentLos.url">
-                <div class="col-md-2">URL ({{url.lang}}):</div><div class="col-md-10 hide-overflow-ellipsis">{{url.text}}</div>
+            <div ng-if="currentLos.url.length > 0">
+                <div ng-repeat="url in currentLos.url">
+                    <div class="col-md-2">URL ({{url.lang}}):</div><div class="col-md-10 hide-overflow-ellipsis">{{url.text}}</div>
+                </div>
             </div>
-            <div class="col-md-2">Type:</div><div class="col-md-10 hide-overflow-ellipsis">{{currentLos.type | enumToReadable}}</div>
+            <div ng-if="currentLos.type">
+                <div class="col-md-2">Type:</div><div class="col-md-10 hide-overflow-ellipsis">{{currentLos.type | enumToReadable}}</div>
+            </div>
             <div class="col-md-2">Institution id:</div><div class="col-md-10 hide-overflow-ellipsis">{{currentLos.institutionId}}</div>
         </div>
     </div>
@@ -55,7 +61,7 @@
         <div class="panel-body">
             <form class="form-horizontal" ng-submit="addLearningOppSpec()">
                 <div class="form-group" ng-if="!currentLos">
-                    <label class="control-label col-sm-2" for="institution">Institution</label>
+                    <label class="control-label mandatory-control col-sm-2" for="institution">Institution</label>
                     <div class="col-sm-10">
                         <select id="institution" class="form-control" ng-model="$parent.newLearningOppSpec.institutionId" required="required">
                             <option style="display:none" value="">Select institution</option>
@@ -66,12 +72,12 @@
                 <div class="form-group">
                     <label class="control-label col-sm-2" for="loscode">LOS code</label>
                     <div class="col-sm-4">
-                        <input id="loscode" type="text" class="form-control" placeholder="Enter LOS code" ng-model="newLearningOppSpec.losCode" required="required">
+                        <input id="loscode" type="text" class="form-control" placeholder="Enter LOS code" ng-model="newLearningOppSpec.losCode">
                     </div>
                     <div class="col-sm-6"></div>
                 </div>
                 <div class="form-group">
-                    <label class="control-label col-sm-2" for="type">Type</label>
+                    <label class="control-label mandatory-control col-sm-2" for="type">Type</label>
                     <div class="col-sm-4">
                         <select id="type" class="form-control" ng-model="newLearningOppSpec.type" required="required">
                             <option style="display:none" value="">Select type</option>
@@ -81,7 +87,7 @@
                     <div class="col-sm-6"></div>
                 </div>
                 <div class="form-group">
-                    <label class="control-label col-sm-2" for="name">Name</label>
+                    <label class="control-label mandatory-control col-sm-2" for="name">Name</label>
                     <div ng-repeat="name in newLearningOppSpec.name">
                         <div class="col-sm-2" ng-if="$index > 0"></div>
                         <div class="col-sm-8">
@@ -101,7 +107,7 @@
                 <div class="form-group">
                     <label class="control-label col-sm-2" for="url">URL</label>
                     <div class="col-sm-10">
-                        <input id="url" type="text" class="form-control" placeholder="Enter URL" ng-model="newLearningOppSpec.urlStr" required="required">
+                        <input id="url" type="text" class="form-control" placeholder="Enter URL" ng-model="newLearningOppSpec_urlStr">
                     </div>
                 </div>
                 <div class="input-group">
