@@ -1,16 +1,14 @@
 
 package eu.erasmuswithoutpaper.organization.preload;
 
+import eu.erasmuswithoutpaper.internal.AbstractStartupLoader;
 import eu.erasmuswithoutpaper.internal.JsonHelper;
 import eu.erasmuswithoutpaper.organization.entity.Person;
 import java.io.IOException;
-import javax.persistence.EntityManager;
-import javax.persistence.PersistenceContext;
 
-public class PersonLoader {
-    @PersistenceContext(unitName = "connector")
-    EntityManager em;
+public class PersonLoader extends AbstractStartupLoader {
     
+    @Override
     public void createDemoDataIkea() throws IOException {
         
         //IKEA
@@ -21,6 +19,7 @@ public class PersonLoader {
         persistPerson("{'personId':'9107146991','firstNames':'Emily Nicole','lastName':'Morgan','birthDate':'1991-07-14','gender':'FEMALE','countryCode':'SE'}");
     }
 
+    @Override
     public void createDemoDataPomodoro() throws IOException {
         //Pomodoro
         persistPerson("{'personId':'8810126789','firstNames':'Ann Paige','lastName':'White','birthDate':'1988-10-12','gender':'FEMALE','countryCode':'IT'}");

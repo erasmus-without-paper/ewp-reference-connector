@@ -30,10 +30,9 @@ public class IiaPartnerTest {
         
         this.tx.begin();
         this.em.persist(iiaPartner);
-        this.tx.commit();
-        this.em.clear();
-        
         IiaPartner result = em.find(IiaPartner.class, iiaPartner.getId());
+        this.tx.rollback();
+        
         Assert.assertNotNull(result);
     }
 }

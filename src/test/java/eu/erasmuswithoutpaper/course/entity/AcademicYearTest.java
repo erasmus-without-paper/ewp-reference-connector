@@ -30,10 +30,10 @@ public class AcademicYearTest {
         
         this.tx.begin();
         this.em.persist(academicYear);
-        this.tx.commit();
-        this.em.clear();
         
         AcademicYear result = em.find(AcademicYear.class, academicYear.getId());
+        this.tx.rollback();
+        
         Assert.assertNotNull(result);
         Assert.assertEquals("2015", result.getStartYear());
         Assert.assertEquals("2016", result.getEndYear());

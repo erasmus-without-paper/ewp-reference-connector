@@ -30,6 +30,7 @@
         <class>eu.erasmuswithoutpaper.organization.entity.ContactDetails</class>
         <class>eu.erasmuswithoutpaper.organization.entity.FactSheet</class>
         <class>eu.erasmuswithoutpaper.organization.entity.Student</class>
+        <class>eu.erasmuswithoutpaper.organization.entity.MobilityParticipant</class>
         
         <properties>
             <property name="javax.persistence.jdbc.url" value="jdbc:derby:memory:testDB;create=true"/>

@@ -39,11 +39,9 @@ public class ContactTest {
         this.tx.begin();
         this.em.persist(person);
         this.em.persist(contact);
-        this.tx.commit();
-        this.em.clear();
-        
-        String id = contact.getId();
-        Contact result = em.find(Contact.class, id);
+        Contact result = em.find(Contact.class, contact.getId());
+        this.tx.rollback();
+
         Assert.assertNotNull(result);
         Assert.assertEquals("9002023344", result.getPerson().getPersonId());
     }

@@ -31,10 +31,9 @@ public class LearningAgreementComponentTest {
         
         this.tx.begin();
         this.em.persist(learningAgreementComponent);
-        this.tx.commit();
-        this.em.clear();
-        
         RecognizedLaComponent result = em.find(RecognizedLaComponent.class, learningAgreementComponent.getId());
+        this.tx.rollback();
+        
         Assert.assertNotNull(result);
         Assert.assertEquals(LearningAgreementComponentStatus.RECOMMENDED, result.getStatus());
     }

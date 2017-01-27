@@ -2,15 +2,13 @@
 package eu.erasmuswithoutpaper.course.preload;
 
 import eu.erasmuswithoutpaper.course.entity.AcademicYear;
+import eu.erasmuswithoutpaper.internal.AbstractStartupLoader;
 import eu.erasmuswithoutpaper.internal.JsonHelper;
 import java.io.IOException;
-import javax.persistence.EntityManager;
-import javax.persistence.PersistenceContext;
 
-public class AcademicYearLoader {
-    @PersistenceContext(unitName = "connector")
-    EntityManager em;
-    
+public class AcademicYearLoader extends AbstractStartupLoader {
+
+    @Override
     public void createDemoDataIkea() throws IOException {
         persistAcademicYear("{'startYear':'2012','endYear':'2013'}");
         persistAcademicYear("{'startYear':'2013','endYear':'2014'}");
@@ -20,6 +18,7 @@ public class AcademicYearLoader {
         persistAcademicYear("{'startYear':'2017','endYear':'2018'}");
     }
     
+    @Override
     public void createDemoDataPomodoro() throws IOException {
         createDemoDataIkea();
     }

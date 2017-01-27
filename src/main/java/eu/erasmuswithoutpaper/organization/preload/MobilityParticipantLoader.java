@@ -1,21 +1,18 @@
 
 package eu.erasmuswithoutpaper.organization.preload;
 
+import eu.erasmuswithoutpaper.internal.AbstractStartupLoader;
 import eu.erasmuswithoutpaper.internal.JsonHelper;
 import eu.erasmuswithoutpaper.organization.entity.MobilityParticipant;
 import eu.erasmuswithoutpaper.organization.entity.Person;
 import java.io.IOException;
 import java.util.List;
-import javax.persistence.EntityManager;
-import javax.persistence.PersistenceContext;
 import javax.persistence.Query;
 
-public class MobilityParticipantLoader {
+public class MobilityParticipantLoader extends AbstractStartupLoader {
     public static final String IKEA_MOBILITY_PARTICIPANT1_ID = "8965F285-E763-IKEA-STUD-C52C8B654030";
 
-    @PersistenceContext(unitName = "connector")
-    EntityManager em;
-    
+    @Override
     public void createDemoDataIkea() throws IOException {
         
         //IKEA
@@ -24,6 +21,7 @@ public class MobilityParticipantLoader {
         //Pomodoro
     }
 
+    @Override
     public void createDemoDataPomodoro() throws IOException {
     }
     

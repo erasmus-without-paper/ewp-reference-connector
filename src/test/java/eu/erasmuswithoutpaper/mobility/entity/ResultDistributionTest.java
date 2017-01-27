@@ -34,10 +34,9 @@ public class ResultDistributionTest {
         
         this.tx.begin();
         this.em.persist(resultDistribution);
-        this.tx.commit();
-        this.em.clear();
-        
         ResultDistribution result = em.find(ResultDistribution.class, resultDistribution.getId());
+        this.tx.rollback();
+
         Assert.assertNotNull(result);
         Assert.assertEquals(3, result.getDistrubutionCount());
     }

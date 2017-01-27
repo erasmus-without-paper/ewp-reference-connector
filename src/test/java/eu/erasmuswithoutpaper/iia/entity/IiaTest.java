@@ -32,10 +32,9 @@ public class IiaTest {
         
         this.tx.begin();
         this.em.persist(iia);
-        this.tx.commit();
-        this.em.clear();
-        
         Iia result = em.find(Iia.class, iia.getId());
+        this.tx.rollback();
+        
         Assert.assertNotNull(result);
     }
     

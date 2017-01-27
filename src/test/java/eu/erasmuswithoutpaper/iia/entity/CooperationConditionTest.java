@@ -43,10 +43,9 @@ public class CooperationConditionTest {
         this.tx.begin();
         this.em.persist(mobilityType);
         this.em.persist(cooperationCondition);
-        this.tx.commit();
-        this.em.clear();
-     
         CooperationCondition result = em.find(CooperationCondition.class, cooperationCondition.getId());
+        this.tx.rollback();
+        
         Assert.assertNotNull(result);
         Assert.assertEquals(3, result.getEqfLevel());
         Assert.assertEquals("Studies", result.getMobilityType().getMobilityGroup());

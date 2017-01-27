@@ -5,6 +5,7 @@ import eu.erasmuswithoutpaper.iia.entity.CooperationCondition;
 import eu.erasmuswithoutpaper.iia.entity.Iia;
 import eu.erasmuswithoutpaper.iia.entity.IiaPartner;
 import eu.erasmuswithoutpaper.iia.entity.MobilityType;
+import eu.erasmuswithoutpaper.internal.AbstractStartupLoader;
 import eu.erasmuswithoutpaper.internal.JsonHelper;
 import eu.erasmuswithoutpaper.organization.entity.Contact;
 import eu.erasmuswithoutpaper.organization.entity.OrganizationUnit;
@@ -12,18 +13,16 @@ import eu.erasmuswithoutpaper.organization.preload.InstitutionLoader;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
-import javax.persistence.EntityManager;
-import javax.persistence.PersistenceContext;
 import javax.persistence.Query;
 
-public class IiaLoader {
-    @PersistenceContext(unitName = "connector")
-    EntityManager em;
-    
+public class IiaLoader extends AbstractStartupLoader {
+
+    @Override
     public void createDemoDataIkea() throws IOException {
         persistIia("{'iiaCode':'IK-POM-01','startDate':'2016-01-01','endDate':'2017-01-01'}", getCooperationConditions());
     }
     
+    @Override
     public void createDemoDataPomodoro() throws IOException {
         createDemoDataIkea(); // Same data for both HEIs since they are partners in this IIA.
     }

@@ -19,46 +19,47 @@ import javax.annotation.PostConstruct;
 import javax.ejb.Singleton;
 import javax.ejb.Startup;
 import javax.inject.Inject;
+import javax.persistence.EntityManager;
 
 @Singleton
 @Startup
 public class StartupLoader {
 
     @Inject
-    private GlobalProperties properties;
+    GlobalProperties properties;
     
     @Inject
-    private InstitutionLoader institutionLoader;
+    InstitutionLoader institutionLoader;
     
     @Inject
-    private PersonLoader personLoader;
+    PersonLoader personLoader;
     
     @Inject
-    private ContactLoader contactLoader;
+    ContactLoader contactLoader;
 
     @Inject
     MobilityParticipantLoader mobilityParticipantLoader;
 
     @Inject
-    private AcademicTermLoader academicTermLoader;
+    AcademicTermLoader academicTermLoader;
     
     @Inject
-    private AcademicYearLoader academicYearLoader;
+    AcademicYearLoader academicYearLoader;
     
     @Inject
-    private MobilityTypeLoader mobilityTypeLoader;
+    MobilityTypeLoader mobilityTypeLoader;
    
     @Inject
-    private MobilityLoader mobilityLoader;
+    MobilityLoader mobilityLoader;
     
     @Inject
-    private LosLoader learningOppSpecLoader;
+    LosLoader learningOppSpecLoader;
 
     @Inject
-    private LoiLoader learningOppInstLoader;
+    LoiLoader learningOppInstLoader;
 
     @Inject
-    private IiaLoader iiaLoader;
+    IiaLoader iiaLoader;
     
     @PostConstruct
     public void loadDemoData() {
@@ -101,5 +102,24 @@ public class StartupLoader {
         } catch (IOException ex) {
             Logger.getLogger(StartupLoader.class.getName()).log(Level.SEVERE, null, ex);
         }
+    }
+
+    /**
+     * Override injected Entity Managers in loader classes.
+     * For test purpose
+     * @param em 
+     */
+    public void setEntityManger(EntityManager em) {
+        institutionLoader.setEntityManger(em);
+        personLoader.setEntityManger(em);
+        contactLoader.setEntityManger(em);
+        mobilityParticipantLoader.setEntityManger(em);
+        academicTermLoader.setEntityManger(em);
+        academicYearLoader.setEntityManger(em);
+        mobilityTypeLoader.setEntityManger(em);
+        mobilityLoader.setEntityManger(em);
+        learningOppSpecLoader.setEntityManger(em);
+        learningOppInstLoader.setEntityManger(em);
+        iiaLoader.setEntityManger(em);
     }
 }

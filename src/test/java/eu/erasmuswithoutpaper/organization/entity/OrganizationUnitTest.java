@@ -39,10 +39,9 @@ public class OrganizationUnitTest {
         
         this.tx.begin();
         this.em.persist(organizationUnit);
-        this.tx.commit();
-        this.em.clear();
-        
         OrganizationUnit result = em.find(OrganizationUnit.class, organizationUnit.getId());
+        this.tx.rollback();
+
         Assert.assertNotNull(result);
         Assert.assertEquals("TestInstSv", result.getName().get(0).getText());
         Assert.assertEquals(LanguageItem.SWEDISH, result.getName().get(0).getLang());

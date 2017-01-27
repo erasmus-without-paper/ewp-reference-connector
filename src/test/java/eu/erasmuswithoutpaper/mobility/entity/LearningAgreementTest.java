@@ -34,10 +34,9 @@ public class LearningAgreementTest {
         
         this.tx.begin();
         this.em.persist(learningAgreement);
-        this.tx.commit();
-        this.em.clear();
-        
         LearningAgreement result = em.find(LearningAgreement.class, learningAgreement.getId());
+        this.tx.rollback();
+
         assertNotNull(result);
         assertEquals(1, result.getLearningAgreementRevision());
     }
