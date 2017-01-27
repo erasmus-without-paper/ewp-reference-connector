@@ -25,13 +25,13 @@ import org.apache.johnzon.mapper.JohnzonConverter;
 @Entity
 @NamedQueries({
     @NamedQuery(name = AcademicTerm.findAll, query = "SELECT a FROM AcademicTerm a"),
-    @NamedQuery(name = AcademicTerm.findByAcademicYearAndTermId, query = "SELECT a FROM AcademicTerm a WHERE a.academicYear.id = :academicYearId AND a.academicTermId = :academicTermId")
+    @NamedQuery(name = AcademicTerm.findByAcademicYearId, query = "SELECT a FROM AcademicTerm a WHERE a.academicYear.id = :academicYearId")
 })
 public class AcademicTerm implements Serializable{
 
     private static final String PREFIX = "eu.erasmuswithoutpaper.course.entity.AcademicTerm.";
     public static final String findAll = PREFIX + "all";
-    public static final String findByAcademicYearAndTermId = PREFIX + "byAcademicYearAndTermId";
+    public static final String findByAcademicYearId = PREFIX + "byAcademicYearAndTermId";
     
     @Id
     @GeneratedValue(generator="system-uuid")
@@ -39,7 +39,6 @@ public class AcademicTerm implements Serializable{
     
     private String institutionId;
     private String organizationUnitId;
-    private String academicTermId;
     
     @ManyToOne(cascade = CascadeType.DETACH, fetch = FetchType.EAGER)
     @JoinColumn(name = "ACADEMIC_YEAR_ID", referencedColumnName = "ID")
@@ -87,14 +86,6 @@ public class AcademicTerm implements Serializable{
 
     public void setAcademicYear(AcademicYear academicYear) {
         this.academicYear = academicYear;
-    }
-
-    public String getAcademicTermId() {
-        return academicTermId;
-    }
-
-    public void setAcademicTermId(String academicTermId) {
-        this.academicTermId = academicTermId;
     }
 
     public List<LanguageItem> getDispName() {

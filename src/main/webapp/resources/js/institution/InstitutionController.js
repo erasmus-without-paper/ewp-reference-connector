@@ -55,7 +55,13 @@ angular.module('institution').controller('InstitutionController', function ($sco
     };
     
     $scope.addInstitution = function() {
-        $scope.newInstitution.streetAddress.addressLine = [$scope.newInstitution.streetAddressLine];
+        if($scope.newInstitution.factSheet.contactDetails.streetAddress.addressLine){
+            $scope.newInstitution.factSheet.contactDetails.streetAddress.addressLine = [$scope.newInstitution.addressLine];
+        }
+        if($scope.newInstitution.factSheet.contactDetails.streetAddress.addressLine){
+            $scope.newInstitution.factSheet.contactDetails.streetAddress.deliveryPointCode = [$scope.newInstitution.deliveryPointCode];
+        }
+
         $scope.saveInstitution($scope.newInstitution);
         
         $scope.showAddInstitutionForm = false;

@@ -10,6 +10,7 @@ import eu.erasmuswithoutpaper.organization.entity.OrganizationUnit;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Optional;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
 import javax.persistence.Query;
@@ -143,15 +144,23 @@ public class LoiLoader {
         return academicYearList.get(0);
     }
 
-    private AcademicTerm getAcademicTerm(AcademicYear academicYear, String academicTermId) throws IOException {
+    private AcademicTerm getAcademicTerm(AcademicYear academicYear, String academicTermPartOfText) throws IOException {
         String academicYearId = academicYear.getId();
-        Query query = em.createNamedQuery(AcademicTerm.findByAcademicYearAndTermId).setParameter("academicYearId", academicYearId).setParameter("academicTermId", academicTermId);
+        Query query = em.createNamedQuery(AcademicTerm.findByAcademicYearId).setParameter("academicYearId", academicYearId);
         List<AcademicTerm> academicTermList = query.getResultList();
-        if (academicTermList.size() != 1) {
-           throw new IllegalArgumentException("Academic term " + academicYear.getAcademicYear() + academicTermId + " doesn't return an unique academic term.");
+        if (academicTermList.isEmpty()) {
+           throw new IllegalArgumentException("Academic term with academic year " + academicYear.getAcademicYear() + " doesn't return an academic term.");
         }
         
-        return academicTermList.get(0);
+        Optional<AcademicTerm> academicTerm = academicTermList.stream().filter((at) -> {
+            return at.getDispName().stream().anyMatch((langItem) -> (langItem.getText().contains(academicTermPartOfText)));
+        }).findFirst();
+        
+        if (!academicTerm.isPresent()) {
+            throw new IllegalArgumentException("Academic term with academic year " + academicYear.getAcademicYear() + " and name that contains " + academicTermPartOfText + " doesn't return an academic term.");
+        }
+        
+        return academicTerm.get();
     }
 
     private LearningOpportunitySpecification getLos(String losCode) {

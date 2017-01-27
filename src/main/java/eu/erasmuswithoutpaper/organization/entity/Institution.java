@@ -41,28 +41,18 @@ public class Institution implements Serializable{
     @JoinTable(name = "INSTITUTION_NAME")
     private List<LanguageItem> name;
     
+    private String abbreviation;
+    
     @OneToMany(cascade = CascadeType.ALL, fetch = FetchType.EAGER, orphanRemoval=true)
     @JoinTable(name = "INST_ORG_UNIT")
     private List<OrganizationUnit> organizationUnits;
     
-    @OneToOne(cascade = CascadeType.ALL, fetch = FetchType.EAGER)
-    @JoinColumn(name = "STREET_ADDRESS")
-    private FlexibleAddress streetAddress;
-    
-    @OneToOne(cascade = CascadeType.ALL, fetch = FetchType.EAGER)
-    @JoinColumn(name = "MAILING_ADDRESS")
-    private FlexibleAddress mailingAddress;
-    
-    @OneToMany(cascade = CascadeType.ALL, fetch = FetchType.EAGER, orphanRemoval=true)
-    @JoinTable(name = "INST_WEBSITE_URL")
-    private List<LanguageItem> websiteUrl;
-    
-    @OneToMany(cascade = CascadeType.ALL, fetch = FetchType.EAGER, orphanRemoval=true)
-    @JoinTable(name = "INST_FACTSHEET_URL")
-    private List<LanguageItem> factsheetUrl;
-    
     private String logoUrl;
 
+    @OneToOne(cascade = CascadeType.ALL, fetch = FetchType.EAGER)
+    @JoinColumn(name = "FACT_SHEET")
+    private FactSheet factSheet;
+    
     public String getId() {
         return id;
     }
@@ -95,6 +85,14 @@ public class Institution implements Serializable{
         this.name = name;
     }
 
+    public String getAbbreviation() {
+        return abbreviation;
+    }
+
+    public void setAbbreviation(String abbreviation) {
+        this.abbreviation = abbreviation;
+    }
+
     public List<OrganizationUnit> getOrganizationUnits() {
         return organizationUnits;
     }
@@ -103,38 +101,14 @@ public class Institution implements Serializable{
         this.organizationUnits = organizationUnits;
     }
 
-    public FlexibleAddress getStreetAddress() {
-        return streetAddress;
+    public FactSheet getFactSheet() {
+        return factSheet;
     }
 
-    public void setStreetAddress(FlexibleAddress streetAddress) {
-        this.streetAddress = streetAddress;
+    public void setFactSheet(FactSheet factSheet) {
+        this.factSheet = factSheet;
     }
 
-    public FlexibleAddress getMailingAddress() {
-        return mailingAddress;
-    }
-
-    public void setMailingAddress(FlexibleAddress mailingAddress) {
-        this.mailingAddress = mailingAddress;
-    }
-
-    public List<LanguageItem> getWebsiteUrl() {
-        return websiteUrl;
-    }
-
-    public void setWebsiteUrl(List<LanguageItem> websiteUrl) {
-        this.websiteUrl = websiteUrl;
-    }
-
-    public List<LanguageItem> getFactsheetUrl() {
-        return factsheetUrl;
-    }
-
-    public void setFactsheetUrl(List<LanguageItem> factsheetUrl) {
-        this.factsheetUrl = factsheetUrl;
-    }
-    
     public String getLogoUrl() {
         return logoUrl;
     }

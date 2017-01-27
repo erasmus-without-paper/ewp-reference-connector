@@ -3,15 +3,17 @@ package eu.erasmuswithoutpaper.organization.control;
 import eu.erasmuswithoutpaper.api.architecture.StringWithOptionalLang;
 import eu.erasmuswithoutpaper.api.ounits.OunitsResponse;
 import eu.erasmuswithoutpaper.api.types.contact.Contact;
+import static eu.erasmuswithoutpaper.common.control.ConverterHelper.convertToFlexibleAddress;
 import static eu.erasmuswithoutpaper.common.control.ConverterHelper.convertToHttpWithOptionalLang;
 import static eu.erasmuswithoutpaper.common.control.ConverterHelper.convertToStringWithOptionalLang;
+import eu.erasmuswithoutpaper.organization.entity.ContactDetails;
+import eu.erasmuswithoutpaper.organization.entity.FactSheet;
 import eu.erasmuswithoutpaper.organization.entity.OrganizationUnit;
 import java.util.List;
 import java.util.stream.Collectors;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
 import javax.persistence.Query;
-import static eu.erasmuswithoutpaper.common.control.ConverterHelper.convertToFlexibleAddress;
 
 public class OrganizationUnitConverter {
     @PersistenceContext(unitName = "connector")
@@ -20,15 +22,23 @@ public class OrganizationUnitConverter {
     public OunitsResponse.Ounit convertToOunit(OrganizationUnit organizationUnit, String parentOrganizationUnitId,  String parentInstitutionId) {
         OunitsResponse.Ounit ounit = new OunitsResponse.Ounit();
         ounit.getContact().addAll(convertToContact(parentInstitutionId, organizationUnit.getId()));
-        ounit.getMobilityFactsheetUrl().addAll(convertToHttpWithOptionalLang(organizationUnit.getFactsheetUrl()));
         ounit.getName().addAll(convertToStringWithOptionalLang(organizationUnit.getName()));
-        ounit.getWebsiteUrl().addAll(convertToHttpWithOptionalLang(organizationUnit.getWebsiteUrl()));
-        ounit.setMailingAddress(convertToFlexibleAddress(organizationUnit.getMailingAddress()));
         ounit.setOunitId(organizationUnit.getId());
         ounit.setParentOunitId(parentOrganizationUnitId);
-        ounit.setStreetAddress(convertToFlexibleAddress(organizationUnit.getStreetAddress()));
         ounit.setOunitCode(organizationUnit.getOrganizationUnitCode());
-        
+
+        FactSheet factSheet = organizationUnit.getFactSheet();
+        if (factSheet != null) {
+            ContactDetails contactDetails = factSheet.getContactDetails();
+            ounit.getMobilityFactsheetUrl().addAll(convertToHttpWithOptionalLang(factSheet.getUrl()));
+            if (contactDetails != null) {
+                ounit.getWebsiteUrl().addAll(convertToHttpWithOptionalLang(contactDetails.getUrl()));
+                ounit.setMailingAddress(convertToFlexibleAddress(contactDetails.getMailingAddress()));
+                ounit.setStreetAddress(convertToFlexibleAddress(contactDetails.getStreetAddress()));
+            }
+
+        }
+
         return ounit;
     }
     

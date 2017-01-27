@@ -4,8 +4,11 @@ import eu.erasmuswithoutpaper.api.architecture.StringWithOptionalLang;
 import eu.erasmuswithoutpaper.api.institutions.InstitutionsResponse;
 import eu.erasmuswithoutpaper.api.registry.OtherHeiId;
 import eu.erasmuswithoutpaper.api.types.contact.Contact;
+import static eu.erasmuswithoutpaper.common.control.ConverterHelper.convertToFlexibleAddress;
 import static eu.erasmuswithoutpaper.common.control.ConverterHelper.convertToHttpWithOptionalLang;
 import static eu.erasmuswithoutpaper.common.control.ConverterHelper.convertToStringWithOptionalLang;
+import eu.erasmuswithoutpaper.organization.entity.ContactDetails;
+import eu.erasmuswithoutpaper.organization.entity.FactSheet;
 import eu.erasmuswithoutpaper.organization.entity.IdentificationItem;
 import eu.erasmuswithoutpaper.organization.entity.Institution;
 import eu.erasmuswithoutpaper.organization.entity.OrganizationUnit;
@@ -15,7 +18,6 @@ import java.util.stream.Collectors;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
 import javax.persistence.Query;
-import static eu.erasmuswithoutpaper.common.control.ConverterHelper.convertToFlexibleAddress;
 
 public class InstitutionConverter {
     @PersistenceContext(unitName = "connector")
@@ -27,18 +29,29 @@ public class InstitutionConverter {
                 InstitutionsResponse.Hei hei = new InstitutionsResponse.Hei();
 
                 hei.getContact().addAll(convertToContact(institution.getInstitutionId()));
-                hei.getMobilityFactsheetUrl().addAll(convertToHttpWithOptionalLang(institution.getFactsheetUrl()));
                 hei.getName().addAll(convertToStringWithOptionalLang(institution.getName()));
                 hei.getOtherId().addAll(convertToOtherHeiId(institution.getOtherId()));
                 hei.getOunitId().addAll(getOrganizationUnitIds(institution.getOrganizationUnits()));
-                hei.getWebsiteUrl().addAll(convertToHttpWithOptionalLang(institution.getWebsiteUrl()));
-                
                 hei.setHeiId(institution.getInstitutionId());
                 hei.setLogoUrl(institution.getLogoUrl());
-                hei.setMailingAddress(convertToFlexibleAddress(institution.getMailingAddress()));
-                // TODO: set root ounit
+                
+                // TODO: add this when it exist in the schema file
+                //hei.setAbbreviation(institution.getAbbreviation());
+                
+                // SKIP: no root ounit is available
                 //hei.setRootOunitId();
-                hei.setStreetAddress(convertToFlexibleAddress(institution.getStreetAddress()));
+                
+                FactSheet factSheet = institution.getFactSheet();
+                if (factSheet != null) {
+                    ContactDetails contactDetails = factSheet.getContactDetails();
+                    hei.getMobilityFactsheetUrl().addAll(convertToHttpWithOptionalLang(factSheet.getUrl()));
+                    if (contactDetails != null) {
+                        hei.getWebsiteUrl().addAll(convertToHttpWithOptionalLang(contactDetails.getUrl()));
+                        hei.setMailingAddress(convertToFlexibleAddress(contactDetails.getMailingAddress()));
+                        hei.setStreetAddress(convertToFlexibleAddress(contactDetails.getStreetAddress()));
+                    }
+                    
+                }
                 
                 return hei;
             }).collect(Collectors.toList());

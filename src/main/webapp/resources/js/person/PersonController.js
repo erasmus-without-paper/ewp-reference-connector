@@ -18,7 +18,9 @@ angular.module('person').controller('PersonController', function ($scope, Person
     };
     
     $scope.addPerson = function(){
-        $scope.newPerson.countryCode = $scope.newPerson.countryCode.toUpperCase();
+        if($scope.newPerson.countryCode){
+            $scope.newPerson.countryCode = $scope.newPerson.countryCode.toUpperCase();
+        }
         PersonService.addNew($scope.newPerson,
             function(result) {
                 $scope.cancelAddPerson();

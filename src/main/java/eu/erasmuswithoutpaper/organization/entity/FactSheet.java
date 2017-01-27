@@ -2,14 +2,17 @@
 package eu.erasmuswithoutpaper.organization.entity;
 
 import java.io.Serializable;
+import java.util.List;
 import java.util.Objects;
 import javax.persistence.CascadeType;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
+import javax.persistence.JoinTable;
 import javax.persistence.NamedQueries;
 import javax.persistence.NamedQuery;
+import javax.persistence.OneToMany;
 import javax.persistence.OneToOne;
 
 @Entity
@@ -25,11 +28,12 @@ public class FactSheet implements Serializable {
     @GeneratedValue(generator="system-uuid")
     String id;
     
-    private String institutionId;
-    private String organizationUnitId;
-    
     @OneToOne(cascade = CascadeType.ALL, fetch = FetchType.EAGER, orphanRemoval=true)
     private ContactDetails contactDetails;
+    
+    @OneToMany(cascade = CascadeType.ALL, fetch = FetchType.EAGER, orphanRemoval=true)
+    @JoinTable(name = "FACT_SHEET_URL")
+    private List<LanguageItem> url;
 
     public String getId() {
         return id;
@@ -39,28 +43,20 @@ public class FactSheet implements Serializable {
         this.id = id;
     }
 
-    public String getInstitutionId() {
-        return institutionId;
-    }
-
-    public void setInstitutionId(String institutionId) {
-        this.institutionId = institutionId;
-    }
-
-    public String getOrganizationUnitId() {
-        return organizationUnitId;
-    }
-
-    public void setOrganizationUnitId(String organizationUnitId) {
-        this.organizationUnitId = organizationUnitId;
-    }
-
     public ContactDetails getContactDetails() {
         return contactDetails;
     }
 
     public void setContactDetails(ContactDetails contactDetails) {
         this.contactDetails = contactDetails;
+    }
+
+    public List<LanguageItem> getUrl() {
+        return url;
+    }
+
+    public void setUrl(List<LanguageItem> url) {
+        this.url = url;
     }
 
     @Override

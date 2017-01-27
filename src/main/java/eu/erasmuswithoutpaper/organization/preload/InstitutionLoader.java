@@ -21,14 +21,17 @@ public class InstitutionLoader {
         String streetAddressForIkea = "{'addressLine':['Furniture street 1','1st floor'],'locality':'Assemble city','country':'se'}";
         String websiteUrlForIkea = "[{'text':'www.ikeauniversitet.se','lang':'sv'},{'text':'www.ikeauniversity.se','lang':'en'}]";
         String organizationUnit1Names = "[{'text':'Institutionen för psykologi','lang':'sv'},{'text':'Department of Psychology','lang':'en'}]";
-        String streetAddressOrgUnit1 = "{'addressLine':['Furniture street 11'],'locality':'Assemble city','country':'se'}";
+        String streetAddressOrgUnit1 = "{'addressLine':['Furniture street 11'],'buildingNumber':'4','floor':'2','postalCode';'92056',locality':'Assemble city','country':'se'}";
         String websiteUrlForOrgUnit1 = "[{'text':'www.ikeapsykologi.se','lang':'sv'},{'text':'www.ikeapsychology.se','lang':'en'}]";
         String organizationUnit2Names = "[{'text':'Institutionen för Datavetenskap','lang':'sv'},{'text':'Department of Computing Science','lang':'en'}]";
-        String streetAddressOrgUnit2 = "{'addressLine':['Furniture street 12'],'locality':'Assemble city','country':'se'}";
+        String streetAddressOrgUnit2 = "{'addressLine':['Furniture street 12'],'postalCode';'92056','locality':'Assemble city','country':'se'}";
         String otherIdsOrgUnit1 = "[{'idType':'erasmus','idValue':'S Ikea331'},{'idType':'local','idValue':'IKORG01'}]";
         String otherIdsOrgUnit2 = "[{'idType':'erasmus','idValue':'S Ikea332'},{'idType':'local','idValue':'IKORG02'}]";
-        String organizationUnits="[{'id':'" + IKEA_OU1_ID + "','organizationUnitCode':'ikea.ou1.se','otherId':" + otherIdsOrgUnit1 + ",'name':" + organizationUnit1Names + ",'streetAddress':" + streetAddressOrgUnit1 + ",'websiteUrl':" + websiteUrlForOrgUnit1 + "},{'id':'" + IKEA_OU2_ID + "','organizationUnitCode':'ikea.ou2.se','otherId':" + otherIdsOrgUnit2 + ",'name':" + organizationUnit2Names + ",'streetAddress':" + streetAddressOrgUnit2 + "}]";
-        persistInstitution("{'institutionId':'ikea.university.se','otherId':" + otherIds + ",'name':" + names + ",'streetAddress':" + streetAddressForIkea + ",'organizationUnits':" + organizationUnits + ",'websiteUrl':" + websiteUrlForIkea + "}");
+        String factSheetOrgUnit1 = "{'url':[{'text':'http://mobility-factsheet.ikea.se/orgunit1','lang':'en'}],'contactDetails':{'streetAddress':" + streetAddressOrgUnit1 + ",'url':" + websiteUrlForOrgUnit1 + "}}";
+        String factSheetOrgUnit2 = "{'url':[{'text':'http://mobility-factsheet.ikea.se/orgunit2','lang':'en'}],'contactDetails':{'streetAddress':" + streetAddressOrgUnit2 + "}}";
+        String organizationUnits="[{'id':'" + IKEA_OU1_ID + "','organizationUnitCode':'ikea.ou1.se','otherId':" + otherIdsOrgUnit1 + ",'name':" + organizationUnit1Names + ",'factSheet':" + factSheetOrgUnit1 + "},{'id':'" + IKEA_OU2_ID + "','organizationUnitCode':'ikea.ou2.se','otherId':" + otherIdsOrgUnit2 + ",'name':" + organizationUnit2Names + ",'factSheet':" + factSheetOrgUnit2 + "}]";
+        String factSheetInstitution = "{'url':[{'text':'http://mobility-factsheet.ikea.se/ikea','lang':'en'}],'contactDetails':{'streetAddress':" + streetAddressForIkea + ",'url':" + websiteUrlForIkea + ",'email':['info@ikea.university.se'],'mailingAddress':{'postOfficeBox':'Box 123'},'phoneNumber':{'e164':'+45791232456'},'faxNumber':{'e164':'+45791232457'}}}";
+        persistInstitution("{'institutionId':'ikea.university.se','otherId':" + otherIds + ",'name':" + names + ",'organizationUnits':" + organizationUnits + ",'factSheet':" + factSheetInstitution + "}");
     }
     
     public void createDemoDataPomodoro() throws IOException {
@@ -40,8 +43,10 @@ public class InstitutionLoader {
         String streetAddressOrgUnit1 = "{'addressLine':['Pizza valley 121'],'locality':'Sunny town','country':'it'}";
         String websiteUrlForOrgUnit1 = "[{'text':'www.pomodoromatematik.it','lang':'it'},{'text':'www.pomodoromath.it','lang':'en'}]";
         String otherIdsOrgUnit1 = "[{'idType':'euc','idValue':'23998'},{'idType':'local','idValue':'P5445'}]";
-        String organizationUnits = "[{'id':'" + POMODORO_OU1_ID + "','organizationUnitCode':'pomodoro.ou1.it','otherId':" + otherIdsOrgUnit1 + ",'name':" + organizationUnit1Names + ",'streetAddress':" + streetAddressOrgUnit1 + ",'websiteUrl':" + websiteUrlForOrgUnit1 + "}]";
-        persistInstitution("{'institutionId':'pomodoro.university.it','otherId':" + otherIds + ",'name':" + names + ",'streetAddress':" + streetAddressForPomodoro + ",'organizationUnits':" + organizationUnits + ",'websiteUrl':" + websiteUrlForPomodoro + "}");
+        String factSheetOrgUnit1 = "{'url':[{'text':'http://mobility-factsheet.pomodoro.it/orgunit1','lang':'en'}],'contactDetails':{'streetAddress':" + streetAddressOrgUnit1 + ",'url':" + websiteUrlForOrgUnit1 + "}}";
+        String organizationUnits = "[{'id':'" + POMODORO_OU1_ID + "','organizationUnitCode':'pomodoro.ou1.it','otherId':" + otherIdsOrgUnit1 + ",'name':" + organizationUnit1Names + ",'factSheet':" + factSheetOrgUnit1 + "}]";
+        String factSheetInstitution = "{'url':[{'text':'http://mobility-factsheet.pomodoro.it/orgunit1','lang':'en'}],'contactDetails':{'streetAddress':" + streetAddressForPomodoro + ",'url':" + websiteUrlForPomodoro + "}}";
+        persistInstitution("{'institutionId':'pomodoro.university.it','otherId':" + otherIds + ",'name':" + names + ",'organizationUnits':" + organizationUnits + ",'factSheet':" + factSheetInstitution + "}");
     }
     
     public boolean dataAlreadyExist() {

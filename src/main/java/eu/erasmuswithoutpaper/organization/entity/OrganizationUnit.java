@@ -39,26 +39,16 @@ public class OrganizationUnit implements Serializable{
     @JoinTable(name = "ORGANIZATION_UNIT_NAME")
     private List<LanguageItem> name;
 
+    private String abbreviation;
+
     @OneToMany(cascade = CascadeType.ALL, fetch = FetchType.EAGER, orphanRemoval=true)
     @JoinTable(name = "ORG_UNIT_ORG_UNIT")
     private List<OrganizationUnit> organizationUnits;
     
     @OneToOne(cascade = CascadeType.ALL, fetch = FetchType.EAGER)
-    @JoinColumn(name = "STREET_ADDRESS")
-    private FlexibleAddress streetAddress;
-    
-    @OneToOne(cascade = CascadeType.ALL, fetch = FetchType.EAGER)
-    @JoinColumn(name = "MAILING_ADDRESS")
-    private FlexibleAddress mailingAddress;
-    
-    @OneToMany(cascade = CascadeType.ALL, fetch = FetchType.EAGER, orphanRemoval=true)
-    @JoinTable(name = "OU_WEBSITE_URL")
-    private List<LanguageItem> websiteUrl;
-    
-    @OneToMany(cascade = CascadeType.ALL, fetch = FetchType.EAGER, orphanRemoval=true)
-    @JoinTable(name = "OU_FACTSHEET_URL")
-    private List<LanguageItem> factsheetUrl;
-    
+    @JoinColumn(name = "FACT_SHEET")
+    private FactSheet factSheet;
+
     private String logoUrl;
     
     public String getId() {
@@ -101,36 +91,20 @@ public class OrganizationUnit implements Serializable{
         this.organizationUnits = organizationUnits;
     }
 
-    public FlexibleAddress getStreetAddress() {
-        return streetAddress;
+    public String getAbbreviation() {
+        return abbreviation;
     }
 
-    public void setStreetAddress(FlexibleAddress streetAddress) {
-        this.streetAddress = streetAddress;
+    public void setAbbreviation(String abbreviation) {
+        this.abbreviation = abbreviation;
     }
 
-    public FlexibleAddress getMailingAddress() {
-        return mailingAddress;
+    public FactSheet getFactSheet() {
+        return factSheet;
     }
 
-    public void setMailingAddress(FlexibleAddress mailingAddress) {
-        this.mailingAddress = mailingAddress;
-    }
-
-    public List<LanguageItem> getWebsiteUrl() {
-        return websiteUrl;
-    }
-
-    public void setWebsiteUrl(List<LanguageItem> websiteUrl) {
-        this.websiteUrl = websiteUrl;
-    }
-
-    public List<LanguageItem> getFactsheetUrl() {
-        return factsheetUrl;
-    }
-
-    public void setFactsheetUrl(List<LanguageItem> factsheetUrl) {
-        this.factsheetUrl = factsheetUrl;
+    public void setFactSheet(FactSheet factSheet) {
+        this.factSheet = factSheet;
     }
 
     public String getLogoUrl() {

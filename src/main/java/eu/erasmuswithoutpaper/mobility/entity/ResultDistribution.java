@@ -16,8 +16,6 @@ public class ResultDistribution implements Serializable{
     
     private String institutionId;
     private String losCode;
-    private String AcademicYearId;
-    private String AcademicTermId;
     private String label;
     private int distrubutionCount;
 
@@ -43,22 +41,6 @@ public class ResultDistribution implements Serializable{
 
     public void setLosCode(String losCode) {
         this.losCode = losCode;
-    }
-
-    public String getAcademicYearId() {
-        return AcademicYearId;
-    }
-
-    public void setAcademicYearId(String AcademicYearId) {
-        this.AcademicYearId = AcademicYearId;
-    }
-
-    public String getAcademicTermId() {
-        return AcademicTermId;
-    }
-
-    public void setAcademicTermId(String AcademicTermId) {
-        this.AcademicTermId = AcademicTermId;
     }
 
     public String getLabel() {

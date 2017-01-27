@@ -124,7 +124,7 @@ public class LearningOpportunitySpecificationConverter {
     private AcademicTerm convertToAcademicTerm(eu.erasmuswithoutpaper.course.entity.AcademicTerm academicTerm) {
         AcademicTerm converted = new AcademicTerm();
         converted.getDisplayName().addAll(convertToStringWithOptionalLang(academicTerm.getDispName()));
-        converted.setAcademicYearId(academicTerm.getAcademicTermId());
+        converted.setAcademicYearId(academicTerm.getAcademicYear().getAcademicYear());
         try {
             converted.setEndDate(convertToXmlGregorianCalendar(academicTerm.getEndDate()));
         } catch (DatatypeConfigurationException ex) {

@@ -40,7 +40,7 @@ public class ContactDetails implements Serializable {
     private PhoneNumber phoneNumber;
     
     @OneToOne(cascade = CascadeType.ALL, fetch = FetchType.EAGER)
-    @JoinColumn(name = "fFAX_NUMBER")
+    @JoinColumn(name = "FAX_NUMBER")
     private PhoneNumber faxNumber;
     
     @OneToOne(cascade = CascadeType.ALL, fetch = FetchType.EAGER)

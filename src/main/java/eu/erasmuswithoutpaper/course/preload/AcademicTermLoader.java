@@ -25,14 +25,14 @@ public class AcademicTermLoader {
         String dispNames2016Fall = "[{'text':'Hösttermin 2016','lang':'sv'},{'text':'Fall semester 2016','lang':'en'}]";
         String dispNames2017Spring = "[{'text':'Vårtermin 2017','lang':'sv'},{'text':'Spring semester 2017','lang':'en'}]";
         String dispNames2017Fall = "[{'text':'Hösttermin 2017','lang':'sv'},{'text':'Fall semester 2017','lang':'en'}]";
-        persistAcademicTerm("{'institutionId':'ikea.university.se','organizationUnitId':'" + ouId + "','academicTermId':'Spring','dispName':" + dispNames2014Spring + ",'startDate':'2014-01-17','endDate':'2014-06-28'}", getAcademicYear("2013", "2014"));
-        persistAcademicTerm("{'institutionId':'ikea.university.se','organizationUnitId':'" + ouId + "','academicTermId':'Fall','dispName':" + dispNames2014Fall + ",'startDate':'2014-09-04','endDate':'2015-01-12'}", getAcademicYear("2014", "2015"));
-        persistAcademicTerm("{'institutionId':'ikea.university.se','organizationUnitId':'" + ouId + "','academicTermId':'Spring','dispName':" + dispNames2015Spring + ",'startDate':'2015-01-13','endDate':'2015-06-27'}", getAcademicYear("2014", "2015"));
-        persistAcademicTerm("{'institutionId':'ikea.university.se','organizationUnitId':'" + ouId + "','academicTermId':'Fall','dispName':" + dispNames2015Fall + ",'startDate':'2015-09-10','endDate':'2016-01-22'}", getAcademicYear("2015", "2016"));
-        persistAcademicTerm("{'institutionId':'ikea.university.se','organizationUnitId':'" + ouId + "','academicTermId':'Spring','dispName':" + dispNames2016Spring + ",'startDate':'2016-01-23','endDate':'2016-06-29'}", getAcademicYear("2015", "2016"));
-        persistAcademicTerm("{'institutionId':'ikea.university.se','organizationUnitId':'" + ouId + "','academicTermId':'Fall','dispName':" + dispNames2016Fall + ",'startDate':'2016-09-03','endDate':'2017-01-18'}", getAcademicYear("2016", "2017"));
-        persistAcademicTerm("{'institutionId':'ikea.university.se','organizationUnitId':'" + ouId + "','academicTermId':'Spring','dispName':" + dispNames2017Spring + ",'startDate':'2017-01-19','endDate':'2017-06-30'}", getAcademicYear("2016", "2017"));
-        persistAcademicTerm("{'institutionId':'ikea.university.se','organizationUnitId':'" + ouId + "','academicTermId':'Fall','dispName':" + dispNames2017Fall + ",'startDate':'2017-09-05','endDate':'2018-01-16'}", getAcademicYear("2017", "2018"));
+        persistAcademicTerm("{'institutionId':'ikea.university.se','organizationUnitId':'" + ouId + "','dispName':" + dispNames2014Spring + ",'startDate':'2014-01-17','endDate':'2014-06-28'}", getAcademicYear("2013", "2014"));
+        persistAcademicTerm("{'institutionId':'ikea.university.se','organizationUnitId':'" + ouId + "','dispName':" + dispNames2014Fall + ",'startDate':'2014-09-04','endDate':'2015-01-12'}", getAcademicYear("2014", "2015"));
+        persistAcademicTerm("{'institutionId':'ikea.university.se','organizationUnitId':'" + ouId + "','dispName':" + dispNames2015Spring + ",'startDate':'2015-01-13','endDate':'2015-06-27'}", getAcademicYear("2014", "2015"));
+        persistAcademicTerm("{'institutionId':'ikea.university.se','organizationUnitId':'" + ouId + "','dispName':" + dispNames2015Fall + ",'startDate':'2015-09-10','endDate':'2016-01-22'}", getAcademicYear("2015", "2016"));
+        persistAcademicTerm("{'institutionId':'ikea.university.se','organizationUnitId':'" + ouId + "','dispName':" + dispNames2016Spring + ",'startDate':'2016-01-23','endDate':'2016-06-29'}", getAcademicYear("2015", "2016"));
+        persistAcademicTerm("{'institutionId':'ikea.university.se','organizationUnitId':'" + ouId + "','dispName':" + dispNames2016Fall + ",'startDate':'2016-09-03','endDate':'2017-01-18'}", getAcademicYear("2016", "2017"));
+        persistAcademicTerm("{'institutionId':'ikea.university.se','organizationUnitId':'" + ouId + "','dispName':" + dispNames2017Spring + ",'startDate':'2017-01-19','endDate':'2017-06-30'}", getAcademicYear("2016", "2017"));
+        persistAcademicTerm("{'institutionId':'ikea.university.se','organizationUnitId':'" + ouId + "','dispName':" + dispNames2017Fall + ",'startDate':'2017-09-05','endDate':'2018-01-16'}", getAcademicYear("2017", "2018"));
     }
 
     public void createDemoDataPomodoro() throws IOException {
@@ -45,14 +45,14 @@ public class AcademicTermLoader {
         String dispNames2016Fall = "[{'text':'Hösttermin 2016','lang':'sv'},{'text':'Fall semester 2016','lang':'en'}]";
         String dispNames2017Spring = "[{'text':'Vårtermin 2017','lang':'sv'},{'text':'Spring semester 2017','lang':'en'}]";
         String dispNames2017Fall = "[{'text':'Hösttermin 2017','lang':'sv'},{'text':'Fall semester 2017','lang':'en'}]";
-        persistAcademicTerm("{'institutionId':'pomodoro.university.it','organizationUnitId':'" + ouId + "','academicTermId':'Spring','dispName':" + dispNames2014Spring + ",'startDate':'2014-01-17','endDate':'2014-06-28'}", getAcademicYear("2013", "2014"));
-        persistAcademicTerm("{'institutionId':'pomodoro.university.it','organizationUnitId':'" + ouId + "','academicTermId':'Fall','dispName':" + dispNames2014Fall + ",'startDate':'2014-09-04','endDate':'2015-01-12'}", getAcademicYear("2014", "2015"));
-        persistAcademicTerm("{'institutionId':'pomodoro.university.it','organizationUnitId':'" + ouId + "','academicTermId':'Spring','dispName':" + dispNames2015Spring + ",'startDate':'2015-01-13','endDate':'2015-06-27'}", getAcademicYear("2014", "2015"));
-        persistAcademicTerm("{'institutionId':'pomodoro.university.it','organizationUnitId':'" + ouId + "','academicTermId':'Fall','dispName':" + dispNames2015Fall + ",'startDate':'2015-09-10','endDate':'2016-01-22'}", getAcademicYear("2015", "2016"));
-        persistAcademicTerm("{'institutionId':'pomodoro.university.it','organizationUnitId':'" + ouId + "','academicTermId':'Spring','dispName':" + dispNames2016Spring + ",'startDate':'2016-01-23','endDate':'2016-06-29'}", getAcademicYear("2015", "2016"));
-        persistAcademicTerm("{'institutionId':'pomodoro.university.it','organizationUnitId':'" + ouId + "','academicTermId':'Fall','dispName':" + dispNames2016Fall + ",'startDate':'2016-09-03','endDate':'2017-01-18'}", getAcademicYear("2016", "2017"));
-        persistAcademicTerm("{'institutionId':'pomodoro.university.it','organizationUnitId':'" + ouId + "','academicTermId':'Spring','dispName':" + dispNames2017Spring + ",'startDate':'2017-01-19','endDate':'2017-06-30'}", getAcademicYear("2016", "2017"));
-        persistAcademicTerm("{'institutionId':'pomodoro.university.it','organizationUnitId':'" + ouId + "','academicTermId':'Fall','dispName':" + dispNames2017Fall + ",'startDate':'2017-09-05','endDate':'2018-01-16'}", getAcademicYear("2017", "2018"));
+        persistAcademicTerm("{'institutionId':'pomodoro.university.it','organizationUnitId':'" + ouId + "','dispName':" + dispNames2014Spring + ",'startDate':'2014-01-17','endDate':'2014-06-28'}", getAcademicYear("2013", "2014"));
+        persistAcademicTerm("{'institutionId':'pomodoro.university.it','organizationUnitId':'" + ouId + "','dispName':" + dispNames2014Fall + ",'startDate':'2014-09-04','endDate':'2015-01-12'}", getAcademicYear("2014", "2015"));
+        persistAcademicTerm("{'institutionId':'pomodoro.university.it','organizationUnitId':'" + ouId + "','dispName':" + dispNames2015Spring + ",'startDate':'2015-01-13','endDate':'2015-06-27'}", getAcademicYear("2014", "2015"));
+        persistAcademicTerm("{'institutionId':'pomodoro.university.it','organizationUnitId':'" + ouId + "','dispName':" + dispNames2015Fall + ",'startDate':'2015-09-10','endDate':'2016-01-22'}", getAcademicYear("2015", "2016"));
+        persistAcademicTerm("{'institutionId':'pomodoro.university.it','organizationUnitId':'" + ouId + "','dispName':" + dispNames2016Spring + ",'startDate':'2016-01-23','endDate':'2016-06-29'}", getAcademicYear("2015", "2016"));
+        persistAcademicTerm("{'institutionId':'pomodoro.university.it','organizationUnitId':'" + ouId + "','dispName':" + dispNames2016Fall + ",'startDate':'2016-09-03','endDate':'2017-01-18'}", getAcademicYear("2016", "2017"));
+        persistAcademicTerm("{'institutionId':'pomodoro.university.it','organizationUnitId':'" + ouId + "','dispName':" + dispNames2017Spring + ",'startDate':'2017-01-19','endDate':'2017-06-30'}", getAcademicYear("2016", "2017"));
+        persistAcademicTerm("{'institutionId':'pomodoro.university.it','organizationUnitId':'" + ouId + "','dispName':" + dispNames2017Fall + ",'startDate':'2017-09-05','endDate':'2018-01-16'}", getAcademicYear("2017", "2018"));
     }
     
     private void persistAcademicTerm(String academicTermJson, AcademicYear academicYear) throws IOException {
