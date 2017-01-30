@@ -34,6 +34,9 @@
     <div class="panel panel-default" ng-show="currentLos && !showAddLearningOppSpecForm">
         <div class="panel-heading"><h2>{{currentLos.losCode ? currentLos.losCode + ' - ' : ''}}{{(currentLos.name | languageItem:'en').text}} ({{currentLos.type | enumToReadable}})</h2></div>
         <div class="panel-body">
+            <div ng-if="currentLos.id">
+                <div class="col-md-2">LOS id:</div><div class="col-md-10">{{currentLos.id}}</div>
+            </div>
             <div ng-if="currentLos.losCode">
                 <div class="col-md-2">LOS code:</div><div class="col-md-10">{{currentLos.losCode}}</div>
             </div>

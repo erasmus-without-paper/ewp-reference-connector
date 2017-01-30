@@ -4,6 +4,7 @@ import eu.erasmuswithoutpaper.api.courses.CoursesResponse;
 import eu.erasmuswithoutpaper.common.control.GlobalProperties;
 import eu.erasmuswithoutpaper.course.control.LearningOpportunitySpecificationConverter;
 import eu.erasmuswithoutpaper.course.entity.LearningOpportunitySpecification;
+import eu.erasmuswithoutpaper.course.entity.LearningOpportunitySpecificationType;
 import eu.erasmuswithoutpaper.error.control.EwpWebApplicationException;
 import java.util.ArrayList;
 import java.util.List;
@@ -65,7 +66,8 @@ public class LosResource {
     private List<CoursesResponse.LearningOpportunitySpecification> los(List<String> losIdList, List<LearningOpportunitySpecification> losList, String loisBefore, String loisAfter, String losAtDate) {
         List<CoursesResponse.LearningOpportunitySpecification> courses = new ArrayList<>();
         losList.stream().forEachOrdered((los) -> {
-            if (losIdList.contains(los.getId())) {
+            String id = LearningOpportunitySpecificationType.abbreviation(los.getType()) + "/" + los.getId();
+            if (losIdList.contains(id)) {
                 courses.add(losConverter.convertToLos(los, loisBefore, loisAfter, losAtDate));
             }
         });

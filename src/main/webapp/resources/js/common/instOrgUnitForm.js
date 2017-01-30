@@ -27,6 +27,19 @@ angular.module('connector').directive('instOrgUnitForm', function() {
                     }
                     $scope.instOrgUnit.factSheet.url.push({text: '',  lang: ''});
                 };
+                
+                $scope.addWebsiteUrl = function() {
+                    if (!$scope.instOrgUnit.factSheet) {
+                        $scope.instOrgUnit.factSheet = {};
+                    }
+                    if (!$scope.instOrgUnit.factSheet.contactDetails) {
+                        $scope.instOrgUnit.factSheet.contactDetails = {};
+                    }
+                    if (!$scope.instOrgUnit.factSheet.contactDetails.url) {
+                        $scope.instOrgUnit.factSheet.contactDetails.url = [];
+                    }
+                    $scope.instOrgUnit.factSheet.contactDetails.url.push({text: '',  lang: ''});
+                };
             }
         };
     });

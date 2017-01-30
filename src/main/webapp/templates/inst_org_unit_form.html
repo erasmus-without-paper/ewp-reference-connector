@@ -55,7 +55,7 @@
             <input id="abbreviation" type="text" class="form-control" placeholder="Enter abbreviation" ng-model="instOrgUnit.abbreviation">
         </div>
     </div>
-    <div class="form-group clearfix">
+    <div class="form-group clearfix" ng-if="!objectType || objectType === 'inst'">
         <label class="control-label col-sm-2" for="logo-url">Logo URL</label>
         <div class="col-sm-10">
             <input id="logo-url" type="text" class="form-control" placeholder="Enter logo URL" ng-model="instOrgUnit.logoUrl">
@@ -63,7 +63,7 @@
     </div>
     
     <div class="form-group clearfix">
-        <label class="control-label col-sm-2">Fact sheet url</label>
+        <label class="control-label col-sm-2">Fact sheet URL</label>
         <div ng-repeat="url in instOrgUnit.factSheet.url">
             <div class="col-sm-2" ng-if="$index > 0"></div>
             <div class="col-sm-8">
@@ -76,6 +76,25 @@
         <div class="col-sm-2"></div>
         <div class="col-sm-10">
             <button type="button" class="btn btn-default" ng-click="addFactSheetUrl()">
+                <i class="glyphicon glyphicon-plus-sign"></i>
+            </button>
+        </div>
+    </div>
+
+    <div class="form-group clearfix">
+        <label class="control-label col-sm-2">Website URL</label>
+        <div ng-repeat="url in instOrgUnit.factSheet.contactDetails.url">
+            <div class="col-sm-2" ng-if="$index > 0"></div>
+            <div class="col-sm-8">
+                <input type="text" class="form-control" placeholder="Enter URL" ng-model="url.text" required="required">
+            </div>
+            <div class="col-sm-2">
+                <input type="text" class="form-control" placeholder="Language code" ng-model="url.lang" required="required">
+            </div>
+        </div>
+        <div class="col-sm-2"></div>
+        <div class="col-sm-10">
+            <button type="button" class="btn btn-default" ng-click="addWebsiteUrl()">
                 <i class="glyphicon glyphicon-plus-sign"></i>
             </button>
         </div>
