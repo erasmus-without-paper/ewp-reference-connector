@@ -1,39 +1,39 @@
-<div ng-if="address.recipientName.length > 0" ng-repeat="line in address.recipientName">
+<div class="clearfix" ng-if="address.recipientName.length > 0" ng-repeat="line in address.recipientName">
     <div class="col-sm-2 hide-overflow-ellipsis">{{$index === 0 ? 'Recipient name:' : ''}}</div><div class="col-md-10">{{line}}</div>
 </div>
-<div ng-if="address.addressLine.length > 0" ng-repeat="line in address.addressLine">
+<div class="clearfix" ng-if="address.addressLine.length > 0" ng-repeat="line in address.addressLine track by $index">
     <div class="col-sm-2 hide-overflow-ellipsis">{{$index === 0 ? 'Address:' : ''}}</div><div class="col-md-10">{{line}}</div>
 </div>
-<div ng-if="address.buildingNumber">
+<div class="clearfix" ng-if="address.buildingNumber">
     <div class="col-sm-2 hide-overflow-ellipsis">Building number:</div><div class="col-md-10">{{address.buildingNumber}}</div>
 </div>
-<div ng-if="address.buildingName">
+<div class="clearfix" ng-if="address.buildingName">
     <div class="col-sm-2 hide-overflow-ellipsis">Building name:</div><div class="col-md-10">{{address.buildingName}}</div>
 </div>
-<div ng-if="address.streetName">
+<div class="clearfix" ng-if="address.streetName">
     <div class="col-sm-2 hide-overflow-ellipsis">Street name:</div><div class="col-md-10">{{address.streetName}}</div>
 </div>
-<div ng-if="address.unit">
+<div class="clearfix" ng-if="address.unit">
     <div class="col-sm-2 hide-overflow-ellipsis">Unit:</div><div class="col-md-10">{{address.unit}}</div>
 </div>
-<div ng-if="address.floor">
+<div class="clearfix" ng-if="address.floor">
     <div class="col-sm-2 hide-overflow-ellipsis">Floor:</div><div class="col-md-10">{{address.floor}}</div>
 </div>
-<div ng-if="address.postOfficeBox">
+<div class="clearfix" ng-if="address.postOfficeBox">
     <div class="col-sm-2 hide-overflow-ellipsis">Post office box:</div><div class="col-md-10">{{address.postOfficeBox}}</div>
 </div>
-<div ng-if="address.deliveryPointCode.length > 0" ng-repeat="line in address.deliveryPointCode">
+<div class="clearfix" ng-if="address.deliveryPointCode.length > 0" ng-repeat="line in address.deliveryPointCode track by $index">
     <div class="col-sm-2 hide-overflow-ellipsis">{{$index === 0 ? 'Delivery point code:' : ''}}</div><div class="col-md-10">{{line}}</div>
 </div>
-<div ng-if="address.postalCode">
+<div class="clearfix" ng-if="address.postalCode">
     <div class="col-sm-2 hide-overflow-ellipsis">Postal code:</div><div class="col-md-10">{{address.postalCode}}</div>
 </div>
-<div ng-if="address.locality">
+<div class="clearfix" ng-if="address.locality">
     <div class="col-sm-2 hide-overflow-ellipsis">City:</div><div class="col-md-10">{{address.locality}}</div>
 </div>
-<div ng-if="address.region">
+<div class="clearfix" ng-if="address.region">
     <div class="col-sm-2 hide-overflow-ellipsis">Region:</div><div class="col-md-10">{{address.region}}</div>
 </div>
-<div ng-if="address.country">
+<div class="clearfix" ng-if="address.country">
     <div class="col-sm-2 hide-overflow-ellipsis">Country:</div><div class="col-md-10">{{address.country}}</div>
 </div>

@@ -4,6 +4,6 @@ angular.module('connector').directive('contact', function() {
             scope: {
                 contact: '='
             },
-            templateUrl: 'partials/contact_template.html'
+            templateUrl: 'templates/contact.html'
         };
     });

@@ -5,6 +5,6 @@ angular.module('connector').directive('clientResult', function() {
                 clientResult: '=',
                 formattedTemplate: '=formattedTemplate'
             },
-            templateUrl: 'partials/client_result.html'
+            templateUrl: 'templates/client_result.html'
         };
     });

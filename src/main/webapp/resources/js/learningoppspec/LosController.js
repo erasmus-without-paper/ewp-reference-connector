@@ -32,11 +32,14 @@ angular.module('los').controller('LosController', function ($scope, LosService, 
         $scope.currentLos = los;
     };
     
-    $scope.addLearningOppSpec = function(){
-        if($scope.newLearningOppSpec_urlStr){
-            $scope.newLearningOppSpec.url = [{text:$scope.newLearningOppSpec_urlStr,'lang':'en'}];
+    $scope.addLOSUrl = function() {
+        if (!$scope.newLearningOppSpec.url) {
+            $scope.newLearningOppSpec.url = [];
         }
-        
+        $scope.newLearningOppSpec.url.push({text:'', lang:''});
+    };
+    
+    $scope.addLearningOppSpec = function() {
         if ($scope.currentLos) {
             $scope.newLearningOppSpec.institutionId = $scope.currentLos.institutionId;
             $scope.currentLos.learningOpportunitySpecifications.push($scope.newLearningOppSpec);

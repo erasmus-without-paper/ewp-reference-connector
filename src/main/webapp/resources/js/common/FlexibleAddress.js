@@ -4,6 +4,6 @@ angular.module('connector').directive('flexibleAddress', function() {
             scope: {
                 address: '=flexibleAddress'
             },
-            templateUrl: 'partials/flexible_address.html'
+            templateUrl: 'templates/flexible_address.html'
         };
     });

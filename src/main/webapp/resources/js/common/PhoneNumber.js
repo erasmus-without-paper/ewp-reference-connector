@@ -5,6 +5,6 @@ angular.module('connector').directive('phoneNumber', function() {
                 phoneNumber: '=',
                 numberTitle: '='
             },
-            templateUrl: 'partials/phone_number.html'
+            templateUrl: 'templates/phone_number.html'
         };
     });

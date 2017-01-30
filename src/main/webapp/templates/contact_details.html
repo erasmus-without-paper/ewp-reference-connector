@@ -1,10 +1,12 @@
-<div ng-if="details.email.length > 0" ng-repeat="line in details.email">
+<div class="clearfix" ng-if="details.email.length > 0" ng-repeat="line in details.email">
     <div class="col-sm-2 hide-overflow-ellipsis">{{$index === 0 ? 'Email:' : ''}}</div><div class="col-md-10">{{line}}</div>
 </div>
-<div ng-if="details.email.url > 0" ng-repeat="line in details.url">
+<div class="clearfix" ng-if="details.url.length > 0" ng-repeat="url in details.url">
     <div class="col-sm-2 hide-overflow-ellipsis">{{$index === 0 ? 'Contact url:' : ''}}</div><div class="col-md-10">{{url.text}} ({{url.lang}})</div>
 </div>
 <div data-phone-number="details.phoneNumber" data-number-title="'Phone number'"></div>
 <div data-phone-number="details.faxNumber" data-number-title="'Fax number'"></div>
+<h3 class="header-line cursor-pointer" ng-if="details.streetAddress"><span>Street adress</span></h3>
 <div data-flexible-address="details.streetAddress"></div>
+<h3 class="header-line cursor-pointer" ng-if="details.mailingAddress"><span>Mailing adress</span></h3>
 <div data-flexible-address="details.mailingAddress"></div>
