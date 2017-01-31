@@ -49,9 +49,26 @@
                 </div>
             </div>
             <div ng-if="currentLos.type">
-                <div class="col-md-2">Type:</div><div class="col-md-10 hide-overflow-ellipsis">{{currentLos.type | enumToReadable}}</div>
+                <div class="col-md-2">Type:</div><div class="col-md-10">{{currentLos.type | enumToReadable}}</div>
             </div>
-            <div class="col-md-2">Institution id:</div><div class="col-md-10 hide-overflow-ellipsis">{{currentLos.institutionId}}</div>
+            <div ng-if="currentLos.eqfLevel">
+                <div class="col-md-2">EQF level:</div><div class="col-md-10">{{currentLos.eqfLevel}}</div>
+            </div>
+            <div ng-if="currentLos.iscedf">
+                <div class="col-md-2">ISCED-F:</div><div class="col-md-10">{{currentLos.iscedf}}</div>
+            </div>
+            <div ng-if="currentLos.subjectArea">
+                <div class="col-md-2">Subject area:</div><div class="col-md-10">{{currentLos.subjectArea}}</div>
+            </div>
+            <div ng-repeat="description in currentLos.description">
+                <div class="col-md-2">Description ({{description.lang}}):</div><pre class="col-md-10 ">{{description.text}}</pre>
+            </div>
+            <div ng-if="currentLos.institutionId">
+                <div class="col-md-2">Institution id:</div><div class="col-md-10">{{currentLos.institutionId}}</div>
+            </div>
+            <div ng-if="currentLos.organizationUnitId">
+                <div class="col-md-2">Organization unit id:</div><div class="col-md-10">{{currentLos.organizationUnitId}}</div>
+            </div>
         </div>
     </div>
     
@@ -63,23 +80,32 @@
         </div>
         <div class="panel-body">
             <form class="form-horizontal" ng-submit="addLearningOppSpec()">
-                <div class="form-group" ng-if="!currentLos">
+                <div class="clearfix form-group" ng-if="!currentLos">
                     <label class="control-label mandatory-control col-sm-2" for="institution">Institution</label>
                     <div class="col-sm-10">
-                        <select id="institution" class="form-control" ng-model="$parent.newLearningOppSpec.institutionId" required="required">
+                        <select id="institution" class="form-control" ng-model="$parent.newLearningOppSpec.institutionId" required="required" ng-change="institutionChanged()">
                             <option style="display:none" value="">Select institution</option>
                             <option ng-repeat="inst in institutions | orderBy:['name']" value="{{inst.institutionId}}">{{(inst.name| languageItem : 'en').text}} {{inst.country}}</option>
                         </select>
                     </div>
                 </div>
-                <div class="form-group">
+                <div class="clearfix form-group" ng-if="!currentLos">
+                    <label class="control-label col-sm-2" for="ounit">Organization unit</label>
+                    <div class="col-sm-10">
+                        <select id="ounit" class="form-control" ng-model="$parent.newLearningOppSpec.organizationUnitId">
+                            <option style="display:none" value="">Select organization unit</option>
+                            <option ng-repeat="ounit in organizations | orderBy:['name']" value="{{ounit.id}}">{{(ounit.name| languageItem : 'en').text}}</option>
+                        </select>
+                    </div>
+                </div>
+                <div class="clearfix form-group">
                     <label class="control-label col-sm-2" for="loscode">LOS code</label>
                     <div class="col-sm-4">
                         <input id="loscode" type="text" class="form-control" placeholder="Enter LOS code" ng-model="newLearningOppSpec.losCode">
                     </div>
                     <div class="col-sm-6"></div>
                 </div>
-                <div class="form-group">
+                <div class="clearfix form-group">
                     <label class="control-label mandatory-control col-sm-2" for="type">Type</label>
                     <div class="col-sm-4">
                         <select id="type" class="form-control" ng-model="newLearningOppSpec.type" required="required">
@@ -89,7 +115,7 @@
                     </div>
                     <div class="col-sm-6"></div>
                 </div>
-                <div class="form-group">
+                <div class="clearfix form-group">
                     <label class="control-label mandatory-control col-sm-2" for="name">Name</label>
                     <div ng-repeat="name in newLearningOppSpec.name">
                         <div class="col-sm-2" ng-if="$index > 0"></div>
@@ -107,7 +133,7 @@
                         </button>
                     </div>
                 </div>
-                <div class="form-group clearfix">
+                <div class="clearfix form-group clearfix">
                     <label class="control-label col-sm-2">URL</label>
                     <div ng-repeat="url in newLearningOppSpec.url">
                         <div class="col-sm-2" ng-if="$index > 0"></div>
@@ -125,7 +151,49 @@
                         </button>
                     </div>
                 </div>
-                
+                <div class="clearfix form-group">
+                    <label class="control-label mandatory-control col-sm-2" for="eqflevel">EQF level</label>
+                    <div class="col-sm-1">
+                        <select id="eqflevel" class="form-control" ng-model="newLearningOppSpec.eqfLevel" convert-to-number required="required">
+                            <option ng-repeat="eqfLevel in eqfLevels" value="{{eqfLevel}}">{{eqfLevel}}</option>
+                        </select>
+                    </div>
+                    <div class="col-sm-1"><a class="btn btn-default" target="_blank" href="https://en.wikipedia.org/wiki/European_Qualifications_Framework" title="More information about EQF level"><span class="glyphicon glyphicon-info-sign"></span></a></div><div class="col-sm-7"></div>
+                </div>
+                <div class="clearfix form-group">
+                    <label class="control-label col-sm-2" for="iscedf">ISCED-F code</label>
+                    <div class="col-sm-3">
+                        <input id="iscedf" class="form-control" ng-model="newLearningOppSpec.iscedf">
+                    </div>
+                    <div class="col-sm-1"><a class="btn btn-default" target="_blank" href="http://www.uis.unesco.org/Education/Documents/isced-fields-of-education-training-2013.pdf" title="More information about EQF level"><span class="glyphicon glyphicon-info-sign"></span></a></div><div class="col-sm-7"></div>
+                </div>
+                <div class="clearfix form-group">
+                    <label class="control-label col-sm-2" for="sareacode">Subject area code</label>
+                    <div class="col-sm-3">
+                        <input id="sareacode" class="form-control" ng-model="newLearningOppSpec.subjectArea">
+                    </div>
+                </div>
+                <div class="form-group">
+                    <div class="clearfix" ng-repeat="description in newLearningOppSpec.description">
+                        <label class="control-label col-sm-2" ng-if="$index === 0">Description</label>
+                        <div class="col-sm-2" ng-if="$index > 0"></div>
+                        <div class="col-sm-8">
+                            <textarea type="text" class="form-control" placeholder="Enter description" ng-model="description.text" required="required"></textarea>
+                        </div>
+                        <div class="col-sm-2">
+                            <input id="name" type="text" class="form-control" placeholder="Language code" ng-model="description.lang" required="required">
+                        </div>
+                    </div>
+                    <div class="clearfix">
+                        <label class="control-label col-sm-2" ng-if="!newLearningOppSpec.description || newLearningOppSpec.description.length === 0">Description</label>
+                        <div class="col-sm-2" ng-if="newLearningOppSpec.description.length > 0"></div>
+                        <div class="col-sm-10">
+                            <button type="button" class="btn btn-default" ng-click="addDescriptionForLearningOppSpec()">
+                                <i class="glyphicon glyphicon-plus-sign"></i>
+                            </button>
+                        </div>
+                    </div>
+                </div>
                 
                 <div class="input-group">
                     <div class="btn-group">

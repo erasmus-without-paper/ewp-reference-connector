@@ -22,13 +22,19 @@ angular.module('institution').controller('OrganizationUnitClientController', fun
     
     $scope.institutionChanged = function() {
         $scope.heiOrganizationUnits = ['<Missing Organization Unit Id>'];
-        var organizationUnitIds = ClientCacheService.get($scope.organizationUnitRequest.heiId);
+        var organizationUnitIds = ClientCacheService.get('Institution', $scope.organizationUnitRequest.heiId);
         angular.forEach(organizationUnitIds, function(ounitId) {
             $scope.heiOrganizationUnits.push(ounitId);
         });
     };
     
     $scope.sendOrganizationUnitRequest = function() {
+        if ($scope.cachedIds) {
+            $scope.organizationUnitRequest.organizationUnitIds = $scope.cachedOrgUnitIds;
+        } else {
+            var orgUnitIds = $scope.manuallyOrgUnitIds.split(',');
+            $scope.organizationUnitRequest.organizationUnitIds = orgUnitIds;
+        }
         InstitutionService.getOrganizationUnits($scope.organizationUnitRequest, function(result) {
             $scope.organizationUnitResult = result;
         });

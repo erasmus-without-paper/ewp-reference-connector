@@ -17,6 +17,25 @@ angular.module('los').controller('LosController', function ($scope, LosService, 
         $scope.showAddLearningOppSpecForm = true;
         $scope.currentLos = undefined;
     };
+    
+    $scope.institutionChanged = function() {
+        var currentInst;
+        angular.forEach($scope.institutions, function(item) {
+            if (item.institutionId === $scope.newLearningOppSpec.institutionId) {
+                currentInst = item;
+            }
+        });
+        
+        $scope.organizations = [];
+        $scope.addOrganizationUnitsToList(currentInst);
+    };
+    
+    $scope.addOrganizationUnitsToList = function(obj) {
+        angular.forEach(obj.organizationUnits, function(item) {
+            $scope.organizations.push(item);
+            $scope.addOrganizationUnitsToList(item);
+        });
+    };
 
     $scope.viewAddLearningOppSpecForm = function(los) {
         if (los.type === 'DEGREE_PROGRAMME') {
@@ -62,13 +81,19 @@ angular.module('los').controller('LosController', function ($scope, LosService, 
     };
     
     $scope.cancelAddLearningOppSpec = function(){
-        $scope.newLearningOppSpec = {};
-        $scope.newLearningOppSpec = {name:[{text:'', lang: ''}]};
+        $scope.newLearningOppSpec = {name:[{text:'', lang: ''}], eqfLevel:1};
         $scope.showAddLearningOppSpecForm = false;
     };
     
     $scope.addNameForLearningOppSpec = function() {
         $scope.newLearningOppSpec.name.push({text: '',  lang: ''});
+    };
+    
+    $scope.addDescriptionForLearningOppSpec = function() {
+        if (!$scope.newLearningOppSpec.description) {
+            $scope.newLearningOppSpec.description = [];
+        }
+        $scope.newLearningOppSpec.description.push({text: '',  lang: ''});
     };
     
     $scope.showLos = function(los) {
@@ -80,6 +105,7 @@ angular.module('los').controller('LosController', function ($scope, LosService, 
         los.expanded = !los.expanded;
     };
     
+    $scope.eqfLevels=['1','2','3','4','5','6','7','8'];
     $scope.getAllTopLevelLosParents();
     $scope.cancelAddLearningOppSpec();
 });

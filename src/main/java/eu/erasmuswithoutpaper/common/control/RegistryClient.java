@@ -83,10 +83,30 @@ public class RegistryClient {
         return getHeiUrl(heiId, EwpConstants.ORGANIZATION_UNIT_NAMESPACE, "organizational-units", EwpConstants.ORGANIZATION_UNIT_VERSION);
     }
 
+    public List<HeiEntry> getCoursesReplicationHeisWithUrl() {
+        List<HeiEntry> heis = getHeis(EwpConstants.COURSE_REPLICATION_NAMESPACE, "simple-course-replication", EwpConstants.COURSE_REPLICATION_VERSION);
+        heis.stream().forEach(hei -> hei.setUrl(getCoursesReplicationHeiUrl(hei.getId())));
+        return heis;
+    }
+
+    public String getCoursesReplicationHeiUrl(String heiId) {
+        return getHeiUrl(heiId, EwpConstants.COURSE_REPLICATION_NAMESPACE, "simple-course-replication", EwpConstants.COURSE_REPLICATION_VERSION);
+    }
+
+    public List<HeiEntry> getCoursesHeisWithUrl() {
+        List<HeiEntry> heis = getHeis(EwpConstants.COURSES_NAMESPACE, "courses", EwpConstants.COURSES_VERSION);
+        heis.stream().forEach(hei -> hei.setUrl(getCoursesHeiUrl(hei.getId())));
+        return heis;
+    }
+
+    public String getCoursesHeiUrl(String heiId) {
+        return getHeiUrl(heiId, EwpConstants.COURSES_NAMESPACE, "courses", EwpConstants.COURSES_VERSION);
+    }
+
     public List<HeiEntry> getEchoHeis() {
         return getHeis(EwpConstants.ECHO_NAMESPACE, "echo", EwpConstants.ECHO_VERSION);
     }
-
+    
     public String getEchoHeiUrl(String heiId) {
         return getHeiUrl(heiId, EwpConstants.ECHO_NAMESPACE, "echo", EwpConstants.ECHO_VERSION);
     }

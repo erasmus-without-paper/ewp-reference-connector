@@ -15,6 +15,7 @@
         <class>eu.erasmuswithoutpaper.mobility.entity.RecognizedLaComponent</class>
         <class>eu.erasmuswithoutpaper.mobility.entity.Mobility</class>
         <class>eu.erasmuswithoutpaper.mobility.entity.ResultDistribution</class>
+        <class>eu.erasmuswithoutpaper.mobility.entity.ResultDistributionCategory</class>
         <class>eu.erasmuswithoutpaper.organization.entity.PhoneNumber</class>
         <class>eu.erasmuswithoutpaper.organization.entity.Contact</class>
         <class>eu.erasmuswithoutpaper.organization.entity.HeiInformation</class>
@@ -31,6 +32,7 @@
         <class>eu.erasmuswithoutpaper.organization.entity.FactSheet</class>
         <class>eu.erasmuswithoutpaper.organization.entity.Student</class>
         <class>eu.erasmuswithoutpaper.organization.entity.MobilityParticipant</class>
+        <class>eu.erasmuswithoutpaper.course.entity.GradingScheme</class>
         
         <properties>
             <property name="javax.persistence.jdbc.url" value="jdbc:derby:memory:testDB;create=true"/>

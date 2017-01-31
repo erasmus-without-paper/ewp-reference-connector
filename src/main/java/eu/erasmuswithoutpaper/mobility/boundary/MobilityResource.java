@@ -4,6 +4,7 @@ import eu.erasmuswithoutpaper.api.mobilities.endpoints.MobilitiesGetResponse;
 import eu.erasmuswithoutpaper.api.mobilities.endpoints.MobilitiesIndexResponse;
 import eu.erasmuswithoutpaper.api.mobilities.endpoints.StudentMobilityForStudies;
 import eu.erasmuswithoutpaper.common.control.GlobalProperties;
+import eu.erasmuswithoutpaper.error.control.EwpWebApplicationException;
 import eu.erasmuswithoutpaper.mobility.control.MobilityConverter;
 import eu.erasmuswithoutpaper.mobility.entity.Mobility;
 import java.text.SimpleDateFormat;
@@ -20,6 +21,7 @@ import javax.ws.rs.Path;
 import javax.ws.rs.Produces;
 import javax.ws.rs.QueryParam;
 import javax.ws.rs.core.MediaType;
+import javax.ws.rs.core.Response;
 
 @Stateless
 @Path("mobilities")
@@ -64,6 +66,10 @@ public class MobilityResource {
     }
     
     private javax.ws.rs.core.Response mobilityGet(String sendingHeiId, List<String> mobilityIdList) {
+        if (mobilityIdList.size() > properties.getMaxMobilityIds()) {
+            throw new EwpWebApplicationException("Max number of mobility id's has exceeded.", Response.Status.BAD_REQUEST);
+        }
+        
         MobilitiesGetResponse response = new MobilitiesGetResponse();
         List<Mobility> mobilityList =  em.createNamedQuery(Mobility.findBySendingInstitutionId).setParameter("sendingInstitutionId", sendingHeiId).getResultList();
         if (!mobilityList.isEmpty()) {

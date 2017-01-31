@@ -1,7 +1,9 @@
 
 package eu.erasmuswithoutpaper.course.entity;
 
+import eu.erasmuswithoutpaper.mobility.entity.ResultDistribution;
 import java.io.Serializable;
+import java.math.BigDecimal;
 import java.util.List;
 import java.util.Objects;
 import javax.persistence.CascadeType;
@@ -14,6 +16,7 @@ import javax.persistence.JoinTable;
 import javax.persistence.ManyToOne;
 import javax.persistence.NamedQuery;
 import javax.persistence.OneToMany;
+import javax.persistence.OneToOne;
 
 @Entity(name="loi")
 @NamedQuery(name = LearningOpportunityInstance.findAll, query = "SELECT l FROM loi l")
@@ -26,8 +29,6 @@ public class LearningOpportunityInstance implements Serializable {
     @GeneratedValue(generator="system-uuid")
     String id;
 
-    private String organizationUnitId;
-    
     @ManyToOne(cascade = CascadeType.DETACH, fetch = FetchType.EAGER)
     @JoinColumn(name = "ACADEMIC_TERM_ID", referencedColumnName = "ID")
     private AcademicTerm academicTerm;
@@ -35,6 +36,17 @@ public class LearningOpportunityInstance implements Serializable {
     @OneToMany(cascade = CascadeType.ALL, fetch = FetchType.EAGER)
     @JoinTable(name = "LOI_CREDITS")
     private List<Credit> credits;
+    
+    @ManyToOne(cascade = CascadeType.DETACH, fetch = FetchType.EAGER)
+    @JoinColumn(name = "GRADING_SCHEME_ID", referencedColumnName = "ID")
+    private GradingScheme gradingScheme;
+    
+    @OneToOne(cascade = CascadeType.ALL, fetch = FetchType.EAGER)
+    @JoinColumn(name = "RESULT_DISTRIBUTION", referencedColumnName = "ID")
+    private ResultDistribution resultDistribution;
+
+    private String languageOfInstruction;
+    private BigDecimal engagementHours;
 
     public String getId() {
         return id;
@@ -44,14 +56,6 @@ public class LearningOpportunityInstance implements Serializable {
         this.id = id;
     }
 
-    public String getOrganizationUnitId() {
-        return organizationUnitId;
-    }
-
-    public void setOrganizationUnitId(String organizationUnitId) {
-        this.organizationUnitId = organizationUnitId;
-    }
-    
     public AcademicTerm getAcademicTerm() {
         return academicTerm;
     }
@@ -66,6 +70,38 @@ public class LearningOpportunityInstance implements Serializable {
 
     public void setCredits(List<Credit> credits) {
         this.credits = credits;
+    }
+
+    public GradingScheme getGradingScheme() {
+        return gradingScheme;
+    }
+
+    public void setGradingScheme(GradingScheme gradingScheme) {
+        this.gradingScheme = gradingScheme;
+    }
+
+    public String getLanguageOfInstruction() {
+        return languageOfInstruction;
+    }
+
+    public void setLanguageOfInstruction(String languageOfInstruction) {
+        this.languageOfInstruction = languageOfInstruction;
+    }
+
+    public ResultDistribution getResultDistribution() {
+        return resultDistribution;
+    }
+
+    public void setResultDistribution(ResultDistribution resultDistribution) {
+        this.resultDistribution = resultDistribution;
+    }
+
+    public BigDecimal getEngagementHours() {
+        return engagementHours;
+    }
+
+    public void setEngagementHours(BigDecimal engagementHours) {
+        this.engagementHours = engagementHours;
     }
 
     @Override

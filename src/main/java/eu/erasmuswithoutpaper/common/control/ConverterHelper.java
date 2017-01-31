@@ -2,6 +2,7 @@
 package eu.erasmuswithoutpaper.common.control;
 
 import eu.erasmuswithoutpaper.api.architecture.HTTPWithOptionalLang;
+import eu.erasmuswithoutpaper.api.architecture.MultilineStringWithOptionalLang;
 import eu.erasmuswithoutpaper.api.architecture.StringWithOptionalLang;
 import eu.erasmuswithoutpaper.api.types.address.FlexibleAddress;
 import eu.erasmuswithoutpaper.api.types.phonenumber.PhoneNumber;
@@ -63,6 +64,16 @@ public class ConverterHelper {
             }).collect(Collectors.toList());
     }
 
+    public static List<MultilineStringWithOptionalLang> convertToMultilineStringWithOptionalLang(List<LanguageItem> languageItems) {
+        return
+            languageItems.stream().map((languageItem) -> {
+                MultilineStringWithOptionalLang multilineStringWithOptionalLang = new MultilineStringWithOptionalLang();
+                multilineStringWithOptionalLang.setLang(languageItem.getLang());
+                multilineStringWithOptionalLang.setValue(languageItem.getText());
+                return multilineStringWithOptionalLang;
+            }).collect(Collectors.toList());
+    }
+    
     public static List<HTTPWithOptionalLang> convertToHttpWithOptionalLang(List<LanguageItem> languageItems) {
         return languageItems.stream().map((languageItem) -> {
             HTTPWithOptionalLang httpWithOptionalLang = new HTTPWithOptionalLang();

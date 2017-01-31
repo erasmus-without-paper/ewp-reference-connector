@@ -30,7 +30,6 @@ public class LearningOpportunityInstanceTest {
     @Test
     public void testPersistLearningOpportunityInstance() {
         LearningOpportunityInstance loi = new LearningOpportunityInstance();
-        loi.setOrganizationUnitId("orgUnit123");
         Credit credit = new Credit();
         credit.setValue(new BigDecimal(10));
         List<Credit> credits = new ArrayList<>();
@@ -43,7 +42,6 @@ public class LearningOpportunityInstanceTest {
         this.tx.rollback();
 
         Assert.assertNotNull(result);
-        Assert.assertEquals("orgUnit123", result.getOrganizationUnitId());
         Assert.assertEquals("10", result.getCredits().get(0).getValue().toString());
     }
     

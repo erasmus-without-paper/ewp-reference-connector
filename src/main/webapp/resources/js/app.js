@@ -16,8 +16,6 @@ angular
             }).when('/echo', {
                 templateUrl: 'partials/echo.html',
                 controller: 'EchoController'
-            }).when('/manifest', {
-                templateUrl: 'partials/todo.html'
             }).when('/academicterm', {
                 templateUrl: 'partials/academicterm.html',
                 controller: 'AcademicTermController'
@@ -27,8 +25,6 @@ angular
             }).when('/loi', {
                 templateUrl: 'partials/loi.html',
                 controller: 'LoiController'
-            }).when('/mobility', {
-                templateUrl: 'partials/todo.html'
             }).when('/contact', {
                 templateUrl: 'partials/contact.html',
                 controller: 'ContactController'
@@ -47,6 +43,12 @@ angular
             }).when('/ounit-client', {
                 templateUrl: 'partials/ounit_client.html',
                 controller: 'OrganizationUnitClientController'
+            }).when('/courses', {
+                templateUrl: 'partials/courses_client.html',
+                controller: 'CoursesClientController'
+            }).when('/course-replication', {
+                templateUrl: 'partials/course_replication_client.html',
+                controller: 'CourseReplicationClientController'
             }).otherwise({
                 redirectTo: '/home'
             });

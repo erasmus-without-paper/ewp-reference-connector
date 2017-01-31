@@ -1,0 +1,17 @@
+<h3>Learning Opportunity Specification</h3>
+<div class="list-group">
+    <div class="list-group-item" ng-repeat="item in clientResult.resultList">
+        <div class="row">
+            <div class="col-md-2">Id:</div>
+            <div class="col-md-10">{{item.losId}}</div>
+        </div>
+        <div class="row">
+            <div class="col-md-2">Code:</div>
+            <div class="col-md-10">{{item.losCode}}</div>
+        </div>
+        <div class="row" ng-repeat="title in item.title">
+            <div class="col-md-2">{{$index === 0 ? 'Title:' : ''}}</div>
+            <div class="col-md-10">{{title.value}} ({{title.lang}})</div>
+        </div>
+    </div>
+</div>

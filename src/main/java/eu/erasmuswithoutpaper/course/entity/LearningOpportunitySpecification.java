@@ -35,6 +35,7 @@ public class LearningOpportunitySpecification implements Serializable{
     String id;
 
     private String institutionId;
+    private String organizationUnitId;
     private String losCode;
     private LearningOpportunitySpecificationType type;
     
@@ -45,6 +46,14 @@ public class LearningOpportunitySpecification implements Serializable{
     @OneToMany(cascade = CascadeType.ALL, fetch = FetchType.EAGER, orphanRemoval=true)
     @JoinTable(name = "LOS_URLS")
     private List<LanguageItem> url;
+
+    private byte eqfLevel;
+    private String iscedf;
+    private String subjectArea;
+    
+    @OneToMany(cascade = CascadeType.ALL, fetch = FetchType.EAGER, orphanRemoval=true)
+    @JoinTable(name = "LOS_DESCRIPTION")
+    private List<LanguageItem> description;
     
     @OneToMany(cascade = CascadeType.ALL, fetch = FetchType.EAGER, orphanRemoval=true)
     @JoinTable(name = "LOS_LOS")
@@ -71,13 +80,52 @@ public class LearningOpportunitySpecification implements Serializable{
         this.id = id;
     }
 
-    
     public String getInstitutionId() {
         return institutionId;
     }
 
     public void setInstitutionId(String institutionId) {
         this.institutionId = institutionId;
+    }
+
+    public String getOrganizationUnitId() {
+        return organizationUnitId;
+    }
+
+    public void setOrganizationUnitId(String organizationUnitId) {
+        this.organizationUnitId = organizationUnitId;
+    }
+
+    public byte getEqfLevel() {
+        return eqfLevel;
+    }
+
+    public void setEqfLevel(byte eqfLevel) {
+        this.eqfLevel = eqfLevel;
+    }
+
+    public String getIscedf() {
+        return iscedf;
+    }
+
+    public void setIscedf(String iscedf) {
+        this.iscedf = iscedf;
+    }
+
+    public String getSubjectArea() {
+        return subjectArea;
+    }
+
+    public void setSubjectArea(String subjectArea) {
+        this.subjectArea = subjectArea;
+    }
+
+    public List<LanguageItem> getDescription() {
+        return description;
+    }
+
+    public void setDescription(List<LanguageItem> description) {
+        this.description = description;
     }
 
     public String getLosCode() {

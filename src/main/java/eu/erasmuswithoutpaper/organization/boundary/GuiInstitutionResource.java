@@ -1,4 +1,3 @@
-
 package eu.erasmuswithoutpaper.organization.boundary;
 
 import eu.erasmuswithoutpaper.common.control.HeiEntry;

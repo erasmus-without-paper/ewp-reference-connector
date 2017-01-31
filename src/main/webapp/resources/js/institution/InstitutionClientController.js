@@ -26,7 +26,7 @@ angular.module('institution').controller('InstitutionClientController', function
             if (result && result.heis) {
                 angular.forEach(result.heis, function(hei) {
                     if (hei.ounitId) {
-                        ClientCacheService.add(hei.heiId, hei.ounitId);
+                        ClientCacheService.add('Institution', hei.heiId, hei.ounitId);
                     }
                 });
             }

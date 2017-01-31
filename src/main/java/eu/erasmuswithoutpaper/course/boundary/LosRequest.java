@@ -1,13 +1,13 @@
-package eu.erasmuswithoutpaper.organization.boundary;
+package eu.erasmuswithoutpaper.course.boundary;
 
 import eu.erasmuswithoutpaper.common.boundary.HttpMethodEnum;
 import java.io.Serializable;
 import java.util.List;
 
-public class OrganizationUnitRequest implements Serializable {
+public class LosRequest implements Serializable {
     private String url;
     private String heiId;
-    private List<String> organizationUnitIds;
+    private List<String> losIds;
     private HttpMethodEnum method;
 
     public String getUrl() {
@@ -34,12 +34,12 @@ public class OrganizationUnitRequest implements Serializable {
         this.heiId = heiId;
     }
 
-    public List<String> getOrganizationUnitIds() {
-        return organizationUnitIds;
+    public List<String> getLosIds() {
+        return losIds;
     }
 
-    public void setOrganizationUnitIds(List<String> organizationUnitIds) {
-        this.organizationUnitIds = organizationUnitIds;
+    public void setLosIds(List<String> losIds) {
+        this.losIds = losIds;
     }
 }
 

@@ -3,6 +3,7 @@ package eu.erasmuswithoutpaper.discovery.boundary;
 import eu.erasmuswithoutpaper.api.architecture.MultilineString;
 import eu.erasmuswithoutpaper.api.architecture.StringWithOptionalLang;
 import eu.erasmuswithoutpaper.api.courses.Courses;
+import eu.erasmuswithoutpaper.api.courses.replication.SimpleCourseReplication;
 import eu.erasmuswithoutpaper.api.discovery.Discovery;
 import eu.erasmuswithoutpaper.api.discovery.Manifest;
 import eu.erasmuswithoutpaper.api.echo.Echo;
@@ -72,6 +73,7 @@ public class ManifestResource {
         apisImplemented.getAny().add(getInstitutionsEntry());
         apisImplemented.getAny().add(getOrganizationalUnitsEntry());
         apisImplemented.getAny().add(getCoursesEntry());
+        apisImplemented.getAny().add(getCoursesReplicationEntry());
         apisImplemented.getAny().add(getMobilitiesEntry());
         manifest.setApisImplemented(apisImplemented);
         
@@ -141,12 +143,23 @@ public class ManifestResource {
         return courses;
     }
 
+    private SimpleCourseReplication getCoursesReplicationEntry() {
+        SimpleCourseReplication courseReplication = new SimpleCourseReplication();
+        courseReplication.setVersion(EwpConstants.COURSE_REPLICATION_VERSION);
+        courseReplication.setUrl(getBaseUri() + "courses/replication");
+        courseReplication.setAllowsAnonymousAccess(true);
+        courseReplication.setSupportsModifiedSince(false);
+        
+        return courseReplication;
+    }
+    
     private Mobilities getMobilitiesEntry() {
         Mobilities mobilities = new Mobilities();
         mobilities.setVersion(EwpConstants.MOBILITIES_VERSION);
         mobilities.setIndexUrl(getBaseUri() + "mobilities/index");
         mobilities.setGetUrl(getBaseUri() + "mobilities/get");
         mobilities.setMaxMobilityIds(BigInteger.valueOf(globalProperties.getMaxMobilityIds()));
+        mobilities.setUpdateUrl(getBaseUri() + "mobilities/update");
         return mobilities;
     }
     

@@ -28,12 +28,11 @@ public class LoiLoader extends AbstractStartupLoader {
         String credit5 = "[{'scheme':'ects','level':'Bachelor','value':'3.5'}]";
         String credit6 = "[{'scheme':'ects','level':'Bachelor','value':'4'}]";
         
-        String ouId = getOrganizationUnitId("ikea.ou1.se");
         // Course1
         LearningOpportunitySpecification course1Los = getLos("IU001");
         LearningOpportunityInstance course1Loi1 = createLearningOppInst("{'credits':" + credit1 + "}", getAcademicTerm(getAcademicYear("2015", "2016"), "Fall"));
-        LearningOpportunityInstance course1Loi2 = createLearningOppInst("{'organizationUnitId':'" + ouId + "','credits':" + credit2 + "}", getAcademicTerm(getAcademicYear("2015", "2016"), "Spring"));
-        LearningOpportunityInstance course1Loi3 = createLearningOppInst("{'id':'" + IKEA_LOI1_ID + "','organizationUnitId':'" + ouId + "','credits':" + credit2 + "}", getAcademicTerm(getAcademicYear("2016", "2017"), "Fall"));
+        LearningOpportunityInstance course1Loi2 = createLearningOppInst("{'credits':" + credit2 + "}", getAcademicTerm(getAcademicYear("2015", "2016"), "Spring"));
+        LearningOpportunityInstance course1Loi3 = createLearningOppInst("{'id':'" + IKEA_LOI1_ID + "','credits':" + credit2 + "}", getAcademicTerm(getAcademicYear("2016", "2017"), "Fall"));
         List<LearningOpportunityInstance> course1LoiList = new ArrayList<>();
         course1LoiList.add(course1Loi1);
         course1LoiList.add(course1Loi2);
@@ -53,7 +52,7 @@ public class LoiLoader extends AbstractStartupLoader {
         
         // Module1
         LearningOpportunitySpecification module1Los = getLos("MOD01");
-        LearningOpportunityInstance module1Loi1 = createLearningOppInst("{'organizationUnitId':'" + ouId + "','credits':" + credit3 + "}", getAcademicTerm(getAcademicYear("2014", "2015"), "Spring"));
+        LearningOpportunityInstance module1Loi1 = createLearningOppInst("{'credits':" + credit3 + "}", getAcademicTerm(getAcademicYear("2014", "2015"), "Spring"));
         List<LearningOpportunityInstance> module1LoiList = new ArrayList<>();
         module1LoiList.add(module1Loi1);
         module1Los.setLearningOpportunityInstances(module1LoiList);
@@ -61,7 +60,7 @@ public class LoiLoader extends AbstractStartupLoader {
         
         // Course3, part of Module1
         LearningOpportunitySpecification course3Los = getLos("IUJ04");
-        LearningOpportunityInstance course3Loi1 = createLearningOppInst("{'organizationUnitId':'" + ouId + "','credits':" + credit2 + "}", getAcademicTerm(getAcademicYear("2014", "2015"), "Spring"));
+        LearningOpportunityInstance course3Loi1 = createLearningOppInst("{'credits':" + credit2 + "}", getAcademicTerm(getAcademicYear("2014", "2015"), "Spring"));
         List<LearningOpportunityInstance> course3LoiList = new ArrayList<>();
         course3LoiList.add(course3Loi1);
         course3Los.setLearningOpportunityInstances(course3LoiList);
@@ -69,7 +68,7 @@ public class LoiLoader extends AbstractStartupLoader {
        
         // Course4, part of Module1
         LearningOpportunitySpecification course4Los = getLos("IUJ05");
-        LearningOpportunityInstance course4Loi1 = createLearningOppInst("{'organizationUnitId':'" + ouId + "','credits':" + credit2 + "}", getAcademicTerm(getAcademicYear("2014", "2015"), "Spring"));
+        LearningOpportunityInstance course4Loi1 = createLearningOppInst("{'credits':" + credit2 + "}", getAcademicTerm(getAcademicYear("2014", "2015"), "Spring"));
         List<LearningOpportunityInstance> course4LoiList = new ArrayList<>();
         course4LoiList.add(course4Loi1);
         course4Los.setLearningOpportunityInstances(course4LoiList);
@@ -77,7 +76,7 @@ public class LoiLoader extends AbstractStartupLoader {
         
         // Class1, part of Course4
         LearningOpportunitySpecification class1Los = getLos("IUCL1");
-        LearningOpportunityInstance class1Loi1 = createLearningOppInst("{'organizationUnitId':'" + ouId + "','credits':" + credit5 + "}", getAcademicTerm(getAcademicYear("2014", "2015"), "Spring"));
+        LearningOpportunityInstance class1Loi1 = createLearningOppInst("{'credits':" + credit5 + "}", getAcademicTerm(getAcademicYear("2014", "2015"), "Spring"));
         List<LearningOpportunityInstance> class1LoiList = new ArrayList<>();
         class1LoiList.add(class1Loi1);
         class1Los.setLearningOpportunityInstances(class1LoiList);
@@ -85,7 +84,7 @@ public class LoiLoader extends AbstractStartupLoader {
         
         // Class2, part of Course4
         LearningOpportunitySpecification class2Los = getLos("IUCL2");
-        LearningOpportunityInstance class2Loi1 = createLearningOppInst("{'organizationUnitId':'" + ouId + "','credits':" + credit6 + "}", getAcademicTerm(getAcademicYear("2014", "2015"), "Spring"));
+        LearningOpportunityInstance class2Loi1 = createLearningOppInst("{'credits':" + credit6 + "}", getAcademicTerm(getAcademicYear("2014", "2015"), "Spring"));
         List<LearningOpportunityInstance> class2LoiList = new ArrayList<>();
         class2LoiList.add(class2Loi1);
         class2Los.setLearningOpportunityInstances(class2LoiList);
@@ -101,12 +100,11 @@ public class LoiLoader extends AbstractStartupLoader {
         String credit2 = "[{'scheme':'ects','level':'Bachelor','value':'7.5'}]";
         String credit3 = "[{'scheme':'ects','level':'Bachelor','value':'15'}]";
         
-        String ouId = getOrganizationUnitId("pomodoro.ou1.it");
         // Course1
         LearningOpportunitySpecification course1Los = getLos("PU001");
         LearningOpportunityInstance course1Loi1 = createLearningOppInst("{'id':'" + POMODORO_LOI1_ID + "','credits':" + credit1 + "}", getAcademicTerm(getAcademicYear("2015", "2016"), "Fall"));
-        LearningOpportunityInstance course1Loi2 = createLearningOppInst("{'organizationUnitId':'" + ouId + "','credits':" + credit2 + "}", getAcademicTerm(getAcademicYear("2015", "2016"), "Spring"));
-        LearningOpportunityInstance course1Loi3 = createLearningOppInst("{'organizationUnitId':'" + ouId + "','credits':" + credit2 + "}", getAcademicTerm(getAcademicYear("2016", "2017"), "Fall"));
+        LearningOpportunityInstance course1Loi2 = createLearningOppInst("{'credits':" + credit2 + "}", getAcademicTerm(getAcademicYear("2015", "2016"), "Spring"));
+        LearningOpportunityInstance course1Loi3 = createLearningOppInst("{'credits':" + credit2 + "}", getAcademicTerm(getAcademicYear("2016", "2017"), "Fall"));
         List<LearningOpportunityInstance> course1LoiList = new ArrayList<>();
         course1LoiList.add(course1Loi1);
         course1LoiList.add(course1Loi2);

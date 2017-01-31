@@ -1,6 +1,10 @@
 
 package eu.erasmuswithoutpaper.mobility.entity;
 
+import eu.erasmuswithoutpaper.organization.entity.LanguageItem;
+import java.math.BigInteger;
+import java.util.ArrayList;
+import java.util.List;
 import javax.persistence.EntityManager;
 import javax.persistence.EntityTransaction;
 import javax.persistence.Persistence;
@@ -26,11 +30,19 @@ public class ResultDistributionTest {
 
     @Test
     public void testPersistResultDistribution() {
+        List<ResultDistributionCategory> resultDistributionCategories = new ArrayList<>();
+        ResultDistributionCategory resultDistributionCategory = new ResultDistributionCategory();
+        resultDistributionCategory.setLabel("A");
+        resultDistributionCategory.setCount(BigInteger.TEN);
+        resultDistributionCategories.add(resultDistributionCategory);
         ResultDistribution resultDistribution = new ResultDistribution();
-        resultDistribution.setInstitutionId("InstId1");
-        resultDistribution.setLabel("TestLabel");
-        resultDistribution.setLosCode("Los1");
-        resultDistribution.setDistrubutionCount(3);
+        resultDistribution.setResultDistributionCategory(resultDistributionCategories);
+        
+        List<LanguageItem> descriptions = new ArrayList<>();
+        LanguageItem description = new LanguageItem();
+        description.setLang("se");
+        description.setText("Simple course where all students got A's.");
+        resultDistribution.setDescription(descriptions);
         
         this.tx.begin();
         this.em.persist(resultDistribution);
@@ -38,7 +50,7 @@ public class ResultDistributionTest {
         this.tx.rollback();
 
         Assert.assertNotNull(result);
-        Assert.assertEquals(3, result.getDistrubutionCount());
+        Assert.assertEquals(1, result.getResultDistributionCategory().size());
     }
     
 }

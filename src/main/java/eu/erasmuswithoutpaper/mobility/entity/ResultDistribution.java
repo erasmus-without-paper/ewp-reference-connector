@@ -1,11 +1,17 @@
 
 package eu.erasmuswithoutpaper.mobility.entity;
 
+import eu.erasmuswithoutpaper.organization.entity.LanguageItem;
 import java.io.Serializable;
+import java.util.List;
 import java.util.Objects;
+import javax.persistence.CascadeType;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
+import javax.persistence.JoinTable;
+import javax.persistence.OneToMany;
 
 @Entity
 public class ResultDistribution implements Serializable{
@@ -14,10 +20,13 @@ public class ResultDistribution implements Serializable{
     @GeneratedValue(generator="system-uuid")
     String id;
     
-    private String institutionId;
-    private String losCode;
-    private String label;
-    private int distrubutionCount;
+    @OneToMany(cascade = CascadeType.ALL, fetch = FetchType.EAGER)
+    @JoinTable(name = "DISTR_CATEGORIES")
+    private List<ResultDistributionCategory> resultDistributionCategory;
+    
+    @OneToMany(cascade = CascadeType.ALL, fetch = FetchType.EAGER, orphanRemoval=true)
+    @JoinTable(name = "DISTR_DESCRIPTION")
+    private List<LanguageItem> description;
 
     public String getId() {
         return id;
@@ -27,36 +36,20 @@ public class ResultDistribution implements Serializable{
         this.id = id;
     }
 
-    public String getInstitutionId() {
-        return institutionId;
+    public List<ResultDistributionCategory> getResultDistributionCategory() {
+        return resultDistributionCategory;
     }
 
-    public void setInstitutionId(String institutionId) {
-        this.institutionId = institutionId;
+    public void setResultDistributionCategory(List<ResultDistributionCategory> resultDistributionCategory) {
+        this.resultDistributionCategory = resultDistributionCategory;
     }
 
-    public String getLosCode() {
-        return losCode;
+    public List<LanguageItem> getDescription() {
+        return description;
     }
 
-    public void setLosCode(String losCode) {
-        this.losCode = losCode;
-    }
-
-    public String getLabel() {
-        return label;
-    }
-
-    public void setLabel(String label) {
-        this.label = label;
-    }
-
-    public int getDistrubutionCount() {
-        return distrubutionCount;
-    }
-
-    public void setDistrubutionCount(int distrubutionCount) {
-        this.distrubutionCount = distrubutionCount;
+    public void setDescription(List<LanguageItem> description) {
+        this.description = description;
     }
 
     @Override

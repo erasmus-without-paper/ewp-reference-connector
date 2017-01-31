@@ -2,13 +2,18 @@ package eu.erasmuswithoutpaper.course.control;
 
 import eu.erasmuswithoutpaper.api.courses.CoursesResponse;
 import eu.erasmuswithoutpaper.api.types.academicterm.AcademicTerm;
+import static eu.erasmuswithoutpaper.common.control.ConverterHelper.convertToMultilineStringWithOptionalLang;
 import static eu.erasmuswithoutpaper.common.control.ConverterHelper.convertToStringWithOptionalLang;
 import static eu.erasmuswithoutpaper.common.control.ConverterHelper.convertToXmlGregorianCalendar;
 import eu.erasmuswithoutpaper.course.entity.Credit;
+import eu.erasmuswithoutpaper.course.entity.GradingScheme;
 import eu.erasmuswithoutpaper.course.entity.LearningOpportunityInstance;
 import eu.erasmuswithoutpaper.course.entity.LearningOpportunitySpecification;
 import eu.erasmuswithoutpaper.course.entity.LearningOpportunitySpecificationType;
+import eu.erasmuswithoutpaper.mobility.entity.ResultDistribution;
+import eu.erasmuswithoutpaper.mobility.entity.ResultDistributionCategory;
 import java.text.SimpleDateFormat;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -19,23 +24,15 @@ public class LearningOpportunitySpecificationConverter {
 
     public CoursesResponse.LearningOpportunitySpecification convertToLos(LearningOpportunitySpecification los, String loisBefore, String loisAfter, String losAtDate) {
         CoursesResponse.LearningOpportunitySpecification course = new CoursesResponse.LearningOpportunitySpecification();
-        // TODO: add description?
-        //course.getDescription().addAll();
-        
+        course.getDescription().addAll(convertToMultilineStringWithOptionalLang(los.getDescription()));
         course.getTitle().addAll(convertToStringWithOptionalLang(los.getName()));
         
         course.setContains(convertToContains(los.getLearningOpportunitySpecifications()));
-        
-        // TODO: add ISCED code?
-        //course.setIscedCode();
-        
+        course.setIscedCode(los.getIscedf());
         course.setLosId(LearningOpportunitySpecificationType.abbreviation(los.getType()) + "/" + los.getId());
         course.setLosCode(los.getLosCode());
         course.setSpecifies(convertToSpecifies(los.getLearningOpportunityInstances(), LearningOpportunitySpecificationType.loiAbbreviation(los.getType()), loisBefore, loisAfter));
-        
-        // TODO: add subject area?
-        //course.setSubjectArea(los.get);
-        
+        course.setSubjectArea(los.getSubjectArea());
         course.setType(LearningOpportunitySpecificationType.displayName(los.getType()));
         
         // TODO: should API change to multilanguage URL
@@ -85,19 +82,11 @@ public class LearningOpportunitySpecificationConverter {
                 Logger.getLogger(LearningOpportunitySpecificationConverter.class.getName()).log(Level.SEVERE, null, ex);
             }
             
-            // TODO: add this?
-            //converted.setEngagementHours(BigDecimal.ONE);
-            
-            // TODO: add grading scheme
-            //converted.setGradingScheme(value);
-            
-            // TODO: add?
-            //converted.setLanguageOfInstruction(value);
-            
+            converted.setEngagementHours(l.getEngagementHours());
+            converted.setGradingScheme(convertTotGradingScheme(l.getGradingScheme()));
+            converted.setLanguageOfInstruction(l.getLanguageOfInstruction());
             converted.setLoiId(loiAbbreviation + "/" + l.getId());
-            
-            // TODO: add result distribution
-            //converted.setResultDistribution(value);
+            converted.setResultDistribution(convertToResultDistribution(l.getResultDistribution()));
             try {
                 converted.setStart(convertToXmlGregorianCalendar(l.getAcademicTerm().getStartDate()));
             } catch (DatatypeConfigurationException ex) {
@@ -132,5 +121,40 @@ public class LearningOpportunitySpecificationConverter {
         }
         
         return converted;
+    }
+
+    private CoursesResponse.LearningOpportunitySpecification.Specifies.LearningOpportunityInstance.GradingScheme convertTotGradingScheme(GradingScheme gradingScheme) {
+        if (gradingScheme == null) {
+            return null;
+        }
+        CoursesResponse.LearningOpportunitySpecification.Specifies.LearningOpportunityInstance.GradingScheme converted = new CoursesResponse.LearningOpportunitySpecification.Specifies.LearningOpportunityInstance.GradingScheme();
+        converted.getDescription().addAll(convertToMultilineStringWithOptionalLang(gradingScheme.getDescription()));
+        converted.getLabel().addAll(convertToStringWithOptionalLang(gradingScheme.getLabel()));
+        
+        return converted;
+    }
+
+    private CoursesResponse.LearningOpportunitySpecification.Specifies.LearningOpportunityInstance.ResultDistribution convertToResultDistribution(ResultDistribution resultDistribution) {
+        if (resultDistribution == null) {
+            return null;
+        }
+        CoursesResponse.LearningOpportunitySpecification.Specifies.LearningOpportunityInstance.ResultDistribution converted = new CoursesResponse.LearningOpportunitySpecification.Specifies.LearningOpportunityInstance.ResultDistribution();
+        converted.getCategory().addAll(convertToCategory(resultDistribution.getResultDistributionCategory()));
+        converted.getDescription().addAll(convertToMultilineStringWithOptionalLang(resultDistribution.getDescription()));
+        
+        return converted;
+    }
+
+    private List<CoursesResponse.LearningOpportunitySpecification.Specifies.LearningOpportunityInstance.ResultDistribution.Category> convertToCategory(List<ResultDistributionCategory> resultDistributionCategory) {
+        if (resultDistributionCategory == null) {
+            return new ArrayList<>();
+        }
+        
+        return resultDistributionCategory.stream().map(cat -> {
+            CoursesResponse.LearningOpportunitySpecification.Specifies.LearningOpportunityInstance.ResultDistribution.Category category = new CoursesResponse.LearningOpportunitySpecification.Specifies.LearningOpportunityInstance.ResultDistribution.Category();
+            category.setLabel(cat.getLabel());
+            category.setCount(cat.getCount());
+            return category;
+        }).collect(Collectors.toList());
     }
 }
