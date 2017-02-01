@@ -16,13 +16,16 @@
             </ul>
         </script>
         <ul>
-            <li ng-repeat="los in losList | orderBy:['losCode']" ng-include="'los_renderer.html'" ng-class="{'active':los === currentLos}"></li>
+            <li ng-repeat="los in losList| orderBy:['losCode']" ng-include="'los_renderer.html'" ng-class="{'active':los === currentLos}"></li>
         </ul>
     </div>
 
     <div class="panel panel-default" ng-show="currentLos">
-        <div class="panel-heading"><h2>{{currentLos.losCode ? currentLos.losCode + ' - ' : ''}}{{(currentLos.name | languageItem:'en').text}} ({{currentLos.type | enumToReadable}})</h2></div>
+        <div class="panel-heading"><h2>{{currentLos.losCode ? currentLos.losCode + ' - ' : ''}}{{(currentLos.name| languageItem:'en').text}} ({{currentLos.type| enumToReadable}})</h2></div>
         <div class="panel-body">
+            <div ng-if="currentLos.id">
+                <div class="col-md-2">LOS id:</div><div class="col-md-10">{{currentLos.id}}</div>
+            </div>
             <div ng-if="currentLos.losCode">
                 <div class="col-md-2">LOS code:</div><div class="col-md-10">{{currentLos.losCode}}</div>
             </div>
@@ -35,23 +38,55 @@
                 </div>
             </div>
             <div ng-if="currentLos.type">
-                <div class="col-md-2">Type:</div><div class="col-md-10 hide-overflow-ellipsis">{{currentLos.type | enumToReadable}}</div>
+                <div class="col-md-2">Type:</div><div class="col-md-10">{{currentLos.type| enumToReadable}}</div>
             </div>
-            <div class="col-md-2">Institution id:</div><div class="col-md-10 hide-overflow-ellipsis">{{currentLos.institutionId}}</div>
+            <div ng-if="currentLos.eqfLevel">
+                <div class="col-md-2">EQF level:</div><div class="col-md-10">{{currentLos.eqfLevel}}</div>
+            </div>
+            <div ng-if="currentLos.iscedf">
+                <div class="col-md-2">ISCED-F:</div><div class="col-md-10">{{currentLos.iscedf}}</div>
+            </div>
+            <div ng-if="currentLos.subjectArea">
+                <div class="col-md-2">Subject area:</div><div class="col-md-10">{{currentLos.subjectArea}}</div>
+            </div>
+            <div ng-repeat="description in currentLos.description">
+                <div class="col-md-2">Description ({{description.lang}}):</div><pre class="col-md-10 ">{{description.text}}</pre>
+            </div>
+            <div ng-if="currentLos.institutionId">
+                <div class="col-md-2">Institution id:</div><div class="col-md-10">{{currentLos.institutionId}}</div>
+            </div>
+            <div ng-if="currentLos.organizationUnitId">
+                <div class="col-md-2">Organization unit id:</div><div class="col-md-10">{{currentLos.organizationUnitId}}</div>
+            </div>
         </div>
 
         <div class="clearfix">
             <h2 class="col-md-10">Learning opportunity instances ({{currentLos.learningOpportunityInstances.length}})</h2>
         </div>
         <div class="list-group">
-            <div ng-repeat="instance in currentLos.learningOpportunityInstances | orderBy: 'academicTerm.startDate': true">
+            <div ng-repeat="instance in currentLos.learningOpportunityInstances| orderBy: 'academicTerm.startDate': true">
                 <div class="list-group-item clearfix">
-                    <div ng-show="instance.organizationUnitId">
+                    <div class="col-md-2">Id:</div><div class="col-md-10 hide-overflow-ellipsis">{{instance.id}}</div>
+                    <div ng-if="instance.organizationUnitId">
                         <div class="col-md-2">Organization unit id:</div><div class="col-md-10 hide-overflow-ellipsis">{{instance.organizationUnitId}}</div>
                     </div>
                     <div class="col-md-2">Start date:</div><div class="col-md-10 hide-overflow-ellipsis">{{instance.academicTerm.startDate| date: 'yyyy-MM-dd'}}</div>
                     <div class="col-md-2">End date:</div><div class="col-md-10 hide-overflow-ellipsis">{{instance.academicTerm.endDate| date: 'yyyy-MM-dd'}}</div>
-                    <div ng-repeat="credit in instance.credits"><div class="col-md-2">{{$index === 0 ? 'Credits:' : ''}}</div><div class="col-md-10 hide-overflow-ellipsis">{{credit.value}} {{credit.scheme}} - {{credit.level}}</div></div>
+                    <div ng-repeat="credit in instance.credits">
+                        <div class="col-md-2">{{$index === 0 ? 'Credits:' : ''}}</div><div class="col-md-10 hide-overflow-ellipsis">{{credit.value}} {{credit.scheme}} - {{credit.level}}</div>
+                    </div>
+                    <div ng-repeat="label in instance.gradingScheme.label">
+                        <div class="col-md-2">{{$index === 0 ? 'Grading scheme label:' : ''}}</div><div class="col-md-10 hide-overflow-ellipsis">{{label.text}}</div>
+                    </div>
+                    <div ng-repeat="desc in instance.gradingScheme.description">
+                        <div class="col-md-2">{{$index === 0 ? 'Grading scheme desc:' : ''}}</div><div class="col-md-10 hide-overflow-ellipsis">{{desc.text}} ({{desc.lang}})</div>
+                    </div>
+                    <div ng-if="instance.languageOfInstruction">
+                        <div class="col-md-2">Language of instruction:</div><div class="col-md-10 hide-overflow-ellipsis">{{instance.languageOfInstruction}}</div>
+                    </div>
+                    <div ng-if="instance.engagementHours">
+                        <div class="col-md-2">Engagement hours:</div><div class="col-md-10 hide-overflow-ellipsis">{{instance.engagementHours}}</div>
+                    </div>
                 </div>
             </div>
         </div>
@@ -73,7 +108,7 @@
                     <div class="col-sm-6">
                         <select id="academicterm" class="form-control" ng-model="newLearningOppInstance.academicTermId" required="required">
                             <option style="display:none" value="">Select Academic term</option>
-                            <option ng-repeat="term in academicTerms | orderBy:['endDate']:true" value="{{term.id}}">{{term.startDate| date: 'yyyy-MM-dd'}} --- {{term.endDate| date: 'yyyy-MM-dd'}} : {{(term.dispName| languageItem:'en').text}}</option>
+                            <option ng-repeat="term in academicTerms| orderBy:['endDate']:true" value="{{term.id}}">{{term.startDate| date: 'yyyy-MM-dd'}} --- {{term.endDate| date: 'yyyy-MM-dd'}} : {{(term.dispName| languageItem:'en').text}}</option>
                         </select>
                     </div>
                     <div class="col-sm-4"></div>

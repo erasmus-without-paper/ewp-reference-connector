@@ -4,15 +4,19 @@ import eu.erasmuswithoutpaper.organization.entity.LanguageItem;
 import java.io.Serializable;
 import java.util.List;
 import java.util.Objects;
+import javax.persistence.CascadeType;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
+import javax.persistence.JoinTable;
 import javax.persistence.NamedQueries;
 import javax.persistence.NamedQuery;
+import javax.persistence.OneToMany;
 
 @Entity
 @NamedQueries({
-    @NamedQuery(name = GradingScheme.findAll, query = "SELECT a FROM AcademicYear a"),
+    @NamedQuery(name = GradingScheme.findAll, query = "SELECT g FROM GradingScheme g"),
 })
 public class GradingScheme implements Serializable {
     private static final String PREFIX = "eu.erasmuswithoutpaper.course.entity.GradingScheme.";
@@ -22,7 +26,12 @@ public class GradingScheme implements Serializable {
     @GeneratedValue(generator="system-uuid")
     String id;
     
+    @OneToMany(cascade = CascadeType.ALL, fetch = FetchType.EAGER, orphanRemoval=true)
+    @JoinTable(name = "GRADING_SCHEME_LABEL")
     private List<LanguageItem> label;
+    
+    @OneToMany(cascade = CascadeType.ALL, fetch = FetchType.EAGER, orphanRemoval=true)
+    @JoinTable(name = "GRADING_SCHEME_DESC")
     private List<LanguageItem> description;
 
     public String getId() {
