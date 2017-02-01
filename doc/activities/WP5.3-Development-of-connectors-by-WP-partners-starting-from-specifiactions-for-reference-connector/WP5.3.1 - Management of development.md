@@ -8,10 +8,10 @@ This table shows which partner who had developed which API and are ready for int
 | **DEVELOPMENT Chapter 3 Due:DECEMBER 2016** |       |       |       |       |Jan 17 |       |       |        |       |
 | In Registry                                 |:link: |   -   |:soon: |:link: |   -   |:link: |   -   |:link:  |   -   |
 | Discovery                                   |:star: |:soon: |:soon: |:star: |   -   |:star: |   -   |:star:  |   -   |
-| Echo                                        |:star: |   -   |:soon: |:star: |   -   |:soon: |:star: |:soon:  |   -   |
+| Echo                                        |:star: |   -   |:soon: |:star: |   -   |:soon: |:star: |:star:  |   -   |
 | **DEVELOPMENT Chapter 5 Due:January 2017**  |       |       |       |       |       |       |       |        |       | 
-| Institutions                                |:star: |   -   |   -   |:star: |   -   |:soon: |   -   |:soon:  |   -   |
-| Organizational units                        |:star: |   -   |   -   |   -   |   -   |   -   |   -   |   -    |   -   |
+| Institutions                                |:star: |   -   |   -   |:star: |   -   |:soon: |   -   |:star:  |   -   |
+| Organizational units                        |:star: |   -   |   -   |   -   |   -   |   -   |   -   |:star:  |   -   |
 | Courses                                     |:soon: |   -   |   -   |   -   |   -   |   -   |   -   |   -    |   -   |
 | Simple course Replication (optional         |   -   |   -   |   -   |   -   |   -   |   -   |   -   |   -    |   -   |
 | **DEVELOPMENT Chapter 6 Due:February 2017** |       |       |       |       |       |       |       |        |       |
