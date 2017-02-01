@@ -7,7 +7,9 @@ import eu.erasmuswithoutpaper.registryclient.DefaultCatalogueFetcher;
 import java.security.cert.X509Certificate;
 import java.util.ArrayList;
 import java.util.Collection;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import java.util.stream.Collectors;
@@ -63,61 +65,72 @@ public class RegistryClient {
         return new ArrayList<>();
     }
     
-    public List<HeiEntry> getEwpInstanceHeisWithUrl() {
+    public List<HeiEntry> getEwpInstanceHeisWithUrls() {
         List<HeiEntry> heis = getHeis(EwpConstants.INSTITUTION_NAMESPACE, "institutions", EwpConstants.INSTITUTION_VERSION);
-        heis.stream().forEach(hei -> hei.setUrl(getEwpInstanceHeiUrl(hei.getId())));
+        heis.stream().forEach(hei -> hei.setUrls(getEwpInstanceHeiUrls(hei.getId())));
         return heis;
     }
     
-    public String getEwpInstanceHeiUrl(String heiId) {
-        return getHeiUrl(heiId, EwpConstants.INSTITUTION_NAMESPACE, "institutions", EwpConstants.INSTITUTION_VERSION);
+    public Map<String, String> getEwpInstanceHeiUrls(String heiId) {
+        return getHeiUrls(heiId, EwpConstants.INSTITUTION_NAMESPACE, "institutions", EwpConstants.INSTITUTION_VERSION);
     }
     
-    public List<HeiEntry> getEwpOrganizationUnitHeisWithUrl() {
+    public List<HeiEntry> getEwpOrganizationUnitHeisWithUrls() {
         List<HeiEntry> heis = getHeis(EwpConstants.ORGANIZATION_UNIT_NAMESPACE, "organizational-units", EwpConstants.ORGANIZATION_UNIT_VERSION);
-        heis.stream().forEach(hei -> hei.setUrl(getEwpOrganizationUnitHeiUrl(hei.getId())));
+        heis.stream().forEach(hei -> hei.setUrls(getEwpOrganizationUnitHeiUrls(hei.getId())));
         return heis;
     }
     
-    public String getEwpOrganizationUnitHeiUrl(String heiId) {
-        return getHeiUrl(heiId, EwpConstants.ORGANIZATION_UNIT_NAMESPACE, "organizational-units", EwpConstants.ORGANIZATION_UNIT_VERSION);
+    public Map<String, String> getEwpOrganizationUnitHeiUrls(String heiId) {
+        return getHeiUrls(heiId, EwpConstants.ORGANIZATION_UNIT_NAMESPACE, "organizational-units", EwpConstants.ORGANIZATION_UNIT_VERSION);
     }
 
-    public List<HeiEntry> getCoursesReplicationHeisWithUrl() {
+    public List<HeiEntry> getCoursesReplicationHeisWithUrls() {
         List<HeiEntry> heis = getHeis(EwpConstants.COURSE_REPLICATION_NAMESPACE, "simple-course-replication", EwpConstants.COURSE_REPLICATION_VERSION);
-        heis.stream().forEach(hei -> hei.setUrl(getCoursesReplicationHeiUrl(hei.getId())));
+        heis.stream().forEach(hei -> hei.setUrls(getCoursesReplicationHeiUrls(hei.getId())));
         return heis;
     }
 
-    public String getCoursesReplicationHeiUrl(String heiId) {
-        return getHeiUrl(heiId, EwpConstants.COURSE_REPLICATION_NAMESPACE, "simple-course-replication", EwpConstants.COURSE_REPLICATION_VERSION);
+    public Map<String, String> getCoursesReplicationHeiUrls(String heiId) {
+        return getHeiUrls(heiId, EwpConstants.COURSE_REPLICATION_NAMESPACE, "simple-course-replication", EwpConstants.COURSE_REPLICATION_VERSION);
     }
 
-    public List<HeiEntry> getCoursesHeisWithUrl() {
+    public List<HeiEntry> getCoursesHeisWithUrls() {
         List<HeiEntry> heis = getHeis(EwpConstants.COURSES_NAMESPACE, "courses", EwpConstants.COURSES_VERSION);
-        heis.stream().forEach(hei -> hei.setUrl(getCoursesHeiUrl(hei.getId())));
+        heis.stream().forEach(hei -> hei.setUrls(getCoursesHeiUrls(hei.getId())));
         return heis;
     }
 
-    public String getCoursesHeiUrl(String heiId) {
-        return getHeiUrl(heiId, EwpConstants.COURSES_NAMESPACE, "courses", EwpConstants.COURSES_VERSION);
+    public Map<String, String> getCoursesHeiUrls(String heiId) {
+        return getHeiUrls(heiId, EwpConstants.COURSES_NAMESPACE, "courses", EwpConstants.COURSES_VERSION);
     }
 
+    
+    public List<HeiEntry> getIiaHeisWithUrls() {
+        List<HeiEntry> heis = getHeis(EwpConstants.IIAS_NAMESPACE, "iias", EwpConstants.IIAS_VERSION);
+        heis.stream().forEach(hei -> hei.setUrls(getIiaHeiUrls(hei.getId())));
+        return heis;
+    }
+
+    public Map<String, String> getIiaHeiUrls(String heiId) {
+        return getHeiUrls(heiId, EwpConstants.IIAS_NAMESPACE, "iias", EwpConstants.IIAS_VERSION);
+    }
+            
     public List<HeiEntry> getEchoHeis() {
         return getHeis(EwpConstants.ECHO_NAMESPACE, "echo", EwpConstants.ECHO_VERSION);
     }
     
-    public String getEchoHeiUrl(String heiId) {
-        return getHeiUrl(heiId, EwpConstants.ECHO_NAMESPACE, "echo", EwpConstants.ECHO_VERSION);
+    public Map<String, String> getEchoHeiUrls(String heiId) {
+        return getHeiUrls(heiId, EwpConstants.ECHO_NAMESPACE, "echo", EwpConstants.ECHO_VERSION);
     }
     
-    private String getHeiUrl(String heiId, String namespace, String name, String version) {
+    private Map<String, String> getHeiUrls(String heiId, String namespace, String name, String version) {
         ApiSearchConditions myConditions = new ApiSearchConditions();
         myConditions.setApiClassRequired(namespace, name, version);
         myConditions.setRequiredHei(heiId);
         Element manifest = client.findApi(myConditions);
 
-        return getUrlFromManifestElement(manifest);
+        return getUrlsFromManifestElement(manifest);
     }
     
     private List<HeiEntry> getHeis(String namespace, String name, String version) {
@@ -130,16 +143,20 @@ public class RegistryClient {
         return heis;
     }
      
-   private String getUrlFromManifestElement(Element manifestElement) {
-        String url = null;
+   private Map<String, String> getUrlsFromManifestElement(Element manifestElement) {
+        Map<String, String> urlMap = new HashMap<>();
         NodeList childNodeList = manifestElement.getChildNodes();
         for (int i = 0; i < childNodeList.getLength(); i++) {
             Node childNode = childNodeList.item(i);
             if ("url".equalsIgnoreCase(childNode.getLocalName())) {
-                url = childNode.getFirstChild().getNodeValue();
+                urlMap.put("url", childNode.getFirstChild().getNodeValue());
+            } else if ("index-url".equalsIgnoreCase(childNode.getLocalName())) {
+                urlMap.put("index-url", childNode.getFirstChild().getNodeValue());
+            } else if ("get-url".equalsIgnoreCase(childNode.getLocalName())) {
+                urlMap.put("get-url", childNode.getFirstChild().getNodeValue());
             }
         }
         
-        return url;
+        return urlMap;
     }
 }

@@ -7,6 +7,7 @@ import eu.erasmuswithoutpaper.api.courses.replication.SimpleCourseReplication;
 import eu.erasmuswithoutpaper.api.discovery.Discovery;
 import eu.erasmuswithoutpaper.api.discovery.Manifest;
 import eu.erasmuswithoutpaper.api.echo.Echo;
+import eu.erasmuswithoutpaper.api.iia.Iias;
 import eu.erasmuswithoutpaper.api.institutions.Institutions;
 import eu.erasmuswithoutpaper.api.mobilities.Mobilities;
 import eu.erasmuswithoutpaper.api.ounits.OrganizationalUnits;
@@ -75,6 +76,8 @@ public class ManifestResource {
         apisImplemented.getAny().add(getCoursesEntry());
         apisImplemented.getAny().add(getCoursesReplicationEntry());
         apisImplemented.getAny().add(getMobilitiesEntry());
+        apisImplemented.getAny().add(getIiaEntry());
+        
         manifest.setApisImplemented(apisImplemented);
         
         manifest.setInstitutionsCovered(getInstitutionsCovered());
@@ -163,6 +166,16 @@ public class ManifestResource {
         return mobilities;
     }
     
+    private Iias getIiaEntry() {
+        Iias iias = new Iias();
+        iias.setVersion(EwpConstants.IIAS_VERSION);
+        iias.setIndexUrl(getBaseUri() + "iias/index");
+        iias.setGetUrl(getBaseUri() + "iias/get");
+        iias.setMaxIiaIds(BigInteger.valueOf(globalProperties.getMaxIiaIds()));
+        //iias.setSendsNotifications();
+        return iias;
+    }
+
     private Hei createHei(Institution institution) {
         Hei hei = new Hei();
         hei.setId(institution.getInstitutionId());

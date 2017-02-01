@@ -14,6 +14,15 @@ angular.module('iia').service('IiaService', function ($http) {
         },
         getDurationUnitVariants: function (callback) {
             $http.get('gui/iia/duration_unit_variants').success(callback);
+        },
+        getIiaHeis: function (callback) {
+            $http.get('gui/iia/heis').success(callback);
+        },
+        getIiaIndex: function (courseRequest, callback) {
+            $http.post('gui/iia/iias-index', courseRequest).success(callback);
+        },
+        getIia: function (courseRequest, callback) {
+            $http.post('gui/iia/iias', courseRequest).success(callback);
         }
     };
 });

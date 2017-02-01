@@ -15,8 +15,9 @@ angular.module('menu').controller('MenuController', function ($scope, $location)
                         subItems:[{name:'Echo', page:'echo'},
                                   {name:'Institution', page:'institution-client'},
                                   {name:'Organization unit', page:'ounit-client'},
-                                  {name:'Course-replication', page:'course-replication'},
-                                  {name:'Course', page:'courses'}]}];
+                                  {name:'Course-replication', page:'course-replication-client'},
+                                  {name:'Course', page:'courses-client'},
+                                  {name:'Iia', page:'iia-client'}]}];
 
     $scope.selectedRootItem = '';
     $scope.selectHomeItem = function() {

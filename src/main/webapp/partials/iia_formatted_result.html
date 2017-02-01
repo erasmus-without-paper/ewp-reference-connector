@@ -1,0 +1,31 @@
+<div ng-if="clientResult.result.iiaId">
+    <h3>IIA Identities</h3>
+    <div class="list-group">
+        <div ng-repeat="iiaId in clientResult.result.iiaId">
+            <div class="list-group-item">{{iiaId}}</div>
+        </div>
+    </div>
+</div>
+<div ng-if="clientResult.result.iia">
+    <h3>IIA's</h3>
+    <div class="list-group">
+        <div class="list-group-item" ng-repeat="iia in clientResult.result.iia">
+            <div class="row">
+                <div class="col-md-2">Id:</div>
+                <div class="col-md-10">{{iia.iiaId}}</div>
+            </div>
+            <div class="row">
+                <div class="col-md-2">Code:</div>
+                <div class="col-md-10">{{iia.iiaCode}}</div>
+            </div>
+            <div class="row">
+                <div class="col-md-2">Start date:</div>
+                <div class="col-md-10">{{iia.startDate.year + '-' + (iia.startDate.month < 10 ? '0' : '' ) + iia.startDate.month + '-' + (iia.endDate.day < 10 ? '0' : '' ) + iia.startDate.day}}</div>
+            </div>
+            <div class="row">
+                <div class="col-md-2">End date:</div>
+                <div class="col-md-10">{{iia.endDate.year + '-' + (iia.endDate.month < 10 ? '0' : '' ) + iia.endDate.month + '-' + (iia.endDate.day < 10 ? '0' : '' ) + iia.endDate.day}}</div>
+            </div>
+        </div>
+    </div>
+</div>

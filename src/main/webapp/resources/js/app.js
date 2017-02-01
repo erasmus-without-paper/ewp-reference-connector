@@ -43,12 +43,15 @@ angular
             }).when('/ounit-client', {
                 templateUrl: 'partials/ounit_client.html',
                 controller: 'OrganizationUnitClientController'
-            }).when('/courses', {
+            }).when('/courses-client', {
                 templateUrl: 'partials/courses_client.html',
                 controller: 'CoursesClientController'
-            }).when('/course-replication', {
+            }).when('/course-replication-client', {
                 templateUrl: 'partials/course_replication_client.html',
                 controller: 'CourseReplicationClientController'
+            }).when('/iia-client', {
+                templateUrl: 'partials/iia_client.html',
+                controller: 'IiaClientController'
             }).otherwise({
                 redirectTo: '/home'
             });

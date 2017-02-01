@@ -4,8 +4,8 @@ angular.module('los').controller('CourseReplicationClientController', function (
         if ($scope.heis) {
             $scope.urls = [];
             angular.forEach($scope.heis, function(hei) {
-                if ($scope.urls.indexOf(hei.url) === -1) {
-                    $scope.urls.push(hei.url);
+                if ($scope.urls.indexOf(hei.urls['url']) === -1) {
+                    $scope.urls.push(hei.urls['url']);
                 }
             });
         }
@@ -13,7 +13,7 @@ angular.module('los').controller('CourseReplicationClientController', function (
     $scope.urlChanged = function() {
         $scope.urlHeis = [{name:'<Missing Institution>', id:'missing'}];
         angular.forEach($scope.heis, function(hei) {
-            if (hei.url === $scope.courseReplicationRequest.url) {
+            if (hei.urls['url'] === $scope.courseReplicationRequest.url) {
                 $scope.urlHeis.push(hei);
             }
         });
@@ -21,8 +21,8 @@ angular.module('los').controller('CourseReplicationClientController', function (
     $scope.sendCourseReplicationRequest = function() {
         LosService.getCourseReplication($scope.courseReplicationRequest, function(result) {
             $scope.losResult = result;
-            if (result && result.resultList) {
-                ClientCacheService.add('CourseReplication', $scope.courseReplicationRequest.heiId, result.resultList);
+            if (result && result.result && result.result.losId) {
+                ClientCacheService.add('CourseReplication', $scope.courseReplicationRequest.heiId, result.result.losId);
             }
         });
     };

@@ -4,8 +4,8 @@ angular.module('institution').controller('OrganizationUnitClientController', fun
         if ($scope.heis) {
             $scope.urls = [];
             angular.forEach($scope.heis, function(hei) {
-                if ($scope.urls.indexOf(hei.url) === -1) {
-                    $scope.urls.push(hei.url);
+                if ($scope.urls.indexOf(hei.urls['url']) === -1) {
+                    $scope.urls.push(hei.urls['url']);
                 }
             });
         }
@@ -14,7 +14,7 @@ angular.module('institution').controller('OrganizationUnitClientController', fun
     $scope.urlChanged = function() {
         $scope.urlHeis = [{name:'<Missing Institution>', id:'missing'}];
         angular.forEach($scope.heis, function(hei) {
-            if (hei.url === $scope.organizationUnitRequest.url) {
+            if (hei.urls['url'] === $scope.organizationUnitRequest.url) {
                 $scope.urlHeis.push(hei);
             }
         });
@@ -30,10 +30,10 @@ angular.module('institution').controller('OrganizationUnitClientController', fun
     
     $scope.sendOrganizationUnitRequest = function() {
         if ($scope.cachedIds) {
-            $scope.organizationUnitRequest.organizationUnitIds = $scope.cachedOrgUnitIds;
+            $scope.organizationUnitRequest.params = {'ounit_id': $scope.cachedOrgUnitIds};
         } else {
             var orgUnitIds = $scope.manuallyOrgUnitIds.split(',');
-            $scope.organizationUnitRequest.organizationUnitIds = orgUnitIds;
+            $scope.organizationUnitRequest.params = {'ounit_id': orgUnitIds};
         }
         InstitutionService.getOrganizationUnits($scope.organizationUnitRequest, function(result) {
             $scope.organizationUnitResult = result;
