@@ -1,10 +1,10 @@
 angular.module('echo').controller('EchoController', function ($scope, EchoService) {
     $scope.echoRequest = {};
     $scope.echoRequest.method = 'GET';
-    $scope.echoRequest.echo = [''];
+    $scope.echoRequest.params = {echo:['']};
     
     $scope.addEchoItem = function() {
-        $scope.echoRequest.echo.push('');
+        $scope.echoRequest.params.echo.push('');
     };
     
     $scope.sendEcho = function() {
