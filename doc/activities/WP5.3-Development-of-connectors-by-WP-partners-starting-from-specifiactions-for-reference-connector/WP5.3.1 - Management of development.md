@@ -6,11 +6,11 @@ This table shows which partner who had developed which API and are ready for int
 | API/Partner                                 | Umeå  | Gent  | Porto |  SOP  | KION  | Sigma | Oslo  | Warsaw | Others|
 | ------------------------------------------- | ----- | ----- | ----- | ----- | ----- | ----- | ----- | ------ | ----- |
 | **DEVELOPMENT Chapter 3 Due:DECEMBER 2016** |       |       |       |       |       |       |       |        |       |
-| In Registry                                 |:link: |:soon: |:soon: |:link: |:soon: |:link: |   -   |:link:  |   -   |
-| Discovery                                   |:star: |:soon: |:soon: |:star: |:soon: |:star: |:soon: |:star:  |   -   |
-| Echo                                        |:star: |:soon: |:soon: |:star: |:soon: |:soon: |:soon: |:star:  |   -   |
+| In Registry                                 |:link: |:link: |:soon: |:link: |:soon: |:link: |   -   |:link:  |   -   |
+| Discovery                                   |:star: |:star: |:soon: |:star: |:soon: |:star: |:soon: |:star:  |   -   |
+| Echo                                        |:star: |:star: |:soon: |:star: |:soon: |:soon: |:soon: |:star:  |   -   |
 | **DEVELOPMENT Chapter 5 Due:January 2017**  |       |       |       |       |       |       |       |        |       | 
-| Institutions                                |:star: |   -   |   -   |:star: |   -   |:soon: |   -   |:star:  |   -   |
+| Institutions                                |:star: |:star: |   -   |:star: |   -   |:soon: |   -   |:star:  |   -   |
 | Organizational units                        |:star: |   -   |   -   |   -   |   -   |   -   |   -   |:star:  |   -   |
 | Courses                                     |:star: |   -   |   -   |   -   |   -   |   -   |   -   |   -    |   -   |
 | Simple course Replication (optional         |   -   |   -   |   -   |   -   |   -   |   -   |   -   |   -    |   -   |
