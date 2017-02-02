@@ -78,7 +78,7 @@
                     <div ng-repeat="label in instance.gradingScheme.label">
                         <div class="col-md-2">{{$index === 0 ? 'Grading scheme label:' : ''}}</div><div class="col-md-10 hide-overflow-ellipsis">{{label.text}}</div>
                     </div>
-                    <div ng-repeat="desc in instance.gradingScheme.description | orderBy:['lang']">
+                    <div ng-repeat="desc in instance.gradingScheme.description| orderBy:['lang']">
                         <div class="col-md-2">{{$index === 0 ? 'Grading scheme desc:' : ''}}</div><div class="col-md-10 hide-overflow-ellipsis">{{desc.text}} ({{desc.lang}})</div>
                     </div>
                     <div ng-if="instance.languageOfInstruction">
@@ -87,10 +87,10 @@
                     <div ng-if="instance.engagementHours">
                         <div class="col-md-2">Engagement hours:</div><div class="col-md-10 hide-overflow-ellipsis">{{instance.engagementHours}}</div>
                     </div>
-                    <div ng-repeat="category in instance.resultDistribution.resultDistributionCategory | orderBy:['label']">
+                    <div ng-repeat="category in instance.resultDistribution.resultDistributionCategory| orderBy:['label']">
                         <div class="col-md-2">{{$index === 0 ? 'Result distr category:' : ''}}</div><div class="col-md-10 hide-overflow-ellipsis">{{category.label}} = {{category.count}} students</div>
                     </div>
-                    <div ng-repeat="description in instance.resultDistribution.description | orderBy:['lang']">
+                    <div ng-repeat="description in instance.resultDistribution.description| orderBy:['lang']">
                         <div class="col-md-2">{{$index === 0 ? 'Result distr category:' : ''}}</div><div class="col-md-10 hide-overflow-ellipsis">{{description.text}} ({{description.lang}})</div>
                     </div>
                 </div>
@@ -142,6 +142,18 @@
                         <button type="button" class="btn btn-default" ng-click="addCredit()">
                             <i class="glyphicon glyphicon-plus-sign"></i>
                         </button>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label class="control-label col-sm-2" for="language">Language of instr</label>
+                    <div class="col-sm-10">
+                        <input id="language" class="form-control" placeholder="Enter language of instruction" ng-model="newLearningOppInstance.languageOfInstruction">
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label class="control-label col-sm-2" for="hours">Engagement hours</label>
+                    <div class="col-sm-10">
+                        <input id="hours" type="number" min="0" class="form-control" placeholder="0" ng-model="newLearningOppInstance.engagementHours">
                     </div>
                 </div>
                 <div class="input-group">
