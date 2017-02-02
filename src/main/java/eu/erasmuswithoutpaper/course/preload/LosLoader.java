@@ -30,7 +30,8 @@ public class LosLoader extends AbstractStartupLoader {
         // Course
         String namesCourse3Ikea = "[{'text':'Bildbehandling','lang':'sv'},{'text':'Image Processing','lang':'en'}]";
         String urlCourse3Ikea = "[{'text':'www.iu.se/bildbehandling','lang':'sv'},{'text':'www.iu.se/imageprocessing','lang':'en'}]";
-        persistLearningOppSpecFromJson("{'institutionId':'ikea.university.se','losCode':'IU003','type':'COURSE','eqfLevel':'1','name':" + namesCourse3Ikea + ",'url':" + urlCourse3Ikea + "}");
+        String descriptionCourse3Ikea = "[{'text':'I kursen ges en systematisk framställning av metoder och verktyg för digital bildbehandling.','lang':'sv'},{'text':'The aim of the course is that students achieve knowledge and skills in digital image processing, 2D and 3D processing.','lang':'en'}]";
+        persistLearningOppSpecFromJson("{'institutionId':'ikea.university.se','losCode':'IU003','type':'COURSE','eqfLevel':'1','description':" + descriptionCourse3Ikea + ",'name':" + namesCourse3Ikea + ",'url':" + urlCourse3Ikea + "}");
         
         // Course, part of a module
         String namesCourse4Ikea = "[{'text':'Java introduktion','lang':'sv'},{'text':'Java Introduction','lang':'en'}]";
@@ -40,12 +41,12 @@ public class LosLoader extends AbstractStartupLoader {
         // Class, part of a course
         String namesClass1Ikea = "[{'text':'Java intro del 1','lang':'sv'},{'text':'Java Intro part 1','lang':'en'}]";
         String urlClass1Ikea = "[{'text':'www.iu.se/javaintrodel1','lang':'sv'},{'text':'www.iu.se/javaintropart1','lang':'en'}]";
-        LearningOpportunitySpecification class1 = createLearningOppSpecFromJson("{'institutionId':'ikea.university.se','losCode':'IUCL1','type':'CLASS','eqfLevel':'1','name':" + namesClass1Ikea + ",'url':" + urlClass1Ikea + "}");
+        LearningOpportunitySpecification class1 = createLearningOppSpecFromJson("{'institutionId':'ikea.university.se','losCode':'IUCL1','type':'CLASS','eqfLevel':'1','subjectArea':'445677','name':" + namesClass1Ikea + ",'url':" + urlClass1Ikea + "}");
         
         // Class, part of a course
         String namesClass2Ikea = "[{'text':'Java intro del 2','lang':'sv'},{'text':'Java Intro part 2','lang':'en'}]";
         String urlClass2Ikea = "[{'text':'www.iu.se/javaintrodel2','lang':'sv'},{'text':'www.iu.se/javaintropart2','lang':'en'}]";
-        LearningOpportunitySpecification class2 = createLearningOppSpecFromJson("{'institutionId':'ikea.university.se','losCode':'IUCL2','type':'CLASS','eqfLevel':'1','name':" + namesClass2Ikea + ",'url':" + urlClass2Ikea + "}");
+        LearningOpportunitySpecification class2 = createLearningOppSpecFromJson("{'institutionId':'ikea.university.se','losCode':'IUCL2','type':'CLASS','eqfLevel':'1','subjectArea':'445677','name':" + namesClass2Ikea + ",'url':" + urlClass2Ikea + "}");
         
         // Course, part of a module
         String namesCourse5Ikea = "[{'text':'Java steg 2','lang':'sv'},{'text':'Java part 2','lang':'en'}]";
@@ -75,12 +76,13 @@ public class LosLoader extends AbstractStartupLoader {
         String namesCourse1Pomodoro = "[{'text':'Datainsamling och analys','lang':'sv'},{'text':'Data Collection and Analysis','lang':'en'}]";
         String urlCourse1Pomodoro = "[{'text':'www.pu.it/datainsamlinganalys','lang':'sv'},{'text':'www.pu.it/datacollectionanalysis','lang':'en'}]";
         String descriptionCourse1Pomodoro = "[{'text':'Kursens innehåller bl.a. enkätkonstruktion, observationsteknik, intervjuteknik, statistik och kvalitativ analysmetodik m.m.','lang':'sv'},{'text':'Course content includs questionnaire construction, observation technique, interview technique, statistics and qualitative analytical methods and more.','lang':'en'}]";
-        persistLearningOppSpecFromJson("{'id':'" + POMODORO_LOS1_ID + "','institutionId':'pomodoro.university.it','losCode':'PU001','type':'COURSE','eqfLevel':'1','subjectArea':'656564','name':" + namesCourse1Pomodoro + ",'url':" + urlCourse1Pomodoro + "}");
+        persistLearningOppSpecFromJson("{'id':'" + POMODORO_LOS1_ID + "','institutionId':'pomodoro.university.it','losCode':'PU001','type':'COURSE','eqfLevel':'1','subjectArea':'656564','description':" + descriptionCourse1Pomodoro + ",'name':" + namesCourse1Pomodoro + ",'url':" + urlCourse1Pomodoro + "}");
         
         // Course
         String namesCourse2Pomodoro = "[{'text':'Datormoln','lang':'sv'},{'text':'Cloud computing','lang':'en'}]";
         String urlCourse2Pomodoro = "[{'text':'www.pu.it/datormoln','lang':'sv'},{'text':'www.pu.it/cloudcomputing','lang':'en'}]";
-        persistLearningOppSpecFromJson("{'institutionId':'pomodoro.university.it','losCode':'PU002','type':'COURSE','eqfLevel':'1','subjectArea':'676743','description':" + descriptionCourse1Pomodoro + ",'name':" + namesCourse2Pomodoro + ",'url':" + urlCourse2Pomodoro + "}");
+        String descriptionCourse2Pomodoro = "[{'text':'Kursen behnadlar bl.a. olika tjänstemodeller för moln och begreppet IT som tjänst.','lang':'sv'},{'text':'Service models for clouds and the IT as a service concept.','lang':'en'}]";
+        persistLearningOppSpecFromJson("{'institutionId':'pomodoro.university.it','losCode':'PU002','type':'COURSE','eqfLevel':'1','subjectArea':'676743','description':" + descriptionCourse2Pomodoro + ",'name':" + namesCourse2Pomodoro + ",'url':" + urlCourse2Pomodoro + "}");
     }
     
     private void persistLearningOppSpecFromJson(String losJson) throws IOException {

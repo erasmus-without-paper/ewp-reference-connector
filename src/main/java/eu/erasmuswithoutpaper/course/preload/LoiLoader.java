@@ -105,6 +105,8 @@ public class LoiLoader extends AbstractStartupLoader {
         GradingScheme gs1 = persistGradingScheme("{'label':[{'text':'A-F','lang':'se'}],'description':[{'text':'A-E = pass, F = fail','lang':'se'}]}");
         GradingScheme gs2 = persistGradingScheme("{'label':[{'text':'5-1','lang':'en'}],'description':[{'text':'5-2 = godkänd, 1 = underkänd','lang':'sv'},{'text':'5-1 = passed, 1 = not passed','lang':'en'}]}");
         
+        String resultDistribution1 = "{'resultDistributionCategory':[{'label':'A','count':'4'},{'label':'B','count':'5'},{'label':'C','count':'12'},{'label':'F','count':'2'}],'description':[{'text':'Grades A-E have passed','lang':'en'},{'text':'Betyg A-E har godkänt','lang':'sv'}]}";
+        
         // Credits
         String credit1 = "[{'scheme':'ects','level':'Bachelor','value':'5'},{'scheme':'abc','level':'Bachelor','value':'10'}]";
         String credit2 = "[{'scheme':'ects','level':'Bachelor','value':'7.5'},{'scheme':'abc','level':'Bachelor','value':'15'}]";
@@ -112,9 +114,9 @@ public class LoiLoader extends AbstractStartupLoader {
         
         // Course1
         LearningOpportunitySpecification course1Los = getLos("PU001");
-        LearningOpportunityInstance course1Loi1 = createLearningOppInst("{'id':'" + POMODORO_LOI1_ID + "','credits':" + credit1 + ",'languageOfInstruction':'en','engagementHours':'40'}", getAcademicTerm(getAcademicYear("2015", "2016"), "Fall"), gs1);
-        LearningOpportunityInstance course1Loi2 = createLearningOppInst("{'credits':" + credit2 + ",'languageOfInstruction':'en','engagementHours':'50'}", getAcademicTerm(getAcademicYear("2015", "2016"), "Spring"), gs1);
-        LearningOpportunityInstance course1Loi3 = createLearningOppInst("{'credits':" + credit2 + ",'languageOfInstruction':'en','engagementHours':'65'}", getAcademicTerm(getAcademicYear("2016", "2017"), "Fall"), gs1);
+        LearningOpportunityInstance course1Loi1 = createLearningOppInst("{'id':'" + POMODORO_LOI1_ID + "','credits':" + credit1 + ",'languageOfInstruction':'en','engagementHours':'40','resultDistribution':" + resultDistribution1 + "}", getAcademicTerm(getAcademicYear("2015", "2016"), "Fall"), gs1);
+        LearningOpportunityInstance course1Loi2 = createLearningOppInst("{'credits':" + credit2 + ",'languageOfInstruction':'en','engagementHours':'50','resultDistribution':" + resultDistribution1 + "}", getAcademicTerm(getAcademicYear("2015", "2016"), "Spring"), gs1);
+        LearningOpportunityInstance course1Loi3 = createLearningOppInst("{'credits':" + credit2 + ",'languageOfInstruction':'en','engagementHours':'65','resultDistribution':" + resultDistribution1 + "}", getAcademicTerm(getAcademicYear("2016", "2017"), "Fall"), gs1);
         List<LearningOpportunityInstance> course1LoiList = new ArrayList<>();
         course1LoiList.add(course1Loi1);
         course1LoiList.add(course1Loi2);

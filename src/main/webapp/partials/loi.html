@@ -78,7 +78,7 @@
                     <div ng-repeat="label in instance.gradingScheme.label">
                         <div class="col-md-2">{{$index === 0 ? 'Grading scheme label:' : ''}}</div><div class="col-md-10 hide-overflow-ellipsis">{{label.text}}</div>
                     </div>
-                    <div ng-repeat="desc in instance.gradingScheme.description">
+                    <div ng-repeat="desc in instance.gradingScheme.description | orderBy:['lang']">
                         <div class="col-md-2">{{$index === 0 ? 'Grading scheme desc:' : ''}}</div><div class="col-md-10 hide-overflow-ellipsis">{{desc.text}} ({{desc.lang}})</div>
                     </div>
                     <div ng-if="instance.languageOfInstruction">
@@ -86,6 +86,12 @@
                     </div>
                     <div ng-if="instance.engagementHours">
                         <div class="col-md-2">Engagement hours:</div><div class="col-md-10 hide-overflow-ellipsis">{{instance.engagementHours}}</div>
+                    </div>
+                    <div ng-repeat="category in instance.resultDistribution.resultDistributionCategory | orderBy:['label']">
+                        <div class="col-md-2">{{$index === 0 ? 'Result distr category:' : ''}}</div><div class="col-md-10 hide-overflow-ellipsis">{{category.label}} = {{category.count}} students</div>
+                    </div>
+                    <div ng-repeat="description in instance.resultDistribution.description | orderBy:['lang']">
+                        <div class="col-md-2">{{$index === 0 ? 'Result distr category:' : ''}}</div><div class="col-md-10 hide-overflow-ellipsis">{{description.text}} ({{description.lang}})</div>
                     </div>
                 </div>
             </div>
