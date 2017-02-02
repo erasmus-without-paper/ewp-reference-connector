@@ -4,7 +4,7 @@
         <form class="form-horizontal" ng-submit="sendInstitutionRequest()">
             <div class="form-group">
                 <label class="control-label" for="hei">Method:</label>
-                <select id="hei" class="form-control" ng-model="institutionRequest.method" required="required">
+                <select id="hei" class="form-control" ng-model="institutionRequest.method">
                     <option value="GET">GET</option>
                     <option value="POST">POST</option>
                     <option value="PUT">PUT</option>
@@ -21,7 +21,7 @@
 
             <div class="form-group">
                 <label class="control-label" for="hei">Institution:</label>
-                <select id="hei" class="form-control" ng-model="institutionRequest.heiIds" required="required" multiple>
+                <select id="hei" class="form-control" ng-model="institutionRequest.params['hei_id']" required="required" multiple>
                     <option style="display:none" value="">Select institutions</option>
                     <option ng-repeat="hei in urlHeis | orderBy: 'name'" value="{{hei.id}}">{{hei.name}}</option>
                 </select>

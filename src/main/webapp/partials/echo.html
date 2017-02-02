@@ -20,8 +20,8 @@
 
         <div class="form-group">
             <label class="control-label">Echo</label>
-            <div ng-repeat="echoItem in echoRequest.echo track by $index">
-                <input class="form-control" placeholder="Echo text" ng-model="echoRequest.echo[$index]"/>
+            <div ng-repeat="echoItem in echoRequest.params.echo track by $index">
+                <input class="form-control" placeholder="Echo text" ng-model="echoRequest.params.echo[$index]"/>
             </div>
         </div>
 

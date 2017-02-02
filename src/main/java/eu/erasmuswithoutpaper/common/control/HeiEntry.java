@@ -1,9 +1,11 @@
 package eu.erasmuswithoutpaper.common.control;
 
+import java.util.Map;
+
 public class HeiEntry {
     private String id;
     private String name;
-    private String url;
+    private Map<String, String> urls;
 
     public HeiEntry() {
     }
@@ -29,10 +31,10 @@ public class HeiEntry {
         this.name = name;
     }
 
-    public String getUrl() {
-        return this.url;
+    public Map<String, String> getUrls() {
+        return this.urls;
     }
-    public void setUrl(String url) {
-        this.url = url;
+    public void setUrls(Map<String, String> urls) {
+        this.urls = urls;
     }
 }

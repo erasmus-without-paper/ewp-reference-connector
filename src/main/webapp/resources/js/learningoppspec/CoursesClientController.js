@@ -4,8 +4,8 @@ angular.module('los').controller('CoursesClientController', function ($scope, Lo
         if ($scope.heis) {
             $scope.urls = [];
             angular.forEach($scope.heis, function(hei) {
-                if ($scope.urls.indexOf(hei.url) === -1) {
-                    $scope.urls.push(hei.url);
+                if ($scope.urls.indexOf(hei.urls['url']) === -1) {
+                    $scope.urls.push(hei.urls['url']);
                 }
             });
         }
@@ -13,7 +13,7 @@ angular.module('los').controller('CoursesClientController', function ($scope, Lo
     $scope.urlChanged = function() {
         $scope.urlHeis = [{name:'<Missing Institution>', id:'missing'}];
         angular.forEach($scope.heis, function(hei) {
-            if (hei.url === $scope.coursesRequest.url) {
+            if (hei.urls['url'] === $scope.coursesRequest.url) {
                 $scope.urlHeis.push(hei);
             }
         });
@@ -22,17 +22,17 @@ angular.module('los').controller('CoursesClientController', function ($scope, Lo
     $scope.institutionChanged = function() {
         $scope.heiLosIds = ['<Missing Los Id>'];
         var losIds = ClientCacheService.get('CourseReplication', $scope.coursesRequest.heiId);
-        angular.forEach(losIds, function(ounitId) {
-            $scope.heiLosIds.push(ounitId);
+        angular.forEach(losIds, function(losId) {
+            $scope.heiLosIds.push(losId);
         });
     };
     
     $scope.sendCoursesRequest = function() {
         if ($scope.cachedIds) {
-            $scope.coursesRequest.losIds = $scope.cachedLosIds;
+            $scope.coursesRequest.params = {'los_id': $scope.cachedLosIds};
         } else {
             var losIds = $scope.manuallyLosIds.split(',');
-            $scope.coursesRequest.losIds = losIds;
+            $scope.coursesRequest.params = {'los_id': losIds};
         }
         LosService.getCourse($scope.coursesRequest, function(result) {
             $scope.losResult = result;

@@ -1,14 +1,15 @@
-package eu.erasmuswithoutpaper.course.boundary;
+package eu.erasmuswithoutpaper.common.boundary;
 
-import eu.erasmuswithoutpaper.common.boundary.HttpMethodEnum;
 import java.io.Serializable;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
-public class LosRequest implements Serializable {
+public class ClientRequest implements Serializable {
     private String url;
     private String heiId;
-    private List<String> losIds;
     private HttpMethodEnum method;
+    private Map<String, List<String>> params = new HashMap<>();
 
     public String getUrl() {
         return url;
@@ -34,12 +35,12 @@ public class LosRequest implements Serializable {
         this.heiId = heiId;
     }
 
-    public List<String> getLosIds() {
-        return losIds;
+    public Map<String, List<String>> getParams() {
+        return params;
     }
 
-    public void setLosIds(List<String> losIds) {
-        this.losIds = losIds;
+    public void setParams(Map<String, List<String>> params) {
+        this.params = params;
     }
 }
 

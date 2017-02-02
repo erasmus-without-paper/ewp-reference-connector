@@ -4,8 +4,8 @@ angular.module('institution').controller('InstitutionClientController', function
         if ($scope.heis) {
             $scope.urls = [];
             angular.forEach($scope.heis, function(hei) {
-                if ($scope.urls.indexOf(hei.url) === -1) {
-                    $scope.urls.push(hei.url);
+                if ($scope.urls.indexOf(hei.urls['url']) === -1) {
+                    $scope.urls.push(hei.urls['url']);
                 }
             });
         }
@@ -14,7 +14,7 @@ angular.module('institution').controller('InstitutionClientController', function
     $scope.urlChanged = function() {
         $scope.urlHeis = [{name:'<Missing Institution>', id:'missing'}];
         angular.forEach($scope.heis, function(hei) {
-            if (hei.url === $scope.institutionRequest.url) {
+            if (hei.urls['url'] === $scope.institutionRequest.url) {
                 $scope.urlHeis.push(hei);
             }
         });
@@ -23,8 +23,8 @@ angular.module('institution').controller('InstitutionClientController', function
     $scope.sendInstitutionRequest = function() {
         InstitutionService.getInstitutions($scope.institutionRequest, function(result) {
             $scope.institutionResult = result;
-            if (result && result.heis) {
-                angular.forEach(result.heis, function(hei) {
+            if (result && result.result && result.result.hei) {
+                angular.forEach(result.result.hei, function(hei) {
                     if (hei.ounitId) {
                         ClientCacheService.add('Institution', hei.heiId, hei.ounitId);
                     }
