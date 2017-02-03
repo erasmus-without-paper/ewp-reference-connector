@@ -16,7 +16,7 @@
 |     Role       |      Name         |              Email adress                 |
 | -------------  | ----------------- | ----------------------------------------- |
 | Developer      |  Dario Orlando    |  dorlando@kion.it                         |
-|      -         |                   |                                           |
+| Developer      |  Stefano Russo    |  strusso@kion.it                          |
 |      -         |                   |                                           |             
 
 Other important information _(please specify below:)_ 
