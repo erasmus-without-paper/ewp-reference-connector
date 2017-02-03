@@ -93,6 +93,9 @@
                     <div ng-repeat="description in instance.resultDistribution.description| orderBy:['lang']">
                         <div class="col-md-2">{{$index === 0 ? 'Result distr category:' : ''}}</div><div class="col-md-10 hide-overflow-ellipsis">{{description.text}} ({{description.lang}})</div>
                     </div>
+                    <div ng-repeat="description in instance.resultDistribution.description| orderBy:['lang']">
+                        <div class="col-md-2">Description ({{description.lang}}):</div><pre class="col-md-10 ">{{description.text}}</pre>
+                     </div>
                 </div>
             </div>
         </div>
@@ -145,15 +148,66 @@
                     </div>
                 </div>
                 <div class="form-group">
-                    <label class="control-label col-sm-2" for="language">Language of instr</label>
-                    <div class="col-sm-10">
-                        <input id="language" class="form-control" placeholder="Enter language of instruction" ng-model="newLearningOppInstance.languageOfInstruction">
+                    <label class="control-label col-sm-2" for="grading-scheme">Grading scheme</label>
+                    <div class="col-sm-6">
+                        <select id="grading-scheme" class="form-control" ng-model="selectedGradingSchemeId">
+                            <option style="display:none" value="">Select grading scheme</option>
+                            <option ng-repeat="gradingScheme in gradingSchemes" value="{{gradingScheme.id}}">{{(gradingScheme.label| languageItem:'en').text}}: {{(gradingScheme.description| languageItem:'en').text}}</option>
+                        </select>
                     </div>
+                    <div class="col-sm-4"></div>
+                </div>
+                <div class="form-group">
+                    <label class="control-label col-sm-2" for="language">Language of instr</label>
+                    <div class="col-sm-3">
+                        <input id="language" class="form-control" placeholder="Language of instruction (ISO 639-1)" ng-model="newLearningOppInstance.languageOfInstruction">
+                    </div>
+                    <div class="col-sm-7"></div>
                 </div>
                 <div class="form-group">
                     <label class="control-label col-sm-2" for="hours">Engagement hours</label>
                     <div class="col-sm-10">
                         <input id="hours" type="number" min="0" class="form-control" placeholder="0" ng-model="newLearningOppInstance.engagementHours">
+                    </div>
+                </div>
+                <h3 class="header-line"><span>Result distribution</span></h3>
+                <div class="form-group clearfix">
+                    <label class="control-label col-sm-2">Result distribution</label>
+                    <div ng-repeat="item in newLearningOppInstance.resultDistribution.resultDistributionCategory">
+                        <div class="col-sm-2" ng-if="$index > 0"></div>
+                        <div class="col-sm-8">
+                            <input type="text" class="form-control" placeholder="Enter label" ng-model="item.label" required="required">
+                        </div>
+                        <div class="col-sm-2">
+                            <input type="number" class="form-control" placeholder="Enter count" ng-model="item.count" required="required">
+                        </div>
+                    </div>
+                    <div class="col-sm-2"></div>
+                    <div class="col-sm-10">
+                        <button type="button" class="btn btn-default" ng-click="addResultDistributionCategory()">
+                            <i class="glyphicon glyphicon-plus-sign"></i>
+                        </button>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <div class="clearfix" ng-repeat="description in newLearningOppInstance.resultDistribution.description">
+                        <label class="control-label col-sm-2" ng-if="$index === 0">Description</label>
+                        <div class="col-sm-2" ng-if="$index > 0"></div>
+                        <div class="col-sm-8">
+                            <textarea type="text" class="form-control" placeholder="Enter description" ng-model="description.text" required="required"></textarea>
+                        </div>
+                        <div class="col-sm-2">
+                            <input id="name" type="text" class="form-control" placeholder="Language code" ng-model="description.lang" required="required">
+                        </div>
+                    </div>
+                    <div class="clearfix">
+                        <label class="control-label col-sm-2" ng-if="!newLearningOppInstance.resultDistribution.description || newLearningOppInstance.resultDistribution.description.length === 0">Description</label>
+                        <div class="col-sm-2" ng-if="newLearningOppInstance.resultDistribution.description.length > 0"></div>
+                        <div class="col-sm-10">
+                            <button type="button" class="btn btn-default" ng-click="addResultDistributionDescription()">
+                                <i class="glyphicon glyphicon-plus-sign"></i>
+                            </button>
+                        </div>
                     </div>
                 </div>
                 <div class="input-group">

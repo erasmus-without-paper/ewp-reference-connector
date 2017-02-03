@@ -21,8 +21,9 @@ public class LoiLoader extends AbstractStartupLoader {
     @Override
     public void createDemoDataIkea() throws IOException {
         
-        GradingScheme gs1 = persistGradingScheme("{'label':[{'text':'A-F','lang':'en'}],'description':[{'text':'A-E = godkänd, F = underkänd','lang':'sv'},{'text':'A-E = passed, F = not passed','lang':'en'}]}");
-        GradingScheme gs2 = persistGradingScheme("{'label':[{'text':'5-1','lang':'en'}],'description':[{'text':'5-2 = godkänd, 1 = underkänd','lang':'sv'},{'text':'5-2 = passed, 1 = not passed','lang':'en'}]}");
+        GradingScheme gs1 = persistGradingScheme("{'label':[{'text':'AF','lang':'en'}],'description':[{'text':'A,B,C,D,E = godkänd, F = underkänd','lang':'sv'},{'text':'A,B,C,D,E = passed, F = failed','lang':'en'}]}");
+        GradingScheme gs2 = persistGradingScheme("{'label':[{'text':'D','lang':'en'}],'description':[{'text':'G = godkänd, U = underkänd','lang':'sv'},{'text':'G = passed, U = failed','lang':'en'}]}");
+        GradingScheme gs3 = persistGradingScheme("{'label':[{'text':'IG','lang':'en'}],'description':[{'text':'G = godkänd, IG = underkänd','lang':'sv'},{'text':'G = passed, IG = failed','lang':'en'}]}");
 
         String resultDistribution1 = "{'resultDistributionCategory':[{'label':'A','count':'4'},{'label':'B','count':'5'},{'label':'C','count':'12'},{'label':'F','count':'2'}],'description':[{'text':'Grades A-E have passed','lang':'en'},{'text':'Betyg A-E har godkänt','lang':'sv'}]}";
         String resultDistribution2 = "{'resultDistributionCategory':[{'label':'A','count':'1'},{'label':'B','count':'3'},{'label':'D','count':'6'},{'label':'E','count':'3'}],'description':[{'text':'Grades A-E have passed','lang':'en'},{'text':'Betyg A-E har godkänt','lang':'sv'}]}";
@@ -83,7 +84,7 @@ public class LoiLoader extends AbstractStartupLoader {
         
         // Class1, part of Course4
         LearningOpportunitySpecification class1Los = getLos("IUCL1");
-        LearningOpportunityInstance class1Loi1 = createLearningOppInst("{'credits':" + credit5 + ",'languageOfInstruction':'en'}", getAcademicTerm(getAcademicYear("2014", "2015"), "Spring"), gs2);
+        LearningOpportunityInstance class1Loi1 = createLearningOppInst("{'credits':" + credit5 + ",'languageOfInstruction':'en'}", getAcademicTerm(getAcademicYear("2014", "2015"), "Spring"), gs3);
         List<LearningOpportunityInstance> class1LoiList = new ArrayList<>();
         class1LoiList.add(class1Loi1);
         class1Los.setLearningOpportunityInstances(class1LoiList);

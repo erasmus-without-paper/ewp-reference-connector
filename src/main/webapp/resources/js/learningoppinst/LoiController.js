@@ -1,4 +1,4 @@
-angular.module('loi').controller('LoiController', function ($scope, LosService, AcademicTermService) {
+angular.module('loi').controller('LoiController', function ($scope, LoiService, LosService, AcademicTermService) {
     $scope.getAllTopLevelLosParents = function(){
         LosService.getAllTopLevelParents(
             function(result) {
@@ -18,6 +18,11 @@ angular.module('loi').controller('LoiController', function ($scope, LosService, 
     
     $scope.viewAddLearningOppInstanceForm = function() {
         $scope.creditLevels = ['Bachelor', 'Master', 'PhD'];
+        LoiService.getGradingSchemes(
+            function(result) {
+                $scope.gradingSchemes = result;
+        });
+        
         AcademicTermService.getAll(
             function(result) {
                 $scope.academicTerms = result;
@@ -30,6 +35,7 @@ angular.module('loi').controller('LoiController', function ($scope, LosService, 
     $scope.cancelAddLearningOppInstance = function(){
         $scope.newLearningOppInstance = {credits: [{value: '',  scheme: '', level: ''}]};
         $scope.showAddLearningOppInstanceForm = false;
+        $scope.selectedGradingSchemeId = '';
     };
     
     $scope.addLearningOppInstance = function(){
@@ -39,14 +45,42 @@ angular.module('loi').controller('LoiController', function ($scope, LosService, 
                 selectedAcademicTerm = item;
             }
         });
-        
         $scope.newLearningOppInstance.academicTerm = selectedAcademicTerm;
+        
+        var selectedGradingScheme;
+        angular.forEach($scope.gradingSchemes, function(item) {
+            if (item.id === $scope.selectedGradingSchemeId) {
+                selectedGradingScheme = item;
+            }
+        });
+        $scope.newLearningOppInstance.gradingScheme = selectedGradingScheme;
+        
         $scope.currentLos.learningOpportunityInstances.push($scope.newLearningOppInstance);
         $scope.saveLearningOppSpec($scope.currentLos);
         
         $scope.showAddLearningOppInstanceForm = false;
         $scope.newLearningOppInstance = {credits: [{value: '',  scheme: '', level: ''}]};
         $scope.currentLos = '';
+    };
+    
+    $scope.addResultDistributionCategory = function() {
+        if (!$scope.newLearningOppInstance.resultDistribution) {
+            $scope.newLearningOppInstance.resultDistribution = {};
+        }
+        if (!$scope.newLearningOppInstance.resultDistribution.resultDistributionCategory) {
+            $scope.newLearningOppInstance.resultDistribution.resultDistributionCategory = [];
+        }
+        $scope.newLearningOppInstance.resultDistribution.resultDistributionCategory.push({label:'', count:0});
+    };
+
+    $scope.addResultDistributionDescription = function() {
+        if (!$scope.newLearningOppInstance.resultDistribution) {
+            $scope.newLearningOppInstance.resultDistribution = {};
+        }
+        if (!$scope.newLearningOppInstance.resultDistribution.description) {
+            $scope.newLearningOppInstance.resultDistribution.description = [];
+        }
+        $scope.newLearningOppInstance.resultDistribution.description.push({text:'', lang:''});
     };
     
     $scope.saveLearningOppSpec = function(learningOppSpec) {

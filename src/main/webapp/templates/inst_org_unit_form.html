@@ -2,13 +2,13 @@
     <div class="form-group clearfix" ng-if="!objectType || objectType === 'inst'">
         <label class="control-label mandatory-control col-sm-2" for="instid">Institution Id</label>
         <div class="col-sm-10">
-            <input id="instid" type="text" class="form-control" placeholder="Enter SCHAC identifier" ng-model="instOrgUnit.institutionId" required="required">
+            <input id="instid" type="text" class="form-control" placeholder="Enter SCHAC identifier (e.g. hei.net)" ng-model="instOrgUnit.institutionId" required="required">
         </div>
     </div>
     <div class="form-group clearfix" ng-if="objectType === 'ou'">
         <label class="control-label mandatory-control col-sm-2" for="instid">Org. unit code</label>
         <div class="col-sm-10">
-            <input id="instid" type="text" class="form-control" placeholder="Enter SCHAC identifier" ng-model="instOrgUnit.organizationUnitCode" required="required">
+            <input id="instid" type="text" class="form-control" placeholder="Enter SCHAC identifier (e.g. hei.net)" ng-model="instOrgUnit.organizationUnitCode" required="required">
         </div>
     </div>
     <div class="form-group clearfix">
