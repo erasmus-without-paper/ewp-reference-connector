@@ -4,15 +4,15 @@
     <div class="tree-menu">
         <script type="text/ng-template" id="los_renderer.html">
             <a ng-click="showLos(los)">
-            <span class="expand-button">
-            <button type="button" class="btn btn-default" ng-if="los.learningOpportunitySpecifications.length > 0" ng-click="toggleLosMenuItem(los)">
-            <i class="glyphicon" ng-class="{'glyphicon-chevron-down': los.expanded, 'glyphicon-chevron-right': !los.expanded}"></i>
-            </button>
-            </span>
-            {{los.losCode ? los.losCode + ' - ' : ''}}{{(los.name | languageItem:'en').text}}, {{los.type | enumToReadable}} ({{los.learningOpportunityInstances.length}})
+                <span class="expand-button">
+                    <button type="button" class="btn btn-default" ng-if="los.learningOpportunitySpecifications.length > 0" ng-click="toggleLosMenuItem(los)">
+                        <i class="glyphicon" ng-class="{'glyphicon-chevron-down': los.expanded, 'glyphicon-chevron-right': !los.expanded}"></i>
+                    </button>
+                </span>
+                {{los.losCode ? los.losCode + ' - ' : ''}}{{(los.name | languageItem:'en').text}}, {{los.type | enumToReadable}} ({{los.learningOpportunityInstances.length}})
             </a>
             <ul ng-if="los.learningOpportunitySpecifications.length > 0" ng-show="los.expanded">
-            <li ng-repeat="los in los.learningOpportunitySpecifications" ng-include="'los_renderer.html'" ng-class="{'active':los===currentLos}"></li>
+                <li ng-repeat="los in los.learningOpportunitySpecifications" ng-include="'los_renderer.html'" ng-class="{'active':los===currentLos}"></li>
             </ul>
         </script>
         <ul>
