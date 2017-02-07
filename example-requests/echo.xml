@@ -1,4 +1,0 @@
-<?xml version="1.0" encoding="utf-8"?>
-<vars  xmlns="https://github.com/erasmus-without-paper/ewp-specs-api-echo/blob/master/request-vars.xsd">
-    <echo>Test echo</echo>
-</vars>

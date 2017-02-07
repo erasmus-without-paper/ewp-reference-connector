@@ -10,3 +10,4 @@ connector.iml
 /nbproject/
 /workshops/
 derby.log
+/generate-api-with-xjc/target/

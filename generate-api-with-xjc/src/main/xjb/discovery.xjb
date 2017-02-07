@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<jaxb:bindings version="2.1"
+               xmlns:jaxb="http://java.sun.com/xml/ns/jaxb"
+               xmlns:xs="http://www.w3.org/2001/XMLSchema">
+
+    <jaxb:bindings schemaLocation="https://raw.githubusercontent.com/erasmus-without-paper/ewp-specs-api-discovery/stable-v4/manifest.xsd">
+        <jaxb:schemaBindings>
+            <jaxb:package name="eu.erasmuswithoutpaper.api.discovery"/>
+        </jaxb:schemaBindings>
+        <jaxb:bindings node="//xs:element[@name='certificate']">
+            <jaxb:property>
+                <jaxb:baseType>
+                    <jaxb:javaType name="String"/>
+                </jaxb:baseType>
+            </jaxb:property>
+        </jaxb:bindings>        
+    </jaxb:bindings>
+    <jaxb:bindings schemaLocation="https://raw.githubusercontent.com/erasmus-without-paper/ewp-specs-api-discovery/stable-v4/manifest-entry.xsd">
+        <jaxb:schemaBindings>
+            <jaxb:package name="eu.erasmuswithoutpaper.api.discovery"/>
+        </jaxb:schemaBindings>
+    </jaxb:bindings>
+</jaxb:bindings>

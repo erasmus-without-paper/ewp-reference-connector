@@ -1,5 +1,0 @@
-# An example request on the echo API
-# POST Request:
-curl -H "Content-Type: application/x-www-form-urlencoded" --data "echo=test1&echo=test2" 'http://localhost:8080/connector/rest/echo'
-# GET Request:
-curl 'http://localhost:8080/connector/rest/echo?echo=test1&echo=test2'
