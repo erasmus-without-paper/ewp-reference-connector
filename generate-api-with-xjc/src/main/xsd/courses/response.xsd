@@ -1,0 +1,540 @@
+<xs:schema
+    xmlns:xs="http://www.w3.org/2001/XMLSchema"
+    xmlns:xml="http://www.w3.org/XML/1998/namespace"
+    xmlns:ewp="https://github.com/erasmus-without-paper/ewp-specs-architecture/blob/stable-v1/common-types.xsd"
+    xmlns:trm="https://github.com/erasmus-without-paper/ewp-specs-types-academic-term/tree/master"
+    elementFormDefault="qualified"
+
+    targetNamespace="https://github.com/erasmus-without-paper/ewp-specs-api-courses/tree/master"
+    xmlns="https://github.com/erasmus-without-paper/ewp-specs-api-courses/tree/master"
+>
+    <!-- WRTODO: Replace all occurrences of 'master' (in all projects) with 'stable-v1' upon release. -->
+
+    <xs:import
+        schemaLocation="https://raw.githubusercontent.com/erasmus-without-paper/ewp-specs-architecture/stable-v1/common-types.xsd"
+        namespace="https://github.com/erasmus-without-paper/ewp-specs-architecture/blob/stable-v1/common-types.xsd"
+    />
+
+    <xs:import
+        schemaLocation="../remove-when-stable/ewp-specs-types-academic-term.xsd"
+        namespace="https://github.com/erasmus-without-paper/ewp-specs-types-academic-term/tree/master"
+    /> <!-- WRTODO: absolute paths! -->
+
+    <xs:import
+        schemaLocation="http://www.w3.org/2001/03/xml.xsd"
+        namespace="http://www.w3.org/XML/1998/namespace"
+    />
+
+    <xs:annotation>
+        <xs:documentation>
+            This schema is a part of the Erasmus Without Paper project. Before you start
+            using it, make sure you have read the general rules described here:
+
+            http://developers.erasmuswithoutpaper.eu/
+        </xs:documentation>
+    </xs:annotation>
+
+    <xs:element name="courses-response">
+        <xs:annotation>
+            <xs:documentation>
+                This describes the format of the response returned by the EWP Courses API.
+            </xs:documentation>
+        </xs:annotation>
+        <xs:complexType>
+            <xs:sequence>
+                <xs:element name="learningOpportunitySpecification" minOccurs="0" maxOccurs="unbounded">
+                    <xs:annotation>
+                        <xs:documentation>
+                            This represents a single result. Servers will produce one such element for
+                            each of the `los_id` values passed in the Courses API call.
+
+                            This element describes a single Learning Opportunity entity, along with some
+                            possible references to its "child nodes".
+                        </xs:documentation>
+                    </xs:annotation>
+                    <xs:complexType>
+                        <xs:sequence>
+                            <xs:element name="los-id" minOccurs="1" maxOccurs="1" type="LosID">
+                                <xs:annotation>
+                                    <xs:documentation>
+                                        Unique identifier of this LOS. Will always match one of the `los_id` values
+                                        passed in the Courses API call. It SHOULD NOT be displayed to the user (use
+                                        `los-code` for that).
+
+                                        Read an introduction on LOS and LOI IDs here:
+                                        https://github.com/erasmus-without-paper/ewp-specs-api-courses#unique-identifiers
+
+                                        Server implementers SHOULD use immutable surrogate keys for their work with EWP
+                                        (we recommend choosing UUID surrogate keys). Avoid using natural/business keys!
+
+                                        Related links:
+                                        https://github.com/erasmus-without-paper/ewp-specs-api-mobilities/issues/9
+                                        https://en.wikipedia.org/wiki/Surrogate_key
+                                        https://en.wikipedia.org/wiki/Natural_key
+                                    </xs:documentation>
+                                </xs:annotation>
+                            </xs:element>
+                            <xs:element name="los-code" minOccurs="0" maxOccurs="1" type="xs:string">
+                                <xs:annotation>
+                                    <xs:documentation>
+                                        Since LOS IDs should be surrogate identifiers (and, as such, should not be
+                                        displayed to the user), we allow additional "human readable" unique codes (aka
+                                        "natural identifiers") to be provided here. These codes MAY be displayed to the
+                                        user along the LOS title, but they are *not used* to identify entities in EWP
+                                        network.
+
+                                        Related links:
+                                        https://github.com/erasmus-without-paper/ewp-specs-api-mobilities/issues/9
+                                        https://en.wikipedia.org/wiki/Surrogate_key
+                                        https://en.wikipedia.org/wiki/Natural_key
+                                    </xs:documentation>
+                                </xs:annotation>
+                            </xs:element>
+                            <xs:element name="title" type="ewp:StringWithOptionalLang" minOccurs="1" maxOccurs="unbounded">
+                                <xs:annotation>
+                                    <xs:documentation>
+                                        The name(s) of the node (the title of a degree programme, or the name of a
+                                        course, etc.).
+
+                                        Note for server implementers:
+
+                                        You MUST provide at least one name, preferably in English. If your node does
+                                        not have a name (or cannot have a name), then you should attempt to generate
+                                        one, for example based on its ID and type. As a last resort, use an empty
+                                        string here.
+                                    </xs:documentation>
+                                </xs:annotation>
+                            </xs:element>
+                            <xs:element name="type" minOccurs="0" maxOccurs="1">
+                                <xs:annotation>
+                                    <xs:documentation>
+                                        The type of the node.
+
+                                        Note for server implementers:
+
+                                        You SHOULD include the type of your entity if it is compatible with any of the
+                                        types provided by the enumeration described below. You SHOULD NOT include the
+                                        type if the type of your entity does not seem to match any of the types
+                                        described in the enumeration below. You might also want to contact us so we may
+                                        include such new types in the next schema version.
+
+                                        Note for client implementers:
+
+                                        You MUST be prepared to receive an unknown type here. A new version of the
+                                        schema may allow for the servers to use some newer values of types which
+                                        are yet unknown to your implementation. You SHOULD handle such cases
+                                        gracefully (e.g. treat it the same way as you would treat the node if the type
+                                        was not present at all).
+                                    </xs:documentation>
+                                </xs:annotation>
+                                <xs:simpleType>
+                                    <xs:restriction base="xs:string">
+                                        <xs:enumeration value="Degree Programme">
+                                            <xs:annotation>
+                                                <xs:documentation>
+                                                    A study programme. Finalizing a study programme ends with a degree (e.g.
+                                                    Bachelor degree, Master degree, etc.).
+
+                                                    "Degree programme"s should not have a parent and should contain only "Module"s
+                                                    or "Course"s as their descendants. (However, we have some reason to believe
+                                                    that in some rare cases, it is possible that they MAY also contain other
+                                                    "Degree programme"s.)
+                                                </xs:documentation>
+                                            </xs:annotation>
+                                        </xs:enumeration>
+                                        <xs:enumeration value="Module">
+                                            <xs:annotation>
+                                                <xs:documentation>
+                                                    A group or collection of courses.
+
+                                                    "Module"s may have a "Degree programme" parent, and should contain "Course"s
+                                                    only.
+                                                </xs:documentation>
+                                            </xs:annotation>
+                                        </xs:enumeration>
+                                        <xs:enumeration value="Course">
+                                            <xs:annotation>
+                                                <xs:documentation>
+                                                    "Course" is the *smallest* entity for the students to be able to gain ECTS
+                                                    credits from.
+
+                                                    A "Course" may have a "Degree programme" or a "Module" as a parent, and may
+                                                    contain "Class"es.
+                                                </xs:documentation>
+                                            </xs:annotation>
+                                        </xs:enumeration>
+                                        <xs:enumeration value="Class">
+                                            <xs:annotation>
+                                                <xs:documentation>
+                                                    A single education element a course consists of (lecture, lab etc.).
+
+                                                    "Class"es should have a "Course" ancestor, and - if they contain any children -
+                                                    then these children should not have any type.
+
+                                                    If there are many "types of classes" in the server's system, then such types MAY be
+                                                    further described in the node title (e.g. "Lecture class" or "Laboratory
+                                                    class").
+                                                </xs:documentation>
+                                            </xs:annotation>
+                                        </xs:enumeration>
+                                    </xs:restriction>
+                                </xs:simpleType>
+                            </xs:element>
+                            <xs:element name="subjectArea" type="xs:string" minOccurs="0" maxOccurs="1">
+                                <xs:annotation>
+                                    <xs:documentation>
+                                        The Erasmus subject area code of the course.
+
+                                        It is named "subjectArea" for consistency with older ELMO-based formats.
+                                        https://github.com/erasmus-without-paper/ewp-specs-api-courses/issues/6
+                                    </xs:documentation>
+                                </xs:annotation>
+                            </xs:element>
+                            <xs:element name="iscedCode" type="xs:string" minOccurs="0" maxOccurs="1">
+                                <xs:annotation>
+                                    <xs:documentation>
+                                        The ISCED-F code of the course or programme.
+
+                                        ISCED-F codes define fields of education and training at the secondary,
+                                        post-secondary and tertiary levels of education. Details:
+                                        http://www.uis.unesco.org/Education/Documents/isced-fields-of-education-training-2013.pdf
+                                    </xs:documentation>
+                                </xs:annotation>
+                            </xs:element>
+                            <xs:element name="url" type="ewp:HTTP" minOccurs="0" maxOccurs="1">
+                                <xs:annotation>
+                                    <xs:documentation>
+                                        The URL of the entity's web page (with the description of the course or
+                                        degree programme).
+                                    </xs:documentation>
+                                </xs:annotation>
+                            </xs:element>
+                            <xs:element name="description" type="ewp:MultilineStringWithOptionalLang" minOccurs="0" maxOccurs="unbounded">
+                                <xs:annotation>
+                                    <xs:documentation>
+                                        An optional description of the programme/course/class.
+
+                                        This field MAY be displayed to the user, but it might be better to refer the
+                                        user to a more "user friendly" web page instead (the one given in the `url`
+                                        element above). The primary purpose of the description field is to provide
+                                        keywords for full-text searching. Server implementers are encouraged to provide
+                                        as many types of information as they like here, but this information should
+                                        still be divided in meaningful paragraphs, and be human-readable.
+                                    </xs:documentation>
+                                </xs:annotation>
+                            </xs:element>
+                            <xs:element name="specifies" minOccurs="0" maxOccurs="1">
+                                <xs:annotation>
+                                    <xs:documentation>
+                                        A wrapper for the list of LOI elements.
+                                    </xs:documentation>
+                                </xs:annotation>
+                                <xs:complexType>
+                                    <xs:sequence>
+                                        <xs:element name="learningOpportunityInstance" minOccurs="0" maxOccurs="unbounded">
+                                            <xs:annotation>
+                                                <xs:documentation>
+                                                    A list of LOIs specified by the parent LOS, and matching the API request's
+                                                    `lois_before` and `lois_after` parameters.
+
+                                                    See README.md for more information on LOSes and LOIs.
+                                                </xs:documentation>
+                                            </xs:annotation>
+                                            <xs:complexType>
+                                                <xs:sequence>
+                                                    <xs:element name="loi-id" minOccurs="1" maxOccurs="1" type="LoiID">
+                                                        <xs:annotation>
+                                                            <xs:documentation>
+                                                                Unique identifier of this LOI. It SHOULD NOT be displayed to the user (use
+                                                                `los-code` and start/end dates if you want the user to be able to uniquely
+                                                                identify this LOI).
+
+                                                                Server implementers! Please read this introduction:
+                                                                https://github.com/erasmus-without-paper/ewp-specs-api-courses#unique-identifiers
+                                                            </xs:documentation>
+                                                        </xs:annotation>
+                                                    </xs:element>
+                                                    <xs:element name="start" type="xs:date" minOccurs="1" maxOccurs="1">
+                                                        <xs:annotation>
+                                                            <xs:documentation>
+                                                                The starting date of this LOI. (Usually this will match the beginning of one of
+                                                                the academic terms.)
+                                                            </xs:documentation>
+                                                        </xs:annotation>
+                                                    </xs:element>
+                                                    <xs:element name="end" type="xs:date" minOccurs="1" maxOccurs="1">
+                                                        <xs:annotation>
+                                                            <xs:documentation>
+                                                                The ending date of this LOI. (Usually this will match the end of one of the
+                                                                academic terms.)
+                                                            </xs:documentation>
+                                                        </xs:annotation>
+                                                    </xs:element>
+                                                    <xs:element ref="trm:academic-term" minOccurs="0" maxOccurs="1">
+                                                        <xs:annotation>
+                                                            <xs:documentation>
+                                                                Describes the academic term in which the LOI took place.
+
+                                                                A note for server implementers: You SHOULD include this element for
+                                                                "Course"-type learning opportunities ("Course" entities *always* span over a
+                                                                single academic term). You SHOULD NOT include this element for "Degree
+                                                                Programme"s, or any other learning opportunities which span over multiple
+                                                                terms.
+                                                            </xs:documentation>
+                                                        </xs:annotation>
+                                                    </xs:element>
+                                                    <xs:element name="gradingScheme" minOccurs="0" maxOccurs="1">
+                                                        <xs:annotation>
+                                                            <xs:documentation>
+                                                                An optional element describing the grading scheme used in this LOI.
+                                                                https://github.com/erasmus-without-paper/ewp-specs-api-courses/issues/5
+                                                            </xs:documentation>
+                                                        </xs:annotation>
+                                                        <xs:complexType>
+                                                            <xs:sequence>
+                                                                <xs:element name="label" minOccurs="1" maxOccurs="unbounded" type="ewp:StringWithOptionalLang">
+                                                                    <xs:annotation>
+                                                                        <xs:documentation>
+                                                                            A label which briefly summarizes the grading scheme used. It should contain a
+                                                                            short and descriptive string which describes the range of all possible grade
+                                                                            values. If possible, this label should provide a sufficient source by itself,
+                                                                            for the average reader, to enumerate all these values. E.g. "0-50", "A-F",
+                                                                            "passed / not passed", or "ECTS".
+
+                                                                            If this label is language-specific, then multiple labels with xml:lang
+                                                                            attribute may be provided (preferably English among them). If the label is
+                                                                            non-language-specific, servers are advised to skip the xml:lang attribute
+                                                                            altogether.
+
+                                                                            It is NOT a unique identifier, and it is NOT designed to be easily parsed by a
+                                                                            computer. It's simply supposed to be a human-readable label. See discussion
+                                                                            here: https://github.com/erasmus-without-paper/ewp-specs-api-courses/issues/5
+                                                                        </xs:documentation>
+                                                                    </xs:annotation>
+                                                                </xs:element>
+                                                                <xs:element name="description" minOccurs="0" maxOccurs="unbounded" type="ewp:MultilineStringWithOptionalLang">
+                                                                    <xs:annotation>
+                                                                        <xs:documentation>
+                                                                            Detailed description, to be displayed - for example - as a tooltip beside the
+                                                                            label.
+
+                                                                            If can be provided in multiple languages (preferably English among them), and
+                                                                            it may contain a full name of the grading system, and/or a full list of all
+                                                                            possible grade labels.
+                                                                        </xs:documentation>
+                                                                    </xs:annotation>
+                                                                </xs:element>
+                                                            </xs:sequence>
+                                                        </xs:complexType>
+                                                    </xs:element>
+                                                    <xs:element name="resultDistribution" minOccurs="0" maxOccurs="1">
+                                                        <xs:annotation>
+                                                            <xs:documentation>
+                                                                Optional. Describes a histogram of results achieved by all the students of this
+                                                                course instance (including the ones who have failed the course). Note that
+                                                                labels of the histogram are not integers, e.g. they may contain ranges (like
+                                                                "10-20", or "more than 150").
+                                                            </xs:documentation>
+                                                        </xs:annotation>
+                                                        <xs:complexType>
+                                                            <xs:sequence>
+                                                                <xs:element name="category" maxOccurs="unbounded">
+                                                                    <xs:annotation>
+                                                                        <xs:documentation>
+                                                                            This describes a single range within the histogram.
+                                                                        </xs:documentation>
+                                                                    </xs:annotation>
+                                                                    <xs:complexType>
+                                                                        <xs:attribute name="label" type="xs:string" use="required">
+                                                                            <xs:annotation>
+                                                                                <xs:documentation>
+                                                                                    The label of the histogram range. Should correspond to the grading scheme
+                                                                                    which have been used. E.g. "C", or "20-30". If possible, the label should
+                                                                                    be understandable in any language. If not, you should try to use English.
+                                                                                </xs:documentation>
+                                                                            </xs:annotation>
+                                                                        </xs:attribute>
+                                                                        <xs:attribute name="count" type="xs:nonNegativeInteger" use="required">
+                                                                            <xs:annotation>
+                                                                                <xs:documentation>
+                                                                                    The number of students whose grades fall within that category.
+                                                                                </xs:documentation>
+                                                                            </xs:annotation>
+                                                                        </xs:attribute>
+                                                                    </xs:complexType>
+                                                                </xs:element>
+                                                                <xs:element name="description" type="ewp:MultilineStringWithOptionalLang" minOccurs="0" maxOccurs="unbounded">
+                                                                    <xs:annotation>
+                                                                        <xs:documentation>
+                                                                            Optional additional description of the histogram (possibly in multiple languages).
+                                                                        </xs:documentation>
+                                                                    </xs:annotation>
+                                                                </xs:element>
+                                                            </xs:sequence>
+                                                        </xs:complexType>
+                                                    </xs:element>
+                                                    <xs:element name="credit" minOccurs="0" maxOccurs="unbounded">
+                                                        <xs:annotation>
+                                                            <xs:documentation>
+                                                                This describes various credit types which student should achieve by completing
+                                                                this module/course/class.
+
+                                                                At least ECTS credits SHOULD be included.
+                                                            </xs:documentation>
+                                                        </xs:annotation>
+                                                        <xs:complexType>
+                                                            <xs:sequence>
+                                                                <xs:element name="scheme" type="xs:string" minOccurs="1" maxOccurs="1">
+                                                                    <xs:annotation>
+                                                                        <xs:documentation>
+                                                                            Currently there is only one predefined scheme you can have here:
+
+                                                                            ects - if the scheme is "ects", then the value element MUST contain the number
+                                                                                of ECTS credits awarded for our learner for completing this learning
+                                                                                opportunity.
+
+                                                                            You can also include any number of other credits with custom schemes.
+                                                                        </xs:documentation>
+                                                                    </xs:annotation>
+                                                                </xs:element>
+                                                                <xs:element name="level" minOccurs="0" maxOccurs="1">
+                                                                    <xs:simpleType>
+                                                                        <xs:restriction base="xs:string">
+                                                                            <xs:enumeration value="Bachelor"/>
+                                                                            <xs:enumeration value="Master"/>
+                                                                            <xs:enumeration value="PhD"/>
+                                                                        </xs:restriction>
+                                                                    </xs:simpleType>
+                                                                </xs:element>
+                                                                <xs:element name="value" type="xs:decimal" minOccurs="1" maxOccurs="1">
+                                                                    <xs:annotation>
+                                                                        <xs:documentation>
+                                                                            The number of credits being awarded.
+                                                                        </xs:documentation>
+                                                                    </xs:annotation>
+                                                                </xs:element>
+                                                            </xs:sequence>
+                                                        </xs:complexType>
+                                                    </xs:element>
+                                                    <xs:element name="languageOfInstruction" type="xs:language" minOccurs="0">
+                                                        <xs:annotation>
+                                                            <xs:documentation>
+                                                                Recommended, especially for courses and/or classes. An ISO 639-1 code of the
+                                                                language which has been used as the primary language of teaching during the
+                                                                classes. E.g. "pl" if the course is instructed/conducted in Polish.
+
+                                                                A note for server implementers: This MUST be a single language. If multiple
+                                                                languages were used, attempt to select the primary one. If you cannot select a
+                                                                single primary language, then you MUST NOT include this element at all.
+                                                            </xs:documentation>
+                                                        </xs:annotation>
+                                                    </xs:element>
+                                                    <xs:element name="engagementHours" type="xs:decimal" minOccurs="0">
+                                                        <xs:annotation>
+                                                            <xs:documentation>
+                                                                Recommended for courses or classes. The number of hours the student spends
+                                                                on attending the classes.
+                                                            </xs:documentation>
+                                                        </xs:annotation>
+                                                    </xs:element>
+                                                </xs:sequence>
+                                            </xs:complexType>
+                                        </xs:element>
+                                    </xs:sequence>
+                                </xs:complexType>
+                            </xs:element>
+                            <xs:element name="contains" minOccurs="0" maxOccurs="1">
+                                <xs:annotation>
+                                    <xs:documentation>
+                                        Just a wrapper for children LOS references.
+                                    </xs:documentation>
+                                </xs:annotation>
+                                <xs:complexType>
+                                    <xs:sequence>
+                                        <xs:element name="los-id" type="LosID" minOccurs="0" maxOccurs="unbounded">
+                                            <xs:annotation>
+                                                <xs:documentation>
+                                                    A list of IDs of LOSes which are considered to be "part of" this LOS. For
+                                                    example, a "Module" may contain a couple of "Course"s, and a "Course" may
+                                                    contain a couple of "Class"es. These children are NOT included directly (as
+                                                    they are, for example, in EMREX and ToRs API), we are only including references
+                                                    to them instead. Clients will be able to fetch these children elements by
+                                                    specificing their IDs in their next Courses API call.
+                                                </xs:documentation>
+                                            </xs:annotation>
+                                        </xs:element>
+                                    </xs:sequence>
+                                </xs:complexType>
+                            </xs:element>
+                        </xs:sequence>
+                    </xs:complexType>
+                </xs:element>
+            </xs:sequence>
+        </xs:complexType>
+    </xs:element>
+
+    <xs:simpleType name="LosID">
+        <xs:annotation>
+            <xs:documentation>
+                Unique local identifier of Learning Opportunity Specification. These IDs take
+                form of a "Type/X" string, where "Type" is a short code of the LOS'es type, and
+                "X" is the internal surrogate key of the LOS, as exposed by the owner HEI
+                (prefferably an UUID, but any other values are also permitted).
+
+                Read a detailed introduction here:
+                https://github.com/erasmus-without-paper/ewp-specs-api-courses#unique-identifiers
+            </xs:documentation>
+        </xs:annotation>
+        <xs:restriction base="xs:string">
+            <xs:pattern value="(CR|CLS|MOD|DEP)/(.{1,40})">
+                <xs:annotation>
+                    <xs:documentation>
+                        The actual internal ID of the LOS entity MUST be prefixed with one of the
+                        following strings:
+
+                        - "CR/" - if it is a "Course" type LOS,
+                        - "CLS/" - if it is a "Class" type LOS,
+                        - "MOD/" - if it is a "Module" type LOS,
+                        - "DEP/" - if it is a "Degree Programme" type LOS.
+
+                        More prefixes MAY be introduced in the future. Clients SHOULD expect that (e.g.
+                        they should accept unknown prefixes and behave as if the referenced entity did
+                        not exist).
+                    </xs:documentation>
+                </xs:annotation>
+            </xs:pattern>
+        </xs:restriction>
+    </xs:simpleType>
+
+    <xs:simpleType name="LoiID">
+        <xs:annotation>
+            <xs:documentation>
+                Unique local identifier of Learning Opportunity Instance. This is very similar
+                to LosID type, but it is used for instances (not specifications).
+
+                Read a detailed introduction here:
+                https://github.com/erasmus-without-paper/ewp-specs-api-courses#unique-identifiers
+            </xs:documentation>
+        </xs:annotation>
+        <xs:restriction base="xs:string">
+            <xs:pattern value="(CRI|CLSI|MODI|DEPI)/(.{1,40})">
+                <xs:annotation>
+                    <xs:documentation>
+                        The actual internal ID of the LOS entity MUST be prefixed with one of the
+                        following strings:
+
+                        - "CRI/" - if it is an instance of "Course" type LOS,
+                        - "CLSI/" - if it is an instance of "Class" type LOS,
+                        - "MODI/" - if it is an instance of "Module" type LOS,
+                        - "DEPI/" - if it is an instance of "Degree Programme" type LOS.
+
+                        More prefixes MAY be introduced in the future. Clients SHOULD expect that (e.g.
+                        they should accept unknown prefixes and behave as if the referenced entity did
+                        not exist).
+                    </xs:documentation>
+                </xs:annotation>
+            </xs:pattern>
+        </xs:restriction>
+    </xs:simpleType>
+
+</xs:schema>

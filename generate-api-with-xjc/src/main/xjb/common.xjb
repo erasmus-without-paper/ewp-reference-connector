@@ -14,9 +14,20 @@
         </jaxb:schemaBindings>
     </jaxb:bindings>
 	
-    <jaxb:bindings schemaLocation="https://raw.githubusercontent.com/erasmus-without-paper/ewp-specs-api-registry/stable-v1/catalogue.xsd">
+
+    <jaxb:bindings schemaLocation="https://raw.githubusercontent.com/emrex-eu/elmo-schemas/v1/schema.xsd">
         <jaxb:schemaBindings>
-            <jaxb:package name="eu.erasmuswithoutpaper.api.registry"/>
+            <jaxb:package name="eu.emrex.elmo"/>
+        </jaxb:schemaBindings>
+    </jaxb:bindings>
+	<jaxb:bindings schemaLocation="https://raw.githubusercontent.com/emrex-eu/elmo-schemas/v1/references/xmldsig-core-schema.xsd">
+        <jaxb:schemaBindings>
+            <jaxb:package name="org.w3.xmldsig"/>
+        </jaxb:schemaBindings>
+    </jaxb:bindings>
+	<jaxb:bindings schemaLocation="https://raw.githubusercontent.com/emrex-eu/elmo-schemas/v1/references/EUROPASS_ISOCountries_V1.1.xsd">
+        <jaxb:schemaBindings>
+            <jaxb:package name="eu.europa.cedefop.europass"/>
         </jaxb:schemaBindings>
     </jaxb:bindings>
 </jaxb:bindings>

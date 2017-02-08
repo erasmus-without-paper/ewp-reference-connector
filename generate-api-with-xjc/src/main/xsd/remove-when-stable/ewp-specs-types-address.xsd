@@ -1,0 +1,235 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<xs:schema
+    xmlns:xs="http://www.w3.org/2001/XMLSchema"
+    xmlns:xml="http://www.w3.org/XML/1998/namespace"
+    xmlns:ewp="https://github.com/erasmus-without-paper/ewp-specs-architecture/blob/stable-v1/common-types.xsd"
+    elementFormDefault="qualified"
+
+    targetNamespace="https://github.com/erasmus-without-paper/ewp-specs-types-address/tree/master"
+    xmlns="https://github.com/erasmus-without-paper/ewp-specs-types-address/tree/master"
+>
+    <!-- WRTODO: Replace all occurrences of 'master' (in all projects) with 'stable-v1' upon release. -->
+
+    <xs:import
+        schemaLocation="https://raw.githubusercontent.com/erasmus-without-paper/ewp-specs-architecture/stable-v1/common-types.xsd"
+        namespace="https://github.com/erasmus-without-paper/ewp-specs-architecture/blob/stable-v1/common-types.xsd"
+    />
+
+    <xs:annotation>
+        <xs:documentation>
+            This schema is a part of the Erasmus Without Paper project. Before you start
+            using it, make sure you have read the general rules described here:
+
+            http://developers.erasmuswithoutpaper.eu/
+        </xs:documentation>
+    </xs:annotation>
+
+    <xs:complexType name="FlexibleAddress">
+        <xs:annotation>
+            <xs:documentation>
+                This type defines an address. It can be used for postal/mailing address,
+                or for street/physical address, or both, depending on context.
+            </xs:documentation>
+        </xs:annotation>
+        <xs:sequence>
+
+            <!-- Common section -->
+
+            <xs:element name="recipientName" minOccurs="0" maxOccurs="unbounded" type="xs:string">
+                <xs:annotation>
+                    <xs:documentation>
+                        The name of the addressed entity (usually a person), formatted in a way
+                        suitable to be printed on an envelope.
+                    </xs:documentation>
+                </xs:annotation>
+            </xs:element>
+
+            <!-- The "choice" section -->
+
+            <xs:choice>
+                <xs:annotation>
+                    <xs:documentation>
+                        This detailed section of the address can be provided in one of two ways -
+                        either the structural way, or as a plain addressLine sequence.
+
+                        Server implementers are encouraged to TRY to provide this data in a structural
+                        way, but if they encounter any problems with that (e.g. missing fields in the
+                        "advanced format" section), then it is perfectly okay to format their data in
+                        the simpler addressLine format.
+                    </xs:documentation>
+                </xs:annotation>
+                <xs:sequence>
+                    <xs:element name="addressLine" minOccurs="0" maxOccurs="4" type="xs:string">
+                        <xs:annotation>
+                            <xs:documentation>
+                                OPTION 1. The simple format. A denormalized sequence of addressLines.
+                                Each line is formatted with all of its pieces in their proper place. This
+                                includes all of the necessary punctuation.
+
+                                This form of address is not intended to be parsed, it is used for delivery by
+                                the postal service. They usually contain information such as street name,
+                                building number, building name (such as the name of a faculty), a post-office
+                                box number, etc. They SHOULD NOT contain values defined in `locality`,
+                                `postalCode`, `region` and `country` (you should provide those in their
+                                respective elements if you can).
+
+                                It is recommended for server developers to provide this data in a form of
+                                multiple lines. However, it is also allowed to have it all in a single line
+                                (comma-separated). Same goes for client developers - if their database doesn't
+                                accept multiple lines for some reason, they MAY combine the lines with commas
+                                before storing them. (Such concatenated strings might not look as pretty, but
+                                they will still be usable for mailing.)
+                            </xs:documentation>
+                        </xs:annotation>
+                    </xs:element>
+                </xs:sequence>
+                <xs:sequence>
+                    <xs:annotation>
+                        <xs:documentation>
+                            OPTION 2. The advanced format.
+
+                            This format is based on OAGIS standard for Address, version 9, and it
+                            "inherits" its documentation. This means that developers may consult OAGIS
+                            documentation when in doubt.
+
+                            Please note however, that we *do not* reuse the standard in its exact form - we
+                            have named the elements in very similar fashion, but we have placed them in a
+                            namespace of our own, we also use our own data types, and we are introducing
+                            only a selected subset of OAGIS Address features. See the following GitHub
+                            thread for more reasoning on that:
+
+                            https://github.com/erasmus-without-paper/ewp-specs-architecture/issues/13
+                        </xs:documentation>
+                    </xs:annotation>
+                    <xs:element name="buildingNumber" minOccurs="0" maxOccurs="1" type="xs:string">
+                        <xs:annotation>
+                            <xs:documentation>
+                                The number of the building or house on the street that identifies where to
+                                deliver mail.
+                            </xs:documentation>
+                        </xs:annotation>
+                    </xs:element>
+                    <xs:element name="buildingName" minOccurs="0" maxOccurs="1" type="xs:string">
+                        <xs:annotation>
+                            <xs:documentation>
+                                The building or house name on the street that identifies where to deliver mail.
+
+                                In some areas of the world, including many remote areas, houses are not
+                                numbered but named. Some buildings also have both - a number and a name (in
+                                this cases it is usually enough to submit only one of them).
+                            </xs:documentation>
+                        </xs:annotation>
+                    </xs:element>
+                    <xs:element name="streetName" minOccurs="0" maxOccurs="1" type="xs:string">
+                        <xs:annotation>
+                            <xs:documentation>
+                                The street name (or any other thoroughfare name) where the building/house is
+                                located.
+                            </xs:documentation>
+                        </xs:annotation>
+                    </xs:element>
+                    <xs:element name="unit" minOccurs="0" maxOccurs="1" type="xs:string">
+                        <xs:annotation>
+                            <xs:documentation>
+                                Identifies the apartment number or office suite.
+                            </xs:documentation>
+                        </xs:annotation>
+                    </xs:element>
+                    <xs:element name="floor" minOccurs="0" maxOccurs="1" type="xs:string">
+                        <xs:annotation>
+                            <xs:documentation>
+                                The floor where the housename is located.
+                            </xs:documentation>
+                        </xs:annotation>
+                    </xs:element>
+                    <xs:element name="postOfficeBox" minOccurs="0" maxOccurs="1" type="xs:string">
+                        <xs:annotation>
+                            <xs:documentation>
+                                Identifies a Post Office Box number.
+                            </xs:documentation>
+                        </xs:annotation>
+                    </xs:element>
+                    <xs:element name="deliveryPointCode" minOccurs="0" maxOccurs="unbounded">
+                        <xs:annotation>
+                            <xs:documentation>
+                                Identifies the Dock or the Mail Stop or Lane or any other specific Delivery
+                                Point.
+                            </xs:documentation>
+                        </xs:annotation>
+                    </xs:element>
+                </xs:sequence>
+            </xs:choice>
+
+            <!-- Common section again -->
+
+            <xs:element name="postalCode" minOccurs="0" maxOccurs="1" type="xs:string">
+                <xs:annotation>
+                    <xs:documentation>
+                        The postal code. This is often (but not always) required if the address is
+                        supposed to be a postal address. It may include dashes and other formatting
+                        characters. Note, that in some countries it can be as long as 10 characters.
+
+                        Why minOccurs="0"? Read on here:
+                        https://github.com/erasmus-without-paper/ewp-specs-types-address/issues/2
+                    </xs:documentation>
+                </xs:annotation>
+            </xs:element>
+            <xs:element name="locality" minOccurs="0" maxOccurs="1" type="xs:string">
+                <xs:annotation>
+                    <xs:documentation>
+                        The name of the settlement (city/town/village). Both postal and map localities
+                        are allowed.
+
+                        If this address is supposed to be postal address, then it is recommended to use
+                        a postal locality here (postal authority often situated in a nearby large town).
+                        Note however, that a map locality is also acceptable, as the postal code will
+                        usually resolve any problems here, to allow correct delivery even if the
+                        official postal locality is not used.
+
+                        It is HIGHLY RECOMMENDED (but not required) for this element to exist (see
+                        examples in README.md).
+                    </xs:documentation>
+                </xs:annotation>
+            </xs:element>
+            <xs:element name="region" minOccurs="0" maxOccurs="1" type="xs:string">
+                <xs:annotation>
+                    <xs:documentation>
+                        An optional name of the region. Usually not required in most countries, it can
+                        be any kind of administrative or postal division (such as state, province,
+                        voivodeship, etc.)
+                    </xs:documentation>
+                </xs:annotation>
+            </xs:element>
+            <xs:element name="country" minOccurs="0" maxOccurs="1" type="ewp:CountryCode">
+                <xs:annotation>
+                    <xs:documentation>
+                        Country identifier.
+
+                        It is HIGHLY RECOMMENDED (but not required) for this element to exist (see
+                        examples in README.md).
+                    </xs:documentation>
+                </xs:annotation>
+            </xs:element>
+
+        </xs:sequence>
+    </xs:complexType>
+
+    <xs:element name="street-address" type="FlexibleAddress">
+        <xs:annotation>
+            <xs:documentation>
+                This is the address which should work when, for example, the user pastes it
+                (without the recipientName part) into Google Maps.
+            </xs:documentation>
+        </xs:annotation>
+    </xs:element>
+
+    <xs:element name="mailing-address" type="FlexibleAddress">
+        <xs:annotation>
+            <xs:documentation>
+                This is the address which you would put on an envelope. It MAY be the same
+                as street-address, but doesn't have to (for example, it can be a PO box).
+            </xs:documentation>
+        </xs:annotation>
+    </xs:element>
+
+</xs:schema>

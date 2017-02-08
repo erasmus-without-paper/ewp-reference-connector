@@ -1,0 +1,133 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<xs:schema
+    xmlns:xs="http://www.w3.org/2001/XMLSchema"
+    xmlns:xml="http://www.w3.org/XML/1998/namespace"
+    xmlns:a="https://github.com/erasmus-without-paper/ewp-specs-types-address/tree/master"
+    xmlns:p="https://github.com/erasmus-without-paper/ewp-specs-types-phonenumber/tree/master"
+    xmlns:ewp="https://github.com/erasmus-without-paper/ewp-specs-architecture/blob/stable-v1/common-types.xsd"
+    elementFormDefault="qualified"
+
+    targetNamespace="https://github.com/erasmus-without-paper/ewp-specs-types-contact/tree/master"
+    xmlns="https://github.com/erasmus-without-paper/ewp-specs-types-contact/tree/master"
+>
+    <!-- WRTODO: Replace all occurrences of 'master' (in all projects) with 'stable-v1' upon release. -->
+
+    <xs:import
+        schemaLocation="https://raw.githubusercontent.com/erasmus-without-paper/ewp-specs-architecture/stable-v1/common-types.xsd"
+        namespace="https://github.com/erasmus-without-paper/ewp-specs-architecture/blob/stable-v1/common-types.xsd"
+    />
+
+    <xs:import
+        schemaLocation="../remove-when-stable/ewp-specs-types-address.xsd"
+        namespace="https://github.com/erasmus-without-paper/ewp-specs-types-address/tree/master"
+    /> <!-- WRTODO: absolute paths! -->
+
+    <xs:import
+        schemaLocation="../remove-when-stable/ewp-specs-types-phonenumber.xsd"
+        namespace="https://github.com/erasmus-without-paper/ewp-specs-types-phonenumber/tree/master"
+    /> <!-- WRTODO: absolute paths! -->
+
+    <xs:annotation>
+        <xs:documentation>
+            This schema is a part of the Erasmus Without Paper project. Before you start
+            using it, make sure you have read the general rules described here:
+
+            http://developers.erasmuswithoutpaper.eu/
+        </xs:documentation>
+    </xs:annotation>
+
+    <xs:complexType name="Contact">
+        <xs:annotation>
+            <xs:documentation>
+                An abstract, non-identifiable contact data type.
+
+                Please read https://github.com/erasmus-without-paper/ewp-specs-types-contact
+                for introduction on this data type.
+            </xs:documentation>
+        </xs:annotation>
+        <xs:sequence>
+            <xs:element name="contact-name" minOccurs="1" maxOccurs="unbounded" type="ewp:StringWithOptionalLang">
+                <xs:annotation>
+                    <xs:documentation>
+                        The name of the contact, e.g. "John Doe", or "IRO Office", or "John Doe (Head
+                        of the IRO Office)". It is entirely up to the server implementers to decide on
+                        how this contact should be labeled. This name MAY refer to a specific person,
+                        but it also may refer to a place, a role, etc. It MUST be descriptive for the
+                        human reader, in its context.
+                    </xs:documentation>
+                </xs:annotation>
+            </xs:element>
+            <xs:element ref="p:phone-number" minOccurs="0" maxOccurs="unbounded">
+                <xs:annotation>
+                    <xs:documentation>
+                        A list of phone numbers at which this contact can be reached.
+                    </xs:documentation>
+                </xs:annotation>
+            </xs:element>
+            <xs:element ref="p:fax-number" minOccurs="0" maxOccurs="unbounded">
+                <xs:annotation>
+                    <xs:documentation>
+                        A list of fax numbers at which this contact can be reached.
+                    </xs:documentation>
+                </xs:annotation>
+            </xs:element>
+            <xs:element name="email" minOccurs="0" maxOccurs="unbounded" type="ewp:Email">
+                <xs:annotation>
+                    <xs:documentation>
+                        A list of email addresses at which this contact can be reached.
+                    </xs:documentation>
+                </xs:annotation>
+            </xs:element>
+            <xs:element ref="a:street-address" minOccurs="0" maxOccurs="1">
+                <xs:annotation>
+                    <xs:documentation>
+                        Street address of the place where the contact can be found (room number, floor,
+                        etc.)
+                    </xs:documentation>
+                </xs:annotation>
+            </xs:element>
+            <xs:element ref="a:mailing-address" minOccurs="0" maxOccurs="1">
+                <xs:annotation>
+                    <xs:documentation>
+                        A postal address at which people should send paper documents for this contact.
+                    </xs:documentation>
+                </xs:annotation>
+            </xs:element>
+            <xs:element name="role-description" minOccurs="0" maxOccurs="unbounded" type="ewp:MultilineStringWithOptionalLang">
+                <xs:annotation>
+                    <xs:documentation>
+                        Optional description of the "roles" of this contact, provided in multiple
+                        languages. It MAY be quite long (multiple paragraphs). It MAY be auto-generated
+                        from the computer system, but it also MAY be provided by the contact-person
+                        himself/herself.
+
+                        It is RECOMMENDED to provide role-description in contexts where the role of the
+                        contact is not otherwise specified. This description should answer the
+                        following question: "When this person/office should be contacted?". Client
+                        developers may, for example, display this information in a tooltip, next to the
+                        contact name.
+
+                        Examples:
+                        "Responsible for handling incoming students from Spain."
+                        "Responsible for handling Interinstitutional Agreements with Norway and Sweden."
+                        "Dear students! Don't hesitate to contact me directly if..."
+                    </xs:documentation>
+                </xs:annotation>
+            </xs:element>
+        </xs:sequence>
+    </xs:complexType>
+
+    <xs:element name="contact" type="Contact">
+        <xs:annotation>
+            <xs:documentation>
+                A recommended name for the elements with the Contact type content.
+
+                You might not want to use this element directly if your contact is supposed to
+                have a very specific role. In such cases, it might be better to name your
+                element appropriately (e.g. "coordinator"), and reuse (or extend?) the Contact
+                type.
+            </xs:documentation>
+        </xs:annotation>
+    </xs:element>
+
+</xs:schema>

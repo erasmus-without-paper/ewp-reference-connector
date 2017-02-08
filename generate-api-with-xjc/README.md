@@ -8,4 +8,7 @@ mvn clean install
 ```
 
 ## Note
-This library only include stable APIs
+This library includes stable APIs and APIs still in progress.
+When an API gets stable, this project will be updated to use schema files directly in github.
+
+## Included APIs

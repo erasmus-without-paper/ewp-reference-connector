@@ -1,0 +1,133 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<xs:schema
+    xmlns:xs="http://www.w3.org/2001/XMLSchema"
+    xmlns:xml="http://www.w3.org/XML/1998/namespace"
+    xmlns:emrex="https://github.com/emrex-eu/elmo-schemas/tree/v1"
+    xmlns:ewp="https://github.com/erasmus-without-paper/ewp-specs-architecture/blob/stable-v1/common-types.xsd"
+    elementFormDefault="qualified"
+
+    targetNamespace="https://github.com/erasmus-without-paper/ewp-specs-api-tors/tree/master"
+    xmlns="https://github.com/erasmus-without-paper/ewp-specs-api-tors/tree/master"
+>
+    <!-- WRTODO: Replace all occurrences of 'master' (in all projects) with 'stable-v1' upon release. -->
+
+    <xs:import
+        schemaLocation="https://raw.githubusercontent.com/erasmus-without-paper/ewp-specs-architecture/stable-v1/common-types.xsd"
+        namespace="https://github.com/erasmus-without-paper/ewp-specs-architecture/blob/stable-v1/common-types.xsd"
+    />
+
+    <xs:import
+        schemaLocation="https://raw.githubusercontent.com/emrex-eu/elmo-schemas/v1/schema.xsd"
+        namespace="https://github.com/emrex-eu/elmo-schemas/tree/v1"
+    />
+
+    <xs:annotation>
+        <xs:documentation>
+            This schema is a part of the Erasmus Without Paper project. Before you start
+            using it, make sure you have read the general rules described here:
+
+            http://developers.erasmuswithoutpaper.eu/
+        </xs:documentation>
+    </xs:annotation>
+
+    <xs:element name="tors-response">
+        <xs:annotation>
+            <xs:documentation>
+                This describes the format of the response returned by the EWP Transcripts
+                of Records API.
+            </xs:documentation>
+        </xs:annotation>
+        <xs:complexType>
+            <xs:sequence>
+                <xs:element name="tor" minOccurs="0" maxOccurs="unbounded">
+                    <xs:annotation>
+                        <xs:documentation>
+                            Response consists of a list of matching ToR wrappers. Clients should use the
+                            `mobility_id` attribute to match objects with their `mobility_id` request
+                            parameters.
+                        </xs:documentation>
+                    </xs:annotation>
+                    <xs:complexType>
+                        <xs:sequence>
+                            <xs:element name="mobility-id" type="ewp:UUID" minOccurs="1" maxOccurs="1">
+                                <xs:annotation>
+                                    <xs:documentation>
+                                        The value of the `mobility_id` parameter for which this Transcript of Records
+                                        has been matched.
+                                    </xs:documentation>
+                                </xs:annotation>
+                            </xs:element>
+                            <xs:element ref="emrex:elmo" minOccurs="1" maxOccurs="1">
+                                <xs:annotation>
+                                    <xs:documentation>
+                                        The Transcript of Records for this mobility, in the EMREX ELMO format.
+
+                                        ## Why we reuse EMREX ELMO format?
+
+                                        It's worth taking note of some slight disadvantages of this approach - in
+                                        particular, there's the fact that some features required by EMREX ELMO are
+                                        quite unnecessary in EWP's use case.
+
+                                        For example, there's no longer any reason for the ELMO element to be digitally
+                                        signed (because in EWP we can rely on the transport layer for security, whereas
+                                        in EMREX signing is required because the student acts as an intermediary).
+                                        Similarly, we do not need `learner` and `issuer` elements, because we can
+                                        determine their content by other means.
+
+                                        Despite these, we have chosen to require EMREX ELMO XML format here, "as it
+                                        is", without any changes. Why?
+
+                                         1. Because some partners have already implemented EMREX, and it will simply be
+                                            easier for them to reuse its output.
+                                         2. Because we want to encourage EWP partners to implement EMREX too.
+                                         3. Because we don't want to introduce a competing ToR format unless we have
+                                            to. It seems better to promote existing formats.
+                                         4. Because *some* clients might still make some use of the features which we
+                                            might otherwise deem unnecessary (e.g. PDF attachments).
+
+                                        ## Cross-referencing IDs
+
+                                        EMREX ELMO allows implementers to attach an unlimited number of identifiers
+                                        to many of its elements. In order to facilitate cross-referencing, we need to
+                                        assign some explicit values for the `type` attribute used in the `identifier`
+                                        elements:
+
+                                        * In the `issuer` element, you SHOULD use the "schac" identifier type to refer
+                                          to EWP's HEI IDs. E.g. &lt;identifier type="schac"&gt;uw.edu.pl&lt;/identifier&gt;
+                                          https://github.com/erasmus-without-paper/ewp-specs-api-registry/#schac-identifiers
+
+                                        * In the `learningOpportunitySpecification` elements, you SHOULD use the
+                                          "ewp-los-id" identifier type to refer to LOS IDs introduced in EWP's Courses
+                                          API: https://github.com/erasmus-without-paper/ewp-specs-api-courses#unique-identifiers
+
+                                        * In the `learningOpportunityInstance` elements, you SHOULD use the
+                                          "ewp-loi-id" identifier type to refer to LOI IDs introduced in EWP's Courses
+                                          API: https://github.com/erasmus-without-paper/ewp-specs-api-courses#unique-identifiers
+
+                                          (At the time of writing this, EMREX ELMO schema v1.1.0 does not allow specifying
+                                          identifiers for LOI elements, but we have requested this change and expect it to be
+                                          introduced in future versions: https://github.com/emrex-eu/elmo-schemas/issues/10)
+
+                                        ## Signing the ELMO
+
+                                        This API does not currently specify how the ELMO response needs to be signed.
+                                        In EMREX, ELMO files need to be signed with a very specific certificate, but in
+                                        EWP the certificate used does not (currently) matter, because clients use other ways
+                                        of verifying that the response came from appropriate source. This means that clients
+                                        MAY simply ignore the attached digital signature (it is okay to not verify it in any
+                                        way).
+
+                                        That said, it seems that the best certificate to use for this, would be the same
+                                        certificate which was used to actually serve the ToRs API. (Clients SHOULD NOT rely
+                                        on this recommendation however, because it MAY change in the future.)
+                                    </xs:documentation>
+                                </xs:annotation>
+                            </xs:element>
+                        </xs:sequence>
+                    </xs:complexType>
+                </xs:element>
+            </xs:sequence>
+        </xs:complexType>
+    </xs:element>
+
+</xs:schema>

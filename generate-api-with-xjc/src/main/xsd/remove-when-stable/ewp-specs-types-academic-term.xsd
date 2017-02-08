@@ -1,0 +1,93 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<xs:schema
+    xmlns:xs="http://www.w3.org/2001/XMLSchema"
+    xmlns:xml="http://www.w3.org/XML/1998/namespace"
+    xmlns:ewp="https://github.com/erasmus-without-paper/ewp-specs-architecture/blob/stable-v1/common-types.xsd"
+    elementFormDefault="qualified"
+
+    targetNamespace="https://github.com/erasmus-without-paper/ewp-specs-types-academic-term/tree/master"
+    xmlns="https://github.com/erasmus-without-paper/ewp-specs-types-academic-term/tree/master"
+>
+    <!-- WRTODO: Replace all occurrences of 'master' (in all projects) with 'stable-v1' upon release. -->
+
+    <xs:import
+        schemaLocation="https://raw.githubusercontent.com/erasmus-without-paper/ewp-specs-architecture/stable-v1/common-types.xsd"
+        namespace="https://github.com/erasmus-without-paper/ewp-specs-architecture/blob/stable-v1/common-types.xsd"
+    />
+
+    <xs:annotation>
+        <xs:documentation>
+            This schema is a part of the Erasmus Without Paper project. Before you start
+            using it, make sure you have read the general rules described here:
+
+            http://developers.erasmuswithoutpaper.eu/
+        </xs:documentation>
+    </xs:annotation>
+
+    <xs:simpleType name="AcademicYearId">
+        <xs:annotation>
+            <xs:documentation>
+                A global identifier of an academic year.
+
+                On northern hemisphere, academic years start in September, and every academic
+                year can be identified by a string of the "2010/2011" form (where
+                this first integer is always equal to the first *plus one*).
+
+                On southern hemisphere, academic years typically start in January, and such
+                academic years will be identified by a string of the "2010/2010" (where the
+                second integer equals the first).
+
+                At the beginning of the EWP project clients MAY expect all academic years to
+                come in the northern hemisphere format.
+
+                More information here:
+                https://github.com/erasmus-without-paper/ewp-specs-architecture/issues/14
+            </xs:documentation>
+        </xs:annotation>
+        <xs:restriction base="xs:string">
+            <xs:pattern value="[0-9]{4}/[0-9]{4}"/>
+        </xs:restriction>
+    </xs:simpleType>
+
+    <xs:element name="academic-term">
+        <xs:complexType>
+            <xs:sequence>
+                <xs:element name="academic-year-id" minOccurs="1" maxOccurs="1" type="AcademicYearId">
+                    <xs:annotation>
+                        <xs:documentation>
+                            ID of the academic year which this term is part of.
+
+                            Server developers: Please note that the list of all possible IDs is *preset* by
+                            EWP (see AcademicYearId documentation). We are NOT refering to an internal IDs
+                            some of you might perhaps have in your local databases!
+                        </xs:documentation>
+                    </xs:annotation>
+                </xs:element>
+                <xs:element name="display-name" minOccurs="1" maxOccurs="unbounded" type="ewp:StringWithOptionalLang">
+                    <xs:annotation>
+                        <xs:documentation>
+                            The name of the academic term, formatted in a way if should be displayed to the
+                            users. Based on this name, the users should be able to uniquely identify which
+                            term it refers to. For example, "Winter Trimester 2010/2011".
+                        </xs:documentation>
+                    </xs:annotation>
+                </xs:element>
+                <xs:element name="start-date" minOccurs="1" maxOccurs="1" type="xs:date">
+                    <xs:annotation>
+                        <xs:documentation>
+                            First day of this term (inclusive).
+                        </xs:documentation>
+                    </xs:annotation>
+                </xs:element>
+                <xs:element name="end-date" minOccurs="1" maxOccurs="1" type="xs:date">
+                    <xs:annotation>
+                        <xs:documentation>
+                            Last day of this term (inclusive).
+                        </xs:documentation>
+                    </xs:annotation>
+                </xs:element>
+            </xs:sequence>
+        </xs:complexType>
+    </xs:element>
+
+</xs:schema>
