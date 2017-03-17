@@ -3,14 +3,14 @@
                xmlns:jaxb="http://java.sun.com/xml/ns/jaxb"
                xmlns:xs="http://www.w3.org/2001/XMLSchema">
 
-    <jaxb:bindings schemaLocation="../../xsd/ounits/response.xsd">
+    <jaxb:bindings schemaLocation="../../xsd/courses/response.xsd">
         <jaxb:schemaBindings>
-            <jaxb:package name="eu.erasmuswithoutpaper.api.ounits"/>
+            <jaxb:package name="eu.erasmuswithoutpaper.api.courses"/>
         </jaxb:schemaBindings>
     </jaxb:bindings>
-    <jaxb:bindings schemaLocation="../../xsd/ounits/manifest-entry.xsd">
+    <jaxb:bindings schemaLocation="../../xsd/courses/manifest-entry.xsd">
         <jaxb:schemaBindings>
-            <jaxb:package name="eu.erasmuswithoutpaper.api.ounits"/>
+            <jaxb:package name="eu.erasmuswithoutpaper.api.courses"/>
         </jaxb:schemaBindings>
     </jaxb:bindings>
 </jaxb:bindings>

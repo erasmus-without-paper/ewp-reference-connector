@@ -2,7 +2,7 @@
     xmlns:xs="http://www.w3.org/2001/XMLSchema"
     xmlns:xml="http://www.w3.org/XML/1998/namespace"
     xmlns:ewp="https://github.com/erasmus-without-paper/ewp-specs-architecture/blob/stable-v1/common-types.xsd"
-    xmlns:trm="https://github.com/erasmus-without-paper/ewp-specs-types-academic-term/tree/master"
+    xmlns:trm="https://github.com/erasmus-without-paper/ewp-specs-types-academic-term/tree/stable-v1"
     elementFormDefault="qualified"
 
     targetNamespace="https://github.com/erasmus-without-paper/ewp-specs-api-courses/tree/master"
@@ -16,9 +16,9 @@
     />
 
     <xs:import
-        schemaLocation="../remove-when-stable/ewp-specs-types-academic-term.xsd"
-        namespace="https://github.com/erasmus-without-paper/ewp-specs-types-academic-term/tree/master"
-    /> <!-- WRTODO: absolute paths! -->
+        schemaLocation="https://raw.githubusercontent.com/erasmus-without-paper/ewp-specs-types-academic-term/stable-v1/schema.xsd"
+        namespace="https://github.com/erasmus-without-paper/ewp-specs-types-academic-term/tree/stable-v1"
+    />
 
     <xs:import
         schemaLocation="http://www.w3.org/2001/03/xml.xsd"
@@ -46,7 +46,7 @@
                     <xs:annotation>
                         <xs:documentation>
                             This represents a single result. Servers will produce one such element for
-                            each of the `los_id` values passed in the Courses API call.
+                            each of the `los_id` or `los_code` values passed in the Courses API call.
 
                             This element describes a single Learning Opportunity entity, along with some
                             possible references to its "child nodes".
@@ -57,20 +57,15 @@
                             <xs:element name="los-id" minOccurs="1" maxOccurs="1" type="LosID">
                                 <xs:annotation>
                                     <xs:documentation>
-                                        Unique identifier of this LOS. Will always match one of the `los_id` values
-                                        passed in the Courses API call. It SHOULD NOT be displayed to the user (use
+                                        Unique identifier of this LOS. It SHOULD NOT be displayed to the user (use
                                         `los-code` for that).
 
                                         Read an introduction on LOS and LOI IDs here:
                                         https://github.com/erasmus-without-paper/ewp-specs-api-courses#unique-identifiers
 
-                                        Server implementers SHOULD use immutable surrogate keys for their work with EWP
-                                        (we recommend choosing UUID surrogate keys). Avoid using natural/business keys!
-
-                                        Related links:
-                                        https://github.com/erasmus-without-paper/ewp-specs-api-mobilities/issues/9
-                                        https://en.wikipedia.org/wiki/Surrogate_key
-                                        https://en.wikipedia.org/wiki/Natural_key
+                                        Server implementers MUST use immutable surrogate keys for their work with EWP
+                                        (we recommend choosing UUID surrogate keys). You can read about this here:
+                                        https://github.com/erasmus-without-paper/ewp-specs-architecture#ids
                                     </xs:documentation>
                                 </xs:annotation>
                             </xs:element>
@@ -84,9 +79,20 @@
                                         network.
 
                                         Related links:
-                                        https://github.com/erasmus-without-paper/ewp-specs-api-mobilities/issues/9
-                                        https://en.wikipedia.org/wiki/Surrogate_key
-                                        https://en.wikipedia.org/wiki/Natural_key
+                                        https://github.com/erasmus-without-paper/ewp-specs-architecture#ids
+                                    </xs:documentation>
+                                </xs:annotation>
+                            </xs:element>
+                            <xs:element name="ounit-id" minOccurs="0" maxOccurs="1" type="ewp:AsciiPrintableIdentifier">
+                                <xs:annotation>
+                                    <xs:documentation>
+                                        The ID of the Organizational Unit associated with this LOS.
+
+                                        For example, in case of courses, this should an "organizing faculty" of this
+                                        course. In case of other LOS types, you may look for the information on the
+                                        exact meaning in this thread:
+
+                                        https://github.com/erasmus-without-paper/ewp-specs-api-courses/issues/11
                                     </xs:documentation>
                                 </xs:annotation>
                             </xs:element>
@@ -198,6 +204,20 @@
                                         ISCED-F codes define fields of education and training at the secondary,
                                         post-secondary and tertiary levels of education. Details:
                                         http://www.uis.unesco.org/Education/Documents/isced-fields-of-education-training-2013.pdf
+                                    </xs:documentation>
+                                </xs:annotation>
+                            </xs:element>
+                            <xs:element name="eqfLevelProvided" type="ewp:EqfLevel" minOccurs="0" maxOccurs="1">
+                                <xs:annotation>
+                                    <xs:documentation>
+                                        If this element exists, then the hosting HEI says that completing this LOS
+                                        provides the students with knowledge, skills and competence (in particular
+                                        subject area) on the level described by the given EQF code.
+
+                                        Note, that in some partner systems this value is kept only for some types of
+                                        LOSes (for example, only for "Degree Programme" LOS types).
+
+                                        https://github.com/erasmus-without-paper/ewp-specs-api-courses/issues/8
                                     </xs:documentation>
                                 </xs:annotation>
                             </xs:element>
@@ -338,7 +358,7 @@
                                                         </xs:annotation>
                                                         <xs:complexType>
                                                             <xs:sequence>
-                                                                <xs:element name="category" maxOccurs="unbounded">
+                                                                <xs:element name="category" minOccurs="1" maxOccurs="unbounded">
                                                                     <xs:annotation>
                                                                         <xs:documentation>
                                                                             This describes a single range within the histogram.
@@ -416,7 +436,7 @@
                                                             </xs:sequence>
                                                         </xs:complexType>
                                                     </xs:element>
-                                                    <xs:element name="languageOfInstruction" type="xs:language" minOccurs="0">
+                                                    <xs:element name="languageOfInstruction" type="xs:language" minOccurs="0" maxOccurs="1">
                                                         <xs:annotation>
                                                             <xs:documentation>
                                                                 Recommended, especially for courses and/or classes. An ISO 639-1 code of the
@@ -429,7 +449,7 @@
                                                             </xs:documentation>
                                                         </xs:annotation>
                                                     </xs:element>
-                                                    <xs:element name="engagementHours" type="xs:decimal" minOccurs="0">
+                                                    <xs:element name="engagementHours" type="xs:decimal" minOccurs="0" maxOccurs="1">
                                                         <xs:annotation>
                                                             <xs:documentation>
                                                                 Recommended for courses or classes. The number of hours the student spends
@@ -485,7 +505,7 @@
                 https://github.com/erasmus-without-paper/ewp-specs-api-courses#unique-identifiers
             </xs:documentation>
         </xs:annotation>
-        <xs:restriction base="xs:string">
+        <xs:restriction base="ewp:AsciiPrintableIdentifier">
             <xs:pattern value="(CR|CLS|MOD|DEP)/(.{1,40})">
                 <xs:annotation>
                     <xs:documentation>
@@ -516,7 +536,7 @@
                 https://github.com/erasmus-without-paper/ewp-specs-api-courses#unique-identifiers
             </xs:documentation>
         </xs:annotation>
-        <xs:restriction base="xs:string">
+        <xs:restriction base="ewp:AsciiPrintableIdentifier">
             <xs:pattern value="(CRI|CLSI|MODI|DEPI)/(.{1,40})">
                 <xs:annotation>
                     <xs:documentation>

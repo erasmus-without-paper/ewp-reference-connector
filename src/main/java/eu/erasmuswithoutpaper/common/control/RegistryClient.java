@@ -66,62 +66,62 @@ public class RegistryClient {
     }
     
     public List<HeiEntry> getEwpInstanceHeisWithUrls() {
-        List<HeiEntry> heis = getHeis(EwpConstants.INSTITUTION_NAMESPACE, "institutions", EwpConstants.INSTITUTION_VERSION);
+        List<HeiEntry> heis = getHeis(EwpConstants.INSTITUTION_NAMESPACE, "institutions", EwpConstants.INSTITUTION_CLIENT_VERSION);
         heis.stream().forEach(hei -> hei.setUrls(getEwpInstanceHeiUrls(hei.getId())));
         return heis;
     }
     
     public Map<String, String> getEwpInstanceHeiUrls(String heiId) {
-        return getHeiUrls(heiId, EwpConstants.INSTITUTION_NAMESPACE, "institutions", EwpConstants.INSTITUTION_VERSION);
+        return getHeiUrls(heiId, EwpConstants.INSTITUTION_NAMESPACE, "institutions", EwpConstants.INSTITUTION_CLIENT_VERSION);
     }
     
     public List<HeiEntry> getEwpOrganizationUnitHeisWithUrls() {
-        List<HeiEntry> heis = getHeis(EwpConstants.ORGANIZATION_UNIT_NAMESPACE, "organizational-units", EwpConstants.ORGANIZATION_UNIT_VERSION);
+        List<HeiEntry> heis = getHeis(EwpConstants.ORGANIZATION_UNIT_NAMESPACE, "organizational-units", EwpConstants.ORGANIZATION_UNIT_CLIENT_VERSION);
         heis.stream().forEach(hei -> hei.setUrls(getEwpOrganizationUnitHeiUrls(hei.getId())));
         return heis;
     }
     
     public Map<String, String> getEwpOrganizationUnitHeiUrls(String heiId) {
-        return getHeiUrls(heiId, EwpConstants.ORGANIZATION_UNIT_NAMESPACE, "organizational-units", EwpConstants.ORGANIZATION_UNIT_VERSION);
+        return getHeiUrls(heiId, EwpConstants.ORGANIZATION_UNIT_NAMESPACE, "organizational-units", EwpConstants.ORGANIZATION_UNIT_CLIENT_VERSION);
     }
 
     public List<HeiEntry> getCoursesReplicationHeisWithUrls() {
-        List<HeiEntry> heis = getHeis(EwpConstants.COURSE_REPLICATION_NAMESPACE, "simple-course-replication", EwpConstants.COURSE_REPLICATION_VERSION);
+        List<HeiEntry> heis = getHeis(EwpConstants.COURSE_REPLICATION_NAMESPACE, "simple-course-replication", EwpConstants.COURSE_REPLICATION_CLIENT_VERSION);
         heis.stream().forEach(hei -> hei.setUrls(getCoursesReplicationHeiUrls(hei.getId())));
         return heis;
     }
 
     public Map<String, String> getCoursesReplicationHeiUrls(String heiId) {
-        return getHeiUrls(heiId, EwpConstants.COURSE_REPLICATION_NAMESPACE, "simple-course-replication", EwpConstants.COURSE_REPLICATION_VERSION);
+        return getHeiUrls(heiId, EwpConstants.COURSE_REPLICATION_NAMESPACE, "simple-course-replication", EwpConstants.COURSE_REPLICATION_CLIENT_VERSION);
     }
 
     public List<HeiEntry> getCoursesHeisWithUrls() {
-        List<HeiEntry> heis = getHeis(EwpConstants.COURSES_NAMESPACE, "courses", EwpConstants.COURSES_VERSION);
+        List<HeiEntry> heis = getHeis(EwpConstants.COURSES_NAMESPACE, "courses", EwpConstants.COURSES_CLIENT_VERSION);
         heis.stream().forEach(hei -> hei.setUrls(getCoursesHeiUrls(hei.getId())));
         return heis;
     }
 
     public Map<String, String> getCoursesHeiUrls(String heiId) {
-        return getHeiUrls(heiId, EwpConstants.COURSES_NAMESPACE, "courses", EwpConstants.COURSES_VERSION);
+        return getHeiUrls(heiId, EwpConstants.COURSES_NAMESPACE, "courses", EwpConstants.COURSES_CLIENT_VERSION);
     }
 
     
     public List<HeiEntry> getIiaHeisWithUrls() {
-        List<HeiEntry> heis = getHeis(EwpConstants.IIAS_NAMESPACE, "iias", EwpConstants.IIAS_VERSION);
+        List<HeiEntry> heis = getHeis(EwpConstants.IIAS_NAMESPACE, "iias", EwpConstants.IIAS_CLIENT_VERSION);
         heis.stream().forEach(hei -> hei.setUrls(getIiaHeiUrls(hei.getId())));
         return heis;
     }
 
     public Map<String, String> getIiaHeiUrls(String heiId) {
-        return getHeiUrls(heiId, EwpConstants.IIAS_NAMESPACE, "iias", EwpConstants.IIAS_VERSION);
+        return getHeiUrls(heiId, EwpConstants.IIAS_NAMESPACE, "iias", EwpConstants.IIAS_CLIENT_VERSION);
     }
             
     public List<HeiEntry> getEchoHeis() {
-        return getHeis(EwpConstants.ECHO_NAMESPACE, "echo", EwpConstants.ECHO_VERSION);
+        return getHeis(EwpConstants.ECHO_NAMESPACE, "echo", EwpConstants.ECHO_CLIENT_VERSION);
     }
     
     public Map<String, String> getEchoHeiUrls(String heiId) {
-        return getHeiUrls(heiId, EwpConstants.ECHO_NAMESPACE, "echo", EwpConstants.ECHO_VERSION);
+        return getHeiUrls(heiId, EwpConstants.ECHO_NAMESPACE, "echo", EwpConstants.ECHO_CLIENT_VERSION);
     }
     
     private Map<String, String> getHeiUrls(String heiId, String namespace, String name, String version) {

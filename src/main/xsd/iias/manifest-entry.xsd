@@ -37,29 +37,37 @@
             <xs:complexContent>
                 <xs:extension base="ewp:ManifestApiEntryBase">
                     <xs:sequence>
-                        <xs:element name="get-url" type="ewp:HTTPS">
+                        <xs:element name="get-url" type="ewp:HTTPS" minOccurs="1" maxOccurs="1">
                             <xs:annotation>
                                 <xs:documentation>
                                     An URL at which the IIA `get` endpoint is being served.
                                 </xs:documentation>
                             </xs:annotation>
                         </xs:element>
-                        <xs:element name="max-iia-ids" type="xs:positiveInteger">
+                        <xs:element name="max-iia-ids" type="xs:positiveInteger" minOccurs="1" maxOccurs="1">
                             <xs:annotation>
                                 <xs:documentation>
                                     The maximum number of `iia_id` parameters the server is willing to accept
-                                    in one request.
+                                    in one `get` request.
                                 </xs:documentation>
                             </xs:annotation>
                         </xs:element>
-                        <xs:element name="index-url" type="ewp:HTTPS">
+                        <xs:element name="max-iia-codes" type="xs:positiveInteger" minOccurs="1" maxOccurs="1">
+                            <xs:annotation>
+                                <xs:documentation>
+                                    The maximum number of `iia_code` parameters the server is willing to accept
+                                    in one `get` request.
+                                </xs:documentation>
+                            </xs:annotation>
+                        </xs:element>
+                        <xs:element name="index-url" type="ewp:HTTPS" minOccurs="1" maxOccurs="1">
                             <xs:annotation>
                                 <xs:documentation>
                                     An URL at which the IIA `index` endpoint is being served.
                                 </xs:documentation>
                             </xs:annotation>
                         </xs:element>
-                        <xs:element name="sends-notifications" type="ewp:Empty" minOccurs="0">
+                        <xs:element name="sends-notifications" type="ewp:Empty" minOccurs="0" maxOccurs="1">
                             <xs:annotation>
                                 <xs:documentation>
                                     If this element is present, then the EWP Host states, that it has implemented

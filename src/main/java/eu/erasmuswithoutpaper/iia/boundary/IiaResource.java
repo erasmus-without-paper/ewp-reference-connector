@@ -1,7 +1,7 @@
 package eu.erasmuswithoutpaper.iia.boundary;
 
-import eu.erasmuswithoutpaper.api.iia.endpoints.IiasGetResponse;
-import eu.erasmuswithoutpaper.api.iia.endpoints.IiasIndexResponse;
+import eu.erasmuswithoutpaper.api.iias.endpoints.IiasGetResponse;
+import eu.erasmuswithoutpaper.api.iias.endpoints.IiasIndexResponse;
 import eu.erasmuswithoutpaper.common.control.GlobalProperties;
 import eu.erasmuswithoutpaper.common.control.RegistryClient;
 import eu.erasmuswithoutpaper.error.control.EwpWebApplicationException;

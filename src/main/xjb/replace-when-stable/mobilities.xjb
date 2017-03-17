@@ -3,22 +3,22 @@
                xmlns:jaxb="http://java.sun.com/xml/ns/jaxb"
                xmlns:xs="http://www.w3.org/2001/XMLSchema">
 
-    <jaxb:bindings schemaLocation="../xsd/mobilities/endpoints/get-response.xsd">
+    <jaxb:bindings schemaLocation="../../xsd/mobilities/endpoints/get-response.xsd">
         <jaxb:schemaBindings>
             <jaxb:package name="eu.erasmuswithoutpaper.api.mobilities.endpoints"/>
         </jaxb:schemaBindings>
     </jaxb:bindings>
-    <jaxb:bindings schemaLocation="../xsd/mobilities/endpoints/index-response.xsd">
+    <jaxb:bindings schemaLocation="../../xsd/mobilities/endpoints/index-response.xsd">
         <jaxb:schemaBindings>
             <jaxb:package name="eu.erasmuswithoutpaper.api.mobilities.endpoints"/>
         </jaxb:schemaBindings>
     </jaxb:bindings>
-    <jaxb:bindings schemaLocation="../xsd/mobilities/endpoints/update-response.xsd">
+    <jaxb:bindings schemaLocation="../../xsd/mobilities/endpoints/update-response.xsd">
         <jaxb:schemaBindings>
             <jaxb:package name="eu.erasmuswithoutpaper.api.mobilities.endpoints"/>
         </jaxb:schemaBindings>
     </jaxb:bindings>
-    <jaxb:bindings schemaLocation="../xsd/mobilities/manifest-entry.xsd">
+    <jaxb:bindings schemaLocation="../../xsd/mobilities/manifest-entry.xsd">
         <jaxb:schemaBindings>
             <jaxb:package name="eu.erasmuswithoutpaper.api.mobilities"/>
         </jaxb:schemaBindings>

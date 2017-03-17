@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <xs:schema
     xmlns:xs="http://www.w3.org/2001/XMLSchema"
-    xmlns:a="https://github.com/erasmus-without-paper/ewp-specs-types-address/tree/master"
-    xmlns:p="https://github.com/erasmus-without-paper/ewp-specs-types-phonenumber/tree/master"
+    xmlns:a="https://github.com/erasmus-without-paper/ewp-specs-types-address/tree/stable-v1"
+    xmlns:p="https://github.com/erasmus-without-paper/ewp-specs-types-phonenumber/tree/stable-v1"
     xmlns:course="https://github.com/erasmus-without-paper/ewp-specs-api-courses/tree/master"
     xmlns:xml="http://www.w3.org/XML/1998/namespace"
     xmlns:ewp="https://github.com/erasmus-without-paper/ewp-specs-architecture/blob/stable-v1/common-types.xsd"
@@ -19,13 +19,13 @@
     /> <!-- WRTODO: absolute paths! -->
 
     <xs:import
-        schemaLocation="../../remove-when-stable/ewp-specs-types-address.xsd"
-        namespace="https://github.com/erasmus-without-paper/ewp-specs-types-address/tree/master"
+        schemaLocation="https://raw.githubusercontent.com/erasmus-without-paper/ewp-specs-types-address/stable-v1/schema.xsd"
+        namespace="https://github.com/erasmus-without-paper/ewp-specs-types-address/tree/stable-v1"
     /> <!-- WRTODO: absolute paths! -->
 
     <xs:import
-        schemaLocation="../../remove-when-stable/ewp-specs-types-phonenumber.xsd"
-        namespace="https://github.com/erasmus-without-paper/ewp-specs-types-phonenumber/tree/master"
+        schemaLocation="https://raw.githubusercontent.com/erasmus-without-paper/ewp-specs-types-phonenumber/stable-v1/schema.xsd"
+        namespace="https://github.com/erasmus-without-paper/ewp-specs-types-phonenumber/tree/stable-v1"
     /> <!-- WRTODO: absolute paths! -->
 
     <xs:import

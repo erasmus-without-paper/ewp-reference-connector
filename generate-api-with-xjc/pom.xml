@@ -4,7 +4,35 @@
     <groupId>eu.erasmuswithoutpaper</groupId>
     <artifactId>ewp-connector-api</artifactId>
     <version>1.0-SNAPSHOT</version>
+    <packaging>jar</packaging>
+    
+    <name>EWP Connector API</name>
+    <description>Generated API classes for EWP network.</description>
+    <url>https://github.com/erasmus-without-paper/ewp-reference-connector/tree/master/generate-api-with-xjc</url>
 
+    <licenses>
+        <license>
+            <name>The Apache Software License, Version 2.0</name>
+            <url>http://www.apache.org/licenses/LICENSE-2.0.txt</url>
+            <distribution>repo</distribution>
+        </license>
+    </licenses>
+
+    <developers>
+        <developer>
+            <id>hakanll</id>
+            <name>Håkan Lindgren</name>
+            <email>hakan.lindgren@umu.se</email>
+            <url>https://github.com/hakanll</url>
+        </developer>
+    </developers>
+    
+    <scm>
+        <connection>scm:git:git://github.com/erasmus-without-paper/ewp-reference-connector.git</connection>
+        <developerConnection>scm:git:git@github.com:erasmus-without-paper/ewp-reference-connector.git</developerConnection>
+        <url>https://github.com/erasmus-without-paper/ewp-reference-connector</url>
+    </scm>
+    
     <build>
         <plugins>
             <plugin>
@@ -56,8 +84,8 @@
                 <version>2.3.2</version>
                 <configuration>
                     <encoding>${project.build.sourceEncoding}</encoding>
-                    <source>1.8</source>
-                    <target>1.8</target>
+                    <source>${maven.compiler.source}</source>
+                    <target>${maven.compiler.target}</target>
                 </configuration>
             </plugin>
             <plugin>
@@ -74,7 +102,21 @@
                     </execution>
                 </executions>
             </plugin>
-	  </plugins>
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-gpg-plugin</artifactId>
+                <version>1.5</version>
+                <executions>
+                    <execution>
+                        <id>sign-artifacts</id>
+                        <phase>verify</phase>
+                        <goals>
+                            <goal>sign</goal>
+                        </goals>
+                    </execution>
+                </executions>
+            </plugin>
+        </plugins>
     </build>
     <properties>
         <maven.compiler.source>1.8</maven.compiler.source>

@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <xs:schema
     xmlns:xs="http://www.w3.org/2001/XMLSchema"
-    xmlns:c="https://github.com/erasmus-without-paper/ewp-specs-types-contact/tree/master"
+    xmlns:c="https://github.com/erasmus-without-paper/ewp-specs-types-contact/tree/stable-v1"
     xmlns:ewp="https://github.com/erasmus-without-paper/ewp-specs-architecture/blob/stable-v1/common-types.xsd"
-    xmlns:trm="https://github.com/erasmus-without-paper/ewp-specs-types-academic-term/tree/master"
+    xmlns:trm="https://github.com/erasmus-without-paper/ewp-specs-types-academic-term/tree/stable-v1"
     elementFormDefault="qualified"
 
     targetNamespace="https://github.com/erasmus-without-paper/ewp-specs-api-iias/blob/master/endpoints/get-response.xsd"
@@ -17,13 +17,13 @@
     />
 
     <xs:import
-        schemaLocation="../../remove-when-stable/ewp-specs-types-contact.xsd"
-        namespace="https://github.com/erasmus-without-paper/ewp-specs-types-contact/tree/master"
+        schemaLocation="https://raw.githubusercontent.com/erasmus-without-paper/ewp-specs-types-contact/stable-v1/schema.xsd"
+        namespace="https://github.com/erasmus-without-paper/ewp-specs-types-contact/tree/stable-v1"
     /> <!-- WRTODO: absolute paths! -->
 
     <xs:import
-        schemaLocation="../../remove-when-stable/ewp-specs-types-academic-term.xsd"
-        namespace="https://github.com/erasmus-without-paper/ewp-specs-types-academic-term/tree/master"
+        schemaLocation="https://raw.githubusercontent.com/erasmus-without-paper/ewp-specs-types-academic-term/stable-v1/schema.xsd"
+        namespace="https://github.com/erasmus-without-paper/ewp-specs-types-academic-term/tree/stable-v1"
     /> <!-- WRTODO: absolute paths! -->
 
     <xs:annotation>

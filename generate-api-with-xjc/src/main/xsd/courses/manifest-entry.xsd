@@ -43,17 +43,25 @@
             <xs:complexContent>
                 <xs:extension base="ewp:ManifestApiEntryBase">
                     <xs:sequence>
-                        <xs:element name="url" type="ewp:HTTPS">
+                        <xs:element name="url" type="ewp:HTTPS" minOccurs="1" maxOccurs="1">
                             <xs:annotation>
                                 <xs:documentation>
                                     An URL at which the Courses API is being served.
                                 </xs:documentation>
                             </xs:annotation>
                         </xs:element>
-                        <xs:element name="max-los-ids" type="xs:positiveInteger">
+                        <xs:element name="max-los-ids" type="xs:positiveInteger" minOccurs="1" maxOccurs="1">
                             <xs:annotation>
                                 <xs:documentation>
                                     The maximum number of `los_id` parameters the server is willing to accept
+                                    in one request.
+                                </xs:documentation>
+                            </xs:annotation>
+                        </xs:element>
+                        <xs:element name="max-los-codes" type="xs:positiveInteger" minOccurs="1" maxOccurs="1">
+                            <xs:annotation>
+                                <xs:documentation>
+                                    The maximum number of `los_code` parameters the server is willing to accept
                                     in one request.
                                 </xs:documentation>
                             </xs:annotation>

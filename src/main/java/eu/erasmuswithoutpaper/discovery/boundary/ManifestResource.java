@@ -7,7 +7,7 @@ import eu.erasmuswithoutpaper.api.courses.replication.SimpleCourseReplication;
 import eu.erasmuswithoutpaper.api.discovery.Discovery;
 import eu.erasmuswithoutpaper.api.discovery.Manifest;
 import eu.erasmuswithoutpaper.api.echo.Echo;
-import eu.erasmuswithoutpaper.api.iia.Iias;
+import eu.erasmuswithoutpaper.api.iias.Iias;
 import eu.erasmuswithoutpaper.api.institutions.Institutions;
 import eu.erasmuswithoutpaper.api.mobilities.Mobilities;
 import eu.erasmuswithoutpaper.api.ounits.OrganizationalUnits;
@@ -135,6 +135,7 @@ public class ManifestResource {
         organizationalUnits.setVersion(EwpConstants.ORGANIZATION_UNIT_VERSION);
         organizationalUnits.setUrl(getBaseUri() + "ounits");
         organizationalUnits.setMaxOunitIds(BigInteger.valueOf(globalProperties.getMaxOunitsIds()));
+        organizationalUnits.setMaxOunitCodes(BigInteger.valueOf(globalProperties.getMaxOunitsIds()));
         return organizationalUnits;
     }
 
@@ -143,6 +144,7 @@ public class ManifestResource {
         courses.setVersion(EwpConstants.COURSES_VERSION);
         courses.setUrl(getBaseUri() + "courses");
         courses.setMaxLosIds(BigInteger.valueOf(globalProperties.getMaxLosIds()));
+        courses.setMaxLosCodes(BigInteger.valueOf(globalProperties.getMaxLosIds()));
         return courses;
     }
 
@@ -172,6 +174,7 @@ public class ManifestResource {
         iias.setIndexUrl(getBaseUri() + "iias/index");
         iias.setGetUrl(getBaseUri() + "iias/get");
         iias.setMaxIiaIds(BigInteger.valueOf(globalProperties.getMaxIiaIds()));
+        iias.setMaxIiaCodes(BigInteger.valueOf(globalProperties.getMaxIiaIds()));
         //iias.setSendsNotifications();
         return iias;
     }

@@ -92,7 +92,7 @@ public class GuiIiaResource {
     @Path("iias-index")
     @Produces(MediaType.APPLICATION_JSON)
     public javax.ws.rs.core.Response iiasIndex(ClientRequest clientRequest) {
-        ClientResponse iiaResponse = restClient.sendRequest(clientRequest, eu.erasmuswithoutpaper.api.iia.endpoints.IiasIndexResponse.class);
+        ClientResponse iiaResponse = restClient.sendRequest(clientRequest, eu.erasmuswithoutpaper.api.iias.endpoints.IiasIndexResponse.class);
         return javax.ws.rs.core.Response.ok(iiaResponse).build();
     }
     
@@ -100,7 +100,7 @@ public class GuiIiaResource {
     @Path("iias")
     @Produces(MediaType.APPLICATION_JSON)
     public javax.ws.rs.core.Response iias(ClientRequest clientRequest) {
-        ClientResponse iiaResponse = restClient.sendRequest(clientRequest, eu.erasmuswithoutpaper.api.iia.endpoints.IiasGetResponse.class);
+        ClientResponse iiaResponse = restClient.sendRequest(clientRequest, eu.erasmuswithoutpaper.api.iias.endpoints.IiasGetResponse.class);
         return javax.ws.rs.core.Response.ok(iiaResponse).build();
     }
 }
