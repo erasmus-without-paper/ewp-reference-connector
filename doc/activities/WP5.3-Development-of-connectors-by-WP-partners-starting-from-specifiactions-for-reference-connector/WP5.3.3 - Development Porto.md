@@ -15,8 +15,7 @@
 #### Developing members
 |     Role       |      Name         |              Email adress                 |
 | -------------  | ----------------- | ----------------------------------------- |
-|      -         |                   |                                           |
-|      -         |                   |                                           |
+| Developer      | Jorge Santos      |   jmsantos@reit.up.pt                     |
 |      -         |                   |                                           |             
 
 Other important information _(please specify below:)_ 
