@@ -6,9 +6,9 @@ This table shows which partner who had developed which API and are ready for int
 | API/Partner                                 | Umeå  | Gent  | Porto |  SOP  | KION  | Sigma | Oslo  | Warsaw | Others|
 | ------------------------------------------- | ----- | ----- | ----- | ----- | ----- | ----- | ----- | ------ | ----- |
 | **DEVELOPMENT Chapter 3 Due:DECEMBER 2016** |       |       |       |       |       |       |       |        |       |
-| In Registry                                 |:link: |:link: |:soon: |:link: |:soon: |:link: |   -   |:link:  |   -   |
-| Discovery                                   |:star: |:star: |:soon: |:star: |:soon: |:star: |:soon: |:star:  |   -   |
-| Echo                                        |:star: |:star: |:soon: |:star: |:soon: |:star: |:soon: |:star:  |   -   |
+| In Registry                                 |:link: |:link: |:soon: |:link: |:soon: |:link: |:link: |:link:  |   -   |
+| Discovery                                   |:star: |:star: |:soon: |:star: |:soon: |:star: |:star: |:star:  |   -   |
+| Echo                                        |:star: |:star: |:soon: |:star: |:soon: |:star: |:star: |:star:  |   -   |
 | **DEVELOPMENT Chapter 5 Due:January 2017**  |       |       |       |       |       |       |       |        |       | 
 | Institutions                                |:star: |:star: |   -   |:star: |   -   |:soon: |   -   |:star:  |   -   |
 | Organizational units                        |:star: |:star: |   -   |   -   |   -   |   -   |   -   |:star:  |   -   |
