@@ -1,0 +1,65 @@
+<div class="container">
+    <h1 class="page-header">Organization unit</h1>
+    <div class="well">Note, organization unit identifiers are cached when runnig the <a href="#/institution-client">institution client</a>
+    and is shown in the cached tab.</div>
+    <div class="panel panel-body">
+        <form class="form-horizontal" ng-submit="sendOrganizationUnitRequest()">
+            <div class="form-group">
+                <label class="control-label" for="hei">Method:</label>
+                <select id="hei" class="form-control" ng-model="organizationUnitRequest.method">
+                    <option value="GET">GET</option>
+                    <option value="POST">POST</option>
+                    <option value="PUT">PUT</option>
+                </select>
+            </div>
+
+            <div class="form-group">
+                <label class="control-label" for="hei">EWP URL:</label>
+                <select id="url" class="form-control" ng-model="organizationUnitRequest.url" required="required" ng-change="urlChanged()">
+                    <option style="display:none" value="">select an EWP URL</option>
+                    <option ng-repeat="url in urls | orderBy: 'toString()'" value="{{url}}">{{url}}</option>
+                </select>
+            </div>
+
+            <div class="form-group">
+                <label class="control-label" for="hei">Institution:</label>
+                <select id="url" class="form-control" ng-model="organizationUnitRequest.heiId" required="required" ng-change="institutionChanged()">
+                    <option style="display:none" value="">select an institution</option>
+                    <option ng-repeat="hei in urlHeis | orderBy: 'name'" value="{{hei.id}}">{{hei.name}}</option>
+                </select>
+            </div>
+            
+            <ul class="nav nav-tabs">
+                <li ng-class="{'active':!cachedIds}"><a ng-click="cachedIds=false">Manually</a></li>
+                <li ng-class="{'active':cachedIds}"><a ng-click="cachedIds=true">Cached</a></li>
+            </ul>
+            <div class="panel-body">
+                <div class="tab-content clearfix" ng-show="!cachedIds">
+                    <div class="form-group">
+                        <label class="control-label" for="hei1">Organization unit identifiers (comma separated):</label>
+                        <input id="hei1" class="form-control" ng-model="manuallyOrgUnitIds">
+                    </div>
+                </div>
+                <div ng-show="cachedIds">
+                    <div class="form-group">
+                        <label class="control-label" for="hei2">Organization unit identifiers:</label>
+                        <select id="hei2" class="form-control" ng-model="cachedOrgUnitIds" multiple>
+                            <option style="display:none" value="">Select organization units</option>
+                            <option ng-repeat="ounitId in heiOrganizationUnits" value="{{ounitId}}">{{ounitId}}</option>
+                        </select>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="input-group">
+                <div class="btn-group">
+                    <button type="submit" class="btn btn-default">
+                        <i class="glyphicon glyphicon-send"></i> Send Request
+                    </button>
+                </div>
+            </div>
+        </form>
+    </div>
+
+    <div data-client-result="organizationUnitResult" data-formatted-template="'partials/ounit_formatted_result.html'"></div>
+</div>

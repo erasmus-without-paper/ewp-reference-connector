@@ -2,7 +2,7 @@
          xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
     <modelVersion>4.0.0</modelVersion>
     <groupId>eu.erasmuswithoutpaper</groupId>
-    <artifactId>connector</artifactId>
+    <artifactId>ewp-reference-connector</artifactId>
     <version>1.0-SNAPSHOT</version>
     <packaging>war</packaging>
     <dependencies>
@@ -21,6 +21,11 @@
             <groupId>com.fasterxml.jackson.core</groupId>
             <artifactId>jackson-databind</artifactId>
             <version>2.8.5</version>
+        </dependency>
+        <dependency>
+            <groupId>org.eclipse.persistence</groupId>
+            <artifactId>eclipselink</artifactId>
+            <version>2.6.4</version>
         </dependency>
 
         <!-- Provided dependencies -->
@@ -54,12 +59,6 @@
             <groupId>org.glassfish.jersey.test-framework.providers</groupId>
             <artifactId>jersey-test-framework-provider-grizzly2</artifactId>
             <version>${jersey.version}</version>
-            <scope>test</scope>
-        </dependency>
-        <dependency>
-            <groupId>org.eclipse.persistence</groupId>
-            <artifactId>eclipselink</artifactId>
-            <version>2.5.1</version>
             <scope>test</scope>
         </dependency>
         <dependency>
@@ -119,31 +118,31 @@
                         <phase>generate-resources</phase>
                     </execution>
                     <execution>
-                         <id>bower install</id>
-                         <goals>
+                        <id>bower install</id>
+                        <goals>
                             <goal>bower</goal>
-                         </goals>
-                         <configuration>
+                        </goals>
+                        <configuration>
                             <arguments>install</arguments>
-                         </configuration>
+                        </configuration>
                     </execution>
                     <execution>
-                         <id>gulp build</id>
-                         <goals>
-                             <goal>gulp</goal>
-                         </goals>
-                         <phase>generate-resources</phase>
+                        <id>gulp build</id>
+                        <goals>
+                            <goal>gulp</goal>
+                        </goals>
+                        <phase>generate-resources</phase>
                     </execution>
-                    
+
                     <!-- Run karma tests -->
                     <execution>
-                            <id>javascript tests</id>
-                            <goals>
-                                    <goal>karma</goal>
-                            </goals>
-                            <configuration>
-                                    <karmaConfPath>src/test/javascript/karma.conf.js</karmaConfPath>
-                            </configuration>
+                        <id>javascript tests</id>
+                        <goals>
+                            <goal>karma</goal>
+                        </goals>
+                        <configuration>
+                            <karmaConfPath>src/test/javascript/karma.conf.js</karmaConfPath>
+                        </configuration>
                     </execution>
                 </executions>
                 <configuration>
@@ -152,11 +151,11 @@
                     <skip>${frontend.skip}</skip -->
                 </configuration>
             </plugin>
-            
+
             <plugin>
-            <!-- We use this plugin to ensure that our usage of the
-            maven-jaxb2-plugin is JDK 8 compatible in absence of a fix
-            for jaxb2-maven-plugin. -->
+                <!-- We use this plugin to ensure that our usage of the
+                maven-jaxb2-plugin is JDK 8 compatible in absence of a fix
+                for jaxb2-maven-plugin. -->
                 <groupId>org.codehaus.mojo</groupId>
                 <artifactId>properties-maven-plugin</artifactId>
                 <version>1.0.0</version>
@@ -202,6 +201,8 @@
                 <version>2.3.2</version>
                 <configuration>
                     <encoding>${project.build.sourceEncoding}</encoding>
+                    <source>${maven.compiler.source}</source>
+                    <target>${maven.compiler.target}</target>
                 </configuration>
             </plugin>
             <plugin>
@@ -210,6 +211,22 @@
                 <version>2.4.3</version>
                 <configuration>
                     <encoding>${project.build.sourceEncoding}</encoding>
+                </configuration>
+            </plugin>
+            <plugin>
+                <groupId>com.spotify</groupId>
+                <artifactId>docker-maven-plugin</artifactId>
+                <version>${docker.plugin.version}</version>
+                <configuration>
+                    <imageName>reference-connector</imageName>
+                    <dockerDirectory>docker</dockerDirectory>
+                    <resources>
+                        <resource>
+                            <targetPath>/</targetPath>
+                            <directory>${project.build.directory}</directory>
+                            <include>${project.build.finalName}.war</include>
+                        </resource>
+                    </resources>
                 </configuration>
             </plugin>
         </plugins>
@@ -222,5 +239,6 @@
         <jaxb2.version>2.3</jaxb2.version>
         <karmaConfPath>src/test/javascript/karma.conf.js</karmaConfPath>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+        <docker.plugin.version>0.4.13</docker.plugin.version>
     </properties>
 </project>

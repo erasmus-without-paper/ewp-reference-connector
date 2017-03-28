@@ -2,17 +2,26 @@
     <h1 class="page-header">Echo</h1>
     <div class="panel panel-body">
         <div class="form-group">
-            <label class="control-label" for="hei">Institution:</label>
-            <select id="hei" class="form-control" ng-model="echoRequest.heiId" required="required">
-                <option style="display:none" value="">select an institution</option>
-                <option ng-repeat="hei in echoHeis" value="{{hei.id}}">{{hei.name}}</option>
+            <label class="control-label" for="hei">Method:</label>
+            <select id="hei" class="form-control" ng-model="echoRequest.method">
+                <option value="GET">GET</option>
+                <option value="POST">POST</option>
+                <option value="PUT">PUT</option>
             </select>
         </div>
         
         <div class="form-group">
+            <label class="control-label" for="hei">Institution:</label>
+            <select id="hei" class="form-control" ng-model="echoRequest.heiId" required="required">
+                <option style="display:none" value="">select an institution</option>
+                <option ng-repeat="hei in echoHeis | orderBy: 'name'" value="{{hei.id}}">{{hei.name}}</option>
+            </select>
+        </div>
+
+        <div class="form-group">
             <label class="control-label">Echo</label>
-            <div ng-repeat="echoItem in echoRequest.echo track by $index">
-                <input class="form-control" placeholder="Echo text" ng-model="echoRequest.echo[$index]"/>
+            <div ng-repeat="echoItem in echoRequest.params.echo track by $index">
+                <input class="form-control" placeholder="Echo text" ng-model="echoRequest.params.echo[$index]"/>
             </div>
         </div>
 
@@ -31,10 +40,5 @@
         
     </div>
 
-    <div class="panel panel-default" ng-show="echoResult">
-        <div class="panel-heading"><h2>Response</h2></div>
-        <div class="panel-body">
-            {{echoResult}}
-        </div>
-    </div>
+    <div data-client-result="echoResult" data-formatted-template="'partials/echo_formatted_result.html'"></div>
 </div>

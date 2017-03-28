@@ -34,7 +34,6 @@ public class AcademicTermTest {
         academicTerm.setOrganizationUnitId("orgUnitId33");
         AcademicYear year = new AcademicYear("2016", "2017");
         academicTerm.setAcademicYear(year);
-        academicTerm.setAcademicTermId("academicTermId1");
         List<LanguageItem> dispName = new ArrayList();
         LanguageItem dispNameEn = new LanguageItem("DispNameEn", LanguageItem.ENGLISH);
         dispName.add(dispNameEn);
@@ -43,10 +42,9 @@ public class AcademicTermTest {
         this.tx.begin();
         this.em.persist(year);
         this.em.persist(academicTerm);
-        this.tx.commit();
-        this.em.clear();
-        
         AcademicTerm result = em.find(AcademicTerm.class, academicTerm.getId());
+        this.tx.rollback();
+        
         Assert.assertNotNull(result);
         Assert.assertEquals("DispNameEn", result.getDispName().get(0).getText());
     }

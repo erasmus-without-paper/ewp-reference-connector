@@ -1,16 +1,22 @@
 
 package eu.erasmuswithoutpaper.course.entity;
 
+import eu.erasmuswithoutpaper.mobility.entity.ResultDistribution;
 import java.io.Serializable;
+import java.math.BigDecimal;
+import java.util.List;
+import java.util.Objects;
 import javax.persistence.CascadeType;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
+import javax.persistence.JoinTable;
 import javax.persistence.ManyToOne;
 import javax.persistence.NamedQuery;
+import javax.persistence.OneToMany;
+import javax.persistence.OneToOne;
 
 @Entity(name="loi")
 @NamedQuery(name = LearningOpportunityInstance.findAll, query = "SELECT l FROM loi l")
@@ -20,51 +26,34 @@ public class LearningOpportunityInstance implements Serializable {
     public static final String findAll = PREFIX + "all";
 
     @Id
-    @GeneratedValue(strategy=GenerationType.AUTO)
-    long id;
+    @GeneratedValue(generator="system-uuid")
+    String id;
 
-    private String institutionId;
-    private String organizationUnitId;
-    
-    @ManyToOne(cascade = CascadeType.DETACH, fetch = FetchType.EAGER)
-    @JoinColumn(name = "LOS_ID", referencedColumnName = "ID")
-    private LearningOpportunitySpecification learningOppSpec;
-    
     @ManyToOne(cascade = CascadeType.DETACH, fetch = FetchType.EAGER)
     @JoinColumn(name = "ACADEMIC_TERM_ID", referencedColumnName = "ID")
     private AcademicTerm academicTerm;
-    private String credits;
+    
+    @OneToMany(cascade = CascadeType.ALL, fetch = FetchType.EAGER)
+    @JoinTable(name = "LOI_CREDITS")
+    private List<Credit> credits;
+    
+    @ManyToOne(cascade = CascadeType.DETACH, fetch = FetchType.EAGER)
+    @JoinColumn(name = "GRADING_SCHEME_ID", referencedColumnName = "ID")
+    private GradingScheme gradingScheme;
+    
+    @OneToOne(cascade = CascadeType.ALL, fetch = FetchType.EAGER)
+    @JoinColumn(name = "RESULT_DISTRIBUTION", referencedColumnName = "ID")
+    private ResultDistribution resultDistribution;
 
-    public long getId() {
+    private String languageOfInstruction;
+    private BigDecimal engagementHours;
+
+    public String getId() {
         return id;
     }
 
-    public void setId(long id) {
+    public void setId(String id) {
         this.id = id;
-    }
-
-    public String getInstitutionId() {
-        return institutionId;
-    }
-
-    public void setInstitutionId(String institutionId) {
-        this.institutionId = institutionId;
-    }
-
-    public String getOrganizationUnitId() {
-        return organizationUnitId;
-    }
-
-    public void setOrganizationUnitId(String organizationUnitId) {
-        this.organizationUnitId = organizationUnitId;
-    }
-    
-    public LearningOpportunitySpecification getLearningOppSpec() {
-        return learningOppSpec;
-    }
-
-    public void setLearningOppSpec(LearningOpportunitySpecification learningOppSpec) {
-        this.learningOppSpec = learningOppSpec;
     }
 
     public AcademicTerm getAcademicTerm() {
@@ -75,18 +64,50 @@ public class LearningOpportunityInstance implements Serializable {
         this.academicTerm = academicTerm;
     }
 
-    public String getCredits() {
+    public List<Credit> getCredits() {
         return credits;
     }
 
-    public void setCredits(String credits) {
+    public void setCredits(List<Credit> credits) {
         this.credits = credits;
+    }
+
+    public GradingScheme getGradingScheme() {
+        return gradingScheme;
+    }
+
+    public void setGradingScheme(GradingScheme gradingScheme) {
+        this.gradingScheme = gradingScheme;
+    }
+
+    public String getLanguageOfInstruction() {
+        return languageOfInstruction;
+    }
+
+    public void setLanguageOfInstruction(String languageOfInstruction) {
+        this.languageOfInstruction = languageOfInstruction;
+    }
+
+    public ResultDistribution getResultDistribution() {
+        return resultDistribution;
+    }
+
+    public void setResultDistribution(ResultDistribution resultDistribution) {
+        this.resultDistribution = resultDistribution;
+    }
+
+    public BigDecimal getEngagementHours() {
+        return engagementHours;
+    }
+
+    public void setEngagementHours(BigDecimal engagementHours) {
+        this.engagementHours = engagementHours;
     }
 
     @Override
     public int hashCode() {
-        int hash = 3;
-        hash = 13 * hash + (int) (this.id ^ (this.id >>> 32));
+        int hash = 5;
+        hash = 67 * hash + Objects.hashCode(this.id);
         return hash;
     }
 
@@ -102,10 +123,9 @@ public class LearningOpportunityInstance implements Serializable {
             return false;
         }
         final LearningOpportunityInstance other = (LearningOpportunityInstance) obj;
-        if (this.id != other.id) {
+        if (!Objects.equals(this.id, other.id)) {
             return false;
         }
         return true;
     }
-    
 }

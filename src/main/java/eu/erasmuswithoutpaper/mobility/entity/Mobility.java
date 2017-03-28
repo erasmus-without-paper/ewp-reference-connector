@@ -1,61 +1,76 @@
 
 package eu.erasmuswithoutpaper.mobility.entity;
 
+import eu.erasmuswithoutpaper.iia.entity.MobilityType;
+import eu.erasmuswithoutpaper.internal.StandardDateConverter;
 import java.io.Serializable;
 import java.util.Date;
+import java.util.Objects;
+import javax.persistence.CascadeType;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
+import javax.persistence.NamedQueries;
+import javax.persistence.NamedQuery;
+import javax.persistence.OneToOne;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
+import org.apache.johnzon.mapper.JohnzonConverter;
 
 @Entity
-public class Mobility implements Serializable{
+@NamedQueries({
+    @NamedQuery(name = Mobility.findAll, query = "SELECT m FROM Mobility m"),
+    @NamedQuery(name = Mobility.findBySendingInstitutionId, query = "SELECT m FROM Mobility m WHERE m.sendingInstitutionId=:sendingInstitutionId"),
+})
+public class Mobility implements Serializable {
 
-    @Id
-    @GeneratedValue(strategy=GenerationType.AUTO)
-    long id;
+    private static final String PREFIX = "eu.erasmuswithoutpaper.mobility.entity.Mobility.";
+    public static final String findAll = PREFIX + "all";
+    public static final String findBySendingInstitutionId = PREFIX + "findBySendingInstitutionId";
     
-    private String mobilityId;
+    @Id
+    @GeneratedValue(generator="system-uuid")
+    String id;
+    
     private int mobilityRevision;
     private String iiaId;
+    private String cooperationConditionId;
     private String sendingInstitutionId;
-    private String receivingInstitutionId;
     private String sendingOrganizationUnitId;
+    private String receivingInstitutionId;
     private String receivingOrganizationUnitId;
-    private String personId;
-    private String mobilityType;
+    private String mobilityParticipantId;
+    
+    @ManyToOne(cascade = CascadeType.DETACH, fetch = FetchType.EAGER)
+    @JoinColumn(name = "MOBILITY_TYPE_ID", referencedColumnName = "ID")
+    private MobilityType mobilityType;
+    
     private MobilityStatus status;
     
+    @JohnzonConverter(StandardDateConverter.class)
     @Temporal(TemporalType.DATE)
-    private Date startDate;
+    private Date plannedArrivalDate;
     
+    @JohnzonConverter(StandardDateConverter.class)
     @Temporal(TemporalType.DATE)
-    private Date endDate;
+    private Date plannedDepartureDate;
+    
     private String iscedCode;
-    private String eqfLevel;
-
-    public Mobility() {}
-    public Mobility(String mobilityId, int mobilityRevision) {
-        this.mobilityId = mobilityId;
-        this.mobilityRevision = mobilityRevision;
-    }
-
-    public long getId() {
+    private byte eqfLevel;
+    
+    @OneToOne(cascade = CascadeType.ALL, fetch = FetchType.EAGER)
+    @JoinColumn(name = "LEARNING_AGREEMENT")
+    private LearningAgreement learningAgreement;
+    
+    public String getId() {
         return id;
     }
 
-    public void setId(long id) {
+    public void setId(String id) {
         this.id = id;
-    }
-
-    public String getMobilityId() {
-        return mobilityId;
-    }
-
-    public void setMobilityId(String mobilityId) {
-        this.mobilityId = mobilityId;
     }
 
     public int getMobilityRevision() {
@@ -74,6 +89,14 @@ public class Mobility implements Serializable{
         this.iiaId = iiaId;
     }
 
+    public String getCooperationConditionId() {
+        return cooperationConditionId;
+    }
+
+    public void setCooperationConditionId(String cooperationConditionId) {
+        this.cooperationConditionId = cooperationConditionId;
+    }
+    
     public String getSendingInstitutionId() {
         return sendingInstitutionId;
     }
@@ -106,19 +129,19 @@ public class Mobility implements Serializable{
         this.receivingOrganizationUnitId = receivingOrganizationUnitId;
     }
 
-    public String getPersonId() {
-        return personId;
+    public String getMobilityParticipantId() {
+        return mobilityParticipantId;
     }
 
-    public void setPersonId(String personId) {
-        this.personId = personId;
+    public void setMobilityParticipantId(String mobilityParticipantId) {
+        this.mobilityParticipantId = mobilityParticipantId;
     }
 
-    public String getMobilityType() {
+    public MobilityType getMobilityType() {
         return mobilityType;
     }
 
-    public void setMobilityType(String mobilityType) {
+    public void setMobilityType(MobilityType mobilityType) {
         this.mobilityType = mobilityType;
     }
 
@@ -130,20 +153,20 @@ public class Mobility implements Serializable{
         this.status = status;
     }
 
-    public Date getStartDate() {
-        return startDate;
+    public Date getPlannedArrivalDate() {
+        return plannedArrivalDate;
     }
 
-    public void setStartDate(Date startDate) {
-        this.startDate = startDate;
+    public void setPlannedArrivalDate(Date plannedArrivalDate) {
+        this.plannedArrivalDate = plannedArrivalDate;
     }
 
-    public Date getEndDate() {
-        return endDate;
+    public Date getPlannedDepartureDate() {
+        return plannedDepartureDate;
     }
 
-    public void setEndDate(Date endDate) {
-        this.endDate = endDate;
+    public void setPlannedDepartureDate(Date plannedDepartureDate) {
+        this.plannedDepartureDate = plannedDepartureDate;
     }
 
     public String getIscedCode() {
@@ -154,18 +177,26 @@ public class Mobility implements Serializable{
         this.iscedCode = iscedCode;
     }
 
-    public String getEqfLevel() {
+    public byte getEqfLevel() {
         return eqfLevel;
     }
 
-    public void setEqfLevel(String eqfLevel) {
+    public void setEqfLevel(byte eqfLevel) {
         this.eqfLevel = eqfLevel;
     }
 
+    public LearningAgreement getLearningAgreement() {
+        return learningAgreement;
+    }
+
+    public void setLearningAgreement(LearningAgreement learningAgreement) {
+        this.learningAgreement = learningAgreement;
+    }
+    
     @Override
     public int hashCode() {
         int hash = 7;
-        hash = 19 * hash + (int) (this.id ^ (this.id >>> 32));
+        hash = 37 * hash + Objects.hashCode(this.id);
         return hash;
     }
 
@@ -181,11 +212,10 @@ public class Mobility implements Serializable{
             return false;
         }
         final Mobility other = (Mobility) obj;
-        if (this.id != other.id) {
+        if (!Objects.equals(this.id, other.id)) {
             return false;
         }
         return true;
     }
 
-    
 }

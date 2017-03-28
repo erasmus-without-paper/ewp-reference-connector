@@ -1,0 +1,42 @@
+<div class="container">
+    <h1 class="page-header">Institution</h1>
+    <div class="panel panel-body">
+        <form class="form-horizontal" ng-submit="sendInstitutionRequest()">
+            <div class="form-group">
+                <label class="control-label" for="hei">Method:</label>
+                <select id="hei" class="form-control" ng-model="institutionRequest.method">
+                    <option value="GET">GET</option>
+                    <option value="POST">POST</option>
+                    <option value="PUT">PUT</option>
+                </select>
+            </div>
+
+            <div class="form-group">
+                <label class="control-label" for="hei">EWP URL:</label>
+                <select id="url" class="form-control" ng-model="institutionRequest.url" required="required" ng-change="urlChanged()">
+                    <option style="display:none" value="">select an EWP URL</option>
+                    <option ng-repeat="url in urls | orderBy: 'toString()'" value="{{url}}">{{url}}</option>
+                </select>
+            </div>
+
+            <div class="form-group">
+                <label class="control-label" for="hei">Institution:</label>
+                <select id="hei" class="form-control" ng-model="institutionRequest.params['hei_id']" required="required" multiple>
+                    <option style="display:none" value="">Select institutions</option>
+                    <option ng-repeat="hei in urlHeis | orderBy: 'name'" value="{{hei.id}}">{{hei.name}}</option>
+                </select>
+            </div>
+
+
+            <div class="input-group">
+                <div class="btn-group">
+                    <button type="submit" class="btn btn-default">
+                        <i class="glyphicon glyphicon-send"></i> Send Request
+                    </button>
+                </div>
+            </div>
+        </form>
+    </div>
+
+    <div data-client-result="institutionResult" data-formatted-template="'partials/institution_formatted_result.html'"></div>
+</div>

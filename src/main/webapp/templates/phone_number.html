@@ -1,0 +1,7 @@
+<div class="clearfix" ng-if="phoneNumber">
+    <div class="col-sm-2 hide-overflow-ellipsis">{{numberTitle}}:</div><div class="col-md-10">
+        <span ng-if="phoneNumber.e164">{{phoneNumber.e164}} (E.164)<br/></span>
+        <span ng-if="phoneNumber.extensionNumber">{{phoneNumber.extensionNumber}} (Extension number)<br/></span>
+        <span ng-if="phoneNumber.otherFormat">{{phoneNumber.otherFormat}} (Other format)<br/></span>
+    </div>
+</div>

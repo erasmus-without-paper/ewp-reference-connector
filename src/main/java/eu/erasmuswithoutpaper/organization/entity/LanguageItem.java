@@ -1,9 +1,9 @@
 package eu.erasmuswithoutpaper.organization.entity;
 
 import java.io.Serializable;
+import java.util.Objects;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
 import javax.persistence.Id;
 
 @Entity
@@ -13,19 +13,19 @@ public class LanguageItem implements Serializable {
     public static final String ENGLISH = "en";
     
     @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
-    private long id;
+    @GeneratedValue(generator="system-uuid")
+    String id;
 
     private String text;
     private String lang;
     
     public LanguageItem() {}
 
-    public long getId() {
+    public String getId() {
         return id;
     }
 
-    public void setId(long id) {
+    public void setId(String id) {
         this.id = id;
     }
 
@@ -52,8 +52,8 @@ public class LanguageItem implements Serializable {
 
     @Override
     public int hashCode() {
-        int hash = 7;
-        hash = 89 * hash + (int) (this.id ^ (this.id >>> 32));
+        int hash = 5;
+        hash = 37 * hash + Objects.hashCode(this.id);
         return hash;
     }
 
@@ -69,7 +69,7 @@ public class LanguageItem implements Serializable {
             return false;
         }
         final LanguageItem other = (LanguageItem) obj;
-        if (this.id != other.id) {
+        if (!Objects.equals(this.id, other.id)) {
             return false;
         }
         return true;

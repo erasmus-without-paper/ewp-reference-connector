@@ -4,8 +4,10 @@ node_modules
 bower_components
 src/main/webapp/resources/vendor
 src/main/webapp/resources/reference-connector.js
+src/main/webapp/resources/reference-connector.css
 .idea
 connector.iml
 /nbproject/
 /workshops/
 derby.log
+/generate-api-with-xjc/target/

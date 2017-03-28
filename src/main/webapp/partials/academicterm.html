@@ -5,55 +5,54 @@
         <div class="panel-body">
             <form class="form-horizontal"  ng-submit="addAcademicTerm()">
                 <div class="form-group">
-                    <label class="control-label col-sm-2" for="institution">Institution:</label>
+                    <label class="control-label mandatory-control col-sm-2" for="institution">Institution</label>
                     <div class="col-sm-10">
                         <select id="institution" class="form-control" ng-model="newAcademicTerm.institutionId" required="required" ng-change="institutionChanged()">
-                            <option style="display:none" value="">select institution</option>
-                            <option ng-repeat="inst in institutions" value="{{inst.institutionId}}">{{(inst.name | languageItem : 'en').text}}, {{inst.country}}</option>
+                            <option style="display:none" value="">Select institution</option>
+                            <option ng-repeat="inst in institutions | orderBy:['name']" value="{{inst.institutionId}}">{{(inst.name| languageItem : 'en').text}} {{inst.country}}</option>
                         </select>
                     </div>
                 </div>
                 <div class="form-group">
-                    <label class="control-label col-sm-2" for="orgunit">Organization Unit:</label>
+                    <label class="control-label mandatory-control col-sm-2" for="orgunit">Organization Unit</label>
                     <div class="col-sm-10">
                         <select id="orgunit" class="form-control" ng-model="newAcademicTerm.organizationUnitId" required="required">
-                            <option style="display:none" value="">select organization unit</option>
-                            <option ng-repeat="org in organizations" value="{{org.organizationUnitId}}">{{(org.name | languageItem : 'en').text}}, {{org.country}}</option>
+                            <option style="display:none" value="">Select organization unit</option>
+                            <option ng-repeat="org in organizations | orderBy:['name']" value="{{org.id}}">{{(org.name| languageItem : 'en').text}} {{org.country}}</option>
                         </select>
                     </div>
                 </div>
                 <div class="form-group">
-                    <label class="control-label col-sm-2" for="academicyear">Academic year:</label>
-                    <div class="col-sm-10">
-                        <select id="academicyear" class="form-control" ng-model="newAcademicTerm.academicYearId" required="required">
-                            <option style="display:none" value="">select academic year</option>
-                            <option ng-repeat="academicYear in academicYears" value="{{academicYear.id}}">{{academicYear.startYear}}/{{academicYear.endYear}}</option>
+                    <label class="control-label mandatory-control col-sm-2" for="academicyear">Academic year</label>
+                    <div class="col-sm-2">
+                        <select id="academicyear" class="form-control width-160" ng-model="newAcademicTerm.academicYearId" required="required">
+                            <option style="display:none" value="">Select year</option>
+                            <option ng-repeat="academicYear in academicYears | orderBy:['startYear']:true" value="{{academicYear.id}}">{{academicYear.startYear}}/{{academicYear.endYear}}</option>
+                        </select>
+                    </div>
+                    <div class="col-sm-8"></div>
+                </div>
+                <div class="form-group">
+                    <label class="control-label mandatory-control col-sm-2" for="term">Term</label>
+                    <div class="col-sm-2">
+                        <select id="term" class="form-control width-160" ng-model="newAcademicTerm_selectedTerm" convert-to-number required="required">
+                            <option ng-repeat="term in terms" value="{{$index}}">{{term.label}}</option>
                         </select>
                     </div>
                 </div>
                 <div class="form-group">
-                    <label class="control-label col-sm-2" for="actermid">Academic term id:</label>
-                    <div class="col-sm-10">
-                        <input id="actermid" type="text" class="form-control" placeholder="Enter Academic term id" ng-model="newAcademicTerm.academicTermId" required="required">
-                    </div>
-                </div>
-                <div class="form-group">
-                    <label class="control-label col-sm-2" for="dispName">Term name:</label>
-                    <div class="col-sm-10">
-                        <input id="dispName" type="text" class="form-control" placeholder="Enter Academic term name" ng-model="newAcademicTerm.dispNameStr" required="required">
-                    </div>
-                </div>
-                <div class="form-group">
-                    <label class="control-label col-sm-2" for="startdate">Start Date:</label>
-                    <div class="col-sm-10">
+                    <label class="control-label mandatory-control col-sm-2" for="startdate">Start Date</label>
+                    <div class="col-sm-2">
                         <input id="startdate" type="date" class="form-control" placeholder="Enter start date" ng-model="newAcademicTerm.startDate" required="required">
                     </div>
+                    <div class="col-sm-8"></div>
                 </div>
                 <div class="form-group">
-                    <label class="control-label col-sm-2" for="enddate">End Date:</label>
-                    <div class="col-sm-10">
+                    <label class="control-label mandatory-control col-sm-2" for="enddate">End Date</label>
+                    <div class="col-sm-2">
                         <input id="enddate" type="date" class="form-control" placeholder="Enter end date" ng-model="newAcademicTerm.endDate" required="required">
                     </div>
+                    <div class="col-sm-8"></div>
                 </div>
                 <div class="input-group">
                     <div class="btn-group">
@@ -77,7 +76,7 @@
             </button>
         </div>
     </div>
-        
+
     <div class="input-group">
         <input class="form-control" id="search" name="search" placeholder="Search for" ng-model="query" required="required"/>
         <span class="input-group-btn">
@@ -86,31 +85,20 @@
             </button>
         </span>
     </div>
-        
+
     <div class="list-group">
-        <div ng-repeat="academicTerm in academicTerms | filter:query" ng-click="isopen[academicTerm.id] = !isopen[academicTerm.id]">
-            <a class="list-group-item">
-                <b>{{(academicTerm.dispName | languageItem : 'en').text}}</b>
+        <div ng-repeat="academicTerm in academicTerms | filter:query | orderBy:['endDate']:true">
+            <a class="list-group-item clearfix" ng-click="isopen[academicTerm.id] = !isopen[academicTerm.id]">
+                <div class="col-md-11 hide-overflow-ellipsis"><b>{{(academicTerm.dispName| languageItem : 'en').text}}</b></div>
                 <i class="pull-right glyphicon" ng-class="{'glyphicon-chevron-down': isopen[academicTerm.id], 'glyphicon-chevron-right': !isopen[academicTerm.id]}"></i>
             </a>
-            <div class="list-group-item" ng-show="isopen[academicTerm.id]">
-                <table class="table" >
-                    <tr ng-repeat="name in academicTerm.dispName">
-                        <td class="col-md-2">Disp name ({{name.lang}}):</td><td>{{name.text}}</td>
-                    </tr>
-                    <tr>
-                        <td class="col-md-2">Start date:</td><td>{{academicTerm.startDate | date: 'yyyy-MM-dd'}}</td>
-                    </tr>
-                    <tr>
-                        <td class="col-md-2">End date:</td><td>{{academicTerm.endDate | date: 'yyyy-MM-dd'}}</td>
-                    </tr>
-                    <tr>
-                        <td class="col-md-2">Academic term id:</td><td>{{academicTerm.academicTermId}}</td>
-                    </tr>
-                    <tr>
-                        <td class="col-md-2">Academic year:</td><td>{{academicTerm.academicYear.startYear}}/{{academicTerm.academicYear.endYear}}</td>
-                    </tr>
-                </table>
+            <div class="list-group-item clearfix" ng-show="isopen[academicTerm.id]">
+                <div ng-repeat="name in academicTerm.dispName">
+                    <div class="col-md-2 hide-overflow-ellipsis">Disp name ({{name.lang}}):</div><div class="col-md-10 hide-overflow-ellipsis">{{name.text}}</div>
+                </div>
+                <div class="col-md-2">Start date</div><div class="col-md-10">{{academicTerm.startDate| date: 'yyyy-MM-dd'}}</div>
+                <div class="col-md-2">End date:</div><div class="col-md-10">{{academicTerm.endDate| date: 'yyyy-MM-dd'}}</div>
+                <div class="col-md-2">Academic year:</div><div class="col-md-10">{{academicTerm.academicYear.startYear}}/{{academicTerm.academicYear.endYear}}</div>
             </div>
         </div>
     </div>

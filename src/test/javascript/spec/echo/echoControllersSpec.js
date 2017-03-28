@@ -12,7 +12,7 @@ describe('Echo Tests', function () {
             $controller = _$controller_;
             
             $httpBackend.expectGET('gui/echo').respond(['rest/echo']);
-            $httpBackend.expectPOST('gui/echo', '{"echo":["test1","test2"],"heiId":"id1"}').respond('echo result');
+            $httpBackend.expectPOST('gui/echo', '{"method":"GET","params":{"echo":["test1","test2"]},"heiId":"id1"}').respond('echo result');
             
             $scope = $rootScope.$new();
             var ctrl = $controller('EchoController', {$scope: $scope});
@@ -21,13 +21,13 @@ describe('Echo Tests', function () {
         it('should add echo text to list', function () {
             $scope.echoItem = 'test';
             $scope.addEchoItem();
-            expect($scope.echoRequest.echo).not.toBeUndefined();
-            expect($scope.echoRequest.echo.length).toBe(2);
+            expect($scope.echoRequest.params.echo).not.toBeUndefined();
+            expect($scope.echoRequest.params.echo.length).toBe(2);
         });
 
         it('should send echo request', function () {
             $scope.echoRequest.heiId = 'id1';
-            $scope.echoRequest.echo = ['test1', 'test2'];
+            $scope.echoRequest.params = {echo:['test1', 'test2']};
             $scope.sendEcho();
             $httpBackend.flush();
             

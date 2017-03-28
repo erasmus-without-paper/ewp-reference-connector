@@ -36,29 +36,17 @@ public class InstitutionTest {
         names.add(nameSv);
         names.add(nameEn);
         institution.setName(names);
-        List<LanguageItem> descriptions = new ArrayList<>();
-        LanguageItem descriptionSv = new LanguageItem("TestDescSv", LanguageItem.SWEDISH);
-        LanguageItem descriptionEn = new LanguageItem("TestDescEn", LanguageItem.ENGLISH);
-        descriptions.add(descriptionSv);
-        descriptions.add(descriptionEn);
-        institution.setDescription(descriptions);
         
         this.tx.begin();
         this.em.persist(institution);
-        this.tx.commit();
-        this.em.clear();
-        
         Institution result = em.find(Institution.class, institution.getId());
+        this.tx.rollback();
+
         Assert.assertNotNull(result);
         Assert.assertEquals("TestInstSv", result.getName().get(0).getText());
         Assert.assertEquals(LanguageItem.SWEDISH, result.getName().get(0).getLang());
         Assert.assertEquals("TestInstEn", result.getName().get(1).getText());
         Assert.assertEquals(LanguageItem.ENGLISH, result.getName().get(1).getLang());
-        
-        Assert.assertEquals("TestDescSv", result.getDescription().get(0).getText());
-        Assert.assertEquals(LanguageItem.SWEDISH, result.getDescription().get(0).getLang());
-        Assert.assertEquals("TestDescEn", result.getDescription().get(1).getText());
-        Assert.assertEquals(LanguageItem.ENGLISH, result.getDescription().get(1).getLang());
     }
     
 }

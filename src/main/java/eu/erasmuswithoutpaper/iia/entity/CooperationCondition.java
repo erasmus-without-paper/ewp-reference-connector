@@ -1,91 +1,94 @@
 
 package eu.erasmuswithoutpaper.iia.entity;
 
+import eu.erasmuswithoutpaper.internal.StandardDateConverter;
 import java.io.Serializable;
 import java.util.Date;
+import java.util.Objects;
+import javax.persistence.CascadeType;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
+import javax.persistence.NamedQueries;
+import javax.persistence.NamedQuery;
+import javax.persistence.OneToOne;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
+import org.apache.johnzon.mapper.JohnzonConverter;
 
 @Entity
+@NamedQueries({
+    @NamedQuery(name = CooperationCondition.findAll, query = "SELECT c FROM CooperationCondition c"),
+})
 public class CooperationCondition implements Serializable{
     
-    @Id
-    @GeneratedValue(strategy=GenerationType.AUTO)
-    long id;
-
-    private String iiaId;
-    private String fromInstitutionId;
-    private String toInstitutionId;
-    private String fromOrganizationUnitId;
-    private String toOrganizationUnitId;
-    private CooperationConditionMobilityType mobilityType;
+    private static final String PREFIX = "eu.erasmuswithoutpaper.iia.entity.CooperationCondition.";
+    public static final String findAll = PREFIX + "all";
     
+    @Id
+    @GeneratedValue(generator="system-uuid")
+    String id;
+
+    @OneToOne(cascade = CascadeType.ALL, fetch = FetchType.EAGER)
+    @JoinColumn(name = "SENDING_PARTNER_ID")
+    private IiaPartner sendingPartner;
+    
+    @OneToOne(cascade = CascadeType.ALL, fetch = FetchType.EAGER)
+    @JoinColumn(name = "RECEIVING_PARTNER_ID")
+    private IiaPartner receivingPartner;
+    
+    @ManyToOne(cascade = CascadeType.DETACH, fetch = FetchType.EAGER)
+    @JoinColumn(name = "MOBILITY_TYPE_ID", referencedColumnName = "ID")
+    private MobilityType mobilityType;
+    
+    @JohnzonConverter(StandardDateConverter.class)
     @Temporal(TemporalType.DATE)
     private Date startDate;
     
+    @JohnzonConverter(StandardDateConverter.class)
     @Temporal(TemporalType.DATE)
     private Date endDate;
-    private CooperationConditionMobilityNumberVariant mobilityNumberVariant;
-    private String duration;
-    private String eqfLevel;
+    
+    @OneToOne(cascade = CascadeType.ALL, fetch = FetchType.EAGER)
+    private MobilityNumber mobilityNumber;
+    
+    @OneToOne(cascade = CascadeType.ALL, fetch = FetchType.EAGER)
+    private Duration duration;
+    
+    private byte eqfLevel;
 
-    public long getId() {
+    public String getId() {
         return id;
     }
 
-    public void setId(long id) {
+    public void setId(String id) {
         this.id = id;
     }
 
-    public String getIiaId() {
-        return iiaId;
+    public IiaPartner getSendingPartner() {
+        return sendingPartner;
     }
 
-    public void setIiaId(String iiaId) {
-        this.iiaId = iiaId;
+    public void setSendingPartner(IiaPartner sendingPartner) {
+        this.sendingPartner = sendingPartner;
     }
 
-    public String getFromInstitutionId() {
-        return fromInstitutionId;
+    public IiaPartner getReceivingPartner() {
+        return receivingPartner;
     }
 
-    public void setFromInstitutionId(String fromInstitutionId) {
-        this.fromInstitutionId = fromInstitutionId;
+    public void setReceivingPartner(IiaPartner receivingPartner) {
+        this.receivingPartner = receivingPartner;
     }
 
-    public String getToInstitutionId() {
-        return toInstitutionId;
-    }
-
-    public void setToInstitutionId(String toInstitutionId) {
-        this.toInstitutionId = toInstitutionId;
-    }
-
-    public String getFromOrganizationUnitId() {
-        return fromOrganizationUnitId;
-    }
-
-    public void setFromOrganizationUnitId(String fromOrganizationUnitId) {
-        this.fromOrganizationUnitId = fromOrganizationUnitId;
-    }
-
-    public String getToOrganizationUnitId() {
-        return toOrganizationUnitId;
-    }
-
-    public void setToOrganizationUnitId(String toOrganizationUnitId) {
-        this.toOrganizationUnitId = toOrganizationUnitId;
-    }
-
-    public CooperationConditionMobilityType getMobilityType() {
+    public MobilityType getMobilityType() {
         return mobilityType;
     }
 
-    public void setMobilityType(CooperationConditionMobilityType mobilityType) {
+    public void setMobilityType(MobilityType mobilityType) {
         this.mobilityType = mobilityType;
     }
 
@@ -105,34 +108,34 @@ public class CooperationCondition implements Serializable{
         this.endDate = endDate;
     }
 
-    public CooperationConditionMobilityNumberVariant getMobilityNumberVariant() {
-        return mobilityNumberVariant;
+    public MobilityNumber getMobilityNumber() {
+        return mobilityNumber;
     }
 
-    public void setMobilityNumberVariant(CooperationConditionMobilityNumberVariant mobilityNumberVariant) {
-        this.mobilityNumberVariant = mobilityNumberVariant;
+    public void setMobilityNumber(MobilityNumber mobilityNumber) {
+        this.mobilityNumber = mobilityNumber;
     }
 
-    public String getDuration() {
+    public Duration getDuration() {
         return duration;
     }
 
-    public void setDuration(String duration) {
+    public void setDuration(Duration duration) {
         this.duration = duration;
     }
 
-    public String getEqfLevel() {
+    public byte getEqfLevel() {
         return eqfLevel;
     }
 
-    public void setEqfLevel(String eqfLevel) {
+    public void setEqfLevel(byte eqfLevel) {
         this.eqfLevel = eqfLevel;
     }
 
     @Override
     public int hashCode() {
-        int hash = 3;
-        hash = 79 * hash + (int) (this.id ^ (this.id >>> 32));
+        int hash = 7;
+        hash = 29 * hash + Objects.hashCode(this.id);
         return hash;
     }
 
@@ -148,11 +151,10 @@ public class CooperationCondition implements Serializable{
             return false;
         }
         final CooperationCondition other = (CooperationCondition) obj;
-        if (this.id != other.id) {
+        if (!Objects.equals(this.id, other.id)) {
             return false;
         }
         return true;
     }
 
-    
 }

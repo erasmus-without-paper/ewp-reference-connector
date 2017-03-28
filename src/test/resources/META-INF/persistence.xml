@@ -5,20 +5,34 @@
         <class>eu.erasmuswithoutpaper.course.entity.AcademicYear</class>
         <class>eu.erasmuswithoutpaper.course.entity.LearningOpportunitySpecification</class>
         <class>eu.erasmuswithoutpaper.course.entity.LearningOpportunityInstance</class>
+        <class>eu.erasmuswithoutpaper.course.entity.Credit</class>
         <class>eu.erasmuswithoutpaper.iia.entity.CooperationCondition</class>
         <class>eu.erasmuswithoutpaper.iia.entity.Iia</class>
         <class>eu.erasmuswithoutpaper.iia.entity.IiaPartner</class>
         <class>eu.erasmuswithoutpaper.iias.entity.Partner</class>
         <class>eu.erasmuswithoutpaper.mobility.entity.LearningAgreement</class>
-        <class>eu.erasmuswithoutpaper.mobility.entity.LearningAgreementComponent</class>
+        <class>eu.erasmuswithoutpaper.mobility.entity.StudiedLaComponent</class>
+        <class>eu.erasmuswithoutpaper.mobility.entity.RecognizedLaComponent</class>
         <class>eu.erasmuswithoutpaper.mobility.entity.Mobility</class>
         <class>eu.erasmuswithoutpaper.mobility.entity.ResultDistribution</class>
-        <class>eu.erasmuswithoutpaper.organization.entity.Coordinator</class>
+        <class>eu.erasmuswithoutpaper.mobility.entity.ResultDistributionCategory</class>
+        <class>eu.erasmuswithoutpaper.organization.entity.PhoneNumber</class>
+        <class>eu.erasmuswithoutpaper.organization.entity.Contact</class>
         <class>eu.erasmuswithoutpaper.organization.entity.HeiInformation</class>
+        <class>eu.erasmuswithoutpaper.organization.entity.FlexibleAddress</class>
         <class>eu.erasmuswithoutpaper.organization.entity.Institution</class>
         <class>eu.erasmuswithoutpaper.organization.entity.OrganizationUnit</class>
         <class>eu.erasmuswithoutpaper.organization.entity.Person</class>
         <class>eu.erasmuswithoutpaper.organization.entity.LanguageItem</class>
+        <class>eu.erasmuswithoutpaper.iia.entity.MobilityNumber</class>
+        <class>eu.erasmuswithoutpaper.iia.entity.Duration</class>
+        <class>eu.erasmuswithoutpaper.iia.entity.MobilityType</class>
+        <class>eu.erasmuswithoutpaper.organization.entity.IdentificationItem</class>
+        <class>eu.erasmuswithoutpaper.organization.entity.ContactDetails</class>
+        <class>eu.erasmuswithoutpaper.organization.entity.FactSheet</class>
+        <class>eu.erasmuswithoutpaper.organization.entity.Student</class>
+        <class>eu.erasmuswithoutpaper.organization.entity.MobilityParticipant</class>
+        <class>eu.erasmuswithoutpaper.course.entity.GradingScheme</class>
         
         <properties>
             <property name="javax.persistence.jdbc.url" value="jdbc:derby:memory:testDB;create=true"/>

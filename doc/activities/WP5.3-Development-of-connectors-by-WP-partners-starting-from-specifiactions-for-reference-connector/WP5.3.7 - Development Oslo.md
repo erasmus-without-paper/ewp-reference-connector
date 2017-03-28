@@ -8,15 +8,15 @@
 #### Project manager / Contact person
 | Contact info      | Details                        |
 | ----------------- | ------------------------------ |
-| **Name**          |  _First, Surname_              |
-| **Email adress**  |  _email@domain.com_            |
-| **Telephone no**  |  _+46 70-555 555_              |
+| **Geir Vangen**   |  _Geir Magne, Vangen_          |
+| **Email adress**  |  _g.m.vangen@fsat.no_          |
+| **Telephone no**  |  _+47 22 85 29 70_             |
 
 #### Developing members
 |     Role       |      Name         |              Email adress                 |
 | -------------  | ----------------- | ----------------------------------------- |
-|      -         |                   |                                           |
-|      -         |                   |                                           |
+|   Developer    | Matija Puzar      | matija.puzar@fsat.no                      |
+|   Developer    | Richard Borge     | r.e.borge@fsat.no                         |
 |      -         |                   |                                           |             
 
 Other important information _(please specify below:)_ 

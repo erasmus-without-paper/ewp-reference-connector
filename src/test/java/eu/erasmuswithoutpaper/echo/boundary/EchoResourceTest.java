@@ -1,15 +1,17 @@
 package eu.erasmuswithoutpaper.echo.boundary;
 
 import eu.erasmuswithoutpaper.api.echo.Response;
-import eu.erasmuswithoutpaper.organization.entity.Institution;
+import eu.erasmuswithoutpaper.common.control.GlobalProperties;
+import eu.erasmuswithoutpaper.common.control.RegistryClient;
+import java.security.cert.X509Certificate;
 import java.util.ArrayList;
 import java.util.List;
-import javax.persistence.EntityManager;
-import javax.persistence.Query;
+import javax.servlet.http.HttpServletRequest;
 import javax.ws.rs.client.Entity;
 import javax.ws.rs.core.Application;
 import javax.ws.rs.core.MultivaluedHashMap;
 import javax.ws.rs.core.MultivaluedMap;
+import org.glassfish.hk2.utilities.binding.AbstractBinder;
 import org.glassfish.jersey.server.ResourceConfig;
 import org.glassfish.jersey.test.JerseyTest;
 import static org.junit.Assert.*;
@@ -21,17 +23,29 @@ import static org.mockito.Mockito.when;
 public class EchoResourceTest extends JerseyTest {
 
     private EchoResource resource;
+    private HttpServletRequest request;
     
     @Override
     protected Application configure() {
+        request = mock(HttpServletRequest.class);
+        GlobalProperties properties = mock(GlobalProperties.class);
+        RegistryClient registryClient = mock(RegistryClient.class);
         resource = new EchoResource();
-        resource.em = mock(EntityManager.class);
-        return new ResourceConfig().register(resource);
+        return new ResourceConfig()
+                .register(resource)
+                .register(new AbstractBinder() {
+                            @Override
+                            protected void configure() {
+                                bind(request).to(HttpServletRequest.class);
+                                bind(properties).to(GlobalProperties.class);
+                                bind(registryClient).to(RegistryClient.class);
+                            }
+                        });
     }
 
     @Test
     public void testEchoGet() {
-        mockInstitutions();
+        mockRegistryClient();
         final Response echoResponse = target("echo")
                 .queryParam("echo", "Test1")
                 .queryParam("echo", "Test2")
@@ -51,7 +65,7 @@ public class EchoResourceTest extends JerseyTest {
         data.add("echo", "Test1");
         data.add("echo", "Test2");
         
-        mockInstitutions();
+        mockRegistryClient();
                 
         final Response echoResponse = target("echo")
                 .request()
@@ -64,18 +78,14 @@ public class EchoResourceTest extends JerseyTest {
         assertTrue(echoResponse.getHeiId().contains("myInstId"));
     }
 
-    void mockInstitutions() {
-        List<Institution> institutions = new ArrayList<>();
+    void mockRegistryClient() {
+        when(this.request.getAttribute("javax.servlet.request.X509Certificate")).thenReturn(new X509Certificate[]{});
         
-        Institution institution = new Institution();
-        institution.setInstitutionId("myInstId");
+        X509Certificate mockedX509Certificate = mock(X509Certificate.class);
+        when(this.resource.registryClient.getCertificateKnownInEwpNetwork(Matchers.any(X509Certificate[].class))).thenReturn(mockedX509Certificate);
         
-        institutions.add(institution);
-        mockQuery(institutions);
-    }
-    void mockQuery(List<Institution> results) {
-        Query mockedQuery = mock(Query.class);
-        when(mockedQuery.getResultList()).thenReturn(results);
-        when(this.resource.em.createNamedQuery(Matchers.anyString())).thenReturn(mockedQuery);
+        List<String> heiIds = new ArrayList<>();
+        heiIds.add("myInstId");
+        when(this.resource.registryClient.getHeisCoveredByCertificate(mockedX509Certificate)).thenReturn(heiIds);
     }
 }

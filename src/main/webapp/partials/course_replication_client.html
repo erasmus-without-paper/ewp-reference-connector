@@ -1,0 +1,42 @@
+<div class="container">
+    <h1 class="page-header">Course Replication</h1>
+    <div class="panel panel-body">
+        <form class="form-horizontal" ng-submit="sendCourseReplicationRequest()">
+            <div class="form-group">
+                <label class="control-label" for="hei">Method:</label>
+                <select id="hei" class="form-control" ng-model="courseReplicationRequest.method">
+                    <option value="GET">GET</option>
+                    <option value="POST">POST</option>
+                    <option value="PUT">PUT</option>
+                </select>
+            </div>
+
+            <div class="form-group">
+                <label class="control-label" for="hei">EWP URL:</label>
+                <select id="url" class="form-control" ng-model="courseReplicationRequest.url" required="required" ng-change="urlChanged()">
+                    <option style="display:none" value="">select an EWP URL</option>
+                    <option ng-repeat="url in urls | orderBy: 'toString()'" value="{{url}}">{{url}}</option>
+                </select>
+            </div>
+
+            <div class="form-group">
+                <label class="control-label" for="hei">Institution:</label>
+                <select id="hei" class="form-control" ng-model="courseReplicationRequest.heiId" required="required">
+                    <option style="display:none" value="">Select institutions</option>
+                    <option ng-repeat="hei in urlHeis | orderBy: 'name'" value="{{hei.id}}">{{hei.name}}</option>
+                </select>
+            </div>
+
+
+            <div class="input-group">
+                <div class="btn-group">
+                    <button type="submit" class="btn btn-default">
+                        <i class="glyphicon glyphicon-send"></i> Send Request
+                    </button>
+                </div>
+            </div>
+        </form>
+    </div>
+
+    <div data-client-result="losResult" data-formatted-template="'partials/course_replication_formatted_result.html'"></div>
+</div>

@@ -1,91 +1,76 @@
 
 package eu.erasmuswithoutpaper.iia.entity;
 
-import eu.erasmuswithoutpaper.organization.entity.Coordinator;
-import eu.erasmuswithoutpaper.organization.entity.Institution;
-import eu.erasmuswithoutpaper.organization.entity.OrganizationUnit;
+import eu.erasmuswithoutpaper.organization.entity.Contact;
 import java.io.Serializable;
 import java.util.List;
+import java.util.Objects;
 import javax.persistence.CascadeType;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinTable;
 import javax.persistence.ManyToMany;
+import javax.persistence.NamedQueries;
 import javax.persistence.NamedQuery;
-import javax.persistence.OneToOne;
 
 @Entity
-@NamedQuery(name = IiaPartner.findAll, query = "SELECT i FROM IiaPartner i")
+@NamedQueries({
+    @NamedQuery(name = IiaPartner.findAll, query = "SELECT i FROM IiaPartner i"),
+})
 public class IiaPartner implements Serializable{
     
-    private static final String PREFIX = "eu.erasmuswithoutpaper.course.entity.IiaPartner.";
+    private static final String PREFIX = "eu.erasmuswithoutpaper.iia.entity.IiaPartner.";
     public static final String findAll = PREFIX + "all";
 
     @Id
-    @GeneratedValue(strategy=GenerationType.AUTO)
-    long id;
+    @GeneratedValue(generator="system-uuid")
+    String id;
     
-    private String iiaId;
-    
-    @OneToOne(cascade = CascadeType.DETACH, fetch = FetchType.EAGER)
-    @JoinTable(name = "iia_partner_inst")
-    private Institution institution;
-    
-    @OneToOne(cascade = CascadeType.DETACH, fetch = FetchType.EAGER)
-    @JoinTable(name = "iia_partner_org")
-    private OrganizationUnit organizationUnit;
+    private String institutionId;
+    private String organizationUnitId;
     
     @ManyToMany(cascade = CascadeType.DETACH, fetch = FetchType.EAGER)
-    @JoinTable(name = "iia_partner_coordinator")
-    private List<Coordinator> coordinators;
+    @JoinTable(name = "IIA_PARTNER_CONTACTS")
+    private List<Contact> contacts;
 
-    public long getId() {
+    public String getId() {
         return id;
     }
 
-    public void setId(long id) {
+    public void setId(String id) {
         this.id = id;
     }
 
-    public String getIiaId() {
-        return iiaId;
+    public String getInstitutionId() {
+        return institutionId;
     }
 
-    public void setIiaId(String iiaId) {
-        this.iiaId = iiaId;
+    public void setInstitutionId(String institutionId) {
+        this.institutionId = institutionId;
     }
 
-    public Institution getInstitution() {
-        return institution;
+    public String getOrganizationUnitId() {
+        return organizationUnitId;
     }
 
-    public void setInstitution(Institution institution) {
-        this.institution = institution;
+    public void setOrganizationUnitId(String organizationUnitId) {
+        this.organizationUnitId = organizationUnitId;
     }
 
-    public OrganizationUnit getOrganizationUnit() {
-        return organizationUnit;
+    public List<Contact> getContacts() {
+        return contacts;
     }
 
-    public void setOrganizationUnit(OrganizationUnit organizationUnit) {
-        this.organizationUnit = organizationUnit;
+    public void setContacts(List<Contact> contacts) {
+        this.contacts = contacts;
     }
 
-    public List<Coordinator> getCoordinators() {
-        return coordinators;
-    }
-
-    public void setCoordinators(List<Coordinator> coordinators) {
-        this.coordinators = coordinators;
-    }
-    
     @Override
     public int hashCode() {
-        int hash = 7;
-        hash = 97 * hash + (int) (this.id ^ (this.id >>> 32));
+        int hash = 5;
+        hash = 97 * hash + Objects.hashCode(this.id);
         return hash;
     }
 
@@ -101,11 +86,9 @@ public class IiaPartner implements Serializable{
             return false;
         }
         final IiaPartner other = (IiaPartner) obj;
-        if (this.id != other.id) {
+        if (!Objects.equals(this.id, other.id)) {
             return false;
         }
         return true;
     }
-
-    
 }

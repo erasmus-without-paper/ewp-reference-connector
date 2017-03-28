@@ -1,0 +1,29 @@
+<div ng-repeat="hei in clientResult.result.hei">
+    <div class="clearfix">
+        <div class="col-md-2">Hei id: </div>
+        <div class="col-md-10">{{hei.heiId}}</div>
+    </div>
+    <div class="clearfix" ng-repeat="otherId in hei.otherId">
+        <div class="col-md-2">{{$index === 0 ? 'Other id: ' : ''}}</div>
+        <div class="col-md-10">{{otherId.value}} ({{otherId.type}})</div>
+    </div>
+    <div class="clearfix" ng-repeat="name in hei.name">
+        <div class="col-md-2">{{$index === 0 ? 'Name: ' : ''}}</div>
+        <div class="col-md-10">{{name.value}} ({{name.lang}})</div>
+    </div>
+    <div class="clearfix" ng-repeat="url in hei.websiteUrl">
+        <div class="col-md-2">{{$index === 0 ? 'Website url: ' : ''}}</div>
+        <div class="col-md-10">{{url.value}} ({{url.lang}})</div>
+    </div>
+    <div class="clearfix" ng-repeat="ounitId in hei.ounitId">
+        <div class="col-md-2">{{$index === 0 ? 'Org. unit id: ' : ''}}</div>
+        <div class="col-md-10">{{ounitId}}</div>
+    </div>
+    <div class="clearfix" data-flexible-address="hei.streetAddress"></div>
+    <div class="clearfix" ng-if="hei.contact">
+        <div class="col-md-12">Contact:</div>
+    </div>
+    <div class="well" ng-repeat="contact in hei.contact">
+        <div class="clearfix" data-contact="contact"></div>
+    </div>
+</div>

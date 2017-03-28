@@ -1,0 +1,593 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<xs:schema
+    xmlns:xs="http://www.w3.org/2001/XMLSchema"
+    xmlns:c="https://github.com/erasmus-without-paper/ewp-specs-types-contact/tree/stable-v1"
+    xmlns:ewp="https://github.com/erasmus-without-paper/ewp-specs-architecture/blob/stable-v1/common-types.xsd"
+    xmlns:trm="https://github.com/erasmus-without-paper/ewp-specs-types-academic-term/tree/stable-v1"
+    elementFormDefault="qualified"
+
+    targetNamespace="https://github.com/erasmus-without-paper/ewp-specs-api-iias/blob/master/endpoints/get-response.xsd"
+    xmlns="https://github.com/erasmus-without-paper/ewp-specs-api-iias/blob/master/endpoints/get-response.xsd"
+>
+    <!-- WRTODO: Replace all occurrences of 'master' (in all projects) with 'stable-v1' upon release. -->
+
+    <xs:import
+        schemaLocation="https://raw.githubusercontent.com/erasmus-without-paper/ewp-specs-architecture/stable-v1/common-types.xsd"
+        namespace="https://github.com/erasmus-without-paper/ewp-specs-architecture/blob/stable-v1/common-types.xsd"
+    />
+
+    <xs:import
+        schemaLocation="https://raw.githubusercontent.com/erasmus-without-paper/ewp-specs-types-contact/stable-v1/schema.xsd"
+        namespace="https://github.com/erasmus-without-paper/ewp-specs-types-contact/tree/stable-v1"
+    /> <!-- WRTODO: absolute paths! -->
+
+    <xs:import
+        schemaLocation="https://raw.githubusercontent.com/erasmus-without-paper/ewp-specs-types-academic-term/stable-v1/schema.xsd"
+        namespace="https://github.com/erasmus-without-paper/ewp-specs-types-academic-term/tree/stable-v1"
+    />
+
+    <xs:annotation>
+        <xs:documentation>
+            This schema is a part of the Erasmus Without Paper project. Before you start
+            using it, make sure you have read the general rules described here:
+
+            http://developers.erasmuswithoutpaper.eu/
+        </xs:documentation>
+    </xs:annotation>
+
+    <xs:element name="iias-get-response">
+        <xs:annotation>
+            <xs:documentation>
+                This describes the format of the response returned by the `get` endpoint of
+                EWP Interinstitutional Agreements API.
+            </xs:documentation>
+        </xs:annotation>
+        <xs:complexType>
+            <xs:sequence>
+                <xs:element name="iia" minOccurs="0" maxOccurs="unbounded">
+                    <xs:annotation>
+                        <xs:documentation>
+                            This represents a single IIA. Servers will produce one such element for
+                            each of the `iia_id` or `iia_code` values passed in the Institutions API
+                            call.
+                        </xs:documentation>
+                    </xs:annotation>
+                    <xs:complexType>
+                        <xs:sequence>
+                            <xs:element name="partner" minOccurs="2" maxOccurs="unbounded">
+                                <xs:annotation>
+                                    <xs:documentation>
+                                        A list of HEIs participating in this IIA.
+
+                                        This list includes the local HEI which MUST be the first element on this list.
+                                        In other words:
+
+                                        * The value of `hei-id` of the first `partner` MUST match the value passed in
+                                          the `hei_id` request parameter,
+
+                                        * Both `iia-id` and `iia-code` elements MUST be present in the first `partner`
+                                          element (even though it's not required by the schema itself), and one of them
+                                          MUST match one of the values passed in the `iia_id` or `iia_code` request
+                                          parameter.
+
+                                        * The server will usually fill much more data for the first `partner`, and the
+                                          data on all other partners will be often much more limited.
+                                    </xs:documentation>
+                                </xs:annotation>
+                                <xs:complexType>
+                                    <xs:sequence>
+                                        <xs:element name="hei-id" type="xs:string" minOccurs="1" maxOccurs="1">
+                                            <xs:annotation>
+                                                <xs:documentation>
+                                                    The ID of the partner HEI.
+
+                                                    Clients can retrieve further information on this HEI via Institutions API, but
+                                                    note, that it is not obvious *which* Institutions API the client should use. If
+                                                    this HEI is already a member of EWP Network, then it's probably best to request
+                                                    information directly from this HEI's hosts. However, if it is NOT a member of
+                                                    EWP yet, then clients may request information from Institutions API served by
+                                                    the same EWP Host which has given them this ID (servers are required to provide
+                                                    some basic data on all institutions known to them via their Institutions API).
+
+                                                    Discuss here:
+                                                    https://github.com/erasmus-without-paper/ewp-specs-api-iias/issues/6
+                                                </xs:documentation>
+                                            </xs:annotation>
+                                        </xs:element>
+                                        <xs:element name="ounit-id" type="ewp:AsciiPrintableIdentifier" minOccurs="0" maxOccurs="1">
+                                            <xs:annotation>
+                                                <xs:documentation>
+                                                    Optional organizational unit surrogate ID. If given, then it refers to the unit
+                                                    within the partner HEI's organizational structure, which is the actual partner
+                                                    of this agreement. Agreements can be signed between units, not only between
+                                                    HEIs: https://github.com/erasmus-without-paper/ewp-specs-api-iias/issues/11
+
+                                                    If provided, then it MUST have the value of the "official" ounit-id, exactly as
+                                                    it has been assigned by the *partner HEI* in its Organizational Units API. If
+                                                    this official ID is not known by the server (and it often isn't), then this
+                                                    element MUST be skipped. This is a surrogate ID, so it SHOULD NOT be displayed
+                                                    to the user (use `ounit-code` for that).
+                                                </xs:documentation>
+                                            </xs:annotation>
+                                        </xs:element>
+                                        <xs:element name="iia-id" type="ewp:AsciiPrintableIdentifier" minOccurs="0" maxOccurs="1">
+                                            <xs:annotation>
+                                                <xs:documentation>
+                                                    The partner's unique surrogate ID of this IIA. This is a surrogate ID, so it
+                                                    SHOULD NOT be displayed to the user (use `iia-code` for that).
+
+                                                    Since IIA IDs are local (unique within a single HEI, but not within the world),
+                                                    each partner is allowed to have his own ID for the same IIA. If this server is
+                                                    aware of the IDs used by the other partners, then it outputs it here.
+
+                                                    Server implementers MUST use immutable surrogate keys for their work with EWP.
+                                                    https://github.com/erasmus-without-paper/ewp-specs-architecture#ids
+                                                </xs:documentation>
+                                            </xs:annotation>
+                                        </xs:element>
+                                        <xs:element name="iia-code" type="xs:string" minOccurs="0" maxOccurs="1">
+                                            <xs:annotation>
+                                                <xs:documentation>
+                                                    The partner's "human readable" ID of this IIA (aka an agreement number). If
+                                                    this server is aware of the agreement numbers used by the other partners, then
+                                                    it outputs it here.
+
+                                                    Since `iia-id` values should contain surrogate identifiers (and, as such,
+                                                    should not be displayed to the user), we require additional "human readable"
+                                                    agreement codes/numbers to be provided here. These codes SHOULD be displayed to
+                                                    the user, and they MAY be used for searching, but they are *not used* to
+                                                    directly identify entities in EWP network.
+
+                                                    Related links:
+                                                    https://github.com/erasmus-without-paper/ewp-specs-architecture#ids
+                                                </xs:documentation>
+                                            </xs:annotation>
+                                        </xs:element>
+                                        <xs:element name="signing-contact" type="c:Contact" minOccurs="0" maxOccurs="1">
+                                            <xs:annotation>
+                                                <xs:documentation>
+                                                    This describes that person who acts as the partner's institutional coordinator
+                                                    for this IIA (if known).
+                                                </xs:documentation>
+                                            </xs:annotation>
+                                        </xs:element>
+                                        <xs:element name="signing-date" type="xs:date" minOccurs="0" maxOccurs="1">
+                                            <xs:annotation>
+                                                <xs:documentation>
+                                                    The date when the agreement has been first signed by the *partner's*
+                                                    institutional coordinator (if known).
+
+                                                    Note, that agreements are often modified *after* they were signed. These
+                                                    modifications don't usually require official signatures, though. This date
+                                                    refers to the "first signing" only.
+                                                </xs:documentation>
+                                            </xs:annotation>
+                                        </xs:element>
+                                        <xs:element ref="c:contact" minOccurs="0" maxOccurs="unbounded">
+                                            <xs:annotation>
+                                                <xs:documentation>
+                                                    A list of other partner contacts related to this IIA (or to mobilities related
+                                                    to this IIA).
+
+                                                    Only some servers provide these, even for the *local* partner. Many HEIs
+                                                    (especially the smaller ones) don't granulate their contacts in such a detailed
+                                                    way. Instead, they have a fixed set of contacts described in their Institutions
+                                                    API.
+
+                                                    These contacts take precedence over contacts defined in the Institutions API
+                                                    and Organization Units API for the partner HEI/unit. Clients are advised to
+                                                    display these contacts in a separate section above other contacts - so that the
+                                                    users will notice them first (before scrolling down to other, more generic
+                                                    contacts).
+                                                </xs:documentation>
+                                            </xs:annotation>
+                                        </xs:element>
+                                    </xs:sequence>
+                                </xs:complexType>
+                            </xs:element>
+                            <xs:element name="in-effect" minOccurs="1" maxOccurs="1" type="xs:boolean">
+                                <xs:annotation>
+                                    <xs:documentation>
+                                        Boolean. True, if this IIA *is* or *once was* in effect - that is, it has been
+                                        signed, and the partners are (or were) following its rules. False, if this IIA
+                                        is a draft or proposal only (and it hasn't been agreed on).
+
+                                        This flag allows to differentiate between actual agreements, and the *proposed*
+                                        agreements. (IIAs API allows to peek on both.)
+                                    </xs:documentation>
+                                </xs:annotation>
+                            </xs:element>
+                            <xs:element name="cooperation-conditions" minOccurs="1" maxOccurs="1">
+                                <xs:annotation>
+                                    <xs:documentation>
+                                        List of all cooperation conditions defined in this agreement.
+
+                                        Please note, that HEIs are not required to keep cooperation conditions
+                                        unrelated to themselves. This can happen if IIA has more than 2 partners. The
+                                        following list of conditions MAY be limited to only those conditions which are
+                                        related to the HEI the client is requesting the IIA from.
+                                    </xs:documentation>
+                                </xs:annotation>
+                                <xs:complexType>
+                                    <xs:sequence>
+                                        <xs:element ref="student-studies-mobility-spec" minOccurs="0" maxOccurs="unbounded">
+                                            <xs:annotation>
+                                                <xs:documentation>
+                                                    A list of descriptions of student mobilities *for studies* (not to be
+                                                    confused with student mobility *for traineeships*).
+                                                </xs:documentation>
+                                            </xs:annotation>
+                                        </xs:element>
+                                        <xs:element ref="student-traineeship-mobility-spec" minOccurs="0" maxOccurs="unbounded">
+                                            <xs:annotation>
+                                                <xs:documentation>
+                                                    A list of descriptions of student mobility *for traineeships*.
+                                                </xs:documentation>
+                                            </xs:annotation>
+                                        </xs:element>
+                                        <xs:element ref="staff-teacher-mobility-spec" minOccurs="0" maxOccurs="unbounded">
+                                            <xs:annotation>
+                                                <xs:documentation>
+                                                    A list of descriptions of staff mobility *for teaching*.
+                                                </xs:documentation>
+                                            </xs:annotation>
+                                        </xs:element>
+                                        <xs:element ref="staff-training-mobility-spec" minOccurs="0" maxOccurs="unbounded">
+                                            <xs:annotation>
+                                                <xs:documentation>
+                                                    A list of descriptions of staff mobility *for training*.
+                                                </xs:documentation>
+                                            </xs:annotation>
+                                        </xs:element>
+                                    </xs:sequence>
+                                </xs:complexType>
+                            </xs:element>
+                        </xs:sequence>
+                    </xs:complexType>
+                </xs:element>
+            </xs:sequence>
+        </xs:complexType>
+    </xs:element>
+
+    <xs:complexType name="MobilitySpecification" abstract="true">
+        <xs:annotation>
+            <xs:documentation>
+                A common parent class for all mobility specifications.
+
+                Note that "mobility specification" is a name we (EWP designers) made up. We
+                needed to have a descriptive name for this particular entity, and we couldn't
+                find such name in existing Erasmus+ templates. In other words, this is an
+                EWP-specific term only, and you should probably avoid using it in other
+                contexts.
+
+                Mobility specification may also be considered as a subclass of "cooperation
+                condition", but - since currently all nonabstract subclasses inherit from
+                MobilitySpecification - no CooperationCondition class is introduced. See here:
+                https://github.com/erasmus-without-paper/ewp-wp3-data-model/issues/10
+
+                Each specification has a sending and receiving partner. Each specification
+                represents an agreement that, for each of the academic years listed within, the
+                sending partner will send a particular number of people to the receiving
+                partner, for a particular average duration each (e.g. for 8 weeks). This
+                describes an unidirectional flow - if people are sent in both directions, two
+                separate mobility specifications need to be defined (one for each direction).
+
+                More requirements (e.g. *who* is being sent to do *what*) are defined in
+                specific `*-mobility-spec` subclasses.
+
+                This type, nor any of its subclasses, SHOULD NOT be referenced outside of the
+                EWP IIAs API. It is likely to be modified, or to be removed, in the future.
+            </xs:documentation>
+        </xs:annotation>
+        <xs:sequence>
+            <xs:element name="sending-hei-id" type="xs:string" minOccurs="1" maxOccurs="1">
+                <xs:annotation>
+                    <xs:documentation>
+                        SCHAC ID of the sending HEI. Must match the `hei-id` of one of the IIA partners.
+                        https://github.com/erasmus-without-paper/ewp-specs-api-registry/#schac-identifiers
+                    </xs:documentation>
+                </xs:annotation>
+            </xs:element>
+            <xs:element name="sending-ounit-id" type="ewp:AsciiPrintableIdentifier" minOccurs="0" maxOccurs="unbounded">
+                <xs:annotation>
+                    <xs:documentation>
+                        Optional list of IDs of sending organizational units.
+
+                        This data might be relevant for some partners, while other partners might
+                        ignore it completely. If the server is aware that particular students should
+                        come from a particular organizational unit, then it reports it here. Note, that
+                        this MAY be the "root" unit (the one representing the entire HEI).
+
+                        These IDs are defined by the HEI referred to in the `sending-hei-id` element.
+                        If the server is not aware of these IDs, then it won't provide them. Clients
+                        can retrieve further information on this unit via Organizational Units API, but
+                        note, that it is not obvious *which* Organizational Units API the client should
+                        use. See similar notes on `iia/partner-hei/hei-id` element. Discuss here:
+                        https://github.com/erasmus-without-paper/ewp-specs-api-iias/issues/6
+                    </xs:documentation>
+                </xs:annotation>
+            </xs:element>
+            <xs:element name="sending-contact" type="c:Contact" minOccurs="0" maxOccurs="unbounded">
+                <xs:annotation>
+                    <xs:documentation>
+                        A list of contacts on the sending HEI's side, related to the mobilities based
+                        on this specification.
+
+                        Not all servers provide these! Many HEIs (especially the smaller ones) don't
+                        granulate their contacts in such a detailed way. Instead, they have a fixed set
+                        of contacts described in their Institutions API.
+
+                        These contacts take precedence over contacts defined in the Institutions API,
+                        and the ones defined in the `contact` elements of *this* API (outside of the
+                        cooperation conditions list). Clients are advised to display these contacts in
+                        a separate section above other contacts - so that the users will notice them
+                        first (before scrolling down to other, more generic contacts).
+                    </xs:documentation>
+                </xs:annotation>
+            </xs:element>
+            <xs:element name="receiving-hei-id" type="xs:string" minOccurs="1" maxOccurs="1">
+                <xs:annotation>
+                    <xs:documentation>
+                        SCHAC ID of the receiving HEI. Must match the `hei-id` of one of the IIA partners.
+                        https://github.com/erasmus-without-paper/ewp-specs-api-registry/#schac-identifiers
+                    </xs:documentation>
+                </xs:annotation>
+            </xs:element>
+            <xs:element name="receiving-ounit-id" type="ewp:AsciiPrintableIdentifier" minOccurs="0" maxOccurs="unbounded">
+                <xs:annotation>
+                    <xs:documentation>
+                        Optional list of receiving organizational units.
+
+                        This data might be relevant for some partners, while other partners might
+                        ignore it completely. If the server is aware that particular students should be
+                        received by a particular organizational unit, then it reports it here. Note,
+                        that this MAY be the "root" unit (the one representing the entire HEI).
+
+                        These IDs are defined by the HEI referred to in the `receiving-hei-id` element.
+                        If the server is not aware of these IDs, then it won't provide them. Clients
+                        can retrieve further information on this unit via Organizational Units API, but
+                        note, that it is not obvious *which* Organizational Units API the client should
+                        use. See similar notes on `iia/partner-hei/hei-id` element. Discuss here:
+                        https://github.com/erasmus-without-paper/ewp-specs-api-iias/issues/6
+                    </xs:documentation>
+                </xs:annotation>
+            </xs:element>
+            <xs:element name="receiving-contact" type="c:Contact" minOccurs="0" maxOccurs="unbounded">
+                <xs:annotation>
+                    <xs:documentation>
+                        A list of contacts on the receiving HEI's side, related to the mobilities based
+                        on this specification.
+
+                        Very similar to the `sending-contact` element. Please read `sending-contact`'s
+                        documentation.
+                    </xs:documentation>
+                </xs:annotation>
+            </xs:element>
+            <xs:element name="receiving-academic-year-id" type="trm:AcademicYearId" minOccurs="1" maxOccurs="unbounded">
+                <xs:annotation>
+                    <xs:documentation>
+                        A list of academic years for which this mobility specification is required to
+                        be in effect. (Each mobility specification can be bound to a different set of
+                        academic years.) It MUST be a unique set of IDs (years are not allowed to be
+                        repeated).
+
+                        Data models of some servers allow for a mobility specification to be in effect
+                        for an infinite number of years - this happens if the agreement doesn't have an
+                        end date yet. In such cases, it is RECOMMENDED for server implementers to use a
+                        "best guess" strategy to determine the end date. If you cannot guess reliably,
+                        then it is RECOMMENDED to include *at least* all academic years from *now* to 5
+                        years into the future.
+
+                        If some of the partners are from the southern hemisphere (so that they use
+                        academic years in a form of "2010/2010" instead of "2010/2011"), then IDs
+                        provided here should refer to the scheme used by the receiving partner (not the
+                        sending one). At the beginning of the EWP project clients MAY expect all
+                        academic years to come in the northern hemisphere format, but this might change
+                        later on.
+                    </xs:documentation>
+                </xs:annotation>
+            </xs:element>
+            <xs:element name="mobilities-per-year" type="xs:positiveInteger" minOccurs="1" maxOccurs="1">
+                <xs:annotation>
+                    <xs:documentation>
+                        Maximum number of people to be sent *for each* academic year. (The total number
+                        of people being sent can be calculated by multiplying this number and the
+                        length of the `receiving-academic-year-id` list.)
+
+                        (In the Erasmus+ IIA template this was called "mobility number", and it wasn't
+                        necessarilly "per year".)
+                    </xs:documentation>
+                </xs:annotation>
+            </xs:element>
+            <xs:element name="recommended-language-skill" minOccurs="0" maxOccurs="unbounded">
+                <xs:annotation>
+                    <xs:documentation>
+                        A list of recommended language skills the student (or staff member) should
+                        have at the start of the mobility period.
+
+                        This element can currently be attached to all subclasses of
+                        MobilitySpecification. Since it has almost the same meaning regardless of where
+                        it is attached, we define it here (in the base class) for now. This MAY change
+                        in future versions though.
+                    </xs:documentation>
+                </xs:annotation>
+                <xs:complexType>
+                    <xs:sequence>
+                        <xs:element name="language" type="xs:language" minOccurs="1" maxOccurs="1">
+                            <xs:annotation>
+                                <xs:documentation>
+                                    The code of the language which the student (or staff member) is recommended to be
+                                    familiar with.
+                                </xs:documentation>
+                            </xs:annotation>
+                        </xs:element>
+                        <xs:element name="cefr-level" minOccurs="0" maxOccurs="1">
+                            <xs:annotation>
+                                <xs:documentation>
+                                    Optional CEFR level code - the recommended minimum level of language skill the
+                                    student (or staff member) should have.
+                                    https://en.wikipedia.org/wiki/Common_European_Framework_of_Reference_for_Languages
+                                </xs:documentation>
+                            </xs:annotation>
+                            <xs:simpleType>
+                                <xs:restriction base="xs:string">
+                                    <xs:pattern value="[ABC][12]"/>
+                                </xs:restriction>
+                            </xs:simpleType>
+                        </xs:element>
+                    </xs:sequence>
+                </xs:complexType>
+            </xs:element>
+            <xs:element name="isced-f-code" type="xs:string" minOccurs="0" maxOccurs="1">
+                <xs:annotation>
+                    <xs:documentation>
+                        Optional ISCED-F subject area code associated with this mobility.
+
+                        This element can currently be attached to all subclasses of
+                        MobilitySpecification. Since it has almost the same meaning regardless of where
+                        it is attached, we define it here (in the base class) for now. This MAY change
+                        in future versions though.
+
+                        ISCED-F codes define fields of education and training at the secondary,
+                        post-secondary and tertiary levels of education. Details:
+                        http://www.uis.unesco.org/Education/Documents/isced-fields-of-education-training-2013.pdf
+                    </xs:documentation>
+                </xs:annotation>
+            </xs:element>
+        </xs:sequence>
+    </xs:complexType>
+
+    <xs:complexType name="StudentMobilitySpecification" abstract="true">
+        <xs:annotation>
+            <xs:documentation>
+                A common parent class for all student mobility specifications.
+            </xs:documentation>
+        </xs:annotation>
+        <xs:complexContent>
+            <xs:extension base="MobilitySpecification">
+                <xs:sequence>
+                    <xs:element name="avg-months" type="xs:positiveInteger" minOccurs="1" maxOccurs="1">
+                        <xs:annotation>
+                            <xs:documentation>
+                                Average duration of the student mobility, in months.
+
+                                Note, that Erasmus+ IIA template allows to give this value in two formats:
+
+                                A. a total number of months of the study periods, or
+                                B. an average duration.
+
+                                Since A can be easily calculated from B (A=B*N, where N is the
+                                `mobilities-per-year`), we do not need to support both formats here. We
+                                chose to support B only.
+                            </xs:documentation>
+                        </xs:annotation>
+                    </xs:element>
+                </xs:sequence>
+            </xs:extension>
+        </xs:complexContent>
+    </xs:complexType>
+
+    <xs:complexType name="StaffMobilitySpecification" abstract="true">
+        <xs:annotation>
+            <xs:documentation>
+                A common parent class for all staff mobility specifications.
+            </xs:documentation>
+        </xs:annotation>
+        <xs:complexContent>
+            <xs:extension base="MobilitySpecification">
+                <xs:sequence>
+                    <xs:element name="avg-days" type="xs:positiveInteger" minOccurs="1" maxOccurs="1">
+                        <xs:annotation>
+                            <xs:documentation>
+                                Average duration of the staff mobility, in days.
+
+                                This is very similar to `avg-months` element (please read the notes there too).
+                                Note, that Erasmus+ IIA template defines student mobility periods in months, but
+                                staff mobility periods are always defined in days (that's why neither
+                                `avg-months` nor `avg-days` can be present on the MobilitySpecification level).
+                            </xs:documentation>
+                        </xs:annotation>
+                    </xs:element>
+                </xs:sequence>
+            </xs:extension>
+        </xs:complexContent>
+    </xs:complexType>
+
+    <xs:element name="student-studies-mobility-spec">
+        <xs:annotation>
+            <xs:documentation>
+                Specifies unidirectional "Student Mobility for Studies" cooperation condition.
+            </xs:documentation>
+        </xs:annotation>
+        <xs:complexType>
+            <xs:complexContent>
+                <xs:extension base="StudentMobilitySpecification">
+                    <xs:sequence>
+                        <xs:element name="eqf-level" type="ewp:EqfLevel" minOccurs="1" maxOccurs="unbounded">
+                            <xs:annotation>
+                                <xs:documentation>
+                                    A list of allowed study levels of the students being sent.
+
+                                    (If a particular student's level is not listed here, then this student should
+                                    not be able to apply for this mobility.)
+                                </xs:documentation>
+                            </xs:annotation>
+                        </xs:element>
+                    </xs:sequence>
+                </xs:extension>
+            </xs:complexContent>
+        </xs:complexType>
+    </xs:element>
+
+    <xs:element name="student-traineeship-mobility-spec">
+        <xs:annotation>
+            <xs:documentation>
+                Specifies unidirectional "Student Mobility for Traineeships" cooperation condition.
+            </xs:documentation>
+        </xs:annotation>
+        <xs:complexType>
+            <xs:complexContent>
+                <xs:extension base="StudentMobilitySpecification">
+                    <xs:sequence>
+                        <!-- Currently, there are no extra fields for this subclass. -->
+                    </xs:sequence>
+                </xs:extension>
+            </xs:complexContent>
+        </xs:complexType>
+    </xs:element>
+
+    <xs:element name="staff-teacher-mobility-spec">
+        <xs:annotation>
+            <xs:documentation>
+                Specifies unidirectional "Staff Mobility for Teaching" cooperation condition.
+            </xs:documentation>
+        </xs:annotation>
+        <xs:complexType>
+            <xs:complexContent>
+                <xs:extension base="StaffMobilitySpecification">
+                    <xs:sequence>
+                        <!-- Currently, there are no extra fields for this subclass. -->
+                    </xs:sequence>
+                </xs:extension>
+            </xs:complexContent>
+        </xs:complexType>
+    </xs:element>
+
+    <xs:element name="staff-training-mobility-spec">
+        <xs:annotation>
+            <xs:documentation>
+                Specifies unidirectional "Staff Mobility for Training" cooperation condition.
+            </xs:documentation>
+        </xs:annotation>
+        <xs:complexType>
+            <xs:complexContent>
+                <xs:extension base="StaffMobilitySpecification">
+                    <xs:sequence>
+                        <!-- Currently, there are no extra fields for this subclass. -->
+                    </xs:sequence>
+                </xs:extension>
+            </xs:complexContent>
+        </xs:complexType>
+    </xs:element>
+
+</xs:schema>

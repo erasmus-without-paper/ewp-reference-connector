@@ -1,0 +1,54 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<xs:schema
+    xmlns:xs="http://www.w3.org/2001/XMLSchema"
+    xmlns:xml="http://www.w3.org/XML/1998/namespace"
+    elementFormDefault="qualified"
+
+    targetNamespace="https://github.com/erasmus-without-paper/ewp-reference-connector/tree/master"
+    xmlns="https://github.com/erasmus-without-paper/ewp-reference-connector/tree/master"
+>
+    <xs:import
+        schemaLocation="https://raw.githubusercontent.com/erasmus-without-paper/ewp-specs-api-discovery/v4.0.2/manifest.xsd"
+        namespace="https://github.com/erasmus-without-paper/ewp-specs-api-discovery/tree/stable-v4"
+    />
+    <xs:import
+        schemaLocation="https://raw.githubusercontent.com/erasmus-without-paper/ewp-specs-api-discovery/v4.0.2/manifest-entry.xsd"
+        namespace="https://github.com/erasmus-without-paper/ewp-specs-api-discovery/blob/stable-v4/manifest-entry.xsd"
+    />
+
+    <xs:import
+        schemaLocation="https://raw.githubusercontent.com/erasmus-without-paper/ewp-specs-api-echo/v1.0.4/response.xsd"
+        namespace="https://github.com/erasmus-without-paper/ewp-specs-api-echo/tree/stable-v1"
+    />
+    <xs:import
+        schemaLocation="https://raw.githubusercontent.com/erasmus-without-paper/ewp-specs-api-echo/v1.0.4/manifest-entry.xsd"
+        namespace="https://github.com/erasmus-without-paper/ewp-specs-api-echo/blob/stable-v1/manifest-entry.xsd"
+    />
+
+    <xs:import
+        schemaLocation="https://raw.githubusercontent.com/erasmus-without-paper/ewp-specs-api-registry/stable-v1/catalogue.xsd"
+        namespace="https://github.com/erasmus-without-paper/ewp-specs-api-registry/tree/stable-v1"
+    />
+    <xs:import
+        schemaLocation="https://raw.githubusercontent.com/erasmus-without-paper/ewp-specs-api-registry/stable-v1/manifest-entry.xsd"
+        namespace="https://github.com/erasmus-without-paper/ewp-specs-api-registry/blob/stable-v1/manifest-entry.xsd"
+    />
+    
+    <xs:import
+        schemaLocation="https://raw.githubusercontent.com/erasmus-without-paper/ewp-specs-api-institutions/v1.0.0/response.xsd"
+        namespace="https://github.com/erasmus-without-paper/ewp-specs-api-institutions/tree/stable-v1"
+    />
+    <xs:import
+        schemaLocation="https://raw.githubusercontent.com/erasmus-without-paper/ewp-specs-api-institutions/v1.0.0/manifest-entry.xsd"
+        namespace="https://github.com/erasmus-without-paper/ewp-specs-api-institutions/blob/stable-v1/manifest-entry.xsd"
+    />
+
+    <xs:import
+        schemaLocation="https://raw.githubusercontent.com/erasmus-without-paper/ewp-specs-api-ounits/v1.0.0/response.xsd"
+        namespace="https://github.com/erasmus-without-paper/ewp-specs-api-ounits/tree/stable-v1"
+    />
+    <xs:import
+        schemaLocation="https://raw.githubusercontent.com/erasmus-without-paper/ewp-specs-api-ounits/v1.0.0/manifest-entry.xsd"
+        namespace="https://github.com/erasmus-without-paper/ewp-specs-api-ounits/blob/stable-v1/manifest-entry.xsd"
+    />
+</xs:schema>

@@ -6,11 +6,11 @@ import eu.erasmuswithoutpaper.organization.entity.LanguageItem;
 import java.io.Serializable;
 import java.util.Date;
 import java.util.List;
+import java.util.Objects;
 import javax.persistence.CascadeType;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.JoinTable;
@@ -25,28 +25,27 @@ import org.apache.johnzon.mapper.JohnzonConverter;
 @Entity
 @NamedQueries({
     @NamedQuery(name = AcademicTerm.findAll, query = "SELECT a FROM AcademicTerm a"),
-    @NamedQuery(name = AcademicTerm.findByAcademicYearAndTermId, query = "SELECT a FROM AcademicTerm a WHERE a.academicYear.id = :academicYearId AND a.academicTermId = :academicTermId")
+    @NamedQuery(name = AcademicTerm.findByAcademicYearId, query = "SELECT a FROM AcademicTerm a WHERE a.academicYear.id = :academicYearId")
 })
 public class AcademicTerm implements Serializable{
 
     private static final String PREFIX = "eu.erasmuswithoutpaper.course.entity.AcademicTerm.";
     public static final String findAll = PREFIX + "all";
-    public static final String findByAcademicYearAndTermId = PREFIX + "byAcademicYearAndTermId";
+    public static final String findByAcademicYearId = PREFIX + "byAcademicYearAndTermId";
     
     @Id
-    @GeneratedValue(strategy=GenerationType.AUTO)
-    long id;
+    @GeneratedValue(generator="system-uuid")
+    String id;
     
     private String institutionId;
     private String organizationUnitId;
-    private String academicTermId;
     
     @ManyToOne(cascade = CascadeType.DETACH, fetch = FetchType.EAGER)
     @JoinColumn(name = "ACADEMIC_YEAR_ID", referencedColumnName = "ID")
     private AcademicYear academicYear;
 
     @OneToMany(cascade = CascadeType.ALL, fetch = FetchType.EAGER, orphanRemoval=true)
-    @JoinTable(name = "academic_term_name")
+    @JoinTable(name = "ACADEMIC_TERM_NAME")
     private List<LanguageItem> dispName;
     
     @JohnzonConverter(StandardDateConverter.class)
@@ -57,11 +56,11 @@ public class AcademicTerm implements Serializable{
     @Temporal(TemporalType.DATE)
     private Date endDate;
 
-    public long getId() {
+    public String getId() {
         return id;
     }
 
-    public void setId(long id) {
+    public void setId(String id) {
         this.id = id;
     }
 
@@ -87,14 +86,6 @@ public class AcademicTerm implements Serializable{
 
     public void setAcademicYear(AcademicYear academicYear) {
         this.academicYear = academicYear;
-    }
-
-    public String getAcademicTermId() {
-        return academicTermId;
-    }
-
-    public void setAcademicTermId(String academicTermId) {
-        this.academicTermId = academicTermId;
     }
 
     public List<LanguageItem> getDispName() {
@@ -123,8 +114,8 @@ public class AcademicTerm implements Serializable{
 
     @Override
     public int hashCode() {
-        int hash = 5;
-        hash = 37 * hash + (int) (this.id ^ (this.id >>> 32));
+        int hash = 3;
+        hash = 53 * hash + Objects.hashCode(this.id);
         return hash;
     }
 
@@ -140,7 +131,7 @@ public class AcademicTerm implements Serializable{
             return false;
         }
         final AcademicTerm other = (AcademicTerm) obj;
-        if (this.id != other.id) {
+        if (!Objects.equals(this.id, other.id)) {
             return false;
         }
         return true;

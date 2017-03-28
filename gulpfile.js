@@ -14,12 +14,14 @@ var vendorJs;
 var vendorCss;
 
 var paths = {
-    js: "src/main/webapp/resources/js/**/*.js"
+    js: "src/main/webapp/resources/js/**/*.js",
+    css: "src/main/webapp/resources/css/**/*.css"
 };
 
 // Watch Angular files for changes
 gulp.task('watch', function() {
     gulp.watch(paths.js, ['app-js']);
+    gulp.watch(paths.css, ['app-css']);
 });
 
 // Minify the vendor libraries and zip them to one file
@@ -47,20 +49,19 @@ gulp.task('lib-css-files', function () {
         .pipe(gulp.dest('src/main/webapp/resources/vendor/css'));
 });
 
-// Inject the CSS-files as links to the index.html-page
-gulp.task('index', function () {
-    var target = gulp.src("src/main/webapp/index.html");
-    var sources = gulp.src(['src/main/webapp/resources/css/*.css'], {read: false});
-    return target
-        .pipe(inject(series(vendorCss, sources), {relative: true}))
-        .pipe(gulp.dest('src/main/webapp'));
-});
-
 // Concat all Angular code to one file
 gulp.task('app-js', function () {
     var sources = gulp.src([paths.js]);
     return sources
         .pipe(concat('reference-connector.js'))
+        .pipe(gulp.dest('src/main/webapp/resources'));
+});
+
+// Concat all CSS code to one file
+gulp.task('app-css', function () {
+    var sources = gulp.src([paths.css]);
+    return sources
+        .pipe(concat('reference-connector.css'))
         .pipe(gulp.dest('src/main/webapp/resources'));
 });
 
@@ -72,5 +73,5 @@ gulp.task('copyFonts', function() {
 
 // Default Task
 gulp.task('default', function () {
-    runSequence('lib-js-files', 'lib-css-files', 'app-js', 'index', 'copyFonts');
+    runSequence('lib-js-files', 'lib-css-files', 'app-js', 'app-css', 'copyFonts');
 });

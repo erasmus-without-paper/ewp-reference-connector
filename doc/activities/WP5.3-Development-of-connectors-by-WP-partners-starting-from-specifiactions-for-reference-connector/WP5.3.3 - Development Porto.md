@@ -8,15 +8,14 @@
 #### Project manager / Contact person
 | Contact info      | Details                        |
 | ----------------- | ------------------------------ |
-| **Name**          |  _First, Surname_              |
-| **Email adress**  |  _email@domain.com_            |
-| **Telephone no**  |  _+46 70-555 555_              |
+| **Name**          |  _luis Valente_              |
+| **Email adress**  |  _lvalente@uporto.pt_         |
+| **Telephone no**  |  _+351 220 408 537_            |
 
 #### Developing members
 |     Role       |      Name         |              Email adress                 |
 | -------------  | ----------------- | ----------------------------------------- |
-|      -         |                   |                                           |
-|      -         |                   |                                           |
+| Developer      | Jorge Santos      |   jmsantos@reit.up.pt                     |
 |      -         |                   |                                           |             
 
 Other important information _(please specify below:)_ 

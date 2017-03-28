@@ -3,16 +3,18 @@ package eu.erasmuswithoutpaper.organization.entity;
 
 import java.io.Serializable;
 import java.util.List;
+import java.util.Objects;
 import javax.persistence.CascadeType;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
 import javax.persistence.JoinTable;
 import javax.persistence.NamedQueries;
 import javax.persistence.NamedQuery;
 import javax.persistence.OneToMany;
+import javax.persistence.OneToOne;
 
 @Entity
 @NamedQueries({
@@ -26,30 +28,36 @@ public class Institution implements Serializable{
     public static final String findByInstitutionId = PREFIX + "byInstitutionId";
 
     @Id
-    @GeneratedValue(strategy=GenerationType.AUTO)
-    long id;
+    @GeneratedValue(generator="system-uuid")
+    String id;
 
     private String institutionId;
-    private String otherId;
-    private String country;
-
+    
     @OneToMany(cascade = CascadeType.ALL, fetch = FetchType.EAGER, orphanRemoval=true)
-    @JoinTable(name = "institution_name")
+    @JoinTable(name = "INST_OTHER_ID")
+    private List<IdentificationItem> otherId;
+    
+    @OneToMany(cascade = CascadeType.ALL, fetch = FetchType.EAGER, orphanRemoval=true)
+    @JoinTable(name = "INSTITUTION_NAME")
     private List<LanguageItem> name;
     
-    @OneToMany(cascade = CascadeType.ALL, fetch = FetchType.EAGER, orphanRemoval=true)
-    @JoinTable(name = "institution_descr")
-    private List<LanguageItem> description;
+    private String abbreviation;
     
     @OneToMany(cascade = CascadeType.ALL, fetch = FetchType.EAGER, orphanRemoval=true)
-    @JoinTable(name = "inst_org_unit")
+    @JoinTable(name = "INST_ORG_UNIT")
     private List<OrganizationUnit> organizationUnits;
+    
+    private String logoUrl;
 
-    public long getId() {
+    @OneToOne(cascade = CascadeType.ALL, fetch = FetchType.EAGER)
+    @JoinColumn(name = "FACT_SHEET")
+    private FactSheet factSheet;
+    
+    public String getId() {
         return id;
     }
 
-    public void setId(long id) {
+    public void setId(String id) {
         this.id = id;
     }
 
@@ -61,11 +69,11 @@ public class Institution implements Serializable{
         this.institutionId = institutionId;
     }
 
-    public String getOtherId() {
+    public List<IdentificationItem> getOtherId() {
         return otherId;
     }
 
-    public void setOtherId(String otherId) {
+    public void setOtherId(List<IdentificationItem> otherId) {
         this.otherId = otherId;
     }
 
@@ -77,20 +85,12 @@ public class Institution implements Serializable{
         this.name = name;
     }
 
-    public String getCountry() {
-        return country;
+    public String getAbbreviation() {
+        return abbreviation;
     }
 
-    public void setCountry(String country) {
-        this.country = country;
-    }
-
-    public List<LanguageItem> getDescription() {
-        return description;
-    }
-
-    public void setDescription(List<LanguageItem> description) {
-        this.description = description;
+    public void setAbbreviation(String abbreviation) {
+        this.abbreviation = abbreviation;
     }
 
     public List<OrganizationUnit> getOrganizationUnits() {
@@ -101,10 +101,26 @@ public class Institution implements Serializable{
         this.organizationUnits = organizationUnits;
     }
 
+    public FactSheet getFactSheet() {
+        return factSheet;
+    }
+
+    public void setFactSheet(FactSheet factSheet) {
+        this.factSheet = factSheet;
+    }
+
+    public String getLogoUrl() {
+        return logoUrl;
+    }
+
+    public void setLogoUrl(String logoUrl) {
+        this.logoUrl = logoUrl;
+    }
+
     @Override
     public int hashCode() {
-        int hash = 7;
-        hash = 31 * hash + (int) (this.id ^ (this.id >>> 32));
+        int hash = 5;
+        hash = 41 * hash + Objects.hashCode(this.id);
         return hash;
     }
 
@@ -120,11 +136,9 @@ public class Institution implements Serializable{
             return false;
         }
         final Institution other = (Institution) obj;
-        if (this.id != other.id) {
+        if (!Objects.equals(this.id, other.id)) {
             return false;
         }
         return true;
-    }
-    
-    
+    }    
 }

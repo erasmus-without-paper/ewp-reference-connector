@@ -1,12 +1,9 @@
 angular
-    .module('connector', ['menu', 'home', 'echo', 'iia', 'institution', 'ngResource', 'ngRoute', 'person', 'coordinator', 'academicterm', 'los', 'loi', 'iiapartner'])
+    .module('connector', ['menu', 'home', 'echo', 'iia', 'institution', 'ngResource', 'ngRoute', 'person', 'contact', 'mobilityParticipant', 'academicterm', 'los', 'loi', 'mobility'])
     .config(function ($routeProvider) {
         $routeProvider.when('/iia', {
-                templateUrl: 'partials/todo.html'
-//                controller: 'IiaController'
-            }).when('/iiapartner', {
-                templateUrl: 'partials/iiapartner.html',
-                controller: 'IiaPartnerController'
+                templateUrl: 'partials/iia.html',
+                controller: 'IiaController'
             }).when('/newIia', {
                 templateUrl: 'partials/new_iia_form.html',
                 controller: 'IiaController'
@@ -19,8 +16,6 @@ angular
             }).when('/echo', {
                 templateUrl: 'partials/echo.html',
                 controller: 'EchoController'
-            }).when('/manifest', {
-                templateUrl: 'partials/todo.html'
             }).when('/academicterm', {
                 templateUrl: 'partials/academicterm.html',
                 controller: 'AcademicTermController'
@@ -30,36 +25,34 @@ angular
             }).when('/loi', {
                 templateUrl: 'partials/loi.html',
                 controller: 'LoiController'
-            }).when('/mobility', {
-                templateUrl: 'partials/todo.html'
-            }).when('/coordinator', {
-                templateUrl: 'partials/coordinator.html',
-                controller: 'CoordinatorController'
+            }).when('/contact', {
+                templateUrl: 'partials/contact.html',
+                controller: 'ContactController'
+            }).when('/mobility-participant', {
+                templateUrl: 'partials/mobility_participant.html',
+                controller: 'MobilityParticipantController'
             }).when('/person', {
                 templateUrl: 'partials/person.html',
                 controller: 'PersonController'
+            }).when('/mobility', {
+                templateUrl: 'partials/mobility.html',
+                controller: 'MobilityController'
+            }).when('/institution-client', {
+                templateUrl: 'partials/institution_client.html',
+                controller: 'InstitutionClientController'
+            }).when('/ounit-client', {
+                templateUrl: 'partials/ounit_client.html',
+                controller: 'OrganizationUnitClientController'
+            }).when('/courses-client', {
+                templateUrl: 'partials/courses_client.html',
+                controller: 'CoursesClientController'
+            }).when('/course-replication-client', {
+                templateUrl: 'partials/course_replication_client.html',
+                controller: 'CourseReplicationClientController'
+            }).when('/iia-client', {
+                templateUrl: 'partials/iia_client.html',
+                controller: 'IiaClientController'
             }).otherwise({
                 redirectTo: '/home'
             });
-    })
-    .filter('toDate', function() {
-        return function(date) {
-            if (date) {
-                var dt = new Date(date.replace(/\+.*/,''));
-                return dt ? dt : date;
-            }
-            return date;
-        };
-    })
-    .filter('languageItem', function() {
-        return function(languageList, lang) {
-            var languageObject;
-            angular.forEach(languageList, function(item) {
-                if (item.lang === lang) {
-                    languageObject = item;
-                }
-            });
-
-            return languageObject ? languageObject : languageList[0];
-        };
     });

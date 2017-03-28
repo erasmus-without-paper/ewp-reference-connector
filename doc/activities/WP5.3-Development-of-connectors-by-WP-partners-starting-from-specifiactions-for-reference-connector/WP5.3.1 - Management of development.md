@@ -1,23 +1,26 @@
 ## WP5.3.1 - Management of development 
 
-# DRAFT
-
-This table shows which partner who had developed which API and are ready for interchangeing information. An API name that are shown in **Bold** is ready for development (stable API's) according to specification on http://developers.erasmuswithoutpaper.eu/
+This table shows which partner who had developed which API and are ready for interchangeing information. The API:s are devided in the same matter as chapter specification on http://developers.erasmuswithoutpaper.eu/
 
 
-| :API/Partner               | Umeå  | Gent  | Porto |  SOP  | KION  | Sigma | Oslo  | Warsaw | Others|
-| -------------------------- | ----- | ----- | ----- | ----- | ----- | ----- | ----- | ------ | ----- |
-| In Registry                |:link: |   -   |   -   |:link: |   -   |:link: |   -   |:link:  |   -   |
-| Discovery                  |:star: |   -   |   -   |:star: |   -   |:star: |   -   |:star:  |   -   |
-| Echo                       |:star: |   -   |   -   |:star: |   -   |:soon: |   -   |:soon:  |   -   |
-| Institutions               |:star: |   -   |   -   |:star: |   -   |:soon: |   -   |:soon:  |   -   |
-| **DEVELOPMENT DEADLINE**|DEC 2016  | ----- | ----- | ----- | ----- | ----- | ----- | ------ | ----- |
-| Courses                    |   -   |   -   |   -   |   -   |   -   |   -   |   -   |   -    |   -   |
-| IIA                        |   -   |   -   |   -   |   -   |   -   |   -   |   -   |   -    |   -   |
-| **DEVELOPMENT DEADLINE**|JAN 2017  | ----- | ----- | ----- | ----- | ----- | ----- | ------ | ----- |
-| Mobilities                 |   -   |   -   |   -   |   -   |   -   |   -   |   -   |   -    |   -   |
-| Trancript of Record        |   -   |   -   |   -   |   -   |   -   |   -   |   -   |   -    |   -   |
-| **DEVELOPMENT DEADLINE**|FEB 2017  | ----- | ----- | ----- | ----- | ----- | ----- | ------ | ----- |
+| API/Partner                                 | Umeå  | Gent  | Porto |  SOP  | KION  | Sigma | Oslo  | Warsaw | Others|
+| ------------------------------------------- | ----- | ----- | ----- | ----- | ----- | ----- | ----- | ------ | ----- |
+| **DEVELOPMENT Chapter 3 Due:DECEMBER 2016** |       |       |       |       |       |       |       |        |       |
+| In Registry                                 |:link: |:link: |:soon: |:link: |:soon: |:link: |:link: |:link:  |   -   |
+| Discovery                                   |:star: |:star: |:soon: |:star: |:soon: |:star: |:star: |:star:  |   -   |
+| Echo                                        |:star: |:star: |:soon: |:star: |:soon: |:star: |:star: |:star:  |   -   |
+| **DEVELOPMENT Chapter 5 Due:January 2017**  |       |       |       |       |       |       |       |        |       | 
+| Institutions                                |:star: |:star: |   -   |:star: |   -   |:soon: |   -   |:star:  |   -   |
+| Organizational units                        |:star: |:star: |   -   |   -   |   -   |   -   |   -   |:star:  |   -   |
+| Courses                                     |:star: |   -   |   -   |   -   |   -   |   -   |   -   |   -    |   -   |
+| Simple course Replication (optional         |   -   |   -   |   -   |   -   |   -   |   -   |   -   |   -    |   -   |
+| **DEVELOPMENT Chapter 6 Due:February 2017** |       |       |       |       |       |       |       |        |       |
+| IIA                                         |:star: |   -   |   -   |   -   |   -   |   -   |   -   |   -    |   -   |
+| Mobilities                                  |:star: |   -   |   -   |   -   |   -   |   -   |   -   |   -    |   -   |
+| Trancript of Record                         |   -   |   -   |   -   |   -   |   -   |   -   |   -   |   -    |   -   |
+| **DEVELOPMENT Chapter 7 Due:March 2017**    |       |       |       |       |       |       |       |        |       |
+|                                             |       |       |       |       |       |       |       |        |       |
+|                                             |       |       |       |       |       |       |       |        |       |
 
 ---
 * :ok: means that the API is **fully implemented**

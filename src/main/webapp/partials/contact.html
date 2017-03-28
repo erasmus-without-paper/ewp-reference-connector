@@ -1,0 +1,92 @@
+<div class="container">
+    <h1 class="page-header">Contact</h1>
+    <div class="panel panel-default" ng-show="showAddContactForm">
+        <div class="panel-heading"><h2>Add Contact</h2></div>
+        <div class="panel-body">
+            <form class="form-horizontal"  ng-submit="addContact()">
+                <div class="form-group">
+                    <label class="control-label mandatory-control col-sm-2" for="institution">Institution</label>
+                    <div class="col-sm-10">
+                        <select id="institution" class="form-control" ng-model="newContact.institutionId" required="required" ng-change="institutionChanged()">
+                            <option style="display:none" value="">Select institution</option>
+                            <option ng-repeat="inst in institutions | orderBy:['name']" value="{{inst.institutionId}}">{{(inst.name| languageItem : 'en').text}} {{inst.country}}</option>
+                        </select>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label class="control-label col-sm-2" for="orgunit">Organization Unit</label>
+                    <div class="col-sm-10">
+                        <select id="orgunit" class="form-control" ng-model="newContact.organizationUnitId">
+                            <option value="">Select organization unit</option>
+                            <option ng-repeat="org in organizations | orderBy:['name']" value="{{org.id}}">{{(org.name| languageItem : 'en').text}} {{org.country}}</option>
+                        </select>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label class="control-label mandatory-control col-sm-2" for="person">Person</label>
+                    <div class="col-sm-10">
+                        <select id="person" class="form-control" ng-model="newContact.personId" required="required">
+                            <option style="display:none" value="">Select a person</option>
+                            <option ng-repeat="person in persons | orderBy:['personId']:true" value="{{person.personId}}">{{person.personId}} - {{person.firstNames}} {{person.lastName}}</option>
+                        </select>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label class="control-label mandatory-control col-sm-2" for="role">Role</label>
+                    <div class="col-sm-10">
+                        <select id="role" class="form-control" ng-model="newContact.role" required="required">
+                            <option style="display:none" value="">Select a role</option>
+                            <option ng-repeat="role in roles" value="{{role}}">{{role | capitalize}}</option>
+                        </select>
+                    </div>
+                </div>
+                <div class="input-group">
+                    <div class="btn-group">
+                        <button type="submit" class="btn btn-default">
+                            <span class="glyphicon glyphicon-ok-circle"></span> Save
+                        </button>
+                        <button type="button" class="btn btn-default" ng-click="cancelAddContact()">
+                            <span class="glyphicon glyphicon-remove-circle"></span> Cancel
+                        </button>
+                    </div>
+                </div>
+            </form>
+        </div>
+    </div>
+    <div class="clearfix">
+        <h2 class="pull-left">Contacts</h2>
+        <div class="btn-group pull-right" ng-show="!showAddContactForm">
+            <button type="submit" class="btn btn-default" ng-click="viewAddContactForm()">
+                <i class="glyphicon glyphicon-plus-sign"></i>
+            </button>
+        </div>
+    </div>
+    <div class="input-group">
+        <input class="form-control" id="search" name="search" placeholder="Search for" ng-model="query"
+               required="required"/>
+        <span class="input-group-btn">
+            <button type="submit" class="btn btn-default">
+                <i class="glyphicon glyphicon-search"></i>
+            </button>
+        </span>
+    </div>
+    <div class="list-group">
+        <div ng-repeat="contact in contacts | filter:query | orderBy:['institutionId','person.firstNames']">
+            <a class="list-group-item clearfix" ng-click="isopen[contact.id] = !isopen[contact.id]">
+                <div class="col-md-2 hide-overflow-ellipsis"><b>{{contact.person.firstNames}} {{contact.person.lastName}}</b></div>
+                <div class="col-md-9 hide-overflow-ellipsis"><b>{{contact.institutionId}}</b></div>
+                <i class="pull-right glyphicon" ng-class="{'glyphicon-chevron-down': isopen[contact.id], 'glyphicon-chevron-right': !isopen[contact.id]}"></i>
+            </a>
+            <div class="list-group-item clearfix" ng-show="isopen[contact.id]" >
+                <div class="col-md-2">First names:</div><div class="col-md-10 hide-overflow-ellipsis">{{contact.person.firstNames}}</div>
+                <div class="col-md-2">Last name:</div><div class="col-md-10 hide-overflow-ellipsis">{{contact.person.lastName}}</div>
+                <div class="col-md-2">Role:</div><div class="col-md-10 hide-overflow-ellipsis">{{contact.role| capitalize}}</div>
+                <div class="col-md-2">Person id:</div><div class="col-md-10 hide-overflow-ellipsis">{{contact.person.personId}}</div>
+                <div class="col-md-2">Institution id:</div><div class="col-md-10 hide-overflow-ellipsis">{{contact.institutionId}}</div>
+                <div ng-show="contact.organizationUnitId">
+                    <div class="col-md-2">Organization Unit Id:</div><div class="col-md-10 hide-overflow-ellipsis">{{contact.organizationUnitId}}</div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
