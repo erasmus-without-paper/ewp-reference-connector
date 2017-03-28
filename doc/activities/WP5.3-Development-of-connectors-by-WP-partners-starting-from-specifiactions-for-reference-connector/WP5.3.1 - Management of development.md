@@ -10,8 +10,8 @@ This table shows which partner who had developed which API and are ready for int
 | Discovery                                   |:star: |:star: |:soon: |:star: |:soon: |:star: |:star: |:star:  |   -   |
 | Echo                                        |:star: |:star: |:soon: |:star: |:soon: |:star: |:star: |:star:  |   -   |
 | **DEVELOPMENT Chapter 5 Due:January 2017**  |       |       |       |       |       |       |       |        |       | 
-| Institutions                                |:star: |:star: |   -   |:star: |   -   |:soon: |   -   |:star:  |   -   |
-| Organizational units                        |:star: |:star: |   -   |   -   |   -   |   -   |   -   |:star:  |   -   |
+| Institutions                                |:star: |:star: |   -   |:star: |   -   |:soon: |:star: |:star:  |   -   |
+| Organizational units                        |:star: |:star: |   -   |   -   |   -   |   -   |:star: |:star:  |   -   |
 | Courses                                     |:star: |   -   |   -   |   -   |   -   |   -   |   -   |   -    |   -   |
 | Simple course Replication (optional         |   -   |   -   |   -   |   -   |   -   |   -   |   -   |   -    |   -   |
 | **DEVELOPMENT Chapter 6 Due:February 2017** |       |       |       |       |       |       |       |        |       |
