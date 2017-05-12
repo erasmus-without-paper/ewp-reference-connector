@@ -12,11 +12,11 @@ This table shows which partner who had developed which API and are ready for int
 | **DEVELOPMENT Chapter 5 Due:January 2017**  |       |       |       |       |       |       |       |        |       | 
 | Institutions                                |:star: |:star: |   -   |:star: |   -   |:soon: |:star: |:star:  |   -   |
 | Organizational units                        |:star: |:star: |   -   |   -   |   -   |   -   |:star: |:star:  |   -   |
-| Courses                                     |:star: |   -   |   -   |   -   |   -   |   -   |   -   |   -    |   -   |
+| Courses                                     |:star: |   -   |   -   |   -   |   -   |   -   |:soon: |   -    |   -   |
 | Simple course Replication (optional         |   -   |   -   |   -   |   -   |   -   |   -   |   -   |   -    |   -   |
 | **DEVELOPMENT Chapter 6 Due:February 2017** |       |       |       |       |       |       |       |        |       |
 | IIA                                         |:star: |   -   |   -   |   -   |   -   |   -   |:star: |:star:  |   -   |
-| Mobilities                                  |:star: |   -   |   -   |   -   |   -   |   -   |   -   |   -    |   -   |
+| Mobilities                                  |:star: |   -   |   -   |   -   |   -   |   -   |:soon: |   -    |   -   |
 | Trancript of Record                         |   -   |   -   |   -   |   -   |   -   |   -   |   -   |   -    |   -   |
 | **DEVELOPMENT Chapter 7 Due:March 2017**    |       |       |       |       |       |       |       |        |       |
 |                                             |       |       |       |       |       |       |       |        |       |
