@@ -5,22 +5,33 @@ This table shows which partner who had developed which API and are ready for int
 
 | API/Partner                                 | Umeå  | Gent  | Porto |  SOP  | KION  | Sigma | Oslo  | Warsaw | Others|
 | ------------------------------------------- | ----- | ----- | ----- | ----- | ----- | ----- | ----- | ------ | ----- |
-| **DEVELOPMENT Chapter 3 Due:DECEMBER 2016** |       |       |       |       |       |       |       |        |       |
+| **DECEMBER 2016**                           |       |       |       |       |       |       |       |        |       |
 | In Registry                                 |:link: |:link: |:soon: |:link: |:soon: |:link: |:link: |:link:  |   -   |
 | Discovery                                   |:star: |:star: |:soon: |:star: |:soon: |:star: |:star: |:star:  |   -   |
 | Echo                                        |:star: |:star: |:soon: |:star: |:soon: |:star: |:star: |:star:  |   -   |
-| **DEVELOPMENT Chapter 5 Due:January 2017**  |       |       |       |       |       |       |       |        |       | 
-| Institutions                                |:star: |:star: |   -   |:star: |   -   |:soon: |:star: |:star:  |   -   |
+| **March 2017**                              |       |       |       |       |       |       |       |        |       | 
+| Institutions API                            |:star: |:star: |   -   |:star: |   -   |:soon: |:star: |:star:  |   -   |
 | Organizational units                        |:star: |:star: |   -   |   -   |   -   |   -   |:star: |:star:  |   -   |
+| **April 2017**                              |       |       |       |       |       |       |       |        |       | 
+| Nominations API                             |   -   |   -   |   -   |   -   |   -   |   -   |   -   |   -    |   -   |
+| **May 2017**                                |       |       |       |       |       |       |       |        |       | 
+| Learning Agreement API                      |   -   |   -   |   -   |   -   |   -   |   -   |   -   |   -    |   -   |
+| **June 2017**                               |       |       |       |       |       |       |       |        |       | 
+| Trancript of Record                         |   -   |   -   |   -   |   -   |   -   |   -   |   -   |   -    |   -   |
+| **May - June 2017**                         |       |       |       |       |       |       |       |        |       | 
 | Courses                                     |:star: |   -   |   -   |   -   |   -   |   -   |:soon: |   -    |   -   |
-| Simple course Replication (optional         |   -   |   -   |   -   |   -   |   -   |   -   |   -   |   -    |   -   |
-| **DEVELOPMENT Chapter 6 Due:February 2017** |       |       |       |       |       |       |       |        |       |
+| **July - September 2017**                   |       |       |       |       |       |       |       |        |       | 
+| Testing and improving                       |   -   |   -   |   -   |   -   |   -   |   -   |   -   |   -    |   -   |
 | IIA                                         |:star: |   -   |   -   |   -   |   -   |   -   |:star: |:star:  |   -   |
 | Mobilities                                  |:star: |   -   |   -   |   -   |   -   |   -   |:soon: |   -    |   -   |
-| Trancript of Record                         |   -   |   -   |   -   |   -   |   -   |   -   |   -   |   -    |   -   |
-| **DEVELOPMENT Chapter 7 Due:March 2017**    |       |       |       |       |       |       |       |        |       |
-|                                             |       |       |       |       |       |       |       |        |       |
-|                                             |       |       |       |       |       |       |       |        |       |
+| Simple course Replication (optional         |   -   |   -   |   -   |   -   |   -   |   -   |   -   |   -    |   -   |
+
+| Delivery deadlines 	| Type of activities                                       	|
+|--------------------	|----------------------------------------------------------	|
+| September          	| Final Conference and General Meeting,(Brussels)          	|
+| September-October  	| Preparing deliverables                                   	|
+| November-December  	| Preparing final report                                   	|
+| January            	| Preparing final report (if the deadline can be extended) 	|
 
 ---
 * :ok: means that the API is **fully implemented**
