@@ -13,18 +13,18 @@ This table shows which partner who had developed which API and are ready for int
 | Institutions API                            |:star: |:star: |   -   |:star: |   -   |:soon: |:star: |:star:  |   -   |
 | Organizational units                        |:star: |:star: |   -   |   -   |   -   |   -   |:star: |:star:  |   -   |
 | **April 2017**                              |       |       |       |       |       |       |       |        |       | 
-| Nominations API                             |   -   |   -   |   -   |   -   |   -   |   -   |   -   |   -    |   -   |
+| Nominations API                             |   -   |   -   |   -   |   -   |   -   |   -   |   -   |:soon:  |   -   |
 | **May 2017**                                |       |       |       |       |       |       |       |        |       | 
 | Learning Agreement API                      |   -   |   -   |   -   |   -   |   -   |   -   |   -   |   -    |   -   |
 | **June 2017**                               |       |       |       |       |       |       |       |        |       | 
-| Trancript of Record                         |   -   |   -   |   -   |   -   |   -   |   -   |   -   |   -    |   -   |
+| Transcript of Record                        |   -   |   -   |   -   |   -   |   -   |   -   |   -   |   -    |   -   |
 | **May - June 2017**                         |       |       |       |       |       |       |       |        |       | 
 | Courses                                     |:star: |   -   |   -   |   -   |   -   |   -   |:soon: |   -    |   -   |
 | **July - September 2017**                   |       |       |       |       |       |       |       |        |       | 
 | Testing and improving                       |   -   |   -   |   -   |   -   |   -   |   -   |   -   |   -    |   -   |
 | IIA                                         |:star: |   -   |   -   |   -   |   -   |   -   |:star: |:star:  |   -   |
-| Mobilities                                  |:star: |   -   |   -   |   -   |   -   |   -   |:soon: |   -    |   -   |
-| Simple course Replication (optional         |   -   |   -   |   -   |   -   |   -   |   -   |   -   |   -    |   -   |
+| Mobilities                                  |:star: |   -   |   -   |   -   |   -   |   -   |:soon: |:star:  |   -   |
+| Simple course Replication (optional)        |   -   |   -   |   -   |   -   |   -   |   -   |   -   |   -    |   -   |
 
 | Delivery deadlines 	| Type of activities                                       	|
 |--------------------	|----------------------------------------------------------	|
