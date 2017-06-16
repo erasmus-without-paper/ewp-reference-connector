@@ -13,17 +13,17 @@ This table shows which partner who had developed which API and are ready for int
 | [Institutions API][institutions-api]                               | :star: | :star: | -      | :star: | -      | :soon: | :star: | :star: | -      |
 | [Organizational Units API][ounits-api]                             | :star: | :star: | -      | -      | -      | -      | :star: | :star: | -      |
 | **APRIL 2017**                                                     |        |        |        |        |        |        |        |        |        |
-| Nominations part of [Outgoing Mobilities API][mobilities-api]      | -      | -      | -      | -      | -      | -      | -      | :soon: | -      |
+| Nominations part of [Outgoing Mobilities API][mobilities-api]      | -      | -      | -      | -      | -      | -      | :soon: | :soon: | -      |
 | **MAY 2017**                                                       |        |        |        |        |        |        |        |        |        |
-| The rest of [Outgoing Mobilities API][mobilities-api]              | -      | -      | -      | -      | -      | -      | -      | -      | -      |
+| The rest of [Outgoing Mobilities API][mobilities-api]              | -      | -      | -      | -      | -      | -      | :soon: | -      | -      |
 | **JUNE 2017**                                                      |        |        |        |        |        |        |        |        |        |
 | [Transcripts of Records API][tors-api]                             | -      | -      | -      | -      | -      | -      | -      | -      | -      |
 | **MAY - JUNE 2017**                                                |        |        |        |        |        |        |        |        |        |
-| [Courses API][courses-api]                                         | :star: | -      | -      | -      | -      | -      | :soon: | -      | -      |
+| [Courses API][courses-api]                                         | :star: | -      | -      | -      | -      | -      | :star: | -      | -      |
 | **JULY - SEPTEMBER 2017**                                          |        |        |        |        |        |        |        |        |        |
 | Testing and improving                                              | -      | -      | -      | -      | -      | -      | -      | -      | -      |
 | [IIAs API][iias-api]                                               | :star: | -      | -      | -      | -      | -      | :star: | :star: | -      |
-| [Simple Course Replication API][course-replication-api] (optional) | -      | -      | -      | -      | -      | -      | -      | -      | -      |
+| [Simple Course Replication API][course-replication-api] (optional) | -      | -      | -      | -      | -      | -      | :star: | -      | -      |
 
 | Delivery deadlines 	| Type of activities                                       	|
 |--------------------	|----------------------------------------------------------	|
