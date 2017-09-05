@@ -3,7 +3,7 @@
 This table shows which partner who had developed which API and are ready for interchangeing information. The API:s are devided in the same matter as chapter specification on http://developers.erasmuswithoutpaper.eu/
 
 
-| API/Partner                                                        | Umeå   | Gent   | Porto  | SOP    | KION   | Sigma  | Oslo   | Warsaw | Others |
+| API/Partner                                                        | Umeå   | Gent   | Porto  | SOP    | CINECA | Sigma  | Oslo   | Warsaw | Others |
 |--------------------------------------------------------------------|:------:|:------:|:------:|:------:|:------:|:------:|:------:|:------:|:------:|
 | **DECEMBER 2016**                                                  |        |        |        |        |        |        |        |        |        |
 | In Registry                                                        | :link: | :link: | :soon: | :link: | :soon: | :link: | :link: | :link: | -      |
