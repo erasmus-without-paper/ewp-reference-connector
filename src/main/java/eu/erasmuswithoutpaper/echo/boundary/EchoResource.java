@@ -1,10 +1,12 @@
 package eu.erasmuswithoutpaper.echo.boundary;
 
 import eu.erasmuswithoutpaper.api.echo.Response;
-import eu.erasmuswithoutpaper.error.control.EwpWebApplicationException;
 import eu.erasmuswithoutpaper.common.control.GlobalProperties;
 import eu.erasmuswithoutpaper.common.control.RegistryClient;
+import eu.erasmuswithoutpaper.security.EwpAuthenticate;
 import java.security.cert.X509Certificate;
+import java.security.interfaces.RSAPublicKey;
+import java.util.Collection;
 import java.util.List;
 import javax.ejb.Stateless;
 import javax.inject.Inject;
@@ -33,31 +35,29 @@ public class EchoResource {
 
     @GET
     @Produces(MediaType.APPLICATION_XML)
+    @EwpAuthenticate
     public javax.ws.rs.core.Response echoGet(@QueryParam("echo") List<String> echo) {
         return echo(echo);
     }
 
     @POST
     @Produces(MediaType.APPLICATION_XML)
+    @EwpAuthenticate
     public javax.ws.rs.core.Response echoPost(@FormParam("echo") List<String> echo) {
         return echo(echo);
     }
     
     private javax.ws.rs.core.Response echo(List<String> echo) {
-                
-        X509Certificate[] certificates = (X509Certificate[]) httpRequest.getAttribute("javax.servlet.request.X509Certificate");
-        if (certificates == null && !properties.isAllowMissingClientCertificate()) {
-            throw new EwpWebApplicationException("No client certificates found in the request", javax.ws.rs.core.Response.Status.FORBIDDEN);
-        }
-        
-        X509Certificate certificate = registryClient.getCertificateKnownInEwpNetwork(certificates);
-        if (certificate == null && !properties.isAllowMissingClientCertificate()) {
-            throw new EwpWebApplicationException("None of the client certificates is valid in the EWP network", javax.ws.rs.core.Response.Status.FORBIDDEN);
+        Collection<String> heisCovered;
+        if (httpRequest.getAttribute("EwpRequestRSAPublicKey") != null) {
+            heisCovered = registryClient.getHeisCoveredByClientKey((RSAPublicKey) httpRequest.getAttribute("EwpRequestRSAPublicKey"));
+        } else {
+            heisCovered = registryClient.getHeisCoveredByCertificate((X509Certificate) httpRequest.getAttribute("EwpRequestCertificate"));
         }
         
         Response response = new Response();
         echo.stream().forEach(e -> response.getEcho().add(e));
-        registryClient.getHeisCoveredByCertificate(certificate).stream().forEach(i -> response.getHeiId().add(i));
+        heisCovered.stream().forEach(i -> response.getHeiId().add(i));
         
         return javax.ws.rs.core.Response.ok(response).build();
     }

@@ -1,6 +1,7 @@
 angular.module('echo').controller('EchoController', function ($scope, EchoService) {
     $scope.echoRequest = {};
     $scope.echoRequest.method = 'GET';
+    $scope.echoRequest.httpsec = true;
     $scope.echoRequest.params = {echo:['']};
     
     $scope.addEchoItem = function() {

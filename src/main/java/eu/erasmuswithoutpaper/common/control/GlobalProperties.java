@@ -5,13 +5,14 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.util.Optional;
 import java.util.Properties;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 import javax.annotation.PostConstruct;
 import javax.ejb.Singleton;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 @Singleton
 public class GlobalProperties {
+    private static final Logger logger = LoggerFactory.getLogger(GlobalProperties.class);
     public static enum University {
         IKEA_U,
         POMODORO_U
@@ -26,18 +27,18 @@ public class GlobalProperties {
         properties = new Properties();
         try (InputStream in = getClass().getClassLoader().getResourceAsStream("ewp.properties")) {
             properties.load(in);
-            Logger.getLogger(GlobalProperties.class.getName()).log(Level.INFO, "Loaded properties from resource.");
+            logger.info("Loaded properties from resource.");
         } catch (IOException ex) {
-            Logger.getLogger(GlobalProperties.class.getName()).log(Level.SEVERE, null, ex);
+            logger.error("Can't get default properties", ex);
         }
         
         String overrideProperties = System.getProperty("ewp.override.properties");
         if (overrideProperties != null) {
             try {
                 properties.load(new FileInputStream(overrideProperties));
-                Logger.getLogger(GlobalProperties.class.getName()).log(Level.INFO, "Override properties from file '{0}'.", overrideProperties);
+                logger.info("Override properties from file '{0}'.", overrideProperties);
             } catch (IOException ex) {
-                Logger.getLogger(GlobalProperties.class.getName()).log(Level.SEVERE, null, ex);
+                logger.error("Can't get override properties", ex);
             }
         }
         
@@ -129,7 +130,7 @@ public class GlobalProperties {
             try {
                 return Integer.parseInt(value);
             } catch (NumberFormatException e) {
-                Logger.getLogger(GlobalProperties.class.getName()).log(Level.SEVERE, "Not a number " + key, e);
+                logger.error("Not a number " + key, e);
             }
         }
         return defaultValue;

@@ -1,6 +1,7 @@
 package eu.erasmuswithoutpaper.common.boundary;
 
 import java.io.Serializable;
+import java.util.List;
 
 public class BaseClientResponse implements Serializable {
     private int statusCode;
@@ -8,6 +9,8 @@ public class BaseClientResponse implements Serializable {
     private String errorMessage;
     private String rawResponse;
     private long duration;
+    
+    private List<String> headers;
 
     public int getStatusCode() {
         return statusCode;
@@ -47,5 +50,13 @@ public class BaseClientResponse implements Serializable {
     
     public void setDuration(long duration) {
         this.duration = duration;
+    }
+    
+    public List<String> getHeaders() {
+        return this.headers;
+    }
+    
+    public void setHeaders(List<String> headers) {
+        this.headers = headers;
     }
 }

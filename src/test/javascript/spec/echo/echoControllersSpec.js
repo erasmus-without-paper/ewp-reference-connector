@@ -12,7 +12,7 @@ describe('Echo Tests', function () {
             $controller = _$controller_;
             
             $httpBackend.expectGET('gui/echo').respond(['rest/echo']);
-            $httpBackend.expectPOST('gui/echo', '{"method":"GET","params":{"echo":["test1","test2"]},"heiId":"id1"}').respond('echo result');
+            $httpBackend.expectPOST('gui/echo', '{"method":"GET","httpsec":true,"params":{"echo":["test1","test2"]},"heiId":"id1"}').respond('echo result');
             
             $scope = $rootScope.$new();
             var ctrl = $controller('EchoController', {$scope: $scope});

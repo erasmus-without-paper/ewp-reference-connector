@@ -2,6 +2,7 @@ package eu.erasmuswithoutpaper.course.control;
 
 import eu.erasmuswithoutpaper.api.courses.CoursesResponse;
 import eu.erasmuswithoutpaper.api.types.academicterm.AcademicTerm;
+import eu.erasmuswithoutpaper.common.control.ConverterHelper;
 import static eu.erasmuswithoutpaper.common.control.ConverterHelper.convertToMultilineStringWithOptionalLang;
 import static eu.erasmuswithoutpaper.common.control.ConverterHelper.convertToStringWithOptionalLang;
 import static eu.erasmuswithoutpaper.common.control.ConverterHelper.convertToXmlGregorianCalendar;
@@ -15,12 +16,13 @@ import eu.erasmuswithoutpaper.mobility.entity.ResultDistributionCategory;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 import java.util.stream.Collectors;
 import javax.xml.datatype.DatatypeConfigurationException;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 public class LearningOpportunitySpecificationConverter {
+    private static final Logger logger = LoggerFactory.getLogger(LearningOpportunitySpecificationConverter.class);
 
     public CoursesResponse.LearningOpportunitySpecification convertToLos(LearningOpportunitySpecification los, String loisBefore, String loisAfter, String losAtDate) {
         CoursesResponse.LearningOpportunitySpecification course = new CoursesResponse.LearningOpportunitySpecification();
@@ -35,18 +37,19 @@ public class LearningOpportunitySpecificationConverter {
         course.setSubjectArea(los.getSubjectArea());
         course.setType(LearningOpportunitySpecificationType.displayName(los.getType()));
         
-        // TODO: should API change to multilanguage URL
-        course.setUrl(los.getUrl() == null || los.getUrl().isEmpty() ? null : los.getUrl().get(0).getText());
+        if (los.getUrl() != null) {
+            course.getUrl().addAll(ConverterHelper.convertToHttpWithOptionalLang(los.getUrl()));
+        }
         
         return course;
     }
-
+    
     private CoursesResponse.LearningOpportunitySpecification.Contains convertToContains(List<LearningOpportunitySpecification> los) {
         if (los == null || los.isEmpty()) {
             return null;
         }
         CoursesResponse.LearningOpportunitySpecification.Contains contains = new CoursesResponse.LearningOpportunitySpecification.Contains();
-        contains.getLosId().addAll(los.stream().map((l) -> l.getLosCode()).collect(Collectors.toList()));
+        contains.getLosId().addAll(los.stream().map(LearningOpportunitySpecification::getLosCode).collect(Collectors.toList()));
         
         return contains;
     }
@@ -79,7 +82,7 @@ public class LearningOpportunitySpecificationConverter {
             try {
                 converted.setEnd(convertToXmlGregorianCalendar(l.getAcademicTerm().getEndDate()));
             } catch (DatatypeConfigurationException ex) {
-                Logger.getLogger(LearningOpportunitySpecificationConverter.class.getName()).log(Level.SEVERE, null, ex);
+                logger.error("Can't convert date", ex);
             }
             
             converted.setEngagementHours(l.getEngagementHours());
@@ -90,7 +93,7 @@ public class LearningOpportunitySpecificationConverter {
             try {
                 converted.setStart(convertToXmlGregorianCalendar(l.getAcademicTerm().getStartDate()));
             } catch (DatatypeConfigurationException ex) {
-                Logger.getLogger(LearningOpportunitySpecificationConverter.class.getName()).log(Level.SEVERE, null, ex);
+                logger.error("Can't convert date", ex);
             }
             return converted;
         }).collect(Collectors.toList());
@@ -117,7 +120,7 @@ public class LearningOpportunitySpecificationConverter {
         try {
             converted.setEndDate(convertToXmlGregorianCalendar(academicTerm.getEndDate()));
         } catch (DatatypeConfigurationException ex) {
-            Logger.getLogger(LearningOpportunitySpecificationConverter.class.getName()).log(Level.SEVERE, null, ex);
+            logger.error("Can't convert date", ex);
         }
         
         return converted;

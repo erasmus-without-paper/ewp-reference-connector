@@ -24,6 +24,7 @@
                 </div>
             </div>
             <div ng-show="isRaw">
+                <pre><code><p ng-repeat="header in clientResult.headers">{{header}}</p></code></pre>
                 <pre><code>{{clientResult.rawResponse | prettyprint}}</code></pre>
             </div>
         </div>

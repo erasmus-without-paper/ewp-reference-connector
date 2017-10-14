@@ -10,6 +10,13 @@
             </select>
         </div>
         
+        <div class="checkbox">
+            <label>
+                <input id="httpsec" type="checkbox" ng-model="echoRequest.httpsec">
+                Use HTTP sec
+            </label>
+        </div>
+
         <div class="form-group">
             <label class="control-label" for="hei">Institution:</label>
             <select id="hei" class="form-control" ng-model="echoRequest.heiId" required="required">

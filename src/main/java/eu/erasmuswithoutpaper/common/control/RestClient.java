@@ -2,6 +2,8 @@ package eu.erasmuswithoutpaper.common.control;
 
 import eu.erasmuswithoutpaper.common.boundary.ClientRequest;
 import eu.erasmuswithoutpaper.common.boundary.ClientResponse;
+import eu.erasmuswithoutpaper.security.HttpSignature;
+import java.net.URLEncoder;
 import java.security.KeyManagementException;
 import java.security.KeyStore;
 import java.security.KeyStoreException;
@@ -12,8 +14,7 @@ import java.time.Instant;
 import java.time.temporal.ChronoUnit;
 import java.util.List;
 import java.util.Map;
-import java.util.logging.Level;
-import java.util.logging.Logger;
+import java.util.stream.Collectors;
 import javax.annotation.PostConstruct;
 import javax.inject.Inject;
 import javax.net.ssl.KeyManagerFactory;
@@ -23,17 +24,24 @@ import javax.net.ssl.TrustManagerFactory;
 import javax.ws.rs.client.Client;
 import javax.ws.rs.client.ClientBuilder;
 import javax.ws.rs.client.Entity;
+import javax.ws.rs.client.Invocation;
 import javax.ws.rs.client.WebTarget;
 import javax.ws.rs.core.Form;
 import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.Response;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 public class RestClient {
+    private static final Logger logger = LoggerFactory.getLogger(RestClient.class);
     @Inject
     GlobalProperties properties;
     
     @Inject
     EwpKeyStore keystoreController;
+    
+    @Inject
+    HttpSignature httpSignature;
 
     private Client client;
     
@@ -49,7 +57,7 @@ public class RestClient {
             clientBuilder.hostnameVerifier((String string, SSLSession ssls) -> true);
             client = clientBuilder.build();
         } catch (NoSuchAlgorithmException | KeyStoreException | NoSuchProviderException | UnrecoverableKeyException | KeyManagementException ex) {
-            Logger.getLogger(RestClient.class.getName()).log(Level.SEVERE, null, ex);
+            logger.error("Cant't create HTTP client.", ex);
         }
     }
     
@@ -71,7 +79,15 @@ public class RestClient {
                     params.entrySet().forEach((entry) -> {
                         entry.getValue().stream().forEach(e -> form.param(entry.getKey(), e));
                     });
-                    response = target.request().post(Entity.entity(form, MediaType.APPLICATION_FORM_URLENCODED_TYPE));
+                    
+                    String formData = formData2String(form);
+                    Invocation.Builder postBuilder = target.request();
+                    if (clientRequest.isHttpsec()) {
+                        httpSignature.signRequest(postBuilder, formData);
+                    }
+
+                    Entity<String> entity = Entity.entity(formData, MediaType.APPLICATION_FORM_URLENCODED_TYPE);
+                    response = postBuilder.post(entity);
                     break;
                 case PUT:
                     response = target.request().put(null);
@@ -83,7 +99,12 @@ public class RestClient {
                             target = target.queryParam(entry.getKey(), value);
                         }
                     }
-                    response = target.request().get();
+                    
+                    Invocation.Builder builder = target.request();
+                    if (clientRequest.isHttpsec()) {
+                        httpSignature.signRequest(builder);
+                    }
+                    response = builder.get();
                     break;
             }
             
@@ -91,6 +112,15 @@ public class RestClient {
             
             clientResponse.setStatusCode(response.getStatus());
             clientResponse.setMediaType(response.getMediaType().toString());
+            
+            clientResponse.setHeaders(
+                    response
+                            .getHeaders()
+                            .entrySet()
+                            .stream()
+                            .map(es -> es.getKey() + ": " + es.getValue().stream().map(Object::toString).collect(Collectors.joining(", ")))
+                            .collect(Collectors.toList()));
+            
             if (response.getStatus() == Response.Status.OK.getStatusCode()) {
                 response.bufferEntity();
                 
@@ -129,4 +159,28 @@ public class RestClient {
         context.init(kmf.getKeyManagers(), tmf.getTrustManagers(), null);
         return context;
     }
+    
+    protected String formData2String(Form form) {
+        final StringBuilder sb = new StringBuilder();
+
+        try {
+            for (Map.Entry<String, List<String>> e : form.asMap().entrySet()) {
+                for (String value : e.getValue()) {
+                    if (sb.length() > 0) {
+                        sb.append('&');
+                    }
+                    sb.append(URLEncoder.encode(e.getKey(), "UTF-8"));
+                    if (value != null) {
+                        sb.append('=');
+                        sb.append(URLEncoder.encode(value, "UTF-8"));
+                    }
+                }
+            }
+        }
+        catch(Exception e) {
+            logger.error("failed to convert form", e);
+        }
+
+        return sb.toString();
+    }    
 }

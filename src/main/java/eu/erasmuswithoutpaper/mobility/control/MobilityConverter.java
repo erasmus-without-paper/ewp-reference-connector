@@ -2,85 +2,91 @@ package eu.erasmuswithoutpaper.mobility.control;
 
 import eu.erasmuswithoutpaper.api.mobilities.endpoints.ComponentRecognized;
 import eu.erasmuswithoutpaper.api.mobilities.endpoints.ComponentStudied;
+import eu.erasmuswithoutpaper.api.mobilities.endpoints.ListOfChangesToComponentsRecognized;
+import eu.erasmuswithoutpaper.api.mobilities.endpoints.ListOfChangesToComponentsRecognized.InsertComponentRecognized;
+import eu.erasmuswithoutpaper.api.mobilities.endpoints.ListOfChangesToComponentsStudied;
+import eu.erasmuswithoutpaper.api.mobilities.endpoints.ListOfChangesToComponentsStudied.InsertComponentStudied;
 import eu.erasmuswithoutpaper.api.mobilities.endpoints.MobilityStatus;
 import eu.erasmuswithoutpaper.api.mobilities.endpoints.StudentMobilityForStudies;
 import eu.erasmuswithoutpaper.common.control.ConverterHelper;
 import eu.erasmuswithoutpaper.mobility.entity.Mobility;
 import eu.erasmuswithoutpaper.mobility.entity.RecognizedLaComponent;
 import eu.erasmuswithoutpaper.mobility.entity.StudiedLaComponent;
+import eu.erasmuswithoutpaper.organization.entity.LanguageItem;
 import eu.erasmuswithoutpaper.organization.entity.Person;
 import eu.erasmuswithoutpaper.organization.entity.MobilityParticipant;
-import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
-import java.util.logging.Level;
-import java.util.logging.Logger;
-import java.util.stream.Collectors;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
 import javax.xml.datatype.DatatypeConfigurationException;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 public class MobilityConverter {
+    private static final Logger logger = LoggerFactory.getLogger(MobilityConverter.class);
+    
     @PersistenceContext(unitName = "connector")
     EntityManager em;
 
     public StudentMobilityForStudies convertToStudentMobilityForStudies(Mobility mobility) {
         StudentMobilityForStudies studentMobilityForStudies = new StudentMobilityForStudies();
         if (mobility.getLearningAgreement() != null) {
-            studentMobilityForStudies.getComponentRecognized().addAll(convertToComponentRecognized(mobility.getLearningAgreement().getRecognizedLaComponents()));
-            studentMobilityForStudies.getComponentStudied().addAll(convertToComponentStudied(mobility.getLearningAgreement().getStudiedLaComponents()));
+            studentMobilityForStudies.setComponentsRecognized(convertToComponentsRecognized(mobility.getLearningAgreement().getRecognizedLaComponents()));
+            studentMobilityForStudies.setComponentsStudied(convertToComponentsStudied(mobility.getLearningAgreement().getStudiedLaComponents()));
         }
         
         // TODO: add this
         //studentMobilityForStudies.getNomineeLanguageSkill();
-        //studentMobilityForStudies.setActualArrivalDate();
-        //studentMobilityForStudies.setActualDepartureDate();
-        studentMobilityForStudies.setMobilityId(mobility.getId());
-        
-        // TODO: add this
-        studentMobilityForStudies.setNomineeEqfLevel(mobility.getEqfLevel());
+        studentMobilityForStudies.setEqfLevelStudiedAtDeparture(mobility.getEqfLevel());
+        studentMobilityForStudies.setEqfLevelStudiedAtNomination(mobility.getEqfLevel());
         //studentMobilityForStudies.setNomineeIscedFCode(value);
-        
+        studentMobilityForStudies.setOmobilityId(mobility.getId());
         try {
             studentMobilityForStudies.setPlannedArrivalDate(ConverterHelper.convertToXmlGregorianCalendar(mobility.getPlannedArrivalDate()));
         } catch (DatatypeConfigurationException ex) {
-            Logger.getLogger(MobilityConverter.class.getName()).log(Level.SEVERE, null, ex);
+            logger.error("Can't convert date", ex);
         }
-        
         try {
             studentMobilityForStudies.setPlannedDepartureDate(ConverterHelper.convertToXmlGregorianCalendar(mobility.getPlannedDepartureDate()));
         } catch (DatatypeConfigurationException ex) {
-            Logger.getLogger(MobilityConverter.class.getName()).log(Level.SEVERE, null, ex);
+            logger.error("Can't convert date", ex);
         }
-        
-        // TODO: How do we get the IIA id for receiving HEI?
         studentMobilityForStudies.setReceivingHei(convertToReceivingHei(null, mobility.getReceivingInstitutionId(), mobility.getReceivingOrganizationUnitId()));
         studentMobilityForStudies.setSendingHei(convertToSendingHei(mobility.getIiaId(), mobility.getSendingInstitutionId(), mobility.getSendingOrganizationUnitId()));
         studentMobilityForStudies.setStatus(convertToMobilityStatus(mobility.getStatus()));
         studentMobilityForStudies.setStudent(convertToStudent(mobility.getMobilityParticipantId()));
         
-        // TODO: add this
-        //studentMobilityForStudies.setTimeline(value);
-        
         return studentMobilityForStudies;
     }
 
-    private List<ComponentRecognized> convertToComponentRecognized(List<RecognizedLaComponent> recognizedLaComponents) {
+    private ListOfChangesToComponentsRecognized convertToComponentRecognized(List<RecognizedLaComponent> recognizedLaComponents) {
+        ListOfChangesToComponentsRecognized listOfChangesToComponentsRecognized = new ListOfChangesToComponentsRecognized();
         if (recognizedLaComponents == null) {
-            return new ArrayList<>();
+            return listOfChangesToComponentsRecognized;
         }
-        return recognizedLaComponents.stream().map((c) -> {
+        
+        recognizedLaComponents.stream().map((c) -> {
             ComponentRecognized componentRecognized = new ComponentRecognized();
             componentRecognized.setLosId(c.getLosId());
             componentRecognized.setLoiId(c.getLoiId());
             return componentRecognized;
-        }).collect(Collectors.toList());
+        }).map(cr -> {
+            InsertComponentRecognized icr = new InsertComponentRecognized();
+            icr.setComponentRecognized(cr);
+            return icr;
+        }).forEach(icr -> listOfChangesToComponentsRecognized.getInsertComponentRecognizedOrRemoveComponentRecognized().add(icr));
+        
+        return listOfChangesToComponentsRecognized;
     }
     
-    private List<ComponentStudied> convertToComponentStudied(List<StudiedLaComponent> studiedLaComponents) {
+    private ListOfChangesToComponentsStudied convertToComponentStudied(List<StudiedLaComponent> studiedLaComponents) {
+        ListOfChangesToComponentsStudied listOfChangesToComponentsStudied = new ListOfChangesToComponentsStudied();
         if (studiedLaComponents == null) {
-            return new ArrayList<>();
+            return listOfChangesToComponentsStudied;
         }
-        return studiedLaComponents.stream().map((c) -> {
+        
+        studiedLaComponents.stream().map((c) -> {
             ComponentStudied componentStudied = new ComponentStudied();
             componentStudied.setLosId(c.getLosId());
             componentStudied.setLosCode(c.getLosCode());
@@ -91,7 +97,13 @@ public class MobilityConverter {
             // TODO: Add this
             //componentStudied.getCredit();
             return componentStudied;
-        }).collect(Collectors.toList());
+        }).map(cs -> {
+            InsertComponentStudied ics = new InsertComponentStudied();
+            ics.setComponentStudied(cs);
+            return ics;
+        }).forEach(ics -> listOfChangesToComponentsStudied.getInsertComponentStudiedOrRemoveComponentStudied().add(ics));
+        
+        return listOfChangesToComponentsStudied;
     }
 
     private StudentMobilityForStudies.ReceivingHei convertToReceivingHei(String iiaId, String institutionId, String organizationUnitId) {
@@ -125,7 +137,7 @@ public class MobilityConverter {
             try {
                 mobilityStudent.setBirthDate(ConverterHelper.convertToXmlGregorianCalendar(person.getBirthDate()));
             } catch (DatatypeConfigurationException ex) {
-                Logger.getLogger(MobilityConverter.class.getName()).log(Level.SEVERE, null, ex);
+                logger.error("Can't convert date", ex);
             }
 
             mobilityStudent.setCitizenship(person.getCountryCode());
@@ -133,12 +145,25 @@ public class MobilityConverter {
                 mobilityStudent.setEmail(student.getContactDetails().getEmail().get(0));
             }
 
-            mobilityStudent.setFamilyName(person.getLastName());
+            
+            mobilityStudent.getFamilyName().addAll(ConverterHelper.convertToStringWithOptionalLang(Arrays.asList(new LanguageItem(person.getLastName(), LanguageItem.SWEDISH))));
             mobilityStudent.setGender(person.getGender().value());
-            mobilityStudent.setGivenNames(person.getFirstNames());
+            mobilityStudent.getGivenNames().addAll(ConverterHelper.convertToStringWithOptionalLang(Arrays.asList(new LanguageItem(person.getFirstNames(), LanguageItem.SWEDISH))));
             mobilityStudent.setMailingAddress(ConverterHelper.convertToFlexibleAddress(student.getContactDetails().getMailingAddress()));
             mobilityStudent.setStreetAddress(ConverterHelper.convertToFlexibleAddress(student.getContactDetails().getStreetAddress()));
         }
         return mobilityStudent;
+    }
+
+    private StudentMobilityForStudies.ComponentsRecognized convertToComponentsRecognized(List<RecognizedLaComponent> recognizedLaComponents) {
+        StudentMobilityForStudies.ComponentsRecognized componentsRecognized = new StudentMobilityForStudies.ComponentsRecognized();
+        componentsRecognized.setLatestApprovedChanges(convertToComponentRecognized(recognizedLaComponents));
+        return componentsRecognized;
+    }
+
+    private StudentMobilityForStudies.ComponentsStudied convertToComponentsStudied(List<StudiedLaComponent> studiedLaComponents) {
+        StudentMobilityForStudies.ComponentsStudied componentsStudied = new StudentMobilityForStudies.ComponentsStudied();
+        componentsStudied.setLatestApprovedChanges(convertToComponentStudied(studiedLaComponents));
+        return componentsStudied;
     }
 }

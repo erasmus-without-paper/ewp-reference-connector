@@ -8,7 +8,9 @@ import eu.erasmuswithoutpaper.error.control.EwpWebApplicationException;
 import eu.erasmuswithoutpaper.iia.control.IiaConverter;
 import eu.erasmuswithoutpaper.iia.entity.Iia;
 import eu.erasmuswithoutpaper.organization.entity.Institution;
+import eu.erasmuswithoutpaper.security.EwpAuthenticate;
 import java.security.cert.X509Certificate;
+import java.security.interfaces.RSAPublicKey;
 import java.util.Collection;
 import java.util.List;
 import java.util.stream.Collectors;
@@ -48,6 +50,7 @@ public class IiaResource {
     @GET
     @Path("index")
     @Produces(MediaType.APPLICATION_XML)
+    @EwpAuthenticate
     public javax.ws.rs.core.Response indexGet(@QueryParam("hei_id") String heiId) {
         return iiaIndex(heiId);
     }
@@ -55,6 +58,7 @@ public class IiaResource {
     @POST
     @Path("index")
     @Produces(MediaType.APPLICATION_XML)
+    @EwpAuthenticate
     public javax.ws.rs.core.Response indexPost(@FormParam("hei_id") String heiId) {
         return iiaIndex(heiId);
     }
@@ -99,18 +103,12 @@ public class IiaResource {
             throw new EwpWebApplicationException("Not a valid hei_id.", Response.Status.BAD_REQUEST);
         }
         
-        // Check permissions for the requester
-        X509Certificate[] certificates = (X509Certificate[]) httpRequest.getAttribute("javax.servlet.request.X509Certificate");
-        if (certificates == null) {
-            throw new EwpWebApplicationException("No client certificates found in the request", javax.ws.rs.core.Response.Status.FORBIDDEN);
+        Collection<String> heisCoveredByCertificate;
+        if (httpRequest.getAttribute("EwpRequestRSAPublicKey") != null) {
+            heisCoveredByCertificate = registryClient.getHeisCoveredByClientKey((RSAPublicKey) httpRequest.getAttribute("EwpRequestRSAPublicKey"));
+        } else {
+            heisCoveredByCertificate = registryClient.getHeisCoveredByCertificate((X509Certificate) httpRequest.getAttribute("EwpRequestCertificate"));
         }
-        
-        X509Certificate certificate = registryClient.getCertificateKnownInEwpNetwork(certificates);
-        if (certificate == null) {
-            throw new EwpWebApplicationException("None of the client certificates is valid in the EWP network", javax.ws.rs.core.Response.Status.FORBIDDEN);
-        }
-        
-        Collection<String> heisCoveredByCertificate = registryClient.getHeisCoveredByCertificate(certificate);
         
         IiasIndexResponse response = new IiasIndexResponse();
         List<Iia> iiaList =  em.createNamedQuery(Iia.findAll).getResultList();

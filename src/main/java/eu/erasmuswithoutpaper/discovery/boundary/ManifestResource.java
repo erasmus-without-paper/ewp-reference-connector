@@ -1,25 +1,16 @@
 package eu.erasmuswithoutpaper.discovery.boundary;
 
+import com.fasterxml.jackson.core.JsonProcessingException;
 import eu.erasmuswithoutpaper.api.architecture.MultilineString;
 import eu.erasmuswithoutpaper.api.architecture.StringWithOptionalLang;
-import eu.erasmuswithoutpaper.api.courses.Courses;
-import eu.erasmuswithoutpaper.api.courses.replication.SimpleCourseReplication;
-import eu.erasmuswithoutpaper.api.discovery.Discovery;
 import eu.erasmuswithoutpaper.api.discovery.Manifest;
-import eu.erasmuswithoutpaper.api.echo.Echo;
-import eu.erasmuswithoutpaper.api.iias.Iias;
-import eu.erasmuswithoutpaper.api.institutions.Institutions;
-import eu.erasmuswithoutpaper.api.mobilities.Mobilities;
-import eu.erasmuswithoutpaper.api.ounits.OrganizationalUnits;
 import eu.erasmuswithoutpaper.api.registry.ApisImplemented;
 import eu.erasmuswithoutpaper.api.registry.Hei;
 import eu.erasmuswithoutpaper.api.registry.OtherHeiId;
-import eu.erasmuswithoutpaper.common.control.EwpConstants;
 import eu.erasmuswithoutpaper.common.control.EwpKeyStore;
 import eu.erasmuswithoutpaper.common.control.GlobalProperties;
 import eu.erasmuswithoutpaper.organization.entity.Institution;
 import java.io.IOException;
-import java.math.BigInteger;
 import java.net.URISyntaxException;
 import java.nio.file.Files;
 import java.nio.file.Paths;
@@ -36,6 +27,9 @@ import javax.ws.rs.Produces;
 import javax.ws.rs.core.Context;
 import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.UriInfo;
+import eu.erasmuswithoutpaper.common.boundary.ManifestEntryStrategy;
+import javax.enterprise.inject.Any;
+import javax.enterprise.inject.Instance;
 
 @Stateless
 @Path("")
@@ -48,6 +42,10 @@ public class ManifestResource {
     
     @Inject
     EwpKeyStore keystoreController;
+
+    @Inject
+    @Any
+    Instance<ManifestEntryStrategy> manifestEntries;
 
     @Context
     UriInfo uriInfo;
@@ -65,23 +63,17 @@ public class ManifestResource {
     @GET
     @Path("manifest")
     @Produces(MediaType.APPLICATION_XML)
-    public javax.ws.rs.core.Response manifest() {
+    public javax.ws.rs.core.Response manifest() throws JsonProcessingException {
         Manifest manifest = new Manifest();
         
         ApisImplemented apisImplemented = new ApisImplemented();
-        apisImplemented.getAny().add(getDiscoveryEntry());
-        apisImplemented.getAny().add(getEchoEntry());
-        apisImplemented.getAny().add(getInstitutionsEntry());
-        apisImplemented.getAny().add(getOrganizationalUnitsEntry());
-        apisImplemented.getAny().add(getCoursesEntry());
-        apisImplemented.getAny().add(getCoursesReplicationEntry());
-        apisImplemented.getAny().add(getMobilitiesEntry());
-        apisImplemented.getAny().add(getIiaEntry());
+        manifestEntries.forEach(me -> apisImplemented.getAny().add(me.getManifestEntry(getBaseUri())));
         
         manifest.setApisImplemented(apisImplemented);
         
         manifest.setInstitutionsCovered(getInstitutionsCovered());
         manifest.setClientCredentialsInUse(getClientCredentialsInUse());
+//        manifest.setServerCredentialsInUse(getServerCredentialsInUse());
         manifest.setAdminNotes(getAdminNotes());
 
         return javax.ws.rs.core.Response.ok(manifest).build();
@@ -103,82 +95,26 @@ public class ManifestResource {
         if (certificate != null) {
             clientCredentialsInUse = new Manifest.ClientCredentialsInUse();
             clientCredentialsInUse.getCertificate().add(certificate);
+
+            String rsaPublicKey = keystoreController.getRsaPublicKey();
+            clientCredentialsInUse.getRsaPublicKey().add(rsaPublicKey);
         }
         
         return clientCredentialsInUse;
     }
-    
-    private Discovery getDiscoveryEntry() {
-        Discovery discovery = new Discovery();
-        discovery.setVersion(EwpConstants.DISCOVERY_VERSION);
-        discovery.setUrl(getBaseUri() + "manifest");
-        return discovery;
-    }
-    
-    private Echo getEchoEntry() {
-        Echo echo = new Echo();
-        echo.setVersion(EwpConstants.ECHO_VERSION);
-        echo.setUrl(getBaseUri() + "echo");
-        return echo;
-    }
-    
-    private Institutions getInstitutionsEntry() {
-        Institutions institutions = new Institutions();
-        institutions.setVersion(EwpConstants.INSTITUTION_VERSION);
-        institutions.setUrl(getBaseUri() + "institutions");
-        institutions.setMaxHeiIds(BigInteger.valueOf(globalProperties.getMaxInstitutionsIds()));
-        return institutions;
-    }
 
-    private OrganizationalUnits getOrganizationalUnitsEntry() {
-        OrganizationalUnits organizationalUnits = new OrganizationalUnits();
-        organizationalUnits.setVersion(EwpConstants.ORGANIZATION_UNIT_VERSION);
-        organizationalUnits.setUrl(getBaseUri() + "ounits");
-        organizationalUnits.setMaxOunitIds(BigInteger.valueOf(globalProperties.getMaxOunitsIds()));
-        organizationalUnits.setMaxOunitCodes(BigInteger.valueOf(globalProperties.getMaxOunitsIds()));
-        return organizationalUnits;
-    }
-
-    private Courses getCoursesEntry() {
-        Courses courses = new Courses();
-        courses.setVersion(EwpConstants.COURSES_VERSION);
-        courses.setUrl(getBaseUri() + "courses");
-        courses.setMaxLosIds(BigInteger.valueOf(globalProperties.getMaxLosIds()));
-        courses.setMaxLosCodes(BigInteger.valueOf(globalProperties.getMaxLosIds()));
-        return courses;
-    }
-
-    private SimpleCourseReplication getCoursesReplicationEntry() {
-        SimpleCourseReplication courseReplication = new SimpleCourseReplication();
-        courseReplication.setVersion(EwpConstants.COURSE_REPLICATION_VERSION);
-        courseReplication.setUrl(getBaseUri() + "courses/replication");
-        courseReplication.setAllowsAnonymousAccess(true);
-        courseReplication.setSupportsModifiedSince(false);
+    private Manifest.ServerCredentialsInUse getServerCredentialsInUse() {
+        Manifest.ServerCredentialsInUse serverCredentialsInUse = null;
         
-        return courseReplication;
+        String rsaPublicKey = keystoreController.getRsaPublicKey();
+        if (rsaPublicKey != null) {
+            serverCredentialsInUse = new Manifest.ServerCredentialsInUse();
+            serverCredentialsInUse.getRsaPublicKey().add(rsaPublicKey);
+        }
+        
+        return serverCredentialsInUse;
     }
     
-    private Mobilities getMobilitiesEntry() {
-        Mobilities mobilities = new Mobilities();
-        mobilities.setVersion(EwpConstants.MOBILITIES_VERSION);
-        mobilities.setIndexUrl(getBaseUri() + "mobilities/index");
-        mobilities.setGetUrl(getBaseUri() + "mobilities/get");
-        mobilities.setMaxMobilityIds(BigInteger.valueOf(globalProperties.getMaxMobilityIds()));
-        mobilities.setUpdateUrl(getBaseUri() + "mobilities/update");
-        return mobilities;
-    }
-    
-    private Iias getIiaEntry() {
-        Iias iias = new Iias();
-        iias.setVersion(EwpConstants.IIAS_VERSION);
-        iias.setIndexUrl(getBaseUri() + "iias/index");
-        iias.setGetUrl(getBaseUri() + "iias/get");
-        iias.setMaxIiaIds(BigInteger.valueOf(globalProperties.getMaxIiaIds()));
-        iias.setMaxIiaCodes(BigInteger.valueOf(globalProperties.getMaxIiaIds()));
-        //iias.setSendsNotifications();
-        return iias;
-    }
-
     private Hei createHei(Institution institution) {
         Hei hei = new Hei();
         hei.setId(institution.getInstitutionId());

@@ -79,10 +79,8 @@ public class EchoResourceTest extends JerseyTest {
     }
 
     void mockRegistryClient() {
-        when(this.request.getAttribute("javax.servlet.request.X509Certificate")).thenReturn(new X509Certificate[]{});
-        
         X509Certificate mockedX509Certificate = mock(X509Certificate.class);
-        when(this.resource.registryClient.getCertificateKnownInEwpNetwork(Matchers.any(X509Certificate[].class))).thenReturn(mockedX509Certificate);
+        when(this.request.getAttribute("EwpRequestCertificate")).thenReturn(mockedX509Certificate);
         
         List<String> heiIds = new ArrayList<>();
         heiIds.add("myInstId");

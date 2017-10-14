@@ -5,24 +5,25 @@ import eu.erasmuswithoutpaper.registryclient.ClientImpl;
 import eu.erasmuswithoutpaper.registryclient.ClientImplOptions;
 import eu.erasmuswithoutpaper.registryclient.DefaultCatalogueFetcher;
 import java.security.cert.X509Certificate;
+import java.security.interfaces.RSAPublicKey;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 import java.util.stream.Collectors;
 import javax.annotation.PostConstruct;
 import javax.ejb.Singleton;
 import javax.inject.Inject;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.w3c.dom.Element;
 import org.w3c.dom.Node;
 import org.w3c.dom.NodeList;
 
 @Singleton
 public class RegistryClient {
-    
+    private static final Logger logger = LoggerFactory.getLogger(RegistryClient.class);
     private eu.erasmuswithoutpaper.registryclient.RegistryClient client;
     
     @Inject
@@ -39,7 +40,7 @@ public class RegistryClient {
             
             client.refresh();
         } catch (eu.erasmuswithoutpaper.registryclient.RegistryClient.RefreshFailureException ex) {
-            Logger.getLogger(RegistryClient.class.getName()).log(Level.SEVERE, null, ex);
+            logger.error("Can't refresh registry client", ex);
         }
     }
     
@@ -158,5 +159,12 @@ public class RegistryClient {
         }
         
         return urlMap;
+    }
+
+    public RSAPublicKey findRsaPublicKey(String fingerprint) {
+        return client.findRsaPublicKey(fingerprint);
+    }
+    public Collection<String> getHeisCoveredByClientKey(RSAPublicKey rsapk) {
+        return client.getHeisCoveredByClientKey(rsapk);
     }
 }

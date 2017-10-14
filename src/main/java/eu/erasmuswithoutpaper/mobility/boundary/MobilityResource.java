@@ -1,7 +1,7 @@
 package eu.erasmuswithoutpaper.mobility.boundary;
 
-import eu.erasmuswithoutpaper.api.mobilities.endpoints.MobilitiesGetResponse;
-import eu.erasmuswithoutpaper.api.mobilities.endpoints.MobilitiesIndexResponse;
+import eu.erasmuswithoutpaper.api.mobilities.endpoints.OmobilitiesGetResponse;
+import eu.erasmuswithoutpaper.api.mobilities.endpoints.OmobilitiesIndexResponse;
 import eu.erasmuswithoutpaper.api.mobilities.endpoints.StudentMobilityForStudies;
 import eu.erasmuswithoutpaper.common.control.GlobalProperties;
 import eu.erasmuswithoutpaper.error.control.EwpWebApplicationException;
@@ -70,20 +70,20 @@ public class MobilityResource {
             throw new EwpWebApplicationException("Max number of mobility id's has exceeded.", Response.Status.BAD_REQUEST);
         }
         
-        MobilitiesGetResponse response = new MobilitiesGetResponse();
+        OmobilitiesGetResponse response = new OmobilitiesGetResponse();
         List<Mobility> mobilityList =  em.createNamedQuery(Mobility.findBySendingInstitutionId).setParameter("sendingInstitutionId", sendingHeiId).getResultList();
         if (!mobilityList.isEmpty()) {
-            response.getStudentMobilityForStudies().addAll(mobilities(mobilityList, mobilityIdList));
+            response.getSingleMobilityObject().addAll(mobilities(mobilityList, mobilityIdList));
         }
         
         return javax.ws.rs.core.Response.ok(response).build();
     }
     
     private javax.ws.rs.core.Response mobilityIndex(String sendingHeiId, List<String> receivingHeiIdList, String plannedArrivalAfterDate) {
-        MobilitiesIndexResponse response = new MobilitiesIndexResponse();
+        OmobilitiesIndexResponse response = new OmobilitiesIndexResponse();
         List<Mobility> mobilityList =  em.createNamedQuery(Mobility.findBySendingInstitutionId).setParameter("sendingInstitutionId", sendingHeiId).getResultList();
         if (!mobilityList.isEmpty()) {
-            response.getMobilityId().addAll(mobilityIds(mobilityList, receivingHeiIdList, plannedArrivalAfterDate));
+            response.getOmobilityId().addAll(mobilityIds(mobilityList, receivingHeiIdList, plannedArrivalAfterDate));
         }
         
         return javax.ws.rs.core.Response.ok(response).build();

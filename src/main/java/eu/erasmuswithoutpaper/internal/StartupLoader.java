@@ -13,17 +13,18 @@ import eu.erasmuswithoutpaper.organization.preload.InstitutionLoader;
 import eu.erasmuswithoutpaper.organization.preload.MobilityParticipantLoader;
 import eu.erasmuswithoutpaper.organization.preload.PersonLoader;
 import java.io.IOException;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 import javax.annotation.PostConstruct;
 import javax.ejb.Singleton;
 import javax.ejb.Startup;
 import javax.inject.Inject;
 import javax.persistence.EntityManager;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 @Singleton
 @Startup
 public class StartupLoader {
+    private static final Logger logger = LoggerFactory.getLogger(StartupLoader.class);
 
     @Inject
     GlobalProperties properties;
@@ -65,10 +66,10 @@ public class StartupLoader {
     public void loadDemoData() {
         try {
             if (institutionLoader.dataAlreadyExist()) {
-                Logger.getLogger(StartupLoader.class.getName()).log(Level.INFO, "Database already exist, no default data will be loaded. Remove DB to restore database content.");
+                logger.info("Database already exist, no default data will be loaded. Remove DB to restore database content.");
                 return;
             } else {
-                Logger.getLogger(StartupLoader.class.getName()).log(Level.INFO, "Database is created, default data will be loaded.");
+                logger.info("Database is created, default data will be loaded.");
             } 
 
             switch (properties.getUniversity()) {
@@ -100,7 +101,7 @@ public class StartupLoader {
                     break;
             }
         } catch (IOException ex) {
-            Logger.getLogger(StartupLoader.class.getName()).log(Level.SEVERE, null, ex);
+            logger.error("Can't load initial data", ex);
             throw new RuntimeException(ex);
         }
     }

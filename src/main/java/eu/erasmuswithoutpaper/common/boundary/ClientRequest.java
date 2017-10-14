@@ -11,6 +11,8 @@ public class ClientRequest implements Serializable {
     private HttpMethodEnum method;
     private Map<String, List<String>> params = new HashMap<>();
 
+    private boolean httpsec = false;
+    
     public String getUrl() {
         return url;
     }
@@ -41,6 +43,14 @@ public class ClientRequest implements Serializable {
 
     public void setParams(Map<String, List<String>> params) {
         this.params = params;
+    }
+
+    public boolean isHttpsec() {
+        return httpsec;
+    }
+
+    public void setHttpsec(boolean httpsec) {
+        this.httpsec = httpsec;
     }
 }
 
