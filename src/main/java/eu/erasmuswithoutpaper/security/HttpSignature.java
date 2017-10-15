@@ -6,7 +6,6 @@ import eu.erasmuswithoutpaper.api.client.auth.methods.cliauth.tlscert.CliauthTls
 import eu.erasmuswithoutpaper.api.client.auth.methods.srvauth.httpsig.SrvauthHttpsig;
 import eu.erasmuswithoutpaper.api.client.auth.methods.srvauth.tlscert.SrvauthTlscert;
 import java.io.IOException;
-import java.security.InvalidKeyException;
 import java.security.Key;
 import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
@@ -14,7 +13,6 @@ import java.security.SignatureException;
 import java.security.interfaces.RSAPublicKey;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
-import java.util.Collections;
 import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
@@ -221,6 +219,63 @@ public class HttpSignature {
         }
     }
     
+    public void verifyHttpSignatureResponse(String method, String requestUri, MultivaluedMap<String, Object> reqHeaders, String raw) {
+        String authorization = (String)reqHeaders.getFirst("authorization");
+        logger.info("Verifying HTTP signature");
+
+        Map<String, String> headers = new HashMap<>();
+        reqHeaders.keySet().forEach((hkey) -> {
+            headers.put(hkey.toLowerCase(), (String)reqHeaders.getFirst(hkey));
+        });
+
+        Signature signature = Signature.fromString(authorization);
+        logger.info("Signature: " + signature);
+
+        try {
+            if (headers.containsKey("digest")) {
+                byte[] bodyBytes = raw.getBytes();
+                final byte[] digest;
+                try {
+                    digest = MessageDigest.getInstance("SHA-256").digest(bodyBytes);
+                } catch (NoSuchAlgorithmException e) {
+                    logger.warn("No such algorithm", e);
+                    throw new EwpSecWebApplicationException("No such algorithm", javax.ws.rs.core.Response.Status.FORBIDDEN, AuthMethod.HTTPSIG);
+                }
+                final String digestCalculated = "SHA-256=" + new String(Base64.encodeBase64(digest));
+
+                if (!digestCalculated.equals(reqHeaders.getFirst("digest"))) {
+                    throw new EwpSecWebApplicationException("Digest mismatch! calculated (body length: " + bodyBytes.length + "): " + digestCalculated
+                            + ", header: " + reqHeaders.getFirst("digest"), javax.ws.rs.core.Response.Status.FORBIDDEN, AuthMethod.HTTPSIG);
+                }
+            }
+
+            String fingerprint = signature.getKeyId();
+            RSAPublicKey publicKey = registryClient.findRsaPublicKey(fingerprint);
+            if (publicKey == null) {
+                throw new EwpSecWebApplicationException("Key not found for fingerprint: " + fingerprint, javax.ws.rs.core.Response.Status.FORBIDDEN, AuthMethod.HTTPSIG);
+            }
+
+            final Verifier verifier = new Verifier(publicKey, signature);
+
+            logger.info("Verifying signature, fingerprint: {}", fingerprint);
+
+            boolean verifies = verifier.verify(method.toLowerCase(), requestUri, headers);
+
+            if (!verifies) {
+                throw new EwpSecWebApplicationException("Signature verification: " + verifies, javax.ws.rs.core.Response.Status.FORBIDDEN, AuthMethod.HTTPSIG);
+            }
+        } catch (NoSuchAlgorithmException e) {
+            logger.warn("No such algorithm", e);
+            throw new EwpSecWebApplicationException("No such algorithm", javax.ws.rs.core.Response.Status.FORBIDDEN, AuthMethod.HTTPSIG);
+        } catch (IOException e) {
+            logger.warn("Error reading", e);
+            throw new EwpSecWebApplicationException(e.getMessage(), javax.ws.rs.core.Response.Status.FORBIDDEN, AuthMethod.HTTPSIG);
+        } catch (SignatureException e) {
+            logger.warn("Signature error", e);
+            throw new EwpSecWebApplicationException(e.getMessage(), javax.ws.rs.core.Response.Status.FORBIDDEN, AuthMethod.HTTPSIG);
+        }
+    }
+
     private byte[] getByteArray(InputStream is) throws IOException {
         ByteArrayOutputStream buffer;
         byte[] bodyBytes;

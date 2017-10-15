@@ -2,6 +2,7 @@ package eu.erasmuswithoutpaper.common.control;
 
 import eu.erasmuswithoutpaper.common.boundary.ClientRequest;
 import eu.erasmuswithoutpaper.common.boundary.ClientResponse;
+import eu.erasmuswithoutpaper.error.control.EwpSecWebApplicationException;
 import eu.erasmuswithoutpaper.security.HttpSignature;
 import java.net.URLEncoder;
 import java.security.KeyManagementException;
@@ -121,27 +122,38 @@ public class RestClient {
                             .map(es -> es.getKey() + ": " + es.getValue().stream().map(Object::toString).collect(Collectors.joining(", ")))
                             .collect(Collectors.toList()));
             
+            String rawResponse = "";
             if (response.getStatus() == Response.Status.OK.getStatusCode()) {
                 response.bufferEntity();
                 
-                String raw = response.readEntity(String.class);
-                clientResponse.setRawResponse(raw);
+                rawResponse = response.readEntity(String.class);
+                clientResponse.setRawResponse(rawResponse);
                 Object responseObject = response.readEntity(responseClass);
 
                 clientResponse.setResult(responseObject);
             } else {
                 if (response.hasEntity()) {
                     response.bufferEntity();
-                    String raw = response.readEntity(String.class);
-                    clientResponse.setRawResponse(raw);
+                    rawResponse = response.readEntity(String.class);
+                    clientResponse.setRawResponse(rawResponse);
                     try {
                         eu.erasmuswithoutpaper.api.architecture.ErrorResponse error = response.readEntity(eu.erasmuswithoutpaper.api.architecture.ErrorResponse.class);
                         clientResponse.setErrorMessage(error.getDeveloperMessage().getValue());
                     } catch (Exception e) {
-                        clientResponse.setErrorMessage(raw);
+                        clientResponse.setErrorMessage(rawResponse);
                     }
                 }
             }
+
+            if (clientRequest.isHttpsec()) {
+                try {
+                    httpSignature.verifyHttpSignatureResponse(clientRequest.getMethod().name(), clientRequest.getUrl(), response.getHeaders(), rawResponse);
+                    clientResponse.setHttpsecMsg("Response is verified ok");
+                } catch (EwpSecWebApplicationException e) {
+                    clientResponse.setHttpsecMsg(e.getMessage());
+                }
+            }
+
         } catch (Exception e) {
             clientResponse.setErrorMessage(e.getMessage());
         }

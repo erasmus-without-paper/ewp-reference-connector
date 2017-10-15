@@ -5,6 +5,7 @@
             <div class="row"><div class="col-md-2">Response code:</div><div class="col-md-10">{{clientResult.statusCode}}</div></div>
             <div class="row"><div class="col-md-2">Response time:</div><div class="col-md-10">{{clientResult.duration}}ms</div></div>
             <div class="row"><div class="col-md-2">Media Type: </div><div class="col-md-10">{{clientResult.mediaType}}</div></div>
+            <div class="row" ng-if="clientResult.httpsecMsg"><div class="col-md-2">Http sec response msg: </div><div class="col-md-10">{{clientResult.httpsecMsg}}</div></div>
         </div>
 
         <ul class="nav nav-tabs">

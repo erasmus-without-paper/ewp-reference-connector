@@ -11,6 +11,7 @@ public class BaseClientResponse implements Serializable {
     private long duration;
     
     private List<String> headers;
+    private String httpsecMsg;
 
     public int getStatusCode() {
         return statusCode;
@@ -59,4 +60,13 @@ public class BaseClientResponse implements Serializable {
     public void setHeaders(List<String> headers) {
         this.headers = headers;
     }
+
+    public String getHttpsecMsg() {
+        return httpsecMsg;
+    }
+
+    public void setHttpsecMsg(String httpsecMsg) {
+        this.httpsecMsg = httpsecMsg;
+    }
+    
 }
