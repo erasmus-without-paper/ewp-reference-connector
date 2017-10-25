@@ -32,7 +32,13 @@ import eu.erasmuswithoutpaper.error.control.EwpSecWebApplicationException.AuthMe
 import java.io.ByteArrayInputStream;
 import java.io.ByteArrayOutputStream;
 import java.io.InputStream;
+import java.net.URI;
+import java.text.ParseException;
+import java.util.Arrays;
+import java.util.Objects;
+import java.util.Optional;
 import java.util.UUID;
+import java.util.logging.Level;
 import javax.ws.rs.client.Invocation;
 import javax.ws.rs.container.ContainerRequestContext;
 import javax.ws.rs.container.ContainerResponseContext;
@@ -58,8 +64,8 @@ public class HttpSignature {
     @Inject
     RegistryClient registryClient;
 
-    public boolean adaptsToHttpSignatureRequest(ContainerRequestContext requestContext) {
-        return requestContext.getHeaders().getFirst("authorization") != null;
+    public boolean clientWantsSignedResponse(ContainerRequestContext requestContext) {
+        return requestContext.getHeaders().containsKey("accept-signature");
     }
     
     public void signResponse(ContainerRequestContext requestContext, ContainerResponseContext responseContext) {
@@ -83,7 +89,7 @@ public class HttpSignature {
             List<String> headerNames = new ArrayList<>();
             final Map<String, String> headers = new HashMap<>();
 
-            headers.put("Original-Date", stringToday);
+            headers.put("Date", stringToday);
             headers.put("Digest", digestHeader);
 
             if (requestID != null) {
@@ -109,36 +115,35 @@ public class HttpSignature {
             Signature signed;
             signed = signer.sign("", "", headers);
 
-            responseContext.getHeaders().add("Authorization", signed.toString());
+            responseContext.getHeaders().add("Signature", signed.toString().replace("Signature ", ""));
         } catch (IOException | NoSuchAlgorithmException e) {
             logger.error("Can't sign response", e);
         }
     }
 
-    public void signRequest(Invocation.Builder request) {
-        signRequest(request, "");
+    public void signRequest(String method, URI uri, Invocation.Builder request, String requestId) {
+        signRequest(method, uri, request, "", requestId);
     }
-    public void signRequest(Invocation.Builder request, String formData) {
+    public void signRequest(String method, URI uri, Invocation.Builder request, String formData, String requestId) {
         try {
             final Map<String, String> headers = new HashMap<>();
             
-            String requestID = UUID.randomUUID().toString();
-            headers.put("X-Request-Id", requestID);
+            headers.put("X-Request-Id", requestId);
 
             final Date today = new Date();
             final String stringToday = new SimpleDateFormat("EEE, dd MMM yyyy HH:mm:ss zzz", Locale.US)
                     .format(today);
-            headers.put("X-Request-Date", stringToday);
+            headers.put("Date", stringToday);
+            
+            headers.put("host", uri.getHost());
 
             byte[] bodyBytes = formData.getBytes();
             final byte[] digest = MessageDigest.getInstance("SHA-256").digest(bodyBytes);
             final String digestHeader = "SHA-256=" + new String(Base64.encodeBase64(digest));
             headers.put("Digest", digestHeader);
 
-//            new Signature()
-            //headers.put("X-Request-Signature", null);  // TODO
-
             List<String> headerNames = new ArrayList<>();
+            headerNames.add("(request-target)");
             headers.entrySet().forEach((header) -> {
                 headerNames.add(header.getKey());
                 request.header(header.getKey(), header.getValue());
@@ -151,27 +156,72 @@ public class HttpSignature {
 
             final Signer signer = new Signer(key, signature);
             Signature signed;
-            signed = signer.sign("", "", headers);
+            String queryParams = uri.getQuery() == null ? "" : "?" + uri.getQuery();
+            signed = signer.sign(method, uri.getPath() + queryParams , headers);
 
             request.header("Authorization", signed.toString());
+            
+            // Want signed response
+            request.header("Accept-Signature", "RSA-SHA256");
         } catch (IOException | NoSuchAlgorithmException e) {
             logger.error("Can't sign response", e);
         }
     }
     
-    public void verifyHttpSignatureRequest(ContainerRequestContext requestContext) throws EwpSecWebApplicationException {
+    public AuthenticateMethodResponse verifyHttpSignatureRequest(ContainerRequestContext requestContext) {
         MultivaluedMap<String, String> reqHeaders = requestContext.getHeaders();
         String authorization = reqHeaders.getFirst("authorization");
         logger.info("Verifying HTTP signature");
-
-        Map<String, String> headers = new HashMap<>();
-        reqHeaders.keySet().forEach((hkey) -> {
-            headers.put(hkey.toLowerCase(), reqHeaders.getFirst(hkey));
-        });
-
+        
+        if (authorization == null || !authorization.toLowerCase().startsWith("signature")) {
+            return AuthenticateMethodResponse.builder()
+                    .withRequiredMethodInfoFulfilled(false)
+                    .withResponseCode(javax.ws.rs.core.Response.Status.UNAUTHORIZED)
+                    .build();
+        }
         Signature signature = Signature.fromString(authorization);
         logger.info("Signature: " + signature);
+        if (signature.getAlgorithm() != Algorithm.RSA_SHA256) {
+            return AuthenticateMethodResponse.builder()
+                    .withRequiredMethodInfoFulfilled(false)
+                    .withErrorMessage("Only signature algorithm rsa-sha256 is supported.")
+                    .withResponseCode(javax.ws.rs.core.Response.Status.UNAUTHORIZED)
+                    .build();
+        }
 
+        Map<String, String> headers = new HashMap<>();
+        reqHeaders.entrySet().forEach((entry) -> {
+            headers.put(entry.getKey().toLowerCase(), String.join(", ", entry.getValue()));
+        });
+        Optional<AuthenticateMethodResponse> authenticateMethodResponse = checkRequiredSignedHeaders(signature, "(request-target)", "host", "date|original-date", "digest", "x-request-id");
+        if (authenticateMethodResponse.isPresent()) {
+            return authenticateMethodResponse.get();
+        }
+        
+        if (headers.containsKey("host") &&
+                !headers.get("host").equals(requestContext.getUriInfo().getRequestUri().getHost())) {
+            return AuthenticateMethodResponse.builder()
+                    .withErrorMessage("Host does not match")
+                    .withResponseCode(javax.ws.rs.core.Response.Status.BAD_REQUEST)
+                    .build();
+        }
+        
+        if (headers.containsKey("x-request-id") &&
+                !headers.get("x-request-id").matches("[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12}")) {
+            return AuthenticateMethodResponse.builder()
+                    .withErrorMessage("Authentication with non-canonical X-Request-ID")
+                    .withResponseCode(javax.ws.rs.core.Response.Status.BAD_REQUEST)
+                    .build();
+        }
+
+        if ((headers.containsKey("date") && !isDateWithinTimeThreshold(headers.get("date"))) ||
+                (headers.containsKey("original-date") && !isDateWithinTimeThreshold(headers.get("original-date")))) {
+            return AuthenticateMethodResponse.builder()
+                    .withErrorMessage("The date cannot be parsed or the date does not match your server clock within a certain threshold of timeDate.")
+                    .withResponseCode(javax.ws.rs.core.Response.Status.BAD_REQUEST)
+                    .build();
+        }
+        
         try {
             if (headers.containsKey("digest")) {
                 byte[] bodyBytes = getByteArray(requestContext);
@@ -180,57 +230,125 @@ public class HttpSignature {
                     digest = MessageDigest.getInstance("SHA-256").digest(bodyBytes);
                 } catch (NoSuchAlgorithmException e) {
                     logger.warn("No such algorithm", e);
-                    throw new EwpSecWebApplicationException("No such algorithm", javax.ws.rs.core.Response.Status.FORBIDDEN, AuthMethod.HTTPSIG);
+                    return AuthenticateMethodResponse.builder()
+                            .withErrorMessage("No such algorithm")
+                            .withResponseCode(javax.ws.rs.core.Response.Status.BAD_REQUEST)
+                            .build();
                 }
                 final String digestCalculated = "SHA-256=" + new String(Base64.encodeBase64(digest));
 
-                if (!digestCalculated.equals(reqHeaders.getFirst("digest"))) {
-                    throw new EwpSecWebApplicationException("Digest mismatch! calculated (body length: " + bodyBytes.length + "): " + digestCalculated
-                            + ", header: " + reqHeaders.getFirst("digest"), javax.ws.rs.core.Response.Status.FORBIDDEN, AuthMethod.HTTPSIG);
+                String requestDigest = null;
+                if (reqHeaders.containsKey("digest")) {
+                    requestDigest = Arrays
+                            .stream(reqHeaders.getFirst("digest").split(","))
+                            .filter(d -> d.startsWith("SHA-256=")).findFirst().orElse(null);
+                }
+                if (!digestCalculated.equals(requestDigest)) {
+                    return AuthenticateMethodResponse.builder()
+                            .withErrorMessage("Digest mismatch! calculated (body length: " + bodyBytes.length + "): " + digestCalculated
+                                                + ", header: " + reqHeaders.getFirst("digest"))
+                            .withResponseCode(javax.ws.rs.core.Response.Status.BAD_REQUEST)
+                            .build();
                 }
             }
 
             String fingerprint = signature.getKeyId();
-            RSAPublicKey publicKey = registryClient.findRsaPublicKey(fingerprint);
+            RSAPublicKey publicKey = registryClient.findClientRsaPublicKey(fingerprint);
             if (publicKey == null) {
-                throw new EwpSecWebApplicationException("Key not found for fingerprint: " + fingerprint, javax.ws.rs.core.Response.Status.FORBIDDEN, AuthMethod.HTTPSIG);
+                return AuthenticateMethodResponse.builder()
+                        .withErrorMessage("Key not found for fingerprint: " + fingerprint)
+                        .withResponseCode(javax.ws.rs.core.Response.Status.FORBIDDEN)
+                        .build();
             }
 
             final Verifier verifier = new Verifier(publicKey, signature);
 
             logger.info("Verifying signature, fingerprint: {}", fingerprint);
 
-            boolean verifies = verifier.verify(requestContext.getMethod().toLowerCase(), requestContext.getUriInfo().getRequestUri().toString(), headers);
+            String queryParams = requestContext.getUriInfo().getRequestUri().getQuery();
+            String requestString = requestContext.getUriInfo().getRequestUri().getRawPath() + 
+                    (queryParams == null ? "" : "?" + queryParams);
+            boolean verifies = verifier.verify(requestContext.getMethod().toLowerCase(), requestString, headers);
 
             if (!verifies) {
-                throw new EwpSecWebApplicationException("Signature verification: " + verifies, javax.ws.rs.core.Response.Status.FORBIDDEN, AuthMethod.HTTPSIG);
+                return AuthenticateMethodResponse.builder()
+                        .withErrorMessage("Signature verification: " + verifies)
+                        .withResponseCode(javax.ws.rs.core.Response.Status.UNAUTHORIZED)
+                        .build();
             }
 
             requestContext.setProperty("EwpRequestRSAPublicKey", publicKey);
         } catch (NoSuchAlgorithmException e) {
             logger.warn("No such algorithm", e);
-            throw new EwpSecWebApplicationException("No such algorithm", javax.ws.rs.core.Response.Status.FORBIDDEN, AuthMethod.HTTPSIG);
+            return AuthenticateMethodResponse.builder()
+                    .withErrorMessage("No such algorithm")
+                    .withResponseCode(javax.ws.rs.core.Response.Status.BAD_REQUEST)
+                    .build();
         } catch (IOException e) {
             logger.warn("Error reading", e);
-            throw new EwpSecWebApplicationException(e.getMessage(), javax.ws.rs.core.Response.Status.FORBIDDEN, AuthMethod.HTTPSIG);
+            return AuthenticateMethodResponse.builder()
+                    .withErrorMessage(e.getMessage())
+                    .withResponseCode(javax.ws.rs.core.Response.Status.BAD_REQUEST)
+                    .build();
         } catch (SignatureException e) {
             logger.warn("Signature error", e);
-            throw new EwpSecWebApplicationException(e.getMessage(), javax.ws.rs.core.Response.Status.FORBIDDEN, AuthMethod.HTTPSIG);
+            return AuthenticateMethodResponse.builder()
+                    .withErrorMessage(e.getMessage())
+                    .withResponseCode(javax.ws.rs.core.Response.Status.BAD_REQUEST)
+                    .build();
+        } catch (MissingRequiredHeaderException e) {
+            logger.warn("Signature error, missing header", e);
+            return AuthenticateMethodResponse.builder()
+                    .withErrorMessage(e.getMessage())
+                    .withResponseCode(javax.ws.rs.core.Response.Status.BAD_REQUEST)
+                    .build();
         }
+
+        // Check if client wants signed response and that the header is correct
+        if (reqHeaders.containsKey("accept-signature") &&
+                !Arrays.stream(requestContext.getHeaders().getFirst("accept-signature").split(",\\s?"))
+                        .anyMatch(m -> "rsa-sha256".equalsIgnoreCase(m))) {
+            return AuthenticateMethodResponse.builder()
+                    .withErrorMessage("Client wants signed response with unsupported Accept-Signature, only RSA-SHA256 is supported.")
+                    .withResponseCode(javax.ws.rs.core.Response.Status.BAD_REQUEST)
+                    .build();
+        }
+        
+        return AuthenticateMethodResponse.builder().build();
     }
     
-    public void verifyHttpSignatureResponse(String method, String requestUri, MultivaluedMap<String, Object> reqHeaders, String raw) {
-        String authorization = (String)reqHeaders.getFirst("authorization");
+    public String verifyHttpSignatureResponse(String method, String requestUri, MultivaluedMap<String, Object> responseHeaders, String raw, String requestID) {
+        if (!requestID.equals(responseHeaders.getFirst("X-Request-Id"))) {
+            return "Header X-Request-Id does not match the id sent in the request";
+        }
+        
+        if (!responseHeaders.containsKey("signature")) {
+            return "Missing Signature header in response";
+        }
+        String signatureHeader = (String)responseHeaders.getFirst("signature");
         logger.info("Verifying HTTP signature");
 
+        Signature signature = Signature.fromString(signatureHeader);
+        logger.info("Signature: " + signature);
+        if (signature.getAlgorithm() != Algorithm.RSA_SHA256) {
+            return "Only signature algorithm rsa-sha256 is supported.";
+        }
+        
+        Optional<AuthenticateMethodResponse> authenticateMethodResponse = checkRequiredSignedHeaders(signature, "date|original-date", "digest", "x-request-id", "x-request-signature");
+        if (authenticateMethodResponse.isPresent()) {
+            return authenticateMethodResponse.get().errorMessage();
+        }
+        
         Map<String, String> headers = new HashMap<>();
-        reqHeaders.keySet().forEach((hkey) -> {
-            headers.put(hkey.toLowerCase(), (String)reqHeaders.getFirst(hkey));
+        responseHeaders.keySet().forEach((hkey) -> {
+            headers.put(hkey.toLowerCase(), (String)responseHeaders.getFirst(hkey));
         });
 
-        Signature signature = Signature.fromString(authorization);
-        logger.info("Signature: " + signature);
-
+        if ((headers.containsKey("date") && !isDateWithinTimeThreshold(headers.get("date"))) ||
+                (headers.containsKey("original-date") && !isDateWithinTimeThreshold(headers.get("original-date")))) {
+            return "The date cannot be parsed or the date does not match your server clock within a certain threshold of timeDate.";
+        }
+        
         try {
             if (headers.containsKey("digest")) {
                 byte[] bodyBytes = raw.getBytes();
@@ -239,41 +357,59 @@ public class HttpSignature {
                     digest = MessageDigest.getInstance("SHA-256").digest(bodyBytes);
                 } catch (NoSuchAlgorithmException e) {
                     logger.warn("No such algorithm", e);
-                    throw new EwpSecWebApplicationException("No such algorithm", javax.ws.rs.core.Response.Status.FORBIDDEN, AuthMethod.HTTPSIG);
+                    return "No such algorithm";
                 }
                 final String digestCalculated = "SHA-256=" + new String(Base64.encodeBase64(digest));
 
-                if (!digestCalculated.equals(reqHeaders.getFirst("digest"))) {
-                    throw new EwpSecWebApplicationException("Digest mismatch! calculated (body length: " + bodyBytes.length + "): " + digestCalculated
-                            + ", header: " + reqHeaders.getFirst("digest"), javax.ws.rs.core.Response.Status.FORBIDDEN, AuthMethod.HTTPSIG);
+                if (!digestCalculated.equals(responseHeaders.getFirst("digest"))) {
+                    return "Digest mismatch! calculated (body length: " + bodyBytes.length + "): " + digestCalculated
+                            + ", header: " + responseHeaders.getFirst("digest");
                 }
             }
 
             String fingerprint = signature.getKeyId();
             RSAPublicKey publicKey = registryClient.findRsaPublicKey(fingerprint);
             if (publicKey == null) {
-                throw new EwpSecWebApplicationException("Key not found for fingerprint: " + fingerprint, javax.ws.rs.core.Response.Status.FORBIDDEN, AuthMethod.HTTPSIG);
+                return "Key not found for fingerprint: " + fingerprint;
             }
 
             final Verifier verifier = new Verifier(publicKey, signature);
 
-            logger.info("Verifying signature, fingerprint: {}", fingerprint);
+            logger.debug("Verifying signature, fingerprint: {}", fingerprint);
 
             boolean verifies = verifier.verify(method.toLowerCase(), requestUri, headers);
 
             if (!verifies) {
-                throw new EwpSecWebApplicationException("Signature verification: " + verifies, javax.ws.rs.core.Response.Status.FORBIDDEN, AuthMethod.HTTPSIG);
+                return "Signature verification: " + verifies;
             }
         } catch (NoSuchAlgorithmException e) {
             logger.warn("No such algorithm", e);
-            throw new EwpSecWebApplicationException("No such algorithm", javax.ws.rs.core.Response.Status.FORBIDDEN, AuthMethod.HTTPSIG);
+            return "No such algorithm: " + e.getMessage();
         } catch (IOException e) {
             logger.warn("Error reading", e);
-            throw new EwpSecWebApplicationException(e.getMessage(), javax.ws.rs.core.Response.Status.FORBIDDEN, AuthMethod.HTTPSIG);
+            return e.getMessage();
         } catch (SignatureException e) {
             logger.warn("Signature error", e);
-            throw new EwpSecWebApplicationException(e.getMessage(), javax.ws.rs.core.Response.Status.FORBIDDEN, AuthMethod.HTTPSIG);
+            return e.getMessage();
+        } catch (MissingRequiredHeaderException e) {
+            logger.warn("Signature error, missing header", e);
+            return e.getMessage();
         }
+        return null;
+    }
+    
+    private Optional<AuthenticateMethodResponse> checkRequiredSignedHeaders(Signature signature, String... headers) {
+        return Arrays.stream(headers).map(header -> {
+            if (Arrays.stream(header.split("\\|")).noneMatch(h -> signature.getHeaders().contains(h))) {
+                return AuthenticateMethodResponse.builder()
+                        .withRequiredMethodInfoFulfilled(false)
+                        .withErrorMessage("Missing required signed header '" + header + "'")
+                        .withResponseCode(javax.ws.rs.core.Response.Status.BAD_REQUEST)
+                        .build();
+            } else {
+                return null;
+            }
+        }).filter(Objects::nonNull).findFirst();
     }
 
     private byte[] getByteArray(InputStream is) throws IOException {
@@ -326,5 +462,18 @@ public class HttpSignature {
             logger.error("Jaxb error", ex);
         }
         return new byte[0];
+    }
+
+    private boolean isDateWithinTimeThreshold(String dateString) {
+        final Date today = new Date();
+        try {
+            final Date requestDate = new SimpleDateFormat("EEE, dd MMM yyyy HH:mm:ss zzz", Locale.US)
+                    .parse(dateString);
+            // Check that time diff is less than five minutes
+            return Math.abs(today.getTime() - requestDate.getTime()) <= 5 * 60 * 1000;
+        } catch (ParseException e) {
+            logger.warn("Can't parse date: " + dateString, e);
+        }
+        return false;
     }
 }

@@ -164,6 +164,12 @@ public class RegistryClient {
     public RSAPublicKey findRsaPublicKey(String fingerprint) {
         return client.findRsaPublicKey(fingerprint);
     }
+
+    public RSAPublicKey findClientRsaPublicKey(String fingerprint) {
+        RSAPublicKey rsaPublicKey = client.findRsaPublicKey(fingerprint);
+        return rsaPublicKey != null && client.isClientKeyKnown(rsaPublicKey) ? rsaPublicKey : null;
+    }
+    
     public Collection<String> getHeisCoveredByClientKey(RSAPublicKey rsapk) {
         return client.getHeisCoveredByClientKey(rsapk);
     }

@@ -73,7 +73,7 @@ public class ManifestResource {
         
         manifest.setInstitutionsCovered(getInstitutionsCovered());
         manifest.setClientCredentialsInUse(getClientCredentialsInUse());
-//        manifest.setServerCredentialsInUse(getServerCredentialsInUse());
+        manifest.setServerCredentialsInUse(getServerCredentialsInUse());
         manifest.setAdminNotes(getAdminNotes());
 
         return javax.ws.rs.core.Response.ok(manifest).build();

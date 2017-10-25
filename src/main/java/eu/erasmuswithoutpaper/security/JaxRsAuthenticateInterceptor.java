@@ -39,42 +39,68 @@ public class JaxRsAuthenticateInterceptor implements ContainerRequestFilter, Con
     public void filter(ContainerRequestContext requestContext) throws IOException {
         Method method = resourceInfo.getResourceMethod();
 
-        if (method.getAnnotation(EwpAuthenticate.class) == null) {
+        if (method == null || method.getAnnotation(EwpAuthenticate.class) == null) {
             return;
         }
         
-        if (httpSignature.adaptsToHttpSignatureRequest(requestContext)) {
-            httpSignature.verifyHttpSignatureRequest(requestContext);
-        } else {
-            verifyX509CertificateRequest(requestContext);
+        AuthenticateMethodResponse httpSignatureVerifyResponse = httpSignature.verifyHttpSignatureRequest(requestContext);
+        if (httpSignatureVerifyResponse.isRequiredMethodInfoFulfilled()) {
+            if (!httpSignatureVerifyResponse.isVerifiedOk()) {
+                throw new EwpSecWebApplicationException(httpSignatureVerifyResponse.errorMessage(), httpSignatureVerifyResponse.status(), EwpSecWebApplicationException.AuthMethod.HTTPSIG);
+            }
+            return;
         }
+        
+        AuthenticateMethodResponse tlsCertVerifyResponse = verifyX509CertificateRequest(requestContext);
+        if (tlsCertVerifyResponse.isRequiredMethodInfoFulfilled()) {
+            if (!tlsCertVerifyResponse.isVerifiedOk()) {
+                throw new EwpSecWebApplicationException(tlsCertVerifyResponse.errorMessage(), tlsCertVerifyResponse.status());
+            }
+            return;
+        }
+        
+        throw new EwpSecWebApplicationException(httpSignatureVerifyResponse.hasErrorMessage() ? httpSignatureVerifyResponse.errorMessage() : "No authorization method found in the request", httpSignatureVerifyResponse.status());
     }
     
     @Override
     public void filter(ContainerRequestContext requestContext, ContainerResponseContext responseContext) throws IOException {
         Method method = resourceInfo.getResourceMethod();
 
-        if (method.getAnnotation(EwpAuthenticate.class) == null) {
+        if (method == null || method.getAnnotation(EwpAuthenticate.class) == null) {
             return;
         }
         
-        if (httpSignature.adaptsToHttpSignatureRequest(requestContext)) {
+        if (httpSignature.clientWantsSignedResponse(requestContext)) {
             httpSignature.signResponse(requestContext, responseContext);
+        }
+        
+        if (responseContext.getStatus() == javax.ws.rs.core.Response.Status.UNAUTHORIZED.getStatusCode()) {
+            responseContext.getHeaders().add("WWW-Authenticate", "Signature realm=\"EWP\"");
+            responseContext.getHeaders().add("Want-Digest", "SHA-256");
         }
     }
     
-    private void verifyX509CertificateRequest(ContainerRequestContext requestContext) throws EwpSecWebApplicationException {
+    private AuthenticateMethodResponse verifyX509CertificateRequest(ContainerRequestContext requestContext) throws EwpSecWebApplicationException {
         X509Certificate[] certificates = (X509Certificate[]) requestContext.getProperty("javax.servlet.request.X509Certificate");
+        logger.info("Verifying Client certificate");
         if (certificates == null && !properties.isAllowMissingClientCertificate()) {
-            throw new EwpSecWebApplicationException("No client certificates found in the request", javax.ws.rs.core.Response.Status.FORBIDDEN);
+            return AuthenticateMethodResponse.builder()
+                    .withRequiredMethodInfoFulfilled(false)
+                    .withResponseCode(javax.ws.rs.core.Response.Status.BAD_REQUEST)
+                    .build();
         }
         
         X509Certificate certificate = registryClient.getCertificateKnownInEwpNetwork(certificates);
         if (certificate == null && !properties.isAllowMissingClientCertificate()) {
-            throw new EwpSecWebApplicationException("None of the client certificates is valid in the EWP network", javax.ws.rs.core.Response.Status.FORBIDDEN);
+            return AuthenticateMethodResponse.builder()
+                    .withErrorMessage("None of the client certificates is valid in the EWP network")
+                    .withResponseCode(javax.ws.rs.core.Response.Status.UNAUTHORIZED)
+                    .build();
         }
         
         requestContext.setProperty("EwpRequestCertificate", certificate);
+            return AuthenticateMethodResponse.builder().build();
+        
     }
 
 }

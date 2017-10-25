@@ -4,6 +4,7 @@ import eu.erasmuswithoutpaper.common.boundary.ClientRequest;
 import eu.erasmuswithoutpaper.common.boundary.ClientResponse;
 import eu.erasmuswithoutpaper.error.control.EwpSecWebApplicationException;
 import eu.erasmuswithoutpaper.security.HttpSignature;
+import java.net.URI;
 import java.net.URLEncoder;
 import java.security.KeyManagementException;
 import java.security.KeyStore;
@@ -15,6 +16,7 @@ import java.time.Instant;
 import java.time.temporal.ChronoUnit;
 import java.util.List;
 import java.util.Map;
+import java.util.UUID;
 import java.util.stream.Collectors;
 import javax.annotation.PostConstruct;
 import javax.inject.Inject;
@@ -68,6 +70,8 @@ public class RestClient {
     
     public ClientResponse sendRequest(ClientRequest clientRequest, Class responseClass) {
         ClientResponse clientResponse = new ClientResponse();
+        String requestID = UUID.randomUUID().toString();
+
         try {
             WebTarget target = client().target(clientRequest.getUrl());
             Response response;
@@ -84,7 +88,7 @@ public class RestClient {
                     String formData = formData2String(form);
                     Invocation.Builder postBuilder = target.request();
                     if (clientRequest.isHttpsec()) {
-                        httpSignature.signRequest(postBuilder, formData);
+                        httpSignature.signRequest("post", target.getUri(), postBuilder, formData, requestID);
                     }
 
                     Entity<String> entity = Entity.entity(formData, MediaType.APPLICATION_FORM_URLENCODED_TYPE);
@@ -103,7 +107,7 @@ public class RestClient {
                     
                     Invocation.Builder builder = target.request();
                     if (clientRequest.isHttpsec()) {
-                        httpSignature.signRequest(builder);
+                        httpSignature.signRequest("get", target.getUri(), builder, requestID);
                     }
                     response = builder.get();
                     break;
@@ -147,7 +151,7 @@ public class RestClient {
 
             if (clientRequest.isHttpsec()) {
                 try {
-                    httpSignature.verifyHttpSignatureResponse(clientRequest.getMethod().name(), clientRequest.getUrl(), response.getHeaders(), rawResponse);
+                    httpSignature.verifyHttpSignatureResponse(clientRequest.getMethod().name(), clientRequest.getUrl(), response.getHeaders(), rawResponse, requestID);
                     clientResponse.setHttpsecMsg("Response is verified ok");
                 } catch (EwpSecWebApplicationException e) {
                     clientResponse.setHttpsecMsg(e.getMessage());
