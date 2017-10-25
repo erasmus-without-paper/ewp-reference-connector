@@ -42,6 +42,14 @@ tomee.serialization.class.blacklist = -
 
 If you want to fork the code, or just start to hack on your own connector, and want to use this as a reference, follow these steps. 
 
+Clone the HTTP signatures library https://github.com/mpuzar/http-signatures-java.git
+
+```
+$ git clone https://github.com/mpuzar/http-signatures-java.git
+$ cd http-signatures-java
+$ mvn clean install
+```
+Go back to the main source tree
 ```
 $ mvn clean install
 ```
