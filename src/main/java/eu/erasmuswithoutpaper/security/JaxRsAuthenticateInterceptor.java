@@ -64,16 +64,11 @@ public class JaxRsAuthenticateInterceptor implements ContainerRequestFilter, Con
     
     @Override
     public void filter(ContainerRequestContext requestContext, ContainerResponseContext responseContext) throws IOException {
-        Method method = resourceInfo.getResourceMethod();
 
-        if (method == null || method.getAnnotation(EwpAuthenticate.class) == null) {
-            return;
-        }
-        
         if (httpSignature.clientWantsSignedResponse(requestContext)) {
             httpSignature.signResponse(requestContext, responseContext);
         }
-        
+
         if (responseContext.getStatus() == javax.ws.rs.core.Response.Status.UNAUTHORIZED.getStatusCode()) {
             responseContext.getHeaders().add("WWW-Authenticate", "Signature realm=\"EWP\"");
             responseContext.getHeaders().add("Want-Digest", "SHA-256");

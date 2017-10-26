@@ -65,7 +65,10 @@ public class HttpSignature {
     RegistryClient registryClient;
 
     public boolean clientWantsSignedResponse(ContainerRequestContext requestContext) {
-        return requestContext.getHeaders().containsKey("accept-signature");
+        // Check if client wants signed response and that the header is correct
+        return requestContext.getHeaders().containsKey("accept-signature") &&
+                Arrays.stream(requestContext.getHeaders().getFirst("accept-signature").split(",\\s?"))
+                        .anyMatch(m -> "rsa-sha256".equalsIgnoreCase(m));
     }
     
     public void signResponse(ContainerRequestContext requestContext, ContainerResponseContext responseContext) {
@@ -304,16 +307,6 @@ public class HttpSignature {
                     .build();
         }
 
-        // Check if client wants signed response and that the header is correct
-        if (reqHeaders.containsKey("accept-signature") &&
-                !Arrays.stream(requestContext.getHeaders().getFirst("accept-signature").split(",\\s?"))
-                        .anyMatch(m -> "rsa-sha256".equalsIgnoreCase(m))) {
-            return AuthenticateMethodResponse.builder()
-                    .withErrorMessage("Client wants signed response with unsupported Accept-Signature, only RSA-SHA256 is supported.")
-                    .withResponseCode(javax.ws.rs.core.Response.Status.BAD_REQUEST)
-                    .build();
-        }
-        
         return AuthenticateMethodResponse.builder().build();
     }
     
