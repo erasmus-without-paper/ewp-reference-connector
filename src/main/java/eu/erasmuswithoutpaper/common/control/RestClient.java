@@ -150,12 +150,8 @@ public class RestClient {
             }
 
             if (clientRequest.isHttpsec()) {
-                try {
-                    httpSignature.verifyHttpSignatureResponse(clientRequest.getMethod().name(), clientRequest.getUrl(), response.getHeaders(), rawResponse, requestID);
-                    clientResponse.setHttpsecMsg("Response is verified ok");
-                } catch (EwpSecWebApplicationException e) {
-                    clientResponse.setHttpsecMsg(e.getMessage());
-                }
+                String errorMessage = httpSignature.verifyHttpSignatureResponse(clientRequest.getMethod().name(), clientRequest.getUrl(), response.getHeaders(), rawResponse, requestID);
+                clientResponse.setHttpsecMsg(errorMessage == null ? "Response is verified ok" : errorMessage);
             }
 
         } catch (Exception e) {

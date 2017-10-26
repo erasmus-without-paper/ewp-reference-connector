@@ -89,7 +89,7 @@ public class HttpSignature {
             List<String> headerNames = new ArrayList<>();
             final Map<String, String> headers = new HashMap<>();
 
-            headers.put("Date", stringToday);
+            headers.put("Original-Date", stringToday);
             headers.put("Digest", digestHeader);
 
             if (requestID != null) {
@@ -133,7 +133,7 @@ public class HttpSignature {
             final Date today = new Date();
             final String stringToday = new SimpleDateFormat("EEE, dd MMM yyyy HH:mm:ss zzz", Locale.US)
                     .format(today);
-            headers.put("Date", stringToday);
+            headers.put("Original-Date", stringToday);
             
             headers.put("host", uri.getHost());
 
