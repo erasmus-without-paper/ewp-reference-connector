@@ -11,3 +11,6 @@ connector.iml
 /workshops/
 derby.log
 /generate-api-with-xjc/target/
+/ewp-reference-connector/generate-api-with-xjc/target/
+/ewp-connector-ap/target/
+/ewp-connector-api/target/
