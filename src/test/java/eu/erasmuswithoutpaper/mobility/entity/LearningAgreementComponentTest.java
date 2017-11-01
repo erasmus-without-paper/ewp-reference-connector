@@ -1,6 +1,8 @@
 
 package eu.erasmuswithoutpaper.mobility.entity;
 
+import eu.erasmuswithoutpaper.omobility.entity.LearningAgreementComponentStatus;
+import eu.erasmuswithoutpaper.omobility.entity.RecognizedLaComponent;
 import javax.persistence.EntityManager;
 import javax.persistence.EntityTransaction;
 import javax.persistence.Persistence;

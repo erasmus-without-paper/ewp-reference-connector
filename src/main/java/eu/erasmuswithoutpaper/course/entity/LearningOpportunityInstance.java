@@ -1,7 +1,7 @@
 
 package eu.erasmuswithoutpaper.course.entity;
 
-import eu.erasmuswithoutpaper.mobility.entity.ResultDistribution;
+import eu.erasmuswithoutpaper.omobility.entity.ResultDistribution;
 import java.io.Serializable;
 import java.math.BigDecimal;
 import java.util.List;

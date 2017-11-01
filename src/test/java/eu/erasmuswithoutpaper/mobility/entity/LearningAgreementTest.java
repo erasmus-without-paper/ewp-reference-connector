@@ -1,6 +1,7 @@
 
 package eu.erasmuswithoutpaper.mobility.entity;
 
+import eu.erasmuswithoutpaper.omobility.entity.LearningAgreement;
 import javax.persistence.EntityManager;
 import javax.persistence.EntityTransaction;
 import javax.persistence.Persistence;

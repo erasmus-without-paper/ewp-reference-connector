@@ -39,4 +39,16 @@
             <jaxb:package name="eu.erasmuswithoutpaper.api.specs.sec.intro"/>
         </jaxb:schemaBindings>
     </jaxb:bindings>
+    
+    <jaxb:bindings schemaLocation="https://raw.githubusercontent.com/emrex-eu/elmo-schemas/v1/schema.xsd">
+        <jaxb:schemaBindings>
+            <jaxb:package name="eu.emrex.elmo"/>
+        </jaxb:schemaBindings>
+    </jaxb:bindings>
+    <jaxb:bindings schemaLocation="https://raw.githubusercontent.com/emrex-eu/elmo-schemas/v1/references/xmldsig-core-schema.xsd">
+        <jaxb:schemaBindings>
+            <jaxb:package name="org.w3.xmldsig"/>
+        </jaxb:schemaBindings>
+    </jaxb:bindings>
+    
 </jaxb:bindings>

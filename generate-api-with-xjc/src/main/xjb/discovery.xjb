@@ -3,7 +3,7 @@
                xmlns:jaxb="http://java.sun.com/xml/ns/jaxb"
                xmlns:xs="http://www.w3.org/2001/XMLSchema">
 
-    <jaxb:bindings schemaLocation="https://raw.githubusercontent.com/erasmus-without-paper/ewp-specs-api-discovery/v4.0.2/manifest.xsd">
+    <jaxb:bindings schemaLocation="https://raw.githubusercontent.com/erasmus-without-paper/ewp-specs-api-discovery/v4.1.0/manifest.xsd">
         <jaxb:schemaBindings>
             <jaxb:package name="eu.erasmuswithoutpaper.api.discovery"/>
         </jaxb:schemaBindings>
@@ -13,9 +13,16 @@
                     <jaxb:javaType name="String"/>
                 </jaxb:baseType>
             </jaxb:property>
+        </jaxb:bindings>
+        <jaxb:bindings multiple="true" node="//xs:element[@name='rsa-public-key']">
+            <jaxb:property>
+                <jaxb:baseType>
+                    <jaxb:javaType name="String"/>
+                </jaxb:baseType>
+            </jaxb:property>
         </jaxb:bindings>        
     </jaxb:bindings>
-    <jaxb:bindings schemaLocation="https://raw.githubusercontent.com/erasmus-without-paper/ewp-specs-api-discovery/v4.0.2/manifest-entry.xsd">
+    <jaxb:bindings schemaLocation="https://raw.githubusercontent.com/erasmus-without-paper/ewp-specs-api-discovery/v4.1.0/manifest-entry.xsd">
         <jaxb:schemaBindings>
             <jaxb:package name="eu.erasmuswithoutpaper.api.discovery"/>
         </jaxb:schemaBindings>

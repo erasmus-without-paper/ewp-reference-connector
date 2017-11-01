@@ -7,7 +7,7 @@ import eu.erasmuswithoutpaper.course.preload.LoiLoader;
 import eu.erasmuswithoutpaper.course.preload.LosLoader;
 import eu.erasmuswithoutpaper.iia.preload.IiaLoader;
 import eu.erasmuswithoutpaper.iia.preload.MobilityTypeLoader;
-import eu.erasmuswithoutpaper.mobility.preload.MobilityLoader;
+import eu.erasmuswithoutpaper.omobility.preload.MobilityLoader;
 import eu.erasmuswithoutpaper.organization.preload.ContactLoader;
 import eu.erasmuswithoutpaper.organization.preload.InstitutionLoader;
 import eu.erasmuswithoutpaper.organization.preload.MobilityParticipantLoader;
