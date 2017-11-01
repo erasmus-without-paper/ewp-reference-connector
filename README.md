@@ -15,13 +15,16 @@ In addition to the requirements for the EWP host, the following are also require
 * Maven 3.3.9
 * Git
 
-## Build and run a Docker image
+## Build and run a Docker image. 
+The Docker API and Maven plugins are not in sync anymore, so you'll have to do it by hand. 
+
 ```
-mvn clean package docker:build
+$ cp target/ewp-reference-connector-1.0-SNAPSHOT.war docker
+$ docker build docker --no-cache -t ewp
 ```
 Followed by
 ```
-docker run reference-connector -p 8080:8080
+docker run -p 127.0.0.1:8080:8080 ewp
 ```
 Locate your browser to
 ```
@@ -29,7 +32,7 @@ http://localhost:8080/ewp/
 ```
 ## Installation instructions for a EWP Host
 
-* Download TomEE from http://www.apache.org/dyn/closer.cgi/tomee/tomee-7.0.1/apache-tomee-7.0.1-plus.zip
+* Download TomEE from http://www.apache.org/dyn/closer.cgi/tomee/tomee-7.0.4/apache-tomee-7.0.4-plus.zip
 * Configure system.properties and modify this property
 ```
 tomee.serialization.class.blacklist = -
@@ -42,14 +45,7 @@ tomee.serialization.class.blacklist = -
 
 If you want to fork the code, or just start to hack on your own connector, and want to use this as a reference, follow these steps. 
 
-Clone the HTTP signatures library https://github.com/mpuzar/http-signatures-java.git
-
-```
-$ git clone https://github.com/mpuzar/http-signatures-java.git
-$ cd http-signatures-java
-$ mvn clean install
-```
-Go back to the main source tree
+Go to the source tree. 
 ```
 $ mvn clean install
 ```
