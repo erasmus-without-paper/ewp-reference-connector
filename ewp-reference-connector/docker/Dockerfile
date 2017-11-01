@@ -14,15 +14,15 @@ WORKDIR /usr/local/tomee
 
 # gpg: Signature made Sun Nov  6 19:40:20 2016 CET using DSA key ID 2678363C
 # gpg: Good signature from "Romain Manni-Bucau <rmannibucau@apache.org>"
-RUN gpg --keyserver pgpkeys.mit.edu --recv-key 2678363C
+RUN gpg --keyserver pgpkeys.mit.edu --recv-key 6D545F97
 
 RUN set -x \
-	&& curl -fSL https://dist.apache.org/repos/dist/release/tomee/tomee-7.0.2/apache-tomee-7.0.2-plus.tar.gz.asc -o tomee.tar.gz.asc \
-	&& curl -fSL http://apache.rediris.es/tomee/tomee-7.0.2/apache-tomee-7.0.2-plus.tar.gz -o tomee.tar.gz \
+	&& curl -fSL https://dist.apache.org/repos/dist/release/tomee/tomee-7.0.4/apache-tomee-7.0.4-plus.tar.gz.asc -o tomee.tar.gz.asc \
+	&& curl -fSL http://apache.rediris.es/tomee/tomee-7.0.4/apache-tomee-7.0.4-plus.tar.gz -o tomee.tar.gz \
 	&& gpg --batch --verify tomee.tar.gz.asc tomee.tar.gz \
 	&& tar -zxf tomee.tar.gz \
-	&& mv apache-tomee-plus-7.0.2/* /usr/local/tomee \
-	&& rm -Rf apache-tomee-plus-7.0.2 \
+	&& mv apache-tomee-plus-7.0.4/* /usr/local/tomee \
+	&& rm -Rf apache-tomee-plus-7.0.4 \
 	&& rm bin/*.bat \
 	&& rm tomee.tar.gz*
 
