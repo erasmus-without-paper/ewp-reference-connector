@@ -1,8 +1,8 @@
 
 package eu.erasmuswithoutpaper.mobility.entity;
 
-import eu.erasmuswithoutpaper.omobility.entity.ResultDistribution;
 import eu.erasmuswithoutpaper.omobility.entity.ResultDistributionCategory;
+import eu.erasmuswithoutpaper.omobility.entity.ResultDistribution;
 import eu.erasmuswithoutpaper.organization.entity.LanguageItem;
 import java.math.BigInteger;
 import java.util.ArrayList;

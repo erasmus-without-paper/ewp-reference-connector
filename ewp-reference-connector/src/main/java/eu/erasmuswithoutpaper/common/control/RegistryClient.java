@@ -106,7 +106,6 @@ public class RegistryClient {
         return getHeiUrls(heiId, EwpConstants.COURSES_NAMESPACE, "courses", EwpConstants.COURSES_CLIENT_VERSION);
     }
 
-    
     public List<HeiEntry> getIiaHeisWithUrls() {
         List<HeiEntry> heis = getHeis(EwpConstants.IIAS_NAMESPACE, "iias", EwpConstants.IIAS_CLIENT_VERSION);
         heis.stream().forEach(hei -> hei.setUrls(getIiaHeiUrls(hei.getId())));
@@ -116,7 +115,17 @@ public class RegistryClient {
     public Map<String, String> getIiaHeiUrls(String heiId) {
         return getHeiUrls(heiId, EwpConstants.IIAS_NAMESPACE, "iias", EwpConstants.IIAS_CLIENT_VERSION);
     }
-            
+
+    public List<HeiEntry> getOmobilitiesHeisWithUrls() {
+        List<HeiEntry> heis = getHeis(EwpConstants.OUTGOING_MOBILITIES_NAMESPACE, "omobilities", EwpConstants.OUTGOING_MOBILITIES_CLIENT_VERSION);
+        heis.stream().forEach(hei -> hei.setUrls(getOmobilitiesHeiUrls(hei.getId())));
+        return heis;
+    }
+
+    public Map<String, String> getOmobilitiesHeiUrls(String heiId) {
+        return getHeiUrls(heiId, EwpConstants.OUTGOING_MOBILITIES_NAMESPACE, "omobilities", EwpConstants.OUTGOING_MOBILITIES_CLIENT_VERSION);
+    }
+    
     public List<HeiEntry> getEchoHeis() {
         return getHeis(EwpConstants.ECHO_NAMESPACE, "echo", EwpConstants.ECHO_CLIENT_VERSION);
     }

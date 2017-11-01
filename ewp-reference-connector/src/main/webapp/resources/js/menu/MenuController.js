@@ -17,7 +17,9 @@ angular.module('menu').controller('MenuController', function ($scope, $location)
                                   {name:'Organization unit', page:'ounit-client'},
                                   {name:'Course-replication', page:'course-replication-client'},
                                   {name:'Course', page:'courses-client'},
-                                  {name:'Iia', page:'iia-client'}]}];
+                                  {name:'Iia', page:'iia-client'},
+                                  {name:'Outgoing mobility', page:'omobility-client'}
+                                ]}];
 
     $scope.selectedRootItem = '';
     $scope.selectHomeItem = function() {

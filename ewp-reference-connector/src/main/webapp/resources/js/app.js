@@ -52,6 +52,9 @@ angular
             }).when('/iia-client', {
                 templateUrl: 'partials/iia_client.html',
                 controller: 'IiaClientController'
+            }).when('/omobility-client', {
+                templateUrl: 'partials/omobility_client.html',
+                controller: 'OmobilityClientController'
             }).otherwise({
                 redirectTo: '/home'
             });

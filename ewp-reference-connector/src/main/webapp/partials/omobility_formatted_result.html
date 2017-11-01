@@ -1,0 +1,31 @@
+<div ng-if="clientResult.result.omobilityId">
+    <h3>Outgoing Mobilities Identities</h3>
+    <div class="list-group">
+        <div ng-repeat="omobilityId in clientResult.result.omobilityId">
+            <div class="list-group-item">{{omobilityId}}</div>
+        </div>
+    </div>
+</div>
+<div ng-if="clientResult.result.omobility">
+    <h3>Outgoing Mobilities</h3>
+    <div class="list-group">
+        <div class="list-group-item" ng-repeat="omobility in clientResult.result.omobility">
+            <div class="row">
+                <div class="col-md-2">Id:</div>
+                <div class="col-md-10">{{omobility.omobilityId}}</div>
+            </div>
+            <div class="row">
+                <div class="col-md-2">Code:</div>
+                <div class="col-md-10">{{omobility.omobilityCode}}</div>
+            </div>
+            <div class="row">
+                <div class="col-md-2">Start date:</div>
+                <div class="col-md-10">{{omobility.startDate.year + '-' + (omobility.startDate.month < 10 ? '0' : '' ) + omobility.startDate.month + '-' + (omobility.endDate.day < 10 ? '0' : '' ) + omobility.startDate.day}}</div>
+            </div>
+            <div class="row">
+                <div class="col-md-2">End date:</div>
+                <div class="col-md-10">{{omobility.endDate.year + '-' + (omobility.endDate.month < 10 ? '0' : '' ) + omobility.endDate.month + '-' + (omobility.endDate.day < 10 ? '0' : '' ) + omobility.endDate.day}}</div>
+            </div>
+        </div>
+    </div>
+</div>

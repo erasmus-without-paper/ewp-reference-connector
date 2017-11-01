@@ -1,8 +1,8 @@
 
 package eu.erasmuswithoutpaper.mobility.entity;
 
-import eu.erasmuswithoutpaper.omobility.entity.Mobility;
 import eu.erasmuswithoutpaper.omobility.entity.MobilityStatus;
+import eu.erasmuswithoutpaper.omobility.entity.Mobility;
 import java.util.Date;
 import javax.persistence.EntityManager;
 import javax.persistence.EntityTransaction;

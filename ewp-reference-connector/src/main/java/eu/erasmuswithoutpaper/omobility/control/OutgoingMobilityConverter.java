@@ -23,8 +23,8 @@ import javax.xml.datatype.DatatypeConfigurationException;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-public class MobilityConverter {
-    private static final Logger logger = LoggerFactory.getLogger(MobilityConverter.class);
+public class OutgoingMobilityConverter {
+    private static final Logger logger = LoggerFactory.getLogger(OutgoingMobilityConverter.class);
     
     @PersistenceContext(unitName = "connector")
     EntityManager em;

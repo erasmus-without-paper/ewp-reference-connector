@@ -5,7 +5,7 @@ import eu.erasmuswithoutpaper.api.omobilities.endpoints.OmobilitiesIndexResponse
 import eu.erasmuswithoutpaper.api.omobilities.endpoints.StudentMobilityForStudies;
 import eu.erasmuswithoutpaper.common.control.GlobalProperties;
 import eu.erasmuswithoutpaper.error.control.EwpWebApplicationException;
-import eu.erasmuswithoutpaper.omobility.control.MobilityConverter;
+import eu.erasmuswithoutpaper.omobility.control.OutgoingMobilityConverter;
 import eu.erasmuswithoutpaper.omobility.entity.Mobility;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
@@ -24,7 +24,7 @@ import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.Response;
 
 @Stateless
-@Path("mobilities")
+@Path("omobilities")
 public class OutgoingMobilityResource {
     @PersistenceContext(unitName = "connector")
     EntityManager em;
@@ -33,7 +33,7 @@ public class OutgoingMobilityResource {
     GlobalProperties properties;
     
     @Inject
-    MobilityConverter mobilityConverter;
+    OutgoingMobilityConverter mobilityConverter;
     
     @GET
     @Path("index")
@@ -54,14 +54,14 @@ public class OutgoingMobilityResource {
     @GET
     @Path("get")
     @Produces(MediaType.APPLICATION_XML)
-    public javax.ws.rs.core.Response mobilityGetGet(@QueryParam("sending_hei_id") String sendingHeiId, @QueryParam("mobility_id") List<String> mobilityIdList) {
+    public javax.ws.rs.core.Response mobilityGetGet(@QueryParam("sending_hei_id") String sendingHeiId, @QueryParam("omobility_id") List<String> mobilityIdList) {
         return mobilityGet(sendingHeiId, mobilityIdList);
     }
     
     @POST
     @Path("get")
     @Produces(MediaType.APPLICATION_XML)
-    public javax.ws.rs.core.Response mobilityGetPost(@FormParam("sending_hei_id") String sendingHeiId, @FormParam("mobility_id") List<String> mobilityIdList) {
+    public javax.ws.rs.core.Response mobilityGetPost(@FormParam("sending_hei_id") String sendingHeiId, @FormParam("omobility_id") List<String> mobilityIdList) {
         return mobilityGet(sendingHeiId, mobilityIdList);
     }
     

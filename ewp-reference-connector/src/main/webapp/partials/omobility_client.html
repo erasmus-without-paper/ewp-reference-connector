@@ -1,7 +1,7 @@
 <div class="container">
-    <h1 class="page-header">IIA's</h1>
+    <h1 class="page-header">Outgoing mobilities</h1>
     <div class="panel panel-body">
-        <form class="form-horizontal" ng-submit="sendIiaRequest()">
+        <form class="form-horizontal" ng-submit="sendOmobilityRequest()">
             <ul class="nav nav-tabs">
                 <li ng-class="{'active':clientView === 'index'}"><a ng-click="setClientView('index')">Index</a></li>
                 <li ng-class="{'active':clientView === 'get'}"><a ng-click="setClientView('get')">Get</a></li>
@@ -46,16 +46,16 @@
                 <div class="panel-body">
                     <div class="tab-content clearfix" ng-show="!cachedIds">
                         <div class="form-group">
-                            <label class="control-label" for="hei1">IIA's (comma separated):</label>
-                            <input id="hei1" class="form-control" ng-model="manuallyIiaIds">
+                            <label class="control-label" for="hei1">Mobilities (comma separated):</label>
+                            <input id="hei1" class="form-control" ng-model="manuallyOmobilityIds">
                         </div>
                     </div>
                     <div ng-show="cachedIds">
                         <div class="form-group">
-                            <label class="control-label" for="hei2">IIA's:</label>
-                            <select id="hei2" class="form-control" ng-model="cachedIiaIds" multiple>
-                                <option style="display:none" value="">Select IIA ids</option>
-                                <option ng-repeat="iiaId in heiIiaIds" value="{{iiaId}}">{{iiaId}}</option>
+                            <label class="control-label" for="hei2">Mobilities:</label>
+                            <select id="hei2" class="form-control" ng-model="cachedOmobilityIds" multiple>
+                                <option style="display:none" value="">Select outgoing mobility ids</option>
+                                <option ng-repeat="omobilityId in heiOmobilityIds" value="{{omobilityId}}">{{omobilityId}}</option>
                             </select>
                         </div>
                     </div>
@@ -72,5 +72,5 @@
         </form>
     </div>
 
-    <div data-client-result="result" data-formatted-template="'partials/iia_formatted_result.html'"></div>
+    <div data-client-result="result" data-formatted-template="'partials/omobility_formatted_result.html'"></div>
 </div>

@@ -13,6 +13,13 @@
                 </select>
             </div>
 
+            <div class="checkbox">
+                <label>
+                    <input id="httpsec" type="checkbox" ng-model="organizationUnitRequest.httpsec">
+                    Use HTTP sec
+                </label>
+            </div>
+            
             <div class="form-group">
                 <label class="control-label" for="hei">EWP URL:</label>
                 <select id="url" class="form-control" ng-model="organizationUnitRequest.url" required="required" ng-change="urlChanged()">
