@@ -8,6 +8,11 @@
     <packaging>war</packaging>
     <dependencies>
         <dependency>
+            <groupId>eu.erasmuswithoutpaper</groupId>
+            <artifactId>ewp-connector-api</artifactId>
+            <version>2.0-SNAPSHOT</version>
+        </dependency>
+        <dependency>
             <groupId>javax</groupId>
             <artifactId>javaee-api</artifactId>
             <version>7.0</version>
@@ -29,14 +34,16 @@
             <version>2.6.4</version>
         </dependency>
         <dependency>
-            <groupId>org.tomitribe</groupId>
-            <artifactId>tomitribe-http-signatures</artifactId>
-            <version>1.1-SNAPSHOT</version>
-        </dependency>
-        <dependency>
             <groupId>commons-codec</groupId>
             <artifactId>commons-codec</artifactId>
             <version>1.10</version>
+        </dependency>
+        
+        <!-- Not released githib dependencies -->
+        <dependency>
+            <groupId>com.github.mpuzar</groupId>
+            <artifactId>http-signatures-java</artifactId>
+            <version>6ccec9a</version>
         </dependency>
         
         <!-- Provided dependencies -->
@@ -162,50 +169,6 @@
                     <skip>${frontend.skip}</skip -->
                 </configuration>
             </plugin>
-
-            <plugin>
-                <!-- We use this plugin to ensure that our usage of the
-                maven-jaxb2-plugin is JDK 8 compatible in absence of a fix
-                for jaxb2-maven-plugin. -->
-                <groupId>org.codehaus.mojo</groupId>
-                <artifactId>properties-maven-plugin</artifactId>
-                <version>1.0.0</version>
-                <executions>
-                    <execution>
-                        <id>set-additional-system-properties</id>
-                        <goals>
-                            <goal>set-system-properties</goal>
-                        </goals>
-                    </execution>
-                </executions>
-                <configuration>
-                    <properties>
-                        <property>
-                            <name>javax.xml.accessExternalDTD</name>
-                            <value>all</value>
-                        </property>
-                        <property>
-                            <name>javax.xml.accessExternalSchema</name>
-                            <value>all</value>
-                        </property>
-                    </properties>
-                </configuration>
-            </plugin>
-            <plugin>
-                <groupId>org.codehaus.mojo</groupId>
-                <artifactId>jaxb2-maven-plugin</artifactId>
-                <version>${jaxb2.version}</version>
-                <executions>
-                    <execution>
-                        <id>xjc</id>
-                        <goals>
-                            <goal>xjc</goal>
-                        </goals>
-                        <configuration>
-                        </configuration>
-                    </execution>
-                </executions>
-            </plugin>
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
                 <artifactId>maven-compiler-plugin</artifactId>
@@ -242,6 +205,14 @@
             </plugin>
         </plugins>
     </build>
+    
+    <repositories>
+        <repository>
+            <id>jitpack.io</id>
+            <url>https://jitpack.io</url>
+        </repository>
+    </repositories>
+    
     <properties>
         <maven.compiler.source>1.8</maven.compiler.source>
         <maven.compiler.target>1.8</maven.compiler.target>
