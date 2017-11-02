@@ -3,16 +3,9 @@
     <persistence-unit name="connector" transaction-type="JTA">
         <provider>org.eclipse.persistence.jpa.PersistenceProvider</provider>
         <properties>
-            <property name="javax.persistence.jdbc.url" value="jdbc:derby:memory:testDB;create=true"/>
-            <property name="javax.persistence.jdbc.driver" value="org.apache.derby.jdbc.EmbeddedDriver"/>
             <property name="javax.persistence.schema-generation.database.action" value="drop-and-create"/>
-            <property name="openjpa.jdbc.SynchronizeMappings" value="buildSchema(ForeignKeys=true)"/>
-            <property name="openjpa.jdbc.DBDictionary" value="org.apache.openjpa.jdbc.sql.HSQLDictionary"/>
-            
-            <property name="eclipselink.target-database" value="org.eclipse.persistence.platform.database.HSQLPlatform"/>
-            <property name="eclipselink.ddl-generation" value="create-tables"/>
-            <property name="eclipselink.ddl-generation.output-mode" value="database"/>
-            <property name="eclipselink.session.customizer" value="eu.erasmuswithoutpaper.internal.UUIDSequence"/>
+            <!-- property name="javax.persistence.sql-load-script-source" value="META-INF/preload_data.sql"/ --> 
+            <property name="eclipselink.logging.level" value="FINE"/>            
         </properties>
     </persistence-unit>
 </persistence>
