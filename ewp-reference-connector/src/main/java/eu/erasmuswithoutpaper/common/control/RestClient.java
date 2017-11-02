@@ -2,9 +2,7 @@ package eu.erasmuswithoutpaper.common.control;
 
 import eu.erasmuswithoutpaper.common.boundary.ClientRequest;
 import eu.erasmuswithoutpaper.common.boundary.ClientResponse;
-import eu.erasmuswithoutpaper.error.control.EwpSecWebApplicationException;
 import eu.erasmuswithoutpaper.security.HttpSignature;
-import java.net.URI;
 import java.net.URLEncoder;
 import java.security.KeyManagementException;
 import java.security.KeyStore;
@@ -74,6 +72,7 @@ public class RestClient {
 
         try {
             WebTarget target = client().target(clientRequest.getUrl());
+            target.property("http.autoredirect", true);
             Response response;
             Instant start = Instant.now();
             Map<String, List<String>> params = clientRequest.getParams();
