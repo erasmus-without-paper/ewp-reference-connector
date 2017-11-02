@@ -1,14 +1,22 @@
 package eu.erasmuswithoutpaper.omobility.boundary;
 
+import eu.erasmuswithoutpaper.api.architecture.Empty;
+import eu.erasmuswithoutpaper.api.architecture.MultilineStringWithOptionalLang;
+import eu.erasmuswithoutpaper.api.omobilities.cnr.ObjectFactory;
 import eu.erasmuswithoutpaper.api.omobilities.endpoints.OmobilitiesGetResponse;
 import eu.erasmuswithoutpaper.api.omobilities.endpoints.OmobilitiesIndexResponse;
+import eu.erasmuswithoutpaper.api.omobilities.endpoints.OmobilitiesUpdateRequest;
+import eu.erasmuswithoutpaper.api.omobilities.endpoints.OmobilitiesUpdateResponse;
 import eu.erasmuswithoutpaper.api.omobilities.endpoints.StudentMobilityForStudies;
 import eu.erasmuswithoutpaper.common.control.GlobalProperties;
 import eu.erasmuswithoutpaper.error.control.EwpWebApplicationException;
+import eu.erasmuswithoutpaper.notification.entity.Notification;
+import eu.erasmuswithoutpaper.notification.entity.NotificationTypes;
 import eu.erasmuswithoutpaper.omobility.control.OutgoingMobilityConverter;
 import eu.erasmuswithoutpaper.omobility.entity.Mobility;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 import javax.ejb.Stateless;
 import javax.inject.Inject;
@@ -64,7 +72,37 @@ public class OutgoingMobilityResource {
     public javax.ws.rs.core.Response mobilityGetPost(@FormParam("sending_hei_id") String sendingHeiId, @FormParam("omobility_id") List<String> mobilityIdList) {
         return mobilityGet(sendingHeiId, mobilityIdList);
     }
+
+    @POST
+    @Path("update")
+    @Produces(MediaType.APPLICATION_XML)
+    public javax.ws.rs.core.Response mobilityUpdatePost(OmobilitiesUpdateRequest request) {
+        // TODO: save/view request...
+        OmobilitiesUpdateResponse response = new OmobilitiesUpdateResponse();
+        MultilineStringWithOptionalLang message = new MultilineStringWithOptionalLang();
+        message.setLang("en");
+        message.setValue("Thank you! We will review your suggestion");
+        response.getSuccessUserMessage().add(message);
+        return javax.ws.rs.core.Response.ok(response).build();
+    }
     
+    @POST
+    @Path("cnr")
+    @Produces(MediaType.APPLICATION_XML)
+    public javax.ws.rs.core.Response cnrPost(@FormParam("sending_hei_id") String sendingHeiId, @FormParam("omobility_id") List<String> omobilityId) {
+        if (sendingHeiId == null || sendingHeiId.isEmpty() || omobilityId.isEmpty()) {
+            throw new EwpWebApplicationException("Missing argumanets for notification.", Response.Status.BAD_REQUEST);
+        }
+        Notification notification = new Notification();
+        notification.setType(NotificationTypes.OMOBILITY);
+        notification.setHeiId(sendingHeiId);
+        notification.setChangedElementIds(String.join(", ", omobilityId));
+        notification.setNotificationDate(new Date());
+        em.persist(notification);
+         
+        return javax.ws.rs.core.Response.ok(new ObjectFactory().createOmobilityCnrResponse(new Empty())).build();
+    }
+   
     private javax.ws.rs.core.Response mobilityGet(String sendingHeiId, List<String> mobilityIdList) {
         if (mobilityIdList.size() > properties.getMaxMobilityIds()) {
             throw new EwpWebApplicationException("Max number of mobility id's has exceeded.", Response.Status.BAD_REQUEST);

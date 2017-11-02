@@ -18,9 +18,13 @@ public class EwpConstants {
     public static final String COURSES_VERSION = "0.7.0";
     public static final String COURSE_REPLICATION_VERSION = "1.0.0";
     public static final String OUTGOING_MOBILITIES_VERSION = "0.12.1";
+    public static final String OUTGOING_MOBILITY_CNR_VERSION = "0.4.0";
     public static final String INCOMING_MOBILITIES_VERSION = "0.1.0";
+    public static final String INCOMING_MOBILITY_CNR_VERSION = "0.1.0";
     public static final String INCOMING_MOBILITIES_TORS_VERSION = "0.7.0";
+    public static final String INCOMING_MOBILITY_TORS_CNR_VERSION = "0.1.0";
     public static final String IIAS_VERSION = "2.0.1";
+    public static final String IIA_CNR_VERSION = "2.0.1";
 
     public static final String ECHO_CLIENT_VERSION = "2.0.0";
     public static final String INSTITUTION_CLIENT_VERSION = "2.0.0";

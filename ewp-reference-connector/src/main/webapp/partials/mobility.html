@@ -204,6 +204,7 @@
                 <i class="pull-right glyphicon" ng-class="{'glyphicon-chevron-down': isopen[mobility.id], 'glyphicon-chevron-right': !isopen[mobility.id]}"></i>
             </a>
             <div class="list-group-item clearfix" ng-show="isopen[mobility.id]">
+                <div class="col-md-2">Mobility id:</div><div class="col-md-10 hide-overflow-ellipsis">{{mobility.id}}</div>
                 <div class="col-md-2">IIA id:</div><div class="col-md-10 hide-overflow-ellipsis">{{mobility.iiaId}}</div>
                 <div class="col-md-2">Participant id:</div><div class="col-md-10 hide-overflow-ellipsis">{{mobility.mobilityParticipantId}}</div>
                 <div class="col-md-2">Planned arrival date:</div><div class="col-md-10 hide-overflow-ellipsis">{{mobility.plannedArrivalDate| date: 'yyyy-MM-dd'}}</div>

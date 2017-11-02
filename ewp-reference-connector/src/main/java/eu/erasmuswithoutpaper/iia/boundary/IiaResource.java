@@ -1,5 +1,7 @@
 package eu.erasmuswithoutpaper.iia.boundary;
 
+import eu.erasmuswithoutpaper.api.architecture.Empty;
+import eu.erasmuswithoutpaper.api.iias.cnr.ObjectFactory;
 import eu.erasmuswithoutpaper.api.iias.endpoints.IiasGetResponse;
 import eu.erasmuswithoutpaper.api.iias.endpoints.IiasIndexResponse;
 import eu.erasmuswithoutpaper.common.control.GlobalProperties;
@@ -7,11 +9,14 @@ import eu.erasmuswithoutpaper.common.control.RegistryClient;
 import eu.erasmuswithoutpaper.error.control.EwpWebApplicationException;
 import eu.erasmuswithoutpaper.iia.control.IiaConverter;
 import eu.erasmuswithoutpaper.iia.entity.Iia;
+import eu.erasmuswithoutpaper.notification.entity.Notification;
+import eu.erasmuswithoutpaper.notification.entity.NotificationTypes;
 import eu.erasmuswithoutpaper.organization.entity.Institution;
 import eu.erasmuswithoutpaper.security.EwpAuthenticate;
 import java.security.cert.X509Certificate;
 import java.security.interfaces.RSAPublicKey;
 import java.util.Collection;
+import java.util.Date;
 import java.util.List;
 import java.util.stream.Collectors;
 import javax.ejb.Stateless;
@@ -75,6 +80,23 @@ public class IiaResource {
     @Produces(MediaType.APPLICATION_XML)
     public javax.ws.rs.core.Response getPost(@FormParam("hei_id") String heiId, @FormParam("iia_id") List<String> iiaIdList) {
         return iiaGet(heiId, iiaIdList);
+    }
+
+    @POST
+    @Path("cnr")
+    @Produces(MediaType.APPLICATION_XML)
+    public javax.ws.rs.core.Response cnrPost(@FormParam("notifier_hei_id") String notifierHeiId, @FormParam("iia_id") String iiaId) {
+        if (notifierHeiId == null || notifierHeiId.isEmpty() || iiaId == null || iiaId.isEmpty()) {
+            throw new EwpWebApplicationException("Missing argumanets for notification.", Response.Status.BAD_REQUEST);
+        }
+        Notification notification = new Notification();
+        notification.setType(NotificationTypes.IIA);
+        notification.setHeiId(notifierHeiId);
+        notification.setChangedElementIds(iiaId);
+        notification.setNotificationDate(new Date());
+        em.persist(notification);
+         
+        return javax.ws.rs.core.Response.ok(new ObjectFactory().createIiaCnrResponse(new Empty())).build();
     }
     
     private javax.ws.rs.core.Response iiaGet(String heiId, List<String> iiaIdList) {

@@ -1,5 +1,6 @@
 package eu.erasmuswithoutpaper.iia.boundary;
 
+import eu.erasmuswithoutpaper.api.architecture.Empty;
 import eu.erasmuswithoutpaper.api.architecture.ManifestApiEntryBase;
 import eu.erasmuswithoutpaper.api.iias.Iias;
 import eu.erasmuswithoutpaper.common.control.EwpConstants;
@@ -20,7 +21,8 @@ public class IiaManifestEntry implements ManifestEntryStrategy {
         iias.setGetUrl(baseUri + "iias/get");
         iias.setMaxIiaIds(BigInteger.valueOf(globalProperties.getMaxIiaIds()));
         iias.setMaxIiaCodes(BigInteger.valueOf(globalProperties.getMaxIiaIds()));
-        //iias.setSendsNotifications();
+
+        iias.setSendsNotifications(new Empty());
         return iias;
     }
 }

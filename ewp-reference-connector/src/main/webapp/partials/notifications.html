@@ -1,0 +1,11 @@
+<div class="container">
+    <h1 class="page-header">Notifications</h1>
+
+    <div class="list-group">
+        <div class="list-group-item" ng-repeat="notification in notifications | orderBy:['notificationDate']:true">
+            {{notification.type}} -  {{notification.notificationDate}}<br/>
+            HEI: {{notification.heiId}}<br/>
+            Changed items: {{notification.changedElementIds}}
+        </div>
+    </div>
+</div>
