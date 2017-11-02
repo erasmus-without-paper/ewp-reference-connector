@@ -17,6 +17,7 @@ public class IiaConverter {
         return iiaList.stream().map(iia -> {
             IiasGetResponse.Iia converted = new IiasGetResponse.Iia();
             
+            
             // TODO: partner
             //converted.getPartner().addAll(iia.getPartner());
             

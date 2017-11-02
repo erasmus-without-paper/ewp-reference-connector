@@ -1,0 +1,23 @@
+<div ng-if="clientResult.result.imobilityId">
+    <h3>Incoming Mobilities Identities</h3>
+    <div class="list-group">
+        <div ng-repeat="imobilityId in clientResult.result.imobilityId">
+            <div class="list-group-item">{{imobilityId}}</div>
+        </div>
+    </div>
+</div>
+<div ng-if="clientResult.result.imobility">
+    <h3>Outgoing Mobilities</h3>
+    <div class="list-group">
+        <div class="list-group-item" ng-repeat="imobility in clientResult.result.imobility">
+            <div class="row">
+                <div class="col-md-2">Id:</div>
+                <div class="col-md-10">{{imobility.imobilityId}}</div>
+            </div>
+            <div class="row">
+                <div class="col-md-2">Code:</div>
+                <div class="col-md-10">{{imobility.imobilityCode}}</div>
+            </div>
+        </div>
+    </div>
+</div>

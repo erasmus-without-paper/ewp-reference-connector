@@ -1,0 +1,76 @@
+<div class="container">
+    <h1 class="page-header">Incoming mobilities</h1>
+    <div class="panel panel-body">
+        <form class="form-horizontal" ng-submit="sendImobilityRequest()">
+            <ul class="nav nav-tabs">
+                <li ng-class="{'active':clientView === 'index'}"><a ng-click="setClientView('index')">Index</a></li>
+                <li ng-class="{'active':clientView === 'get'}"><a ng-click="setClientView('get')">Get</a></li>
+            </ul>
+            <div class="form-group">
+                <label class="control-label" for="hei">Method:</label>
+                <select id="hei" class="form-control" ng-model="request.method">
+                    <option value="GET">GET</option>
+                    <option value="POST">POST</option>
+                    <option value="PUT">PUT</option>
+                </select>
+            </div>
+
+            <div class="checkbox">
+                <label>
+                    <input id="httpsec" type="checkbox" ng-model="request.httpsec">
+                    Use HTTP sec
+                </label>
+            </div>
+
+            <div class="form-group">
+                <label class="control-label" for="hei">EWP URL:</label>
+                <select id="url" class="form-control" ng-model="request.url" required="required" ng-change="urlChanged()">
+                    <option style="display:none" value="">select an EWP URL</option>
+                    <option ng-repeat="url in urls | orderBy: 'toString()'" value="{{url}}">{{url}}</option>
+                </select>
+            </div>
+
+            <div class="form-group">
+                <label class="control-label" for="hei">Institution:</label>
+                <select id="hei" class="form-control" ng-model="request.heiId" required="required" ng-change="institutionChanged()">
+                    <option style="display:none" value="">Select institutions</option>
+                    <option ng-repeat="hei in urlHeis | orderBy: 'name'" value="{{hei.id}}">{{hei.name}}</option>
+                </select>
+            </div>
+
+            <div ng-show="clientView === 'get'">
+                <ul class="nav nav-tabs">
+                    <li ng-class="{'active':!cachedIds}"><a ng-click="cachedIds=false">Manually</a></li>
+                    <li ng-class="{'active':cachedIds}"><a ng-click="cachedIds=true">Cached</a></li>
+                </ul>
+                <div class="panel-body">
+                    <div class="tab-content clearfix" ng-show="!cachedIds">
+                        <div class="form-group">
+                            <label class="control-label" for="hei1">Mobilities (comma separated):</label>
+                            <input id="hei1" class="form-control" ng-model="manuallyOmobilityIds">
+                        </div>
+                    </div>
+                    <div ng-show="cachedIds">
+                        <div class="form-group">
+                            <label class="control-label" for="hei2">Mobilities:</label>
+                            <select id="hei2" class="form-control" ng-model="cachedOmobilityIds" multiple>
+                                <option style="display:none" value="">Select outgoing mobility ids</option>
+                                <option ng-repeat="omobilityId in heiOmobilityIds" value="{{omobilityId}}">{{omobilityId}}</option>
+                            </select>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="input-group">
+                <div class="btn-group">
+                    <button type="submit" class="btn btn-default">
+                        <i class="glyphicon glyphicon-send"></i> Send Request
+                    </button>
+                </div>
+            </div>
+        </form>
+    </div>
+
+    <div data-client-result="result" data-formatted-template="'partials/imobility_formatted_result.html'"></div>
+</div>

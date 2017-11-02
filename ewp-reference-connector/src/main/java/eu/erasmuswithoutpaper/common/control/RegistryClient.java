@@ -125,6 +125,16 @@ public class RegistryClient {
     public Map<String, String> getOmobilitiesHeiUrls(String heiId) {
         return getHeiUrls(heiId, EwpConstants.OUTGOING_MOBILITIES_NAMESPACE, "omobilities", EwpConstants.OUTGOING_MOBILITIES_CLIENT_VERSION);
     }
+
+    public List<HeiEntry> getImobilitiesHeisWithUrls() {
+        List<HeiEntry> heis = getHeis(EwpConstants.INCOMING_MOBILITIES_NAMESPACE, "imobilities", EwpConstants.INCOMING_MOBILITIES_CLIENT_VERSION);
+        heis.stream().forEach(hei -> hei.setUrls(getImobilitiesHeiUrls(hei.getId())));
+        return heis;
+    }
+
+    public Map<String, String> getImobilitiesHeiUrls(String heiId) {
+        return getHeiUrls(heiId, EwpConstants.INCOMING_MOBILITIES_NAMESPACE, "imobilities", EwpConstants.INCOMING_MOBILITIES_CLIENT_VERSION);
+    }
     
     public List<HeiEntry> getEchoHeis() {
         return getHeis(EwpConstants.ECHO_NAMESPACE, "echo", EwpConstants.ECHO_CLIENT_VERSION);

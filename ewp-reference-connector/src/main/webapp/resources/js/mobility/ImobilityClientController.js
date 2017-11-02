@@ -1,5 +1,5 @@
-angular.module('mobility').controller('OmobilityClientController', function ($scope, MobilityService, ClientCacheService) {
-    MobilityService.getOmobilityHeis(function(result) {
+angular.module('mobility').controller('ImobilityClientController', function ($scope, MobilityService, ClientCacheService) {
+    MobilityService.getImobilityHeis(function(result) {
         $scope.heis = result;
         if ($scope.heis) {
             $scope.indexUrls = [];
@@ -26,7 +26,7 @@ angular.module('mobility').controller('OmobilityClientController', function ($sc
     };
     
     $scope.institutionChanged = function() {
-        $scope.heiOmobilityIds = ['<Missing omobility Id>'];
+        $scope.heiImobilityIds = ['<Missing imobility Id>'];
         
         $scope.currentHei = '';
         angular.forEach($scope.heis, function(hei) {
@@ -35,32 +35,27 @@ angular.module('mobility').controller('OmobilityClientController', function ($sc
             }
         });
         
-        var omobilityIds = ClientCacheService.get('Omobility', $scope.request.heiId);
-        angular.forEach(omobilityIds, function(omobilityId) {
-            $scope.heiOmobilityIds.push(omobilityId);
+        var imobilityIds = ClientCacheService.get('Imobility', $scope.request.heiId);
+        angular.forEach(imobilityIds, function(imobilityId) {
+            $scope.heiImobilityIds.push(imobilityId);
         });
     };
     
-    $scope.sendOmobilityRequest = function() {
+    $scope.sendImobilityRequest = function() {
         if ($scope.clientView === 'index') {
-            $scope.request.params = {'sending_hei_id': [$scope.request.heiId]};
-            MobilityService.getOmobilityIndex($scope.request, function(result) {
-                $scope.omobilityIndexResult = result;
-                $scope.result = result;
-                if (result && result.result && result.result.omobilityId) {
-                    ClientCacheService.add('Omobility', $scope.request.heiId, result.result.omobilityId);
-                }
-            });
+            // TODO: 
+            alert("Index is not possible");
+            return;
         } else {
-            $scope.request.params = {'sending_hei_id': [$scope.request.heiId]};
+            $scope.request.params = {'receiving_hei_id': [$scope.request.heiId]};
             if ($scope.cachedIds) {
                 $scope.request.params['omobility_id'] = $scope.cachedOmobilityIds;
             } else {
                 var omobilityIds = $scope.manuallyOmobilityIds.split(',');
                 $scope.request.params['omobility_id'] = omobilityIds;
             }
-            MobilityService.getOmobility($scope.request, function(result) {
-                $scope.omobilityResult = result;
+            MobilityService.getImobility($scope.request, function(result) {
+                $scope.imobilityResult = result;
                 $scope.result = result;
             });
         }

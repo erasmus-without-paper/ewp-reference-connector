@@ -13,13 +13,19 @@ angular.module('mobility').service('MobilityService', function ($http) {
             $http.post('gui/omobility/add', $person).success(callback);
         },
         getOmobilityHeis: function (callback) {
-            $http.get('gui/omobility/heis').success(callback);
+            $http.get('gui/omobility/omobilities-heis').success(callback);
         },
         getOmobilityIndex: function (courseRequest, callback) {
             $http.post('gui/omobility/omobilities-index', courseRequest).success(callback);
         },
         getOmobility: function (courseRequest, callback) {
             $http.post('gui/omobility/omobilities-get', courseRequest).success(callback);
+        },
+        getImobilityHeis: function (callback) {
+            $http.get('gui/omobility/imobilities-heis').success(callback);
+        },
+        getImobility: function (courseRequest, callback) {
+            $http.post('gui/omobility/imobilities-get', courseRequest).success(callback);
         }
     };
 });

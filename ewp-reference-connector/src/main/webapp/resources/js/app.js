@@ -55,6 +55,9 @@ angular
             }).when('/omobility-client', {
                 templateUrl: 'partials/omobility_client.html',
                 controller: 'OmobilityClientController'
+            }).when('/imobility-client', {
+                templateUrl: 'partials/imobility_client.html',
+                controller: 'ImobilityClientController'
             }).otherwise({
                 redirectTo: '/home'
             });

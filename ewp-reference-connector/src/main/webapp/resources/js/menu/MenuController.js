@@ -18,7 +18,8 @@ angular.module('menu').controller('MenuController', function ($scope, $location)
                                   {name:'Course-replication', page:'course-replication-client'},
                                   {name:'Course', page:'courses-client'},
                                   {name:'Iia', page:'iia-client'},
-                                  {name:'Outgoing mobility', page:'omobility-client'}
+                                  {name:'Outgoing mobility', page:'omobility-client'},
+                                  {name:'Incoming mobility', page:'imobility-client'},
                                 ]}];
 
     $scope.selectedRootItem = '';

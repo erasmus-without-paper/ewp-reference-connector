@@ -70,7 +70,7 @@ public class GuiOutgoingMobilityResource {
     }
     
     @GET
-    @Path("heis")
+    @Path("omobilities-heis")
     @Produces(MediaType.APPLICATION_JSON)
     public javax.ws.rs.core.Response omobilitiesHeis() {
         List<HeiEntry> heis = registryClient.getOmobilitiesHeisWithUrls();
@@ -101,5 +101,23 @@ public class GuiOutgoingMobilityResource {
     public javax.ws.rs.core.Response omobilitiesUpdate(ClientRequest clientRequest) {
         ClientResponse omobilitiesResponse = restClient.sendRequest(clientRequest, eu.erasmuswithoutpaper.api.omobilities.endpoints.OmobilitiesUpdateResponse.class);
         return javax.ws.rs.core.Response.ok(omobilitiesResponse).build();
+    }
+
+    @GET
+    @Path("imobilities-heis")
+    @Produces(MediaType.APPLICATION_JSON)
+    public javax.ws.rs.core.Response imobilitiesHeis() {
+        List<HeiEntry> heis = registryClient.getImobilitiesHeisWithUrls();
+        
+        GenericEntity<List<HeiEntry>> entity = new GenericEntity<List<HeiEntry>>(heis) {};
+        return javax.ws.rs.core.Response.ok(entity).build();
+    }
+    
+    @POST
+    @Path("imobilities-get")
+    @Produces(MediaType.APPLICATION_JSON)
+    public javax.ws.rs.core.Response imobilitiesGet(ClientRequest clientRequest) {
+        ClientResponse imobilitiesResponse = restClient.sendRequest(clientRequest, eu.erasmuswithoutpaper.api.imobilities.endpoints.ImobilitiesGetResponse.class);
+        return javax.ws.rs.core.Response.ok(imobilitiesResponse).build();
     }
 }
