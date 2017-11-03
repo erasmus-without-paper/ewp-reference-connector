@@ -1,4 +1,4 @@
-angular.module('menu').controller('MenuController', function ($scope, $location, NotificationService, $interval) {
+angular.module('menu').controller('MenuController', function ($scope, $location, NotificationService, MobilityService, $interval) {
     $scope.rootMenu = [{name:'Organization',
                         subItems:[{name:'Institution', page:'institution'},
                                   {name:'Contact', page:'contact'},
@@ -50,6 +50,10 @@ angular.module('menu').controller('MenuController', function ($scope, $location,
         NotificationService.getCount(
             function(result) {
                 $scope.countNotifications = result.count;
+            });
+        MobilityService.getCountMobilityUpdateRequests(
+            function(result) {
+                $scope.countMobilityUpdateRequests = result.count;
             });
     }, 5000);
 });

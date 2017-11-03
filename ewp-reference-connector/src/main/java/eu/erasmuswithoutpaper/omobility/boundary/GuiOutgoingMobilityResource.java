@@ -9,6 +9,7 @@ import eu.erasmuswithoutpaper.common.control.RestClient;
 import eu.erasmuswithoutpaper.omobility.entity.LearningAgreementComponentStatus;
 import eu.erasmuswithoutpaper.omobility.entity.Mobility;
 import eu.erasmuswithoutpaper.omobility.entity.MobilityStatus;
+import eu.erasmuswithoutpaper.omobility.entity.MobilityUpdateRequest;
 import java.util.List;
 import javax.ejb.Stateless;
 import javax.inject.Inject;
@@ -103,6 +104,23 @@ public class GuiOutgoingMobilityResource {
         return javax.ws.rs.core.Response.ok(omobilitiesResponse).build();
     }
 
+    @GET
+    @Path("update/get_all")
+    public Response getAllUpdateRequests() {
+        List<MobilityUpdateRequest> notificationList = em.createNamedQuery(MobilityUpdateRequest.findAll).getResultList();
+        GenericEntity<List<MobilityUpdateRequest>> entity = new GenericEntity<List<MobilityUpdateRequest>>(notificationList) {};
+        
+        return Response.ok(entity).build();
+    }
+    
+    @GET
+    @Path("update/count")
+    public Response getCountUpdateRequest() {
+        List<MobilityUpdateRequest> notificationList = em.createNamedQuery(MobilityUpdateRequest.findAll).getResultList();
+        
+        return Response.ok("{\"count\":"+notificationList.size()+"}").build();
+    }
+    
     @GET
     @Path("imobilities-heis")
     @Produces(MediaType.APPLICATION_JSON)

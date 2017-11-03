@@ -184,6 +184,14 @@ angular.module('mobility').controller('MobilityController', function ($scope, $f
         $scope.cancelAddLaComponents();
     };
     
+    MobilityService.getAllMobilityUpdateRequests(
+        function(result) {
+            $scope.mobilityUpdateRequests = result;
+            angular.forEach($scope.mobilityUpdateRequests, function(req) {
+                req.updateInformation =  JSON.parse(req.updateInformation);
+            });
+    });
+    
     $scope.getAllMobilities();
     $scope.cancelAddMobility();
 });

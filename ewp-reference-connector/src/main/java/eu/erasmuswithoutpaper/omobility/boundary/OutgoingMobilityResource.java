@@ -1,8 +1,11 @@
 package eu.erasmuswithoutpaper.omobility.boundary;
 
+import com.fasterxml.jackson.core.JsonProcessingException;
+import com.fasterxml.jackson.databind.ObjectMapper;
 import eu.erasmuswithoutpaper.api.architecture.Empty;
 import eu.erasmuswithoutpaper.api.architecture.MultilineStringWithOptionalLang;
 import eu.erasmuswithoutpaper.api.omobilities.cnr.ObjectFactory;
+import eu.erasmuswithoutpaper.api.omobilities.endpoints.ApprovingParty;
 import eu.erasmuswithoutpaper.api.omobilities.endpoints.OmobilitiesGetResponse;
 import eu.erasmuswithoutpaper.api.omobilities.endpoints.OmobilitiesIndexResponse;
 import eu.erasmuswithoutpaper.api.omobilities.endpoints.OmobilitiesUpdateRequest;
@@ -14,10 +17,14 @@ import eu.erasmuswithoutpaper.notification.entity.Notification;
 import eu.erasmuswithoutpaper.notification.entity.NotificationTypes;
 import eu.erasmuswithoutpaper.omobility.control.OutgoingMobilityConverter;
 import eu.erasmuswithoutpaper.omobility.entity.Mobility;
+import eu.erasmuswithoutpaper.omobility.entity.MobilityUpdateRequest;
+import eu.erasmuswithoutpaper.omobility.entity.MobilityUpdateRequestType;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.ejb.Stateless;
 import javax.inject.Inject;
 import javax.persistence.EntityManager;
@@ -77,7 +84,35 @@ public class OutgoingMobilityResource {
     @Path("update")
     @Produces(MediaType.APPLICATION_XML)
     public javax.ws.rs.core.Response mobilityUpdatePost(OmobilitiesUpdateRequest request) {
-        // TODO: save/view request...
+        if (request == null) {
+            throw new EwpWebApplicationException("No update data was sent", Response.Status.BAD_REQUEST);
+        }
+
+        try {
+            ObjectMapper mapper = new ObjectMapper();
+            MobilityUpdateRequestType type = MobilityUpdateRequestType.APPROVE_COMPONENTS_STUDIED_DRAFT_V1;
+            String updateInformation = null;
+            if (request.getApproveComponentsStudiedDraftV1() != null) {
+                type = MobilityUpdateRequestType.APPROVE_COMPONENTS_STUDIED_DRAFT_V1;
+                updateInformation = mapper.writeValueAsString(request.getApproveComponentsStudiedDraftV1());
+            } else if (request.getUpdateComponentsStudiedV1()!= null) {
+                type = MobilityUpdateRequestType.UPDATE_COMPONENTS_STUDIED_V1;
+                updateInformation = mapper.writeValueAsString(request.getUpdateComponentsStudiedV1());
+            } else if (request.getUpdateStatusesV1() != null) {
+                type = MobilityUpdateRequestType.UPDATE_STATUSES_V1;
+                updateInformation = mapper.writeValueAsString(request.getUpdateStatusesV1());
+            }
+            
+            MobilityUpdateRequest mobilityUpdateRequest = new MobilityUpdateRequest();
+            mobilityUpdateRequest.setType(type);
+            mobilityUpdateRequest.setSendingHeiId(request.getSendingHeiId());
+            mobilityUpdateRequest.setUpdateRequestDate(new Date());
+            mobilityUpdateRequest.setUpdateInformation(updateInformation);
+            em.persist(mobilityUpdateRequest);
+        } catch (JsonProcessingException ex) {
+            throw new EwpWebApplicationException("Unexpected error", Response.Status.INTERNAL_SERVER_ERROR);
+        }
+
         OmobilitiesUpdateResponse response = new OmobilitiesUpdateResponse();
         MultilineStringWithOptionalLang message = new MultilineStringWithOptionalLang();
         message.setLang("en");
