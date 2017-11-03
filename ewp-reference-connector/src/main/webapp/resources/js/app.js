@@ -1,5 +1,5 @@
 angular
-    .module('connector', ['menu', 'home', 'echo', 'iia', 'institution', 'ngResource', 'ngRoute', 'person', 'contact', 'mobilityParticipant', 'academicterm', 'los', 'loi', 'mobility', 'notifications'])
+    .module('connector', ['menu', 'home', 'echo', 'iia', 'institution', 'ngResource', 'ngRoute', 'person', 'contact', 'mobilityParticipant', 'academicterm', 'los', 'loi', 'mobility', 'notifications', 'angular-json-tree'])
     .config(function ($routeProvider) {
         $routeProvider.when('/iia', {
                 templateUrl: 'partials/iia.html',
@@ -61,6 +61,9 @@ angular
             }).when('/notifications', {
                 templateUrl: 'partials/notifications.html',
                 controller: 'NotificationController'
+            }).when('/notifications-client', {
+                templateUrl: 'partials/notifications_client.html',
+                controller: 'NotificationClientController'
             }).otherwise({
                 redirectTo: '/home'
             });

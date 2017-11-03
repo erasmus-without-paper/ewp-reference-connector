@@ -1,8 +1,0 @@
-<div class="row" ng-repeat="echo in clientResult.result.echo track by $index">
-    <div class="col-md-2">{{$index === 0 ? 'Echo: ' : ''}}</div>
-    <div class="col-md-10">{{echo ? echo : '&lt;Empty string&gt;'}}</div>
-</div><br/>
-<div class="row" ng-repeat="heiId in clientResult.result.heiId">
-    <div class="col-md-2">{{$index === 0 ? 'Hei Id: ' : ''}}</div>
-    <div class="col-md-10">{{heiId}}</div>
-</div>

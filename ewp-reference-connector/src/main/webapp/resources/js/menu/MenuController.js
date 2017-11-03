@@ -21,6 +21,7 @@ angular.module('menu').controller('MenuController', function ($scope, $location,
                                   {name:'Iia', page:'iia-client'},
                                   {name:'Outgoing mobility', page:'omobility-client'},
                                   {name:'Incoming mobility', page:'imobility-client'},
+                                  {name:'Notifications', page:'notifications-client'},
                                 ]}];
 
     $scope.selectedRootItem = '';
