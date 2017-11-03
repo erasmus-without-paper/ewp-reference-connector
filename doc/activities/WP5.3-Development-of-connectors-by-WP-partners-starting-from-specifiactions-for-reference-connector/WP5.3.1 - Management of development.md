@@ -21,7 +21,7 @@ This table shows which partner who had developed which API and are ready for int
 | **MAY - JUNE 2017**                                                |        |        |        |        |        |        |        |        |        |
 | [Courses API][courses-api]                                         | :star: | -      | -      | -      | -      | -      | :star: | :star: | -      |
 | **JULY - SEPTEMBER 2017**                                          |        |        |        |        |        |        |        |        |        |
-| Testing and improving                                              | -      | -      | -      | -      | -      | -      | -      | :star: | -      |
+| Testing and improving                                              | :star: | -      | -      | -      | -      | -      | -      | :star: | -      |
 | [IIAs API][iias-api]                                               | :star: | -      | -      | -      | -      | -      | :star: | :star: | -      |
 | [Simple Course Replication API][course-replication-api] (optional) | :x:    | -      | -      | -      | -      | -      | :star: | -      | -      |
 
