@@ -6,24 +6,24 @@ This table shows which partner who had developed which API and are ready for int
 | API/Partner                                                        | Umeå   | Gent   | Porto  | SOP    | CINECA | Sigma  | Oslo   | Warsaw | Others |
 |--------------------------------------------------------------------|:------:|:------:|:------:|:------:|:------:|:------:|:------:|:------:|:------:|
 | **DECEMBER 2016**                                                  |        |        |        |        |        |        |        |        |        |
-| In Registry                                                        | :link: | :link: | :soon: | :link: | :soon: | :link: | :link: | :link: | -      |
-| [Discovery API][discovery-api]                                     | :star: | :star: | :soon: | :star: | :soon: | :star: | :star: | :star: | -      |
-| [Echo API][echo-api]                                               | :star: | :star: | :soon: | :star: | :soon: | :star: | :star: | :star: | -      |
+| In Registry                                                        | :link: | :link: | :link: | :link: | :soon: | :link: | :link: | :link: | -      |
+| [Discovery API][discovery-api]                                     | :star: | :star: | :star: | :star: | :soon: | :star: | :star: | :star: | -      |
+| [Echo API][echo-api]                                               | :star: | :star: | :star: | :star: | :soon: | :star: | :star: | :star: | -      |
 | **MARCH 2017**                                                     |        |        |        |        |        |        |        |        |        |
-| [Institutions API][institutions-api]                               | :star: | :star: | -      | :star: | -      | :soon: | :star: | :star: | -      |
-| [Organizational Units API][ounits-api]                             | :star: | :star: | -      | -      | -      | -      | :star: | :star: | -      |
+| [Institutions API][institutions-api]                               | :star: | :star: | :star: | :star: | -      | :star: | :star: | :star: | -      |
+| [Organizational Units API][ounits-api]                             | :star: | :star: | -      | -      | -      | :star: | :star: | :star: | -      |
 | **APRIL 2017**                                                     |        |        |        |        |        |        |        |        |        |
-| Nominations part of [Outgoing Mobilities API][mobilities-api]      | -      | :star: | -      | -      | -      | -      | :soon: | :soon: | -      |
+| Nominations part of [Outgoing Mobilities API][mobilities-api]      | :star: | :star: | -      | -      | -      | -      | :soon: | :star: | -      |
 | **MAY 2017**                                                       |        |        |        |        |        |        |        |        |        |
-| The rest of [Outgoing Mobilities API][mobilities-api]              | -      | -      | -      | -      | -      | -      | :soon: | -      | -      |
+| The rest of [Outgoing Mobilities API][mobilities-api]              | :soon: | -      | -      | -      | -      | -      | :soon: | :soon: | -      |
 | **JUNE 2017**                                                      |        |        |        |        |        |        |        |        |        |
-| [Transcripts of Records API][tors-api]                             | -      | -      | -      | -      | -      | -      | -      | -      | -      |
+| [Transcripts of Records API][tors-api]                             | :soon: | -      | -      | -      | -      | -      | -      | :star: | -      |
 | **MAY - JUNE 2017**                                                |        |        |        |        |        |        |        |        |        |
-| [Courses API][courses-api]                                         | :star: | -      | -      | -      | -      | -      | :star: | -      | -      |
+| [Courses API][courses-api]                                         | :star: | -      | -      | -      | -      | -      | :star: | :star: | -      |
 | **JULY - SEPTEMBER 2017**                                          |        |        |        |        |        |        |        |        |        |
-| Testing and improving                                              | -      | -      | -      | -      | -      | -      | -      | -      | -      |
+| Testing and improving                                              | :star: | -      | -      | -      | -      | -      | -      | :star: | -      |
 | [IIAs API][iias-api]                                               | :star: | -      | -      | -      | -      | -      | :star: | :star: | -      |
-| [Simple Course Replication API][course-replication-api] (optional) | -      | -      | -      | -      | -      | -      | :star: | -      | -      |
+| [Simple Course Replication API][course-replication-api] (optional) | :x:    | -      | -      | -      | -      | -      | :star: | -      | -      |
 
 | Delivery deadlines 	| Type of activities                                       	|
 |--------------------	|----------------------------------------------------------	|
