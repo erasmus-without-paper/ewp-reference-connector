@@ -13,7 +13,7 @@ This table shows which partner who had developed which API and are ready for int
 | [Institutions API][institutions-api]                               | :star: | :star: | :star: | :star: | -      | :star: | :star: | :star: | -      |
 | [Organizational Units API][ounits-api]                             | :star: | :star: | -      | -      | -      | :star: | :star: | :star: | -      |
 | **APRIL 2017**                                                     |        |        |        |        |        |        |        |        |        |
-| Nominations part of [Outgoing Mobilities API][mobilities-api]      | :x:    | :star: | -      | -      | -      | -      | :soon: | :star: | -      |
+| Nominations part of [Outgoing Mobilities API][mobilities-api]      | :star: | :star: | -      | -      | -      | -      | :soon: | :star: | -      |
 | **MAY 2017**                                                       |        |        |        |        |        |        |        |        |        |
 | The rest of [Outgoing Mobilities API][mobilities-api]              | :soon: | -      | -      | -      | -      | -      | :soon: | :soon: | -      |
 | **JUNE 2017**                                                      |        |        |        |        |        |        |        |        |        |
