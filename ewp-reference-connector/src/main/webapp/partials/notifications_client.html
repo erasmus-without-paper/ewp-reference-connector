@@ -1,26 +1,34 @@
 <div class="container">
-    <h1 class="page-header">Institution</h1>
+    <h1 class="page-header">Notifications</h1>
     <div class="panel panel-body">
-        <form class="form-horizontal" ng-submit="sendInstitutionRequest()">
+        <form class="form-horizontal" ng-submit="sendNotificationRequest()">
             <div class="form-group">
                 <label class="control-label" for="hei">Method:</label>
-                <select id="hei" class="form-control" ng-model="institutionRequest.method">
+                <select id="hei" class="form-control" ng-model="request.method" required="required">
                     <option value="GET">GET</option>
                     <option value="POST">POST</option>
                     <option value="PUT">PUT</option>
                 </select>
             </div>
-
+            
             <div class="checkbox">
                 <label>
-                    <input id="httpsec" type="checkbox" ng-model="institutionRequest.httpsec">
+                    <input id="httpsec" type="checkbox" ng-model="request.httpsec">
                     Use HTTP sec
                 </label>
             </div>
 
             <div class="form-group">
+                <label class="control-label" for="hei">Type of change:</label>
+                <select id="url" class="form-control" ng-model="selectedType" required="required" ng-change="typeChanged()">
+                    <option style="display:none" value="">select type</option>
+                    <option ng-repeat="type in changeTypes" value="{{type}}">{{type}}</option>
+                </select>
+            </div>
+            
+            <div class="form-group">
                 <label class="control-label" for="hei">EWP URL:</label>
-                <select id="url" class="form-control" ng-model="institutionRequest.url" required="required" ng-change="urlChanged()">
+                <select id="url" class="form-control" ng-model="request.url" required="required" ng-change="urlChanged()">
                     <option style="display:none" value="">select an EWP URL</option>
                     <option ng-repeat="url in urls | orderBy: 'toString()'" value="{{url}}">{{url}}</option>
                 </select>
@@ -28,12 +36,16 @@
 
             <div class="form-group">
                 <label class="control-label" for="hei">Institution:</label>
-                <select id="hei" class="form-control" ng-model="institutionRequest.params['hei_id']" required="required" multiple>
+                <select id="hei" class="form-control" ng-model="request.heiId" required="required" ng-change="institutionChanged()">
                     <option style="display:none" value="">Select institutions</option>
                     <option ng-repeat="hei in urlHeis | orderBy: 'name'" value="{{hei.id}}">{{hei.name}}</option>
                 </select>
             </div>
 
+            <div class="form-group">
+                <label class="control-label" for="hei1">Changed item ids (comma separated):</label>
+                <input id="hei1" class="form-control" ng-model="notifyChangedItemIds">
+            </div>
 
             <div class="input-group">
                 <div class="btn-group">
@@ -45,5 +57,5 @@
         </form>
     </div>
 
-    <div data-client-result="institutionResult"></div>
+    <div data-client-result="notificationResult"></div>
 </div>

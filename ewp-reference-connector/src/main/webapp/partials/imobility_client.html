@@ -2,10 +2,10 @@
     <h1 class="page-header">Incoming mobilities</h1>
     <div class="panel panel-body">
         <form class="form-horizontal" ng-submit="sendImobilityRequest()">
-            <ul class="nav nav-tabs">
+            <!-- ul class="nav nav-tabs">
                 <li ng-class="{'active':clientView === 'index'}"><a ng-click="setClientView('index')">Index</a></li>
                 <li ng-class="{'active':clientView === 'get'}"><a ng-click="setClientView('get')">Get</a></li>
-            </ul>
+            </ul -->
             <div class="form-group">
                 <label class="control-label" for="hei">Method:</label>
                 <select id="hei" class="form-control" ng-model="request.method">
@@ -72,5 +72,5 @@
         </form>
     </div>
 
-    <div data-client-result="result" data-formatted-template="'partials/imobility_formatted_result.html'"></div>
+    <div data-client-result="result"></div>
 </div>

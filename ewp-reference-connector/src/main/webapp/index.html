@@ -25,7 +25,10 @@
             <div id="navbar" class="collapse navbar-collapse">
                 <ul class="nav navbar-nav">
                     <li class="menu-item dropdown" ng-repeat="item in rootMenu" ng-class="item.name === selectedRootItem.name ? 'active' : ''">
-                        <a class="dropdown-toggle" data-toggle="dropdown" ng-click="selectRootItem(item)" href><i class="glyphicon glyphicon-home" ng-if="item.name === 'Home'"></i> {{item.name}}</a>
+                        <a class="dropdown-toggle" data-toggle="dropdown" ng-click="selectRootItem(item)" href><i class="glyphicon glyphicon-home" ng-if="item.name === 'Home'"></i> {{item.name}}
+                            <span class="badge" ng-if="item.name === 'Notifications'">{{countNotifications}}</span>
+                            <span class="badge" ng-if="item.name === 'Mobility'">{{countMobilityUpdateRequests}}</span>
+                        </a>
                         <ul class="dropdown-menu" ng-show="selectedRootItem.subItems.length > 0">
                             <li class="menu-item dropdown dropdown-submenu" ng-repeat="item in selectedRootItem.subItems" ng-class="item.name === selectedSubItem.name ? 'active' : ''"><a ng-click="selectSubItem(item)" href>{{item.name}}</a></li>
                         </ul>

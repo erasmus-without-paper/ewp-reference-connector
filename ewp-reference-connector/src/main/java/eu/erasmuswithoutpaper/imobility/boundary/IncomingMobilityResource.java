@@ -1,5 +1,7 @@
 package eu.erasmuswithoutpaper.imobility.boundary;
 
+import eu.erasmuswithoutpaper.api.architecture.Empty;
+import eu.erasmuswithoutpaper.api.imobilities.cnr.ObjectFactory;
 import eu.erasmuswithoutpaper.api.imobilities.endpoints.ImobilitiesGetResponse;
 import eu.erasmuswithoutpaper.api.imobilities.endpoints.StudentMobilityForStudies;
 import eu.erasmuswithoutpaper.api.imobilities.tors.endpoints.ImobilityTorsGetResponse;
@@ -7,8 +9,11 @@ import eu.erasmuswithoutpaper.api.imobilities.tors.endpoints.ImobilityTorsIndexR
 import eu.erasmuswithoutpaper.common.control.GlobalProperties;
 import eu.erasmuswithoutpaper.error.control.EwpWebApplicationException;
 import eu.erasmuswithoutpaper.imobility.control.IncomingMobilityConverter;
+import eu.erasmuswithoutpaper.notification.entity.Notification;
+import eu.erasmuswithoutpaper.notification.entity.NotificationTypes;
 import eu.erasmuswithoutpaper.omobility.entity.Mobility;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 import javax.ejb.Stateless;
 import javax.inject.Inject;
@@ -49,6 +54,23 @@ public class IncomingMobilityResource {
         return mobilityGet(receivingHeiId, mobilityIdList);
     }
     
+    @POST
+    @Path("cnr")
+    @Produces(MediaType.APPLICATION_XML)
+    public javax.ws.rs.core.Response cnrPost(@FormParam("receiving_hei_id") String receivingHeiId, @FormParam("omobility_id") List<String> omobilityId) {
+        if (receivingHeiId == null || receivingHeiId.isEmpty() || omobilityId.isEmpty()) {
+            throw new EwpWebApplicationException("Missing argumanets for notification.", Response.Status.BAD_REQUEST);
+        }
+        Notification notification = new Notification();
+        notification.setType(NotificationTypes.IMOBILITY);
+        notification.setHeiId(receivingHeiId);
+        notification.setChangedElementIds(String.join(", ", omobilityId));
+        notification.setNotificationDate(new Date());
+        em.persist(notification);
+         
+        return javax.ws.rs.core.Response.ok(new ObjectFactory().createImobilityCnrResponse(new Empty())).build();
+    }
+    
     @GET
     @Path("tors/get")
     @Produces(MediaType.APPLICATION_XML)
@@ -77,6 +99,23 @@ public class IncomingMobilityResource {
         return mobilityTorsIndex(receivingHeiId, sendingHeiIdList);
     }
     
+    @POST
+    @Path("tors/cnr")
+    @Produces(MediaType.APPLICATION_XML)
+    public javax.ws.rs.core.Response torsCnrPost(@FormParam("receiving_hei_id") String receivingHeiId, @FormParam("omobility_id") List<String> omobilityId) {
+        if (receivingHeiId == null || receivingHeiId.isEmpty() || omobilityId.isEmpty()) {
+            throw new EwpWebApplicationException("Missing argumanets for notification.", Response.Status.BAD_REQUEST);
+        }
+        Notification notification = new Notification();
+        notification.setType(NotificationTypes.TOR);
+        notification.setHeiId(receivingHeiId);
+        notification.setChangedElementIds(String.join(", ", omobilityId));
+        notification.setNotificationDate(new Date());
+        em.persist(notification);
+         
+        return javax.ws.rs.core.Response.ok(new eu.erasmuswithoutpaper.api.imobilities.tors.cnr.ObjectFactory().createImobilityTorCnrResponse(new Empty())).build();
+    }
+
     private javax.ws.rs.core.Response mobilityTorsGet(String receivingHeiId, List<String> mobilityIdList) {
         if (mobilityIdList.size() > properties.getMaxMobilityIds()) {
             throw new EwpWebApplicationException("Max number of mobility id's has exceeded.", Response.Status.BAD_REQUEST);

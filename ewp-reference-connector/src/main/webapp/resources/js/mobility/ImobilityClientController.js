@@ -76,7 +76,7 @@ angular.module('mobility').controller('ImobilityClientController', function ($sc
         }
     };
     
-    $scope.clientView = 'index';
+    $scope.clientView = 'get';
     $scope.urlKey = 'index-url';
     $scope.request = {method: "GET"};
 });

@@ -1,4 +1,4 @@
-angular.module('menu').controller('MenuController', function ($scope, $location) {
+angular.module('menu').controller('MenuController', function ($scope, $location, NotificationService, MobilityService, $interval) {
     $scope.rootMenu = [{name:'Organization',
                         subItems:[{name:'Institution', page:'institution'},
                                   {name:'Contact', page:'contact'},
@@ -11,6 +11,7 @@ angular.module('menu').controller('MenuController', function ($scope, $location)
                        {name:'IIA',
                         subItems:[{name:'IIA', page:'iia'}]},
                        {name:'Mobility', page:'mobility'},
+                       {name:'Notifications', page:'notifications'},
                        {name:'Other Connectors',
                         subItems:[{name:'Echo', page:'echo'},
                                   {name:'Institution', page:'institution-client'},
@@ -20,6 +21,7 @@ angular.module('menu').controller('MenuController', function ($scope, $location)
                                   {name:'Iia', page:'iia-client'},
                                   {name:'Outgoing mobility', page:'omobility-client'},
                                   {name:'Incoming mobility', page:'imobility-client'},
+                                  {name:'Notifications', page:'notifications-client'},
                                 ]}];
 
     $scope.selectedRootItem = '';
@@ -41,4 +43,17 @@ angular.module('menu').controller('MenuController', function ($scope, $location)
         $scope.selectedSubItem = item;
         $location.path(item.page);
     };
+    
+    $scope.countNotifications = 0;
+
+    $interval(function() {
+        NotificationService.getCount(
+            function(result) {
+                $scope.countNotifications = result.count;
+            });
+        MobilityService.getCountMobilityUpdateRequests(
+            function(result) {
+                $scope.countMobilityUpdateRequests = result.count;
+            });
+    }, 5000);
 });

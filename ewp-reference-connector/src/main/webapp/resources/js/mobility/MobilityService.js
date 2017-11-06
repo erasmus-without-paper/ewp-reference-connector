@@ -21,6 +21,12 @@ angular.module('mobility').service('MobilityService', function ($http) {
         getOmobility: function (courseRequest, callback) {
             $http.post('gui/omobility/omobilities-get', courseRequest).success(callback);
         },
+        getAllMobilityUpdateRequests: function (callback) {
+            $http.get('gui/omobility/update/get_all').success(callback);
+        },
+        getCountMobilityUpdateRequests: function (callback) {
+            $http.get('gui/omobility/update/count').success(callback);
+        },
         getImobilityHeis: function (callback) {
             $http.get('gui/omobility/imobilities-heis').success(callback);
         },

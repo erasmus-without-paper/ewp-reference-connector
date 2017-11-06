@@ -1,5 +1,23 @@
 <div class="container">
     <h1 class="page-header">Mobility</h1>
+    
+    <div class="panel panel-default" ng-show="mobilityUpdateRequests && mobilityUpdateRequests.length > 0 ">
+        <div class="btn-group pull-right">
+            <button type="button" class="btn btn-default" ng-click="showUpdateRequests=!showUpdateRequests">
+                <i class="glyphicon glyphicon-plus-sign"></i>
+            </button>
+        </div>
+        <h3>Update Requests</h3>
+        <div class="list-group" ng-show="showUpdateRequests">
+            <div class="list-group-item" ng-repeat="mobilityUpdateRequest in mobilityUpdateRequests">
+                Date: {{mobilityUpdateRequest.updateRequestDate}}<br/>
+                Type: {{mobilityUpdateRequest.type}}<br/>
+                Sending HEI: {{mobilityUpdateRequest.sendingHeiId}}<br/><br/>
+                <json-tree object="mobilityUpdateRequest.updateInformation" start-expanded="true" root-name="'Request'"></json-tree>
+            </div>
+        </div>
+    </div>
+    
     <div class="panel panel-default" ng-show="showAddMobilityForm">
         <div class="panel-heading"><h2>Add Mobility</h2></div>
         <div class="panel-body">{{mobility}}
@@ -204,6 +222,7 @@
                 <i class="pull-right glyphicon" ng-class="{'glyphicon-chevron-down': isopen[mobility.id], 'glyphicon-chevron-right': !isopen[mobility.id]}"></i>
             </a>
             <div class="list-group-item clearfix" ng-show="isopen[mobility.id]">
+                <div class="col-md-2">Mobility id:</div><div class="col-md-10 hide-overflow-ellipsis">{{mobility.id}}</div>
                 <div class="col-md-2">IIA id:</div><div class="col-md-10 hide-overflow-ellipsis">{{mobility.iiaId}}</div>
                 <div class="col-md-2">Participant id:</div><div class="col-md-10 hide-overflow-ellipsis">{{mobility.mobilityParticipantId}}</div>
                 <div class="col-md-2">Planned arrival date:</div><div class="col-md-10 hide-overflow-ellipsis">{{mobility.plannedArrivalDate| date: 'yyyy-MM-dd'}}</div>

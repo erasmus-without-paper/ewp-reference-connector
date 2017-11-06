@@ -4,8 +4,9 @@
         <provider>org.eclipse.persistence.jpa.PersistenceProvider</provider>
         <properties>
             <property name="javax.persistence.schema-generation.database.action" value="drop-and-create"/>
+            <property name="eclipselink.session.customizer" value="eu.erasmuswithoutpaper.internal.UUIDSequence"/>
             <!-- property name="javax.persistence.sql-load-script-source" value="META-INF/preload_data.sql"/ --> 
-            <property name="eclipselink.logging.level" value="FINE"/>            
+            <property name="eclipselink.logging.level" value="INFO"/>            
         </properties>
     </persistence-unit>
 </persistence>

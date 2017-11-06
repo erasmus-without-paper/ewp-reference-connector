@@ -9,13 +9,13 @@
         </div>
 
         <ul class="nav nav-tabs">
-            <li ng-class="{'active':!isRaw}"><a ng-click="isRaw=false">Formatted</a></li>
+            <li ng-class="{'active':!isRaw}"><a ng-click="isRaw=false">Tree view</a></li>
             <li ng-class="{'active':isRaw}"><a ng-click="isRaw=true">Raw</a></li>
         </ul>
         <div class="panel-body">
             <div class="tab-content clearfix" ng-show="!isRaw">
                 <div ng-if="clientResult.statusCode === 200">
-                    <div ng-if="formattedTemplate" ng-include="formattedTemplate"></div>
+                    <json-tree object="clientResult.result" start-expanded="true" root-name="'Response'"></json-tree>
                 </div>
 
                 <div ng-if="clientResult.statusCode !== 200">

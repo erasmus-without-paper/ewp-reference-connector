@@ -3,12 +3,17 @@
                xmlns:jaxb="http://java.sun.com/xml/ns/jaxb"
                xmlns:xs="http://www.w3.org/2001/XMLSchema">
 
-    <jaxb:bindings schemaLocation="https://raw.githubusercontent.com/erasmus-without-paper/ewp-specs-api-omobilities/v0.12.1/endpoints/get-response.xsd">
+    <jaxb:bindings schemaLocation="https://raw.githubusercontent.com/erasmus-without-paper/ewp-specs-api-omobilities/master/endpoints/get-response.xsd">
         <jaxb:schemaBindings>
             <jaxb:package name="eu.erasmuswithoutpaper.api.omobilities.endpoints"/>
         </jaxb:schemaBindings>
     </jaxb:bindings>
     <jaxb:bindings schemaLocation="https://raw.githubusercontent.com/erasmus-without-paper/ewp-specs-api-omobilities/v0.12.1/endpoints/index-response.xsd">
+        <jaxb:schemaBindings>
+            <jaxb:package name="eu.erasmuswithoutpaper.api.omobilities.endpoints"/>
+        </jaxb:schemaBindings>
+    </jaxb:bindings>
+    <jaxb:bindings schemaLocation="https://raw.githubusercontent.com/erasmus-without-paper/ewp-specs-api-omobilities/v0.12.1/endpoints/update-request.xsd">
         <jaxb:schemaBindings>
             <jaxb:package name="eu.erasmuswithoutpaper.api.omobilities.endpoints"/>
         </jaxb:schemaBindings>

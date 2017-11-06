@@ -23,7 +23,10 @@ public class OutgoingMobilityManifestEntry implements ManifestEntryStrategy {
         mobilities.setUpdateUrl(baseUri + "omobilities/update");
 
         mobilities.setSendsNotifications(new Empty());
-        mobilities.setSupportedUpdateTypes(new Omobilities.SupportedUpdateTypes());
+        Omobilities.SupportedUpdateTypes supportedUpdateTypes = new Omobilities.SupportedUpdateTypes();
+        supportedUpdateTypes.setApproveComponentsStudiedDraftV1(new Empty());
+        supportedUpdateTypes.setUpdateComponentsStudiedV1(new Empty());
+        mobilities.setSupportedUpdateTypes(supportedUpdateTypes);
         return mobilities;
     }
 }
