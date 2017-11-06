@@ -109,7 +109,7 @@ public class IiaResource {
         // TODO: Should IIA hold hei/institution id (if not hei_id will not be used, only use iia id)
         List<Iia> iiaList = iiaIdList.stream().map(id -> em.find(Iia.class, id)).filter(iia -> iia != null).collect(Collectors.toList());
         if (!iiaList.isEmpty()) {
-            response.getIia().addAll(iiaConverter.convertToIias(iiaList));
+            response.getIia().addAll(iiaConverter.convertToIias(heiId, iiaList));
         }
         
         return javax.ws.rs.core.Response.ok(response).build();
