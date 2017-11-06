@@ -96,3 +96,7 @@ input[type="number"] {
 .cursor-pointer {
     cursor: pointer;
 }
+
+.footer {
+    margin-top: 2em;
+}

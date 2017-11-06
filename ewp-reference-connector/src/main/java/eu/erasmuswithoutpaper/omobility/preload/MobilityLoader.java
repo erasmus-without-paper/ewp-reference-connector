@@ -35,7 +35,7 @@ public class MobilityLoader extends AbstractStartupLoader {
                         getStudiedLearningAgreementComponents(losId, loiId, "Data Collection and Analysis", "Fall semester 2015"), getRecognizedLearningAgreementComponents(losId, loiId)), getCoopConditionId("IK-POM-01"));
         persistMobility("{'mobilityRevision':'1','iiaId':'" + getIiaId("IK-POM-01") + "','sendingInstitutionId':'pomodoro.university.it','sendingOrganizationUnitId':'" + ouIdIkea + 
                 "','receivingInstitutionId':'ikea.university.se','receivingOrganizationUnitId':'" + ouIdPomodoro + 
-                "','mobilityParticipantId':'" + MobilityParticipantLoader.IKEA_MOBILITY_PARTICIPANT1_ID + "','status':'NOMINATION','plannedArrivalDate':'2017-03-14','plannedDepartureDate':'2017-05-15','iscedCode':'ISC123','eqfLevel':'3'}", 
+                "','mobilityParticipantId':'" + MobilityParticipantLoader.IKEA_MOBILITY_PARTICIPANT1_ID + "','status':'NOMINATION','actualArrivalDate':'2017-03-14','actualDepartureDate':'2017-05-15','plannedArrivalDate':'2017-03-14','plannedDepartureDate':'2017-05-15','iscedCode':'ISC123','eqfLevel':'3'}", 
                 getMobilityType("Student", "Studies"), getLearningAgreement("{'learningAgreementRevision':'1'}", 
                         getStudiedLearningAgreementComponents(losId, loiId, "Data Collection and Analysis", "Fall semester 2015"), getRecognizedLearningAgreementComponents(losId, loiId)), getCoopConditionId("IK-POM-01"));
     }

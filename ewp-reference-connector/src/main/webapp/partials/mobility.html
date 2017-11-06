@@ -10,7 +10,7 @@
         <h3>Update Requests</h3>
         <div class="list-group" ng-show="showUpdateRequests">
             <div class="list-group-item" ng-repeat="mobilityUpdateRequest in mobilityUpdateRequests">
-                Date: {{mobilityUpdateRequest.updateRequestDate}}<br/>
+                Date: {{mobilityUpdateRequest.updateRequestDate| toDate | date: 'yyyy-MM-dd HH:mm:ss'}}<br/>
                 Type: {{mobilityUpdateRequest.type}}<br/>
                 Sending HEI: {{mobilityUpdateRequest.sendingHeiId}}<br/><br/>
                 <json-tree object="mobilityUpdateRequest.updateInformation" start-expanded="true" root-name="'Request'"></json-tree>
@@ -60,6 +60,20 @@
                     <label class="control-label mandatory-control col-sm-3" for="planned-departure">Planned departure Date</label>
                     <div class="col-sm-2">
                         <input id="planned-departure" type="date" class="form-control" ng-model="newMobility.plannedDepartureDate" required="required">
+                    </div>
+                    <div class="col-sm-7"></div>
+                </div>
+                <div class="form-group">
+                    <label class="control-label col-sm-3" for="planned-arrival">Actual arrival Date</label>
+                    <div class="col-sm-2">
+                        <input id="planned-arrival" type="date" class="form-control" ng-model="newMobility.actualArrivalDate">
+                    </div>
+                    <div class="col-sm-7"></div>
+                </div>
+                <div class="form-group">
+                    <label class="control-label col-sm-3" for="planned-departure">Actual departure Date</label>
+                    <div class="col-sm-2">
+                        <input id="planned-departure" type="date" class="form-control" ng-model="newMobility.actualDepartureDate">
                     </div>
                     <div class="col-sm-7"></div>
                 </div>
@@ -227,6 +241,8 @@
                 <div class="col-md-2">Participant id:</div><div class="col-md-10 hide-overflow-ellipsis">{{mobility.mobilityParticipantId}}</div>
                 <div class="col-md-2">Planned arrival date:</div><div class="col-md-10 hide-overflow-ellipsis">{{mobility.plannedArrivalDate| date: 'yyyy-MM-dd'}}</div>
                 <div class="col-md-2">Planned departure date:</div><div class="col-md-10 hide-overflow-ellipsis">{{mobility.plannedDepartureDate| date: 'yyyy-MM-dd'}}</div>
+                <div class="col-md-2">Actual arrival date:</div><div class="col-md-10 hide-overflow-ellipsis">{{mobility.actualArrivalDate| date: 'yyyy-MM-dd'}}</div>
+                <div class="col-md-2">Actual departure date:</div><div class="col-md-10 hide-overflow-ellipsis">{{mobility.actualDepartureDate| date: 'yyyy-MM-dd'}}</div>
                 <div class="col-md-2">Sending institution id:</div><div class="col-md-10 hide-overflow-ellipsis">{{mobility.sendingInstitutionId}}</div>
                 <div ng-if="mobility.sendingOrganizationUnitId">
                     <div class="col-md-2">Sending org unit id:</div><div class="col-md-10 hide-overflow-ellipsis">{{mobility.sendingOrganizationUnitId}}</div>

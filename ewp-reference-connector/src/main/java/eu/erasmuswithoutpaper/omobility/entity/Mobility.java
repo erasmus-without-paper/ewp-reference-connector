@@ -59,6 +59,14 @@ public class Mobility implements Serializable {
     @JohnzonConverter(StandardDateConverter.class)
     @Temporal(TemporalType.DATE)
     private Date plannedDepartureDate;
+
+    @JohnzonConverter(StandardDateConverter.class)
+    @Temporal(TemporalType.DATE)
+    private Date actualArrivalDate;
+    
+    @JohnzonConverter(StandardDateConverter.class)
+    @Temporal(TemporalType.DATE)
+    private Date actualDepartureDate;
     
     private String iscedCode;
     private byte eqfLevel;
@@ -169,6 +177,22 @@ public class Mobility implements Serializable {
 
     public void setPlannedDepartureDate(Date plannedDepartureDate) {
         this.plannedDepartureDate = plannedDepartureDate;
+    }
+
+    public Date getActualArrivalDate() {
+        return actualArrivalDate;
+    }
+
+    public void setActualArrivalDate(Date actualArrivalDate) {
+        this.actualArrivalDate = actualArrivalDate;
+    }
+
+    public Date getActualDepartureDate() {
+        return actualDepartureDate;
+    }
+
+    public void setActualDepartureDate(Date actualDepartureDate) {
+        this.actualDepartureDate = actualDepartureDate;
     }
 
     public String getIscedCode() {

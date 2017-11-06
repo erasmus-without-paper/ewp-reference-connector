@@ -1,16 +1,24 @@
 package eu.erasmuswithoutpaper.iia.control;
 
 import eu.erasmuswithoutpaper.api.iias.endpoints.IiasGetResponse;
-import eu.erasmuswithoutpaper.api.iias.endpoints.IiasGetResponse.Iia.CooperationConditions;
+import eu.erasmuswithoutpaper.api.iias.endpoints.MobilitySpecification;
+import eu.erasmuswithoutpaper.api.iias.endpoints.StaffMobilitySpecification;
+import eu.erasmuswithoutpaper.api.iias.endpoints.StaffTeacherMobilitySpec;
+import eu.erasmuswithoutpaper.api.iias.endpoints.StaffTrainingMobilitySpec;
+import eu.erasmuswithoutpaper.api.iias.endpoints.StudentMobilitySpecification;
+import eu.erasmuswithoutpaper.api.iias.endpoints.StudentStudiesMobilitySpec;
+import eu.erasmuswithoutpaper.api.iias.endpoints.StudentTraineeshipMobilitySpec;
 import eu.erasmuswithoutpaper.iia.entity.CooperationCondition;
 import eu.erasmuswithoutpaper.iia.entity.Iia;
 import eu.erasmuswithoutpaper.iia.entity.IiaPartner;
+import java.math.BigInteger;
 
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
 import java.util.Comparator;
 import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 import java.util.Set;
 import java.util.stream.Collectors;
 
@@ -54,8 +62,7 @@ public class IiaConverter {
             };
             converted.getPartner().sort(heiIdComparator);
 
-            CooperationConditions conditions = new CooperationConditions();
-            converted.setCooperationConditions(conditions);
+            converted.setCooperationConditions(convertToCooperationConditions(iia.getCooperationConditions()));
             converted.setInEffect(true);
 
             return converted;
@@ -64,10 +71,40 @@ public class IiaConverter {
 
     private IiasGetResponse.Iia.CooperationConditions convertToCooperationConditions(List<CooperationCondition> cooperationConditions) {
         // TODO: Add this
+        Map<String, List<CooperationCondition>> ccMap = cooperationConditions
+                .stream()
+                .collect(Collectors.groupingBy(cc -> cc.getMobilityType().getMobilityGroup() + "-" + cc.getMobilityType().getMobilityCategory()));
+                
         IiasGetResponse.Iia.CooperationConditions converted = new IiasGetResponse.Iia.CooperationConditions();
-        converted.getStaffTeacherMobilitySpec();
-        converted.getStaffTrainingMobilitySpec();
-        converted.getStudentStudiesMobilitySpec();
+
+        if (ccMap.containsKey("Staff-Teaching")) {
+            converted.getStaffTeacherMobilitySpec().addAll(
+                    ccMap.get("Staff-Teaching")
+                            .stream()
+                            .map(this::convertToStaffTeacherMobilitySpec)
+                            .collect(Collectors.toList()));
+        }
+        if (ccMap.containsKey("Staff-Training")) {
+            converted.getStaffTrainingMobilitySpec().addAll(
+                    ccMap.get("Staff-Training")
+                            .stream()
+                            .map(this::convertToStaffTrainingMobilitySpec)
+                            .collect(Collectors.toList()));
+        }
+        if (ccMap.containsKey("Student-Studies")) {
+            converted.getStudentStudiesMobilitySpec().addAll(
+                    ccMap.get("Student-Studies")
+                            .stream()
+                            .map(this::convertToStudentStudiesMobilitySpec)
+                            .collect(Collectors.toList()));
+        }
+        if (ccMap.containsKey("Student-Training")) {
+            converted.getStudentTraineeshipMobilitySpec().addAll(
+                    ccMap.get("Student-Studies")
+                            .stream()
+                            .map(this::convertToStudentTraineeshipMobilitySpec)
+                            .collect(Collectors.toList()));
+        }
         converted.getStudentTraineeshipMobilitySpec();
 
         return converted;
@@ -81,4 +118,52 @@ public class IiaConverter {
         return converted;
     }
 
+    private StaffTeacherMobilitySpec convertToStaffTeacherMobilitySpec(CooperationCondition cc) {
+        StaffTeacherMobilitySpec conv = new StaffTeacherMobilitySpec();
+        addToStaffMobilitySpecification(conv, cc);
+        return conv;
+    }
+    private StaffTrainingMobilitySpec convertToStaffTrainingMobilitySpec(CooperationCondition cc) {
+        StaffTrainingMobilitySpec conv = new StaffTrainingMobilitySpec();
+        addToStaffMobilitySpecification(conv, cc);
+        return conv;
+    }
+    private StudentStudiesMobilitySpec convertToStudentStudiesMobilitySpec(CooperationCondition cc) {
+        StudentStudiesMobilitySpec conv = new StudentStudiesMobilitySpec();
+        addToStudentMobilitySpecification(conv, cc);
+        conv.getEqfLevel().add(cc.getEqfLevel());
+        return conv;
+    }
+    private StudentTraineeshipMobilitySpec convertToStudentTraineeshipMobilitySpec(CooperationCondition cc) {
+        StudentTraineeshipMobilitySpec conv = new StudentTraineeshipMobilitySpec();
+        addToStudentMobilitySpecification(conv, cc);
+        return conv;
+    }
+    
+    private void addToMobilitySpecification(MobilitySpecification conv , CooperationCondition cc) {
+        //conv.getReceivingAcademicYearId();
+        //conv.getReceivingContact();
+        if (cc.getReceivingPartner().getOrganizationUnitId() != null) {
+            conv.getReceivingOunitId().add(cc.getReceivingPartner().getOrganizationUnitId());
+        }
+        conv.getRecommendedLanguageSkill();
+        conv.getSendingContact();
+        if (cc.getSendingPartner().getOrganizationUnitId() != null) {
+            conv.getSendingOunitId().add(cc.getSendingPartner().getOrganizationUnitId());
+        }
+        //conv.setIscedFCode();
+        conv.setMobilitiesPerYear(BigInteger.valueOf(cc.getMobilityNumber().getNumber()));
+        conv.setReceivingHeiId(cc.getReceivingPartner().getInstitutionId());
+        conv.setSendingHeiId(cc.getSendingPartner().getInstitutionId());
+    }
+    
+    private void addToStudentMobilitySpecification(StudentMobilitySpecification conv, CooperationCondition cc) {
+        //conv.setAvgMonths(BigInteger.ONE);
+        conv.setTotalMonths(cc.getDuration().getNumber().toBigInteger());
+    }
+
+    private void addToStaffMobilitySpecification(StaffMobilitySpecification conv, CooperationCondition cc) {
+        //conv.setAvgDays(BigInteger.ONE);
+        conv.setTotalDays(cc.getDuration().getNumber().toBigInteger());
+    }
 }

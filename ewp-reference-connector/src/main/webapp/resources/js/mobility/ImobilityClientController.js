@@ -13,7 +13,7 @@ angular.module('mobility').controller('ImobilityClientController', function ($sc
                 }
             });
             
-            $scope.urls = $scope.indexUrls;
+            $scope.urls = $scope.getUrls;
         }
     });
     $scope.urlChanged = function() {
@@ -77,6 +77,6 @@ angular.module('mobility').controller('ImobilityClientController', function ($sc
     };
     
     $scope.clientView = 'get';
-    $scope.urlKey = 'index-url';
+    $scope.urlKey = 'get-url';
     $scope.request = {method: "GET"};
 });

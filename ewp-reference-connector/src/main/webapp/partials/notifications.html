@@ -3,7 +3,7 @@
 
     <div class="list-group">
         <div class="list-group-item" ng-repeat="notification in notifications | orderBy:['notificationDate']:true">
-            {{notification.type}} -  {{notification.notificationDate}}<br/>
+            {{notification.type}} -  {{notification.notificationDate| date: 'yyyy-MM-dd HH:mm:ss'}}<br/>
             HEI: {{notification.heiId}}<br/>
             Changed items: {{notification.changedElementIds}}
         </div>
