@@ -19,7 +19,7 @@
             <jaxb:class name="CliauthTlscert"/>
         </jaxb:bindings>
     </jaxb:bindings>
-    <jaxb:bindings schemaLocation="https://raw.githubusercontent.com/erasmus-without-paper/ewp-specs-sec-cliauth-httpsig/master/security-entries.xsd">
+    <jaxb:bindings schemaLocation="https://raw.githubusercontent.com/erasmus-without-paper/ewp-specs-sec-cliauth-httpsig/stable-v1/security-entries.xsd">
         <jaxb:schemaBindings>
             <jaxb:package name="eu.erasmuswithoutpaper.api.client.auth.methods.cliauth.httpsig"/>
         </jaxb:schemaBindings>
@@ -36,7 +36,7 @@
             <jaxb:class name="SrvauthTlscert"/>
         </jaxb:bindings>
     </jaxb:bindings>
-    <jaxb:bindings schemaLocation="https://raw.githubusercontent.com/erasmus-without-paper/ewp-specs-sec-srvauth-httpsig/master/security-entries.xsd">
+    <jaxb:bindings schemaLocation="https://raw.githubusercontent.com/erasmus-without-paper/ewp-specs-sec-srvauth-httpsig/stable-v1/security-entries.xsd">
         <jaxb:schemaBindings>
             <jaxb:package name="eu.erasmuswithoutpaper.api.client.auth.methods.srvauth.httpsig"/>
         </jaxb:schemaBindings>
